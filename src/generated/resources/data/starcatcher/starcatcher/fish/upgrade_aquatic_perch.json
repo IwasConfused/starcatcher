@@ -1,0 +1,30 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "upgrade_aquatic"
+    }
+  ],
+  "difficulty": {
+    "extras": {
+      "has_vanishing_markers": true
+    }
+  },
+  "fish": "upgrade_aquatic:perch",
+  "size_and_weight": {
+    "average_size_cm": 27.0,
+    "average_weight_grams": 500.0,
+    "deviation_size_cm": 11.0,
+    "deviation_weight_grams": 352.0,
+    "golden_chance_percentage": 5,
+    "golden_state_increase": 36
+  },
+  "world_restrictions": {
+    "biomes_tags": [
+      "upgrade_aquatic:biome/has_spawn/perch"
+    ],
+    "dimensions": [
+      "minecraft:overworld"
+    ]
+  }
+}
