@@ -1,0 +1,46 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "upgrade_aquatic"
+    }
+  ],
+  "difficulty": {
+    "decay": 3,
+    "extras": {
+      "flips_rotation_every_hit": false,
+      "has_vanishing_markers": true
+    },
+    "markers": {
+      "has_first_thin_marker": true,
+      "has_second_thin_marker": true
+    },
+    "penalty": 15,
+    "reward": 15,
+    "reward_thin": 30,
+    "speed": 12,
+    "treasure": {
+      "has_treasure": true,
+      "hit_reward": 15,
+      "loot": "starcatcher:treasure"
+    }
+  },
+  "fish": "upgrade_aquatic:lionfish",
+  "rarity": "uncommon",
+  "size_and_weight": {
+    "average_size_cm": 27.0,
+    "average_weight_grams": 500.0,
+    "deviation_size_cm": 11.0,
+    "deviation_weight_grams": 352.0,
+    "golden_chance_percentage": 5,
+    "golden_state_increase": 36
+  },
+  "world_restrictions": {
+    "biomes_tags": [
+      "upgrade_aquatic:biome/has_spawn/lionfish"
+    ],
+    "dimensions": [
+      "minecraft:overworld"
+    ]
+  }
+}

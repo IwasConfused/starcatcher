@@ -1600,11 +1600,78 @@ public class FishAndTrophiesPropertiesProvider extends DatapackBuiltinEntriesPro
                     .withDifficulty(FishProperties.Difficulty.HARD)
                     .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD
                             .withBiomesTags(ResourceLocation.fromNamespaceAndPath("sullysmod", "biome/lanternfish_spawn_in")))
-                    .withMod("sullysmod")
-
-
+                    .withMod("sullysmod"),
             //endregion Sullys Mod
 
+            //region Upgrade Aquatic
+            //
+            //,--. ,--.                                     ,--.               ,---.                               ,--.   ,--.
+            //|  | |  |  ,---.   ,---.  ,--.--.  ,--,--.  ,-|  |  ,---.       /  O  \   ,---.  ,--.,--.  ,--,--. ,-'  '-. `--'  ,---.
+            //|  | |  | | .-. | | .-. | |  .--' ' ,-.  | ' .-. | | .-. :     |  .-.  | | .-. | |  ||  | ' ,-.  | '-.  .-' ,--. | .--'
+            //'  '-'  ' | '-' ' ' '-' ' |  |    \ '-'  | \ `-' | \   --.     |  | |  | ' '-' | '  ''  ' \ '-'  |   |  |   |  | \ `--.
+            // `-----'  |  |-'  .`-  /  `--'     `--`--'  `---'   `----'     `--' `--'  `-|  |  `----'   `--`--'   `--'   `--'  `---'
+            //          `--'    `---'                                                     `--'
+
+
+
+            fish(fromRL("upgrade_aquatic", "pike"))
+                    .withSizeAndWeight(FishProperties.sw(75, 20, 5000, 3000, 10, 20))
+                    .withDifficulty(FishProperties.Difficulty.EASY_MOVING)
+                    .withRarity(FishProperties.Rarity.COMMON)
+                    .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD
+                            .withBiomesTags(ResourceLocation.fromNamespaceAndPath("upgrade_aquatic", "biome/has_spawn/pike")))
+                    .withMod("upgrade_aquatic"),
+
+
+            fish(fromRL("upgrade_aquatic", "perch"))
+                    .withSizeAndWeight(FishProperties.sw(27.0f, 11, 500, 352, 5, 36))
+                    .withDifficulty(FishProperties.Difficulty.EASY_MOVING)
+                    .withRarity(FishProperties.Rarity.COMMON)
+                    .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD
+                            .withBiomesTags(ResourceLocation.fromNamespaceAndPath("upgrade_aquatic", "biome/has_spawn/perch")))
+                    .withMod("upgrade_aquatic"),
+
+            fish(fromRL("upgrade_aquatic", "lionfish"))
+                    .withSizeAndWeight(FishProperties.sw(27.0f, 11, 500, 352, 5, 36))
+                    .withDifficulty(FishProperties.Difficulty.EVERYTHING_VANISHING)
+                    .withRarity(FishProperties.Rarity.UNCOMMON)
+                    .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD
+                            .withBiomesTags(ResourceLocation.fromNamespaceAndPath("upgrade_aquatic", "biome/has_spawn/lionfish")))
+                    .withMod("upgrade_aquatic")
+
+            //endregion Upgrade Aquatic
+
+
+
+            //collectorsreap:
+            //  platinum_bass
+            //  tiger_prawn
+            //  clam
+            //  urchin
+            //  (Maybe not) chieftain_crab
+
+            //environmental:
+            //  koi
+
+            //crittersandcompanions:
+            //  koi_fish
+            //  clam (fresh water clam)
+
+            //miners_delight:
+            //  glow_squid
+            //  squid
+
+            //alexsmobs:
+            //  cosmic_cod
+            //  flying_fish
+            //  blobfish
+
+            //alexscaves:
+            //  lanternfish
+            //  tripodfish
+
+            //endregion Sullys Mod
+  
 
     );
     //endregion restricted fps
