@@ -566,6 +566,21 @@
 
 
 
+  "gui.starcatcher.tournament.organizer" : "Organizer",
+  "gui.starcatcher.tournament.prize_pool" : "Prize Pool",
+  "gui.starcatcher.tournament.entry_fee" : "Entry Fee",
+  "gui.starcatcher.tournament.inventory" : "Inventory",
+  "gui.starcatcher.tournament.sign_up" : "[Sign Up]",
+  "gui.starcatcher.tournament.signed_up" : "[Signed Up!]",
+  "gui.starcatcher.tournament.other" : "Others:",
+  "gui.starcatcher.tournament.status" : "Status",
+  "gui.starcatcher.tournament.duration" : "Duration",
+  "gui.starcatcher.tournament.start" : "[Start Tournament]",
+
+  "gui.starcatcher.tournament.status.setup" : "Preparing",
+  "gui.starcatcher.tournament.status.active" : "Ongoing",
+  "gui.starcatcher.tournament.status.finished" : "Complete",
+
 
 
   "gui.secret_note.sample_note.0" : "Hey how did you get this note??",
@@ -726,7 +741,7 @@
   "tooltip.starcatcher.obidontiee.0" : "A small devious fish. Said to often mispronounce words.",
 
   "item.starcatcher.silverveil_perch" : "Silverveil Perch",
-  "tooltip.starcatcher.silverveil_perch.0" : "A small perch with scaled resembling silver.",
+  "tooltip.starcatcher.silverveil_perch.0" : "A small perch with scales resembling silver.",
   "tooltip.starcatcher.silverveil_perch.1" : "Most commonly found during rainy days.",
 
   "item.starcatcher.elderscale" : "Elderscale",
@@ -783,11 +798,12 @@
 
   "item.starcatcher.sandtail" : "Sandtail",
   "tooltip.starcatcher.sandtail.0" : "A long sand-covered fish, which although mostly",
-  "tooltip.starcatcher.sandtail.1" : "found in warm climates, it prefers the cold so",
-  "tooltip.starcatcher.sandtail.2" : "it's only active during nighttime.",
+  "tooltip.starcatcher.sandtail.1" : "found in warm climates, prefers the cold of the night",
 
   "item.starcatcher.mirage_carp" : "Mirage Carp",
   "tooltip.starcatcher.mirage_carp.0" : "A carp species found during warm sunny days on warm climates.",
+  "tooltip.starcatcher.mirage_carp.1" : "Its said it got it's name from desert villagers,",
+  "tooltip.starcatcher.mirage_carp.2" : "as spotting one was often just a mirage.",
 
   "item.starcatcher.scorchfish" : "Scorchfish",
   "tooltip.starcatcher.scorchfish.0" : "A fish species which hates the rain,",
@@ -1154,6 +1170,12 @@
   "item.starcatcher.glowstone_pufferfish" : "Glowstone Pufferfish",
   "tooltip.starcatcher.glowstone_pufferfish.0" : "A pufferfish glittering just like glowstone.",
 
+  "item.starcatcher.willish" : "Willish",
+  "tooltip.starcatcher.willish.0" : "A fish commonly known for scamming",
+  "tooltip.starcatcher.willish.1" : "other fishes out of their food.",
+  "tooltip.starcatcher.willish.2" : "It is incredibly ugly and should be",
+  "tooltip.starcatcher.willish.3" : "discarded back to The Nether where it belongs.",
+
   "item.starcatcher.lava_crab_claw" : "Lava Crab Claw",
   "tooltip.starcatcher.lava_crab_claw.0" : "A claw ripped off from a Lava Crab.",
   "tooltip.starcatcher.lava_crab_claw.1" : "Due to the aggressive nature of Lava Crabs,",
@@ -1176,5 +1198,7 @@
   "tooltip.starcatcher.voidbiter.0" : "A <rgb>legendary</rgb> fish found in outer islands of The End.",
   "tooltip.starcatcher.voidbiter.1" : "So few anglers have seen it that it's only rumored to exist.",
   "tooltip.starcatcher.voidbiter.2" : "It's said only <gradient-30>Older Anglers</gradient-50> have successfully",
-  "tooltip.starcatcher.voidbiter.3" : "caught it before."
+  "tooltip.starcatcher.voidbiter.3" : "caught it before.",
+  "advancements.husbandry.starcatcher.fisherman.title": "Fisherman",
+  "advancements.husbandry.starcatcher.fisherman.description": "Catch a Fish without missing once"
 }

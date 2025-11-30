@@ -1,10 +1,10 @@
 package com.wdiscute.starcatcher.rod;
 
-import com.wdiscute.starcatcher.networkandcodecs.ModDataComponents;
-import com.wdiscute.starcatcher.ModMenuTypes;
-import com.wdiscute.starcatcher.ModItems;
+import com.wdiscute.starcatcher.io.ModDataComponents;
+import com.wdiscute.starcatcher.registry.ModMenuTypes;
+import com.wdiscute.starcatcher.registry.ModItems;
 import com.wdiscute.starcatcher.StarcatcherTags;
-import com.wdiscute.starcatcher.networkandcodecs.SingleStackContainer;
+import com.wdiscute.starcatcher.io.SingleStackContainer;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -32,6 +32,7 @@ public class FishingRodMenu extends AbstractContainerMenu
     public FishingRodMenu(int containerId, Inventory inv, FriendlyByteBuf extraData)
     {
         this(containerId, inv, inv.player.getMainHandItem());
+        System.out.println(extraData);
     }
 
     public FishingRodMenu(int containerId, Inventory inv, ItemStack itemStack)
@@ -161,7 +162,7 @@ public class FishingRodMenu extends AbstractContainerMenu
         }
         else if (pIndex < TE_INVENTORY_FIRST_SLOT_INDEX + TE_INVENTORY_SLOT_COUNT)
         {
-            // This is a TE slot so merge the stack into the players inventory
+            // This is a TE slot so merge the stack into the playerScores inventory
             if (!moveItemStackTo(sourceStack, VANILLA_FIRST_SLOT_INDEX, VANILLA_FIRST_SLOT_INDEX + VANILLA_SLOT_COUNT, false))
             {
                 return ItemStack.EMPTY;
