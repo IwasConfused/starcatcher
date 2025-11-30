@@ -2,7 +2,7 @@
   "neoforge:conditions": [
     {
       "type": "neoforge:mod_loaded",
-      "modid": "upgrade_aquatic"
+      "modid": "environmental"
     }
   ],
   "bait_restrictions": {
@@ -17,50 +17,51 @@
   "custom_name": "",
   "daytime": "all",
   "difficulty": {
-    "decay": 1,
+    "decay": 3,
     "extras": {
-      "flips_rotation_every_hit": true,
+      "flips_rotation_every_hit": false,
       "has_moving_markers": false,
       "has_vanishing_markers": true
     },
-    "hitReward": 20,
+    "hitReward": 15,
     "markers": {
       "has_first_marker": true,
-      "has_first_thin_marker": false,
+      "has_first_thin_marker": true,
       "has_second_marker": true,
-      "has_second_thin_marker": false
+      "has_second_thin_marker": true
     },
-    "missPenalty": 6,
-    "reward_thin": 0,
-    "speed": 9,
+    "missPenalty": 15,
+    "reward_thin": 30,
+    "speed": 12,
     "treasure": {
-      "has_treasure": false,
+      "has_treasure": true,
       "hit_reward": 15,
-      "loot": "starcatcher:waterlogged_satchel"
+      "loot": "starcatcher:treasure"
     }
   },
-  "fish": "upgrade_aquatic:pike",
+  "fish": "environmental:koi",
   "has_guide_entry": true,
-  "rarity": "common",
+  "rarity": "uncommon",
   "size_and_weight": {
-    "average_size_cm": 75.0,
-    "average_weight_grams": 5000.0,
+    "average_size_cm": 60.0,
+    "average_weight_grams": 3000.0,
     "deviation_size_cm": 20.0,
-    "deviation_weight_grams": 3000.0,
+    "deviation_weight_grams": 2000.0,
     "golden_chance_percentage": 10,
     "golden_state_increase": 20
   },
   "skips_minigame": false,
   "weather": "all",
   "world_restrictions": {
-    "above_y": -2147483648,
+    "above_y": 55,
     "below_y": 2147483647,
-    "biomes": [],
+    "biomes": [
+      "environmental:blossom_woods",
+      "environmental:blossom_valleys"
+    ],
     "biomes_blacklist": [],
     "biomes_blacklist_tags": [],
-    "biomes_tags": [
-      "upgrade_aquatic:biome/has_spawn/pike"
-    ],
+    "biomes_tags": [],
     "dimensions": [
       "minecraft:overworld"
     ],
