@@ -84,9 +84,6 @@ public interface ModItems
     DeferredItem<Item> LUSH_GLOWBERRY_ROD = RODS_REGISTRY.register("lush_glowberry_rod", StarcatcherFishingRod::new);
     DeferredItem<Item> HUMBLE_ROD = RODS_REGISTRY.register("humble_rod", StarcatcherFishingRod::new);
 
-
-
-
     DeferredItem<Item> SETTINGS = ITEMS_REGISTRY.register("settings", () -> new Item(new Item.Properties()));
 
 
@@ -144,6 +141,7 @@ public interface ModItems
     DeferredItem<Item> FISH_BONES = basicItem("fish_bones");
 
     DeferredItem<Item> MISSINGNO = basicItem("missingno");
+    DeferredItem<Item> UNKNOWN_FISH = basicItem("unknown_fish");
 
     //
     //  ,---. ,--.         ,--.
@@ -152,6 +150,9 @@ public interface ModItems
     // |  .-' |  | .-'  `) |  | |  | \   --. .-'  `)
     // `--'   `--' `----'  `--' `--'  `----' `----'
     //
+
+    //bucket
+    DeferredItem<Item> STARCATCHED_BUCKET = ITEMS_REGISTRY.register("starcatched_bucket", StarcatchedBucket::new);
 
 
     //lake
