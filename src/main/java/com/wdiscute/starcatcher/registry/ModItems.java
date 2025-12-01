@@ -200,6 +200,7 @@ public interface ModItems
     DeferredItem<Item> PINK_KOI = fish("pink_koi");
     DeferredItem<Item> MORGANITE = fish("morganite");
     DeferredItem<Item> ROSE_SIAMESE_FISH = fish("rose_siamese_fish");
+    DeferredItem<Item> VESANI = fish("vesani");
 
     //icy mountain
     DeferredItem<Item> CRYSTALBACK_STURGEON = fish("crystalback_sturgeon");
