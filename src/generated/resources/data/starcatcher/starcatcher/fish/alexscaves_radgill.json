@@ -1,0 +1,75 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "alexscaves"
+    }
+  ],
+  "bait_restrictions": {
+    "consumes_bait": true,
+    "correct_bait_chance_added": 0,
+    "correct_baits": [],
+    "correct_bobbers": [],
+    "incorrect_baits": [],
+    "must_have_correct_bait": false
+  },
+  "base_chance": 5,
+  "custom_name": "",
+  "daytime": "all",
+  "difficulty": {
+    "decay": 5,
+    "extras": {
+      "flips_rotation_every_hit": false,
+      "has_moving_markers": true,
+      "has_vanishing_markers": true
+    },
+    "hitReward": 25,
+    "markers": {
+      "has_first_marker": true,
+      "has_first_thin_marker": true,
+      "has_second_marker": true,
+      "has_second_thin_marker": false
+    },
+    "missPenalty": 25,
+    "reward_thin": 35,
+    "speed": 12,
+    "treasure": {
+      "has_treasure": false,
+      "hit_reward": 15,
+      "loot": "starcatcher:waterlogged_satchel"
+    }
+  },
+  "fish": "alexscaves:radgill",
+  "has_guide_entry": true,
+  "rarity": "uncommon",
+  "size_and_weight": {
+    "average_size_cm": 80.0,
+    "average_weight_grams": 12000.0,
+    "deviation_size_cm": 40.0,
+    "deviation_weight_grams": 7000.0,
+    "golden_chance_percentage": 10,
+    "golden_state_increase": 10
+  },
+  "skips_minigame": false,
+  "weather": "all",
+  "world_restrictions": {
+    "above_y": -2147483648,
+    "below_y": 2147483647,
+    "biomes": [
+      "alexscaves:toxic_caves"
+    ],
+    "biomes_blacklist": [],
+    "biomes_blacklist_tags": [],
+    "biomes_tags": [],
+    "dimensions": [
+      "minecraft:overworld"
+    ],
+    "dimensions_blacklist": [],
+    "fluids": [
+      "alexscaves:acid"
+    ],
+    "seasons": [
+      "all"
+    ]
+  }
+}
