@@ -681,6 +681,11 @@ public record FishProperties(
                         .withBiomesTags(StarcatcherTags.IS_DARK_FOREST)
                         .withMustBeCaughtAboveY(50);
 
+        public static final WorldRestrictions OVERWORLD_SURFACE =
+                WorldRestrictions.DEFAULT
+                        .withDims(Level.OVERWORLD.location())
+                        .withMustBeCaughtAboveY(50);
+
         public static final WorldRestrictions OVERWORLD_LAVA_SURFACE =
                 WorldRestrictions.DEFAULT
                         .withDims(Level.OVERWORLD.location())

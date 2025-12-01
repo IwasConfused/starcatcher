@@ -50,7 +50,7 @@ public class FishAndTrophiesPropertiesProvider extends DatapackBuiltinEntriesPro
     public static final List<FishProperties> FPS = new ArrayList<>(List.of(
 
             //all
-            fish(fromRL("minecraft", "creeper_head"))
+            overworldFish(fromRL("minecraft", "creeper_head"))
                     .withSizeAndWeight(FishProperties.SizeAndWeight.NONE)
                     .withBaseChance(20)
                     .withBaitRestrictions(
@@ -62,7 +62,7 @@ public class FishAndTrophiesPropertiesProvider extends DatapackBuiltinEntriesPro
                     .withItemToOverrideWith(ModItems.UNKNOWN_FISH)
                     .withSkipMinigame(true),
 
-            fish(fromRL("minecraft", "rotten_flesh"))
+            overworldSurfaceFish(fromRL("minecraft", "rotten_flesh"))
                     .withSizeAndWeight(FishProperties.SizeAndWeight.NONE)
                     .withBaseChance(1)
                     .withDaytime(FishProperties.Daytime.NIGHT)
@@ -2100,6 +2100,11 @@ public class FishAndTrophiesPropertiesProvider extends DatapackBuiltinEntriesPro
         return FishProperties.DEFAULT.withFish(fish)
                 .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD_DEEP_DARK)
                 .withBaitRestrictions(FishProperties.BaitRestrictions.SCULK_BAIT);
+    }
+
+    public static FishProperties overworldSurfaceFish(Holder<Item> fish) {
+        return FishProperties.DEFAULT.withFish(fish)
+                .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD_SURFACE);
     }
 
     public static FishProperties overworldSurfaceLava(Holder<Item> fish) {

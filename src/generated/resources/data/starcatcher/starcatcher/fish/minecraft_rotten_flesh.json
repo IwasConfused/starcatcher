@@ -53,13 +53,15 @@
   "skips_minigame": true,
   "weather": "rain",
   "world_restrictions": {
-    "above_y": -2147483648,
+    "above_y": 50,
     "below_y": 2147483647,
     "biomes": [],
     "biomes_blacklist": [],
     "biomes_blacklist_tags": [],
     "biomes_tags": [],
-    "dimensions": [],
+    "dimensions": [
+      "minecraft:overworld"
+    ],
     "dimensions_blacklist": [],
     "fluids": [
       "minecraft:water"
