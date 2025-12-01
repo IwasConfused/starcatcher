@@ -1656,20 +1656,57 @@ public class FishAndTrophiesPropertiesProvider extends DatapackBuiltinEntriesPro
                     .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD
                             .withMustBeCaughtAboveY(55)
                             .withBiomes(rl("environmental", "blossom_woods"), rl("environmental", "blossom_valleys")))
-                    .withMod("environmental")
+                    .withMod("environmental"),
 
             //endregion Environmental
 
+            //region Collectors Reap
+            //
+            // ,-----.         ,--. ,--.                  ,--.                   ,--.             ,------.
+            //'  .--./  ,---.  |  | |  |  ,---.   ,---. ,-'  '-.  ,---.  ,--.--. |  |  ,---.      |  .--. '  ,---.   ,--,--.  ,---.
+            //|  |     | .-. | |  | |  | | .-. : | .--' '-.  .-' | .-. | |  .--' `-'  (  .-'      |  '--'.' | .-. : ' ,-.  | | .-. |
+            //'  '--'\ ' '-' ' |  | |  | \   --. \ `--.   |  |   ' '-' ' |  |         .-'  `)     |  |\  \  \   --. \ '-'  | | '-' '
+            // `-----'  `---'  `--' `--'  `----'  `---'   `--'    `---'  `--'         `----'      `--' '--'  `----'  `--`--' |  |-'
+            //                                                                                                               `--'
+            fish(fromRL("collectorsreap", "platinum_bass"))
+                    .withSeasons(Seasons.EARLY_SPRING, Seasons.MID_AUTUMN, Seasons.LATE_AUTUMN, Seasons.WINTER)
+                    .withSizeAndWeight(FishProperties.sw(40, 12, 1600, 1100, 10, 20))
+                    .withBaseChance(10)
+                    .withDifficulty(FishProperties.Difficulty.EASY_MOVING)
+                    .withRarity(FishProperties.Rarity.COMMON)
+                    .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD
+                            .withBiomesTags(rl("collectorsreap", "biome/has_spawn/platinum_bass")))
+                    .withMod("collectorsreap"),
 
-            //collectorsreap:
-            //  platinum_bass
-            //  tiger_prawn
-            //  clam
-            //  urchin
-            //  (Maybe not) chieftain_crab
 
-            //environmental:
-            //  koi
+            fish(fromRL("collectorsreap", "tiger_prawn"))
+                    .withSizeAndWeight(FishProperties.sw(28, 8, 260, 60, 10, 20))
+                    .withBaseChance(10)
+                    .withDifficulty(FishProperties.Difficulty.EASY_MOVING)
+                    .withRarity(FishProperties.Rarity.COMMON)
+                    .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD
+                            .withBiomesTags(rl("collectorsreap", "biome/has_spawn/tiger_prawn")))
+                    .withMod("collectorsreap"),
+
+            fish(fromRL("collectorsreap", "clam"))  //no mini game
+                    .withBaseChance(5)
+                    .withHasGuideEntry(false)
+                    .withSkipMinigame(true)
+                    .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD
+                            .withBiomesTags(rl("collectorsreap", "biome/has_spawn/clam")))
+                    .withMod("collectorsreap"),
+
+            fish(fromRL("collectorsreap", "urchin"))  //no mini game
+                    .withBaseChance(5)
+                    .withHasGuideEntry(false)
+                    .withSkipMinigame(true)
+                    .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD
+                            .withBiomesTags(rl("collectorsreap", "biome/has_spawn/urchin")))
+                    .withMod("collectorsreap")
+
+
+            //when you can do live catches add the chieftain crab
+            //endregion Collectors Reap
 
             //crittersandcompanions:
             //  koi_fish
@@ -1687,8 +1724,8 @@ public class FishAndTrophiesPropertiesProvider extends DatapackBuiltinEntriesPro
             //alexscaves:
             //  lanternfish
             //  tripodfish
+            // Trilocaris (when entity fishing is added
 
-            //endregion Sullys Mod
   
 
     );
