@@ -14,8 +14,8 @@
     "decay": 1,
     "extras": {
       "flips_rotation_every_hit": true,
-      "has_moving_markers": false,
-      "has_vanishing_markers": true
+      "has_moving_markers": true,
+      "has_vanishing_markers": false
     },
     "hitReward": 20,
     "markers": {

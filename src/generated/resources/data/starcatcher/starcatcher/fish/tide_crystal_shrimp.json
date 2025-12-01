@@ -55,9 +55,7 @@
   "world_restrictions": {
     "above_y": 0,
     "below_y": 50,
-    "biomes": [
-      "minecraft:lush_caves"
-    ],
+    "biomes": [],
     "biomes_blacklist": [],
     "biomes_blacklist_tags": [],
     "biomes_tags": [],

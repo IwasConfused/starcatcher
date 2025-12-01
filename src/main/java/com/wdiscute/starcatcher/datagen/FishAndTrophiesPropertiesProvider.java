@@ -424,7 +424,8 @@ public class FishAndTrophiesPropertiesProvider extends DatapackBuiltinEntriesPro
 
 
             //ocean
-            overworldOceanFish(BuiltInRegistries.ITEM.wrapAsHolder(Items.COD)).withDifficulty(FishProperties.Difficulty.EASY_MOVING)
+            overworldOceanFish(BuiltInRegistries.ITEM.wrapAsHolder(Items.COD))
+                    .withDifficulty(FishProperties.Difficulty.EASY_MOVING)
                     .withSizeAndWeight(FishProperties.sw(80, 40, 12000, 7000, 10, 20)),
 
             overworldOceanFish(BuiltInRegistries.ITEM.wrapAsHolder(Items.PUFFERFISH))
@@ -542,7 +543,7 @@ public class FishAndTrophiesPropertiesProvider extends DatapackBuiltinEntriesPro
 
             overworldDripstoneCavesFish(ModItems.DRIPFIN)
                     .withSizeAndWeight(FishProperties.sw(300, 150, 16000, 7000, 10, 20))
-                    .withDifficulty(FishProperties.Difficulty.EASY_VANISHING),
+                    .withDifficulty(FishProperties.Difficulty.EASY_MOVING),
 
             overworldDripstoneCavesFish(ModItems.YELLOWSTONE_FISH)
                     .withSizeAndWeight(FishProperties.sw(600, 150, 22000, 7000, 10, 20))
@@ -649,7 +650,7 @@ public class FishAndTrophiesPropertiesProvider extends DatapackBuiltinEntriesPro
 
             overworldUndergroundLava(ModItems.OBSIDIAN_CRAB)
                     .withSizeAndWeight(FishProperties.sw(15, 8, 700, 300, 10, 20))
-                    .withDifficulty(FishProperties.Difficulty.EASY_VANISHING)
+                    .withDifficulty(FishProperties.Difficulty.EASY_MOVING)
                     .withRarity(FishProperties.Rarity.UNCOMMON),
 
             //overworld deepslate lava

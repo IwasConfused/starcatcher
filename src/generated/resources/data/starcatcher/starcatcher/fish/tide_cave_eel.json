@@ -20,8 +20,8 @@
     "decay": 1,
     "extras": {
       "flips_rotation_every_hit": true,
-      "has_moving_markers": false,
-      "has_vanishing_markers": true
+      "has_moving_markers": true,
+      "has_vanishing_markers": false
     },
     "hitReward": 20,
     "markers": {
@@ -55,9 +55,7 @@
   "world_restrictions": {
     "above_y": 0,
     "below_y": 50,
-    "biomes": [
-      "minecraft:lush_caves"
-    ],
+    "biomes": [],
     "biomes_blacklist": [],
     "biomes_blacklist_tags": [],
     "biomes_tags": [],
