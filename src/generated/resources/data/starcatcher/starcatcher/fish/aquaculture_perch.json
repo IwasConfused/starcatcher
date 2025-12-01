@@ -14,6 +14,12 @@
     "must_have_correct_bait": false
   },
   "base_chance": 5,
+  "catch_info": {
+    "always_spawn_entity": false,
+    "entity_to_spawn": "starcatcher:missingno",
+    "fish": "aquaculture:perch",
+    "fish_bucket": "starcatcher:missingno"
+  },
   "custom_name": "",
   "daytime": "all",
   "difficulty": {
@@ -39,7 +45,6 @@
       "loot": "starcatcher:waterlogged_satchel"
     }
   },
-  "fish": "aquaculture:perch",
   "has_guide_entry": true,
   "rarity": "common",
   "size_and_weight": {

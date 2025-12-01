@@ -192,6 +192,8 @@
 
 
   "item.starcatcher.missingno": "???",
+  "item.starcatcher.unknown_fish": "Unknown Fish",
+  "tooltips.starcatcher.unknown_fish.0": "template fish used in the minigame for entries which hide the item being fished",
 
   "item.starcatcher.fish_spotter": "Fish Spotter",
   "tooltip.starcatcher.fish_spotter.0": "A handy tool to any angler which",
@@ -738,7 +740,11 @@
 
 
   "item.starcatcher.obidontiee" : "Obidontiee",
-  "tooltip.starcatcher.obidontiee.0" : "A small devious fish. Said to often mispronounce words.",
+  "tooltip.starcatcher.obidontiee.0" : "A small devious fish.",
+  "tooltip.starcatcher.obidontiee.1" : "Said to often mispronounce words.",
+
+  "item.starcatcher.morganite" : "Morganite",
+  "tooltip.starcatcher.morganite.0" : "An ocean fish resembling Morganite gemstones.",
 
   "item.starcatcher.silverveil_perch" : "Silverveil Perch",
   "tooltip.starcatcher.silverveil_perch.0" : "A small perch with scales resembling silver.",
@@ -882,6 +888,12 @@
   "tooltip.starcatcher.blossomfish.0" : "A beautiful fish resembling the pink petals of Cherry Grooves.",
   "tooltip.starcatcher.blossomfish.1" : "It prefers to swim around in the warm sunlight.",
 
+  "item.starcatcher.vesani" : "Vesani",
+  "tooltip.starcatcher.vesani.0" : "This species of fish is really good",
+  "tooltip.starcatcher.vesani.1" : "at camouflaging as other species.",
+  "tooltip.starcatcher.vesani.2" : "It's unusual to see them out in the",
+  "tooltip.starcatcher.vesani.3" : "open with it's normal appearance.",
+
   "item.starcatcher.petaldrift_carp" : "Petaldrift Carp",
   "tooltip.starcatcher.petaldrift_carp.0" : "A pink carp common to Cherry Grooves which",
   "tooltip.starcatcher.petaldrift_carp.1" : "prefers to come out during the rain.",
@@ -889,9 +901,6 @@
   "item.starcatcher.pink_koi" : "Pink Koi",
   "tooltip.starcatcher.pink_koi.0" : "A pink koi most commonly found in Cherry Grooves.",
   "tooltip.starcatcher.pink_koi.1" : "It comes out during rainy days to feed.",
-
-  "item.starcatcher.morganite" : "Morganite",
-  "tooltip.starcatcher.morganite.0" : "A fish resembling Morganite gemstones.",
 
   "item.starcatcher.rose_siamese_fish" : "Rose Siamese Fish",
   "tooltip.starcatcher.rose_siamese_fish.0" : "A rare gorgeous fish found during rainy days.",

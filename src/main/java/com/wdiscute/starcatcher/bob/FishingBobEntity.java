@@ -175,7 +175,7 @@ public class FishingBobEntity extends Projectile
             )
             {
 
-                ItemStack is = new ItemStack(BuiltInRegistries.ITEM.get(tp.fp().fish().getKey()));
+                ItemStack is = new ItemStack(BuiltInRegistries.ITEM.get(tp.fp().catchInfo().fish().getKey()));
                 is.set(ModDataComponents.TROPHY, tp);
                 if (!tp.customName().isEmpty())
                     is.set(DataComponents.ITEM_NAME, Component.translatable(tp.customName()));
@@ -227,58 +227,9 @@ public class FishingBobEntity extends Projectile
         if (!Config.ENABLE_MINIGAME.get())
             skipsMinigame = true;
 
-        if (skipsMinigame)
+        if (skipsMinigame || !Config.ENABLE_MINIGAME.get())
         {
-
-            ItemStack is = new ItemStack(fpToFish.fish());
-
-            if (!Config.ENABLE_MINIGAME.get() && !fpToFish.skipMinigame())
-            {
-                int size = FishCaughtCounter.getRandomSize(fpToFish);
-                int weight = FishCaughtCounter.getRandomWeight(fpToFish);
-                is.set(ModDataComponents.SIZE_AND_WEIGHT, new SizeAndWeight(size, weight));
-                FishCaughtCounter.AwardFishCaughtCounter(fpToFish, player, 0, size, weight, false);
-            }
-
-            Entity itemFished = new ItemEntity(
-                    level(),
-                    position().x,
-                    position().y + 1.2f,
-                    position().z,
-                    is
-            );
-
-
-            double x = (player.position().x - position().x) / 25;
-            double y = (player.position().y - position().y) / 20;
-            double z = (player.position().z - position().z) / 25;
-
-            x = Math.clamp(x, -1, 1);
-            y = Math.clamp(y, -1, 1);
-            z = Math.clamp(z, -1, 1);
-
-            //override stack with a creeper and bigger deltaMovement to align creeper angle
-            if (bobber.is(ModItems.CREEPER_BOBBER))
-            {
-                itemFished = new Creeper(EntityType.CREEPER, level());
-
-                itemFished.setPos(position().add(0, 1.2f, 0));
-
-                x *= 2.5;
-                y *= 2;
-                z *= 2.5;
-            }
-
-
-            Vec3 vec3 = new Vec3(x, 0.7 + y, z);
-
-            itemFished.setDeltaMovement(vec3);
-
-            level().addFreshEntity(itemFished);
-
-            player.setData(ModDataAttachments.FISHING, "");
-
-            kill();
+            U.spawnFishFromFP(player, 0, false, false, 0);
         }
         else
         {

@@ -115,7 +115,16 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener {
         hitDelay = Config.HIT_DELAY.get().floatValue();
 
         this.fp = fp;
-        this.itemBeingFished = new ItemStack(fp.fish());
+
+        if(fp.catchInfo().overrideMinigameItem())
+        {
+            this.itemBeingFished = new ItemStack(fp.catchInfo().itemToOverrideWith());
+        }
+        else
+        {
+            this.itemBeingFished = new ItemStack(fp.catchInfo().fish());
+        }
+
         this.bobber = rod.get(ModDataComponents.BOBBER).stack().copy();
         this.bait = rod.get(ModDataComponents.BAIT).stack().copy();
         this.hook = rod.get(ModDataComponents.HOOK).stack().copy();

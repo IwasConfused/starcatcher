@@ -10,6 +10,12 @@
     "must_have_correct_bait": false
   },
   "base_chance": 1,
+  "catch_info": {
+    "always_spawn_entity": false,
+    "entity_to_spawn": "starcatcher:missingno",
+    "fish": "starcatcher:joel",
+    "fish_bucket": "starcatcher:missingno"
+  },
   "custom_name": "",
   "daytime": "all",
   "difficulty": {
@@ -35,7 +41,6 @@
       "loot": "starcatcher:treasure"
     }
   },
-  "fish": "starcatcher:joel",
   "has_guide_entry": true,
   "rarity": "legendary",
   "size_and_weight": {

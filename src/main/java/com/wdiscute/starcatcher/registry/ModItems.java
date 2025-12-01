@@ -56,6 +56,7 @@ public interface ModItems
     DeferredItem<Item> CLEAR_BOBBER = singleStackItem("clear_bobber");
 
     //baits
+    DeferredItem<Item> ALMIGHTY_WORM = basicItem("almighty_worm");
     DeferredItem<Item> CHERRY_BAIT = basicItem("cherry_bait");
     DeferredItem<Item> LUSH_BAIT = basicItem("lush_bait");
     DeferredItem<Item> SCULK_BAIT = basicItem("sculk_bait");
@@ -83,9 +84,6 @@ public interface ModItems
     DeferredItem<Item> SKY_ROD = RODS_REGISTRY.register("sky_rod", StarcatcherFishingRod::new);
     DeferredItem<Item> LUSH_GLOWBERRY_ROD = RODS_REGISTRY.register("lush_glowberry_rod", StarcatcherFishingRod::new);
     DeferredItem<Item> HUMBLE_ROD = RODS_REGISTRY.register("humble_rod", StarcatcherFishingRod::new);
-
-
-
 
     DeferredItem<Item> SETTINGS = ITEMS_REGISTRY.register("settings", () -> new Item(new Item.Properties()));
 
@@ -144,6 +142,7 @@ public interface ModItems
     DeferredItem<Item> FISH_BONES = basicItem("fish_bones");
 
     DeferredItem<Item> MISSINGNO = basicItem("missingno");
+    DeferredItem<Item> UNKNOWN_FISH = basicItem("unknown_fish");
 
     //
     //  ,---. ,--.         ,--.
@@ -152,6 +151,9 @@ public interface ModItems
     // |  .-' |  | .-'  `) |  | |  | \   --. .-'  `)
     // `--'   `--' `----'  `--' `--'  `----' `----'
     //
+
+    //bucket
+    DeferredItem<Item> STARCATCHED_BUCKET = ITEMS_REGISTRY.register("starcatched_bucket", StarcatchedBucket::new);
 
 
     //lake
@@ -200,6 +202,7 @@ public interface ModItems
     DeferredItem<Item> PINK_KOI = fish("pink_koi");
     DeferredItem<Item> MORGANITE = fish("morganite");
     DeferredItem<Item> ROSE_SIAMESE_FISH = fish("rose_siamese_fish");
+    DeferredItem<Item> VESANI = fish("vesani");
 
     //icy mountain
     DeferredItem<Item> CRYSTALBACK_STURGEON = fish("crystalback_sturgeon");

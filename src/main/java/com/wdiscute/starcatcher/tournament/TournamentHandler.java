@@ -62,7 +62,7 @@ public class TournamentHandler
     }
 
 
-    public static void addScore(Player player, FishProperties fp, boolean perfectCatch)
+    public static void addScore(Player player, FishProperties fp, boolean perfectCatch, int size, int weight)
     {
         for (Tournament t : activeTournaments)
         {

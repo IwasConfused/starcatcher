@@ -42,7 +42,7 @@ import java.util.Optional;
 
 //      <><|    <- fish
 public record FishProperties(
-        Holder<Item> fish,
+        CatchInfo catchInfo,
         int baseChance,
         String customName,
 
@@ -59,7 +59,7 @@ public record FishProperties(
 {
     public static final Codec<FishProperties> CODEC = RecordCodecBuilder.create(instance ->
             instance.group(
-                    BuiltInRegistries.ITEM.holderByNameCodec().fieldOf("fish").forGetter(FishProperties::fish),
+                    CatchInfo.CODEC.fieldOf("catch_info").forGetter(FishProperties::catchInfo),
                     Codec.INT.fieldOf("base_chance").forGetter(FishProperties::baseChance),
                     Codec.STRING.fieldOf("custom_name").forGetter(FishProperties::customName),
                     SizeAndWeight.CODEC.fieldOf("size_and_weight").forGetter(FishProperties::sw),
@@ -78,7 +78,7 @@ public record FishProperties(
     public static final Codec<List<FishProperties>> LIST_CODEC = FishProperties.CODEC.listOf();
 
     public static final StreamCodec<RegistryFriendlyByteBuf, FishProperties> STREAM_CODEC = ExtraComposites.composite(
-            ByteBufCodecs.holderRegistry(Registries.ITEM), FishProperties::fish,
+            CatchInfo.STREAM_CODEC, FishProperties::catchInfo,
             ByteBufCodecs.VAR_INT, FishProperties::baseChance,
             ByteBufCodecs.STRING_UTF8, FishProperties::customName,
             SizeAndWeight.STREAM_CODEC, FishProperties::sw,
@@ -97,7 +97,7 @@ public record FishProperties(
 
 
     public static final FishProperties DEFAULT = new FishProperties(
-            ModItems.MISSINGNO,
+            CatchInfo.DEFAULT,
             5,
             "",
             SizeAndWeight.DEFAULT,
@@ -121,70 +121,176 @@ public record FishProperties(
 
     public FishProperties withFish(Holder<Item> fish)
     {
-        return new FishProperties(fish, this.baseChance, this.customName, this.sw, this.rarity, this.wr, this.br, this.dif, this.daytime, this.weather, this.skipMinigame, this.hasGuideEntry);
+        return new FishProperties(this.catchInfo.withFish(fish), this.baseChance, this.customName, this.sw, this.rarity, this.wr, this.br, this.dif, this.daytime, this.weather, this.skipMinigame, this.hasGuideEntry);
+    }
+
+    public FishProperties withCatchInfo(CatchInfo catchInfo)
+    {
+        return new FishProperties(catchInfo, this.baseChance, this.customName, this.sw, this.rarity, this.wr, this.br, this.dif, this.daytime, this.weather, this.skipMinigame, this.hasGuideEntry);
+    }
+
+    public FishProperties withBucketedFish(Holder<Item> bucketedFish)
+    {
+        return new FishProperties(this.catchInfo.withBucketedFish(bucketedFish), this.baseChance, this.customName, this.sw, this.rarity, this.wr, this.br, this.dif, this.daytime, this.weather, this.skipMinigame, this.hasGuideEntry);
+    }
+
+    public FishProperties withEntityToSpawn(ResourceLocation entityToSpawn)
+    {
+        return new FishProperties(this.catchInfo.withEntityToSpawn(entityToSpawn), this.baseChance, this.customName, this.sw, this.rarity, this.wr, this.br, this.dif, this.daytime, this.weather, this.skipMinigame, this.hasGuideEntry);
+    }
+
+    public FishProperties withAlwaysSpawnEntity(boolean alwaysSpawnEntity)
+    {
+        return new FishProperties(this.catchInfo.withAlwaysSpawnEntity(alwaysSpawnEntity), this.baseChance, this.customName, this.sw, this.rarity, this.wr, this.br, this.dif, this.daytime, this.weather, this.skipMinigame, this.hasGuideEntry);
+    }
+
+    public FishProperties withOverrideMinigameItem(boolean overrideMinigameItem)
+    {
+        return new FishProperties(this.catchInfo.withOverrideMinigameItem(overrideMinigameItem), this.baseChance, this.customName, this.sw, this.rarity, this.wr, this.br, this.dif, this.daytime, this.weather, this.skipMinigame, this.hasGuideEntry);
+    }
+
+    public FishProperties withItemToOverrideWith(Holder<Item> itemToOverrideWith)
+    {
+        return new FishProperties(this.catchInfo.withItemToOverrideWith(itemToOverrideWith), this.baseChance, this.customName, this.sw, this.rarity, this.wr, this.br, this.dif, this.daytime, this.weather, this.skipMinigame, this.hasGuideEntry);
     }
 
     public FishProperties withBaseChance(int baseChance)
     {
-        return new FishProperties(this.fish, baseChance, this.customName, this.sw, this.rarity, this.wr, this.br, this.dif, this.daytime, this.weather, this.skipMinigame, this.hasGuideEntry);
+        return new FishProperties(this.catchInfo, baseChance, this.customName, this.sw, this.rarity, this.wr, this.br, this.dif, this.daytime, this.weather, this.skipMinigame, this.hasGuideEntry);
     }
 
     public FishProperties withCustomName(String customName)
     {
-        return new FishProperties(this.fish, this.baseChance, customName, this.sw, this.rarity, this.wr, this.br, this.dif, this.daytime, this.weather, this.skipMinigame, this.hasGuideEntry);
+        return new FishProperties(this.catchInfo, this.baseChance, customName, this.sw, this.rarity, this.wr, this.br, this.dif, this.daytime, this.weather, this.skipMinigame, this.hasGuideEntry);
     }
 
     public FishProperties withSizeAndWeight(SizeAndWeight sizeAndWeight)
     {
-        return new FishProperties(this.fish, this.baseChance, this.customName, sizeAndWeight, this.rarity, this.wr, this.br, this.dif, this.daytime, this.weather, this.skipMinigame, this.hasGuideEntry);
+        return new FishProperties(this.catchInfo, this.baseChance, this.customName, sizeAndWeight, this.rarity, this.wr, this.br, this.dif, this.daytime, this.weather, this.skipMinigame, this.hasGuideEntry);
     }
 
     public FishProperties withRarity(Rarity rarity)
     {
-        return new FishProperties(this.fish, this.baseChance, this.customName, this.sw, rarity, this.wr, this.br, this.dif, this.daytime, this.weather, this.skipMinigame, this.hasGuideEntry);
+        return new FishProperties(this.catchInfo, this.baseChance, this.customName, this.sw, rarity, this.wr, this.br, this.dif, this.daytime, this.weather, this.skipMinigame, this.hasGuideEntry);
     }
 
     public FishProperties withWorldRestrictions(WorldRestrictions wr)
     {
-        return new FishProperties(this.fish, this.baseChance, this.customName, this.sw, this.rarity, wr, this.br, this.dif, this.daytime, this.weather, this.skipMinigame, this.hasGuideEntry);
+        return new FishProperties(this.catchInfo, this.baseChance, this.customName, this.sw, this.rarity, wr, this.br, this.dif, this.daytime, this.weather, this.skipMinigame, this.hasGuideEntry);
     }
 
     public FishProperties withBaitRestrictions(BaitRestrictions br)
     {
-        return new FishProperties(this.fish, this.baseChance, this.customName, this.sw, this.rarity, this.wr, br, this.dif, this.daytime, this.weather, this.skipMinigame, this.hasGuideEntry);
+        return new FishProperties(this.catchInfo, this.baseChance, this.customName, this.sw, this.rarity, this.wr, br, this.dif, this.daytime, this.weather, this.skipMinigame, this.hasGuideEntry);
     }
 
     public FishProperties withDifficulty(Difficulty dif)
     {
-        return new FishProperties(this.fish, this.baseChance, this.customName, this.sw, this.rarity, this.wr, this.br, dif, this.daytime, this.weather, this.skipMinigame, this.hasGuideEntry);
+        return new FishProperties(this.catchInfo, this.baseChance, this.customName, this.sw, this.rarity, this.wr, this.br, dif, this.daytime, this.weather, this.skipMinigame, this.hasGuideEntry);
     }
 
     public FishProperties withDaytime(Daytime daytime)
     {
-        return new FishProperties(this.fish, this.baseChance, this.customName, this.sw, this.rarity, this.wr, this.br, this.dif, daytime, this.weather, this.skipMinigame, this.hasGuideEntry);
+        return new FishProperties(this.catchInfo, this.baseChance, this.customName, this.sw, this.rarity, this.wr, this.br, this.dif, daytime, this.weather, this.skipMinigame, this.hasGuideEntry);
     }
 
     public FishProperties withWeather(Weather weather)
     {
-        return new FishProperties(this.fish, this.baseChance, this.customName, this.sw, this.rarity, this.wr, this.br, this.dif, this.daytime, weather, this.skipMinigame, this.hasGuideEntry);
+        return new FishProperties(this.catchInfo, this.baseChance, this.customName, this.sw, this.rarity, this.wr, this.br, this.dif, this.daytime, weather, this.skipMinigame, this.hasGuideEntry);
     }
 
     public FishProperties withSkipMinigame(boolean skipMinigame)
     {
-        return new FishProperties(this.fish, this.baseChance, this.customName, this.sw, this.rarity, this.wr, this.br, this.dif, this.daytime, this.weather, skipMinigame, this.hasGuideEntry);
+        return new FishProperties(this.catchInfo, this.baseChance, this.customName, this.sw, this.rarity, this.wr, this.br, this.dif, this.daytime, this.weather, skipMinigame, this.hasGuideEntry);
     }
 
     public FishProperties withHasGuideEntry(boolean hasGuideEntry)
     {
-        return new FishProperties(this.fish, this.baseChance, this.customName, this.sw, this.rarity, this.wr, this.br, this.dif, this.daytime, this.weather, this.skipMinigame, hasGuideEntry);
+        return new FishProperties(this.catchInfo, this.baseChance, this.customName, this.sw, this.rarity, this.wr, this.br, this.dif, this.daytime, this.weather, this.skipMinigame, hasGuideEntry);
     }
 
     public FishProperties withSeasons(WorldRestrictions.Seasons... seasons)
     {
-        return new FishProperties(this.fish, this.baseChance, this.customName, this.sw, this.rarity, this.wr.withSeasons(seasons), this.br, this.dif, this.daytime, this.weather, this.skipMinigame, this.hasGuideEntry);
+        return new FishProperties(this.catchInfo, this.baseChance, this.customName, this.sw, this.rarity, this.wr.withSeasons(seasons), this.br, this.dif, this.daytime, this.weather, this.skipMinigame, this.hasGuideEntry);
     }
 
     //endregion with()
+
+
+    //region CatchInfo
+
+    public record CatchInfo(
+            Holder<Item> fish,
+            Holder<Item> bucketedFish,
+            ResourceLocation entityToSpawn,
+            boolean alwaysSpawnEntity,
+            boolean overrideMinigameItem,
+            Holder<Item> itemToOverrideWith
+    )
+    {
+        public static final Codec<CatchInfo> CODEC = RecordCodecBuilder.create(instance ->
+                instance.group(
+                        BuiltInRegistries.ITEM.holderByNameCodec().fieldOf("fish").forGetter(CatchInfo::fish),
+                        BuiltInRegistries.ITEM.holderByNameCodec().fieldOf("fish_bucket").forGetter(CatchInfo::bucketedFish),
+                        ResourceLocation.CODEC.fieldOf("entity_to_spawn").forGetter(CatchInfo::entityToSpawn),
+                        Codec.BOOL.fieldOf("always_spawn_entity").forGetter(CatchInfo::alwaysSpawnEntity),
+                        Codec.BOOL.fieldOf("always_spawn_entity").forGetter(CatchInfo::overrideMinigameItem),
+                        BuiltInRegistries.ITEM.holderByNameCodec().optionalFieldOf("override_minigame_item", ModItems.MISSINGNO).forGetter(CatchInfo::itemToOverrideWith)
+                ).apply(instance, CatchInfo::new));
+
+
+        public static final StreamCodec<RegistryFriendlyByteBuf, CatchInfo> STREAM_CODEC = StreamCodec.composite(
+                ByteBufCodecs.holderRegistry(Registries.ITEM), CatchInfo::fish,
+                ByteBufCodecs.holderRegistry(Registries.ITEM), CatchInfo::bucketedFish,
+                ByteBufCodecs.fromCodec(ResourceLocation.CODEC), CatchInfo::entityToSpawn,
+                ByteBufCodecs.BOOL, CatchInfo::alwaysSpawnEntity,
+                ByteBufCodecs.BOOL, CatchInfo::overrideMinigameItem,
+                ByteBufCodecs.holderRegistry(Registries.ITEM), CatchInfo::itemToOverrideWith,
+                CatchInfo::new
+        );
+
+        public static final CatchInfo DEFAULT = new CatchInfo(
+                ModItems.MISSINGNO,
+                ModItems.MISSINGNO,
+                Starcatcher.rl("missingno"),
+                false,
+                false,
+                ModItems.MISSINGNO
+        );
+
+        public CatchInfo withFish(Holder<Item> fish)
+        {
+            return new CatchInfo(fish, this.bucketedFish, this.entityToSpawn, this.alwaysSpawnEntity, this.overrideMinigameItem, this.itemToOverrideWith);
+        }
+
+        public CatchInfo withBucketedFish(Holder<Item> bucketedFish)
+        {
+            return new CatchInfo(this.fish, bucketedFish, this.entityToSpawn, this.alwaysSpawnEntity, this.overrideMinigameItem, this.itemToOverrideWith);
+        }
+
+        public CatchInfo withEntityToSpawn(ResourceLocation entityToSpawn)
+        {
+            return new CatchInfo(this.fish, this.bucketedFish, entityToSpawn, this.alwaysSpawnEntity, this.overrideMinigameItem, this.itemToOverrideWith);
+        }
+
+        public CatchInfo withAlwaysSpawnEntity(boolean alwaysSpawnEntity)
+        {
+            return new CatchInfo(this.fish, this.bucketedFish, this.entityToSpawn, alwaysSpawnEntity, this.overrideMinigameItem, this.itemToOverrideWith);
+        }
+
+        public CatchInfo withOverrideMinigameItem(boolean overrideMinigameItem)
+        {
+            return new CatchInfo(this.fish, this.bucketedFish, this.entityToSpawn, alwaysSpawnEntity, overrideMinigameItem, this.itemToOverrideWith);
+        }
+
+        public CatchInfo withItemToOverrideWith(Holder<Item> itemToOverrideWith)
+        {
+            return new CatchInfo(this.fish, this.bucketedFish, this.entityToSpawn, alwaysSpawnEntity, this.overrideMinigameItem, itemToOverrideWith);
+        }
+    }
+
+    //endregion CatchInfo
+
 
     //region bait
 
@@ -974,6 +1080,18 @@ public record FishProperties(
                 Extras.TTF
         );
 
+
+        public static final Difficulty VESANI = new Difficulty(
+                12,
+                15,
+                5,
+                30,
+                0,
+                Markers.TTFF,
+                Treasure.HARD,
+                Extras.FTF
+        );
+
         public static final Difficulty HARD_MOVING = new Difficulty(
                 12,
                 15,
@@ -1241,6 +1359,7 @@ public record FishProperties(
                                 int goldenChance, int goldenIncrease)
     {
         public static final SizeAndWeight DEFAULT = new SizeAndWeight(41f, 21f, 2001f, 701f, 11, 21);
+        public static final SizeAndWeight NONE = new SizeAndWeight(0, 0, 0, 0, 0, 0);
 
         public static final Codec<SizeAndWeight> CODEC = RecordCodecBuilder.create(instance ->
                 instance.group(

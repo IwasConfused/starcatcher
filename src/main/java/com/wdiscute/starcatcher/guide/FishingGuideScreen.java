@@ -246,7 +246,7 @@ public class FishingGuideScreen extends Screen
 
             for (FishProperties fp : entries)
             {
-                String path = fp.fish().unwrapKey().get().location().getPath();
+                String path = fp.catchInfo().fish().unwrapKey().get().location().getPath();
                 map.put(path, fp);
                 entriesString.add(path);
             }
@@ -272,7 +272,7 @@ public class FishingGuideScreen extends Screen
 
             for (FishProperties fp : entries)
             {
-                String namespace = fp.fish().unwrapKey().get().location().getNamespace();
+                String namespace = fp.catchInfo().fish().unwrapKey().get().location().getNamespace();
                 if (!allNamespaces.contains(namespace)) allNamespaces.add(namespace);
             }
 
@@ -280,7 +280,7 @@ public class FishingGuideScreen extends Screen
             {
                 for (FishProperties fp : entries)
                 {
-                    String namespace = fp.fish().unwrapKey().get().location().getNamespace();
+                    String namespace = fp.catchInfo().fish().unwrapKey().get().location().getNamespace();
                     if (namespace.equals(s)) entriesSorted.add(fp);
                 }
 
@@ -811,7 +811,7 @@ public class FishingGuideScreen extends Screen
 
             ItemStack is;
 
-            is = new ItemStack(tp.fp().fish());
+            is = new ItemStack(tp.fp().catchInfo().fish());
             if (!tp.customName().isEmpty()) is.set(DataComponents.ITEM_NAME, Component.translatable(tp.customName()));
             is.set(ModDataComponents.TROPHY, tp);
 
@@ -856,7 +856,7 @@ public class FishingGuideScreen extends Screen
             boolean isMouseOnTop = mouseX > xrender - 10 && mouseX < xrender + 10 && mouseY > y - 2 && mouseY < y + 18;
             if (player.getData(ModDataAttachments.TROPHIES_CAUGHT).contains(tp))
             {
-                is = new ItemStack(tp.fp().fish());
+                is = new ItemStack(tp.fp().catchInfo().fish());
                 is.set(DataComponents.ITEM_NAME, Component.translatable(tp.customName()));
                 is.set(ModDataComponents.TROPHY, tp);
                 if (isMouseOnTop)
@@ -1161,7 +1161,7 @@ public class FishingGuideScreen extends Screen
     private void renderFishIndex(GuiGraphics guiGraphics, int xOffset, int yOffset, int mouseX, int mouseY, FishProperties fp, int backgroundFillColor)
     {
         List<FishCaughtCounter> fishCounterList = player.getData(ModDataAttachments.FISHES_CAUGHT);
-        ItemStack is = new ItemStack(fp.fish());
+        ItemStack is = new ItemStack(fp.catchInfo().fish());
 
         //calculate caught counter
         int caught = 0;
@@ -1211,7 +1211,7 @@ public class FishingGuideScreen extends Screen
         RenderSystem.disableBlend();
         guiGraphics.setColor(1, 1, 1, 1);
 
-        //render item with missingno if not caught
+        //render fish with missingno if not caught
         if (caught != 0)
             renderItem(is, xOffset, yOffset, 1);
         else
@@ -1238,9 +1238,9 @@ public class FishingGuideScreen extends Screen
             else
             {
                 if (fp.customName().isEmpty())
-                    components.add(Component.translatable("item." + fp.fish().getRegisteredName().replace(":", ".")));
+                    components.add(Component.translatable(fp.catchInfo().fish().value().getDescriptionId()));
                 else
-                    components.add(Component.translatable("item.starcatcher." + fp.customName()));
+                    components.add(Component.translatable("fish.starcatcher." + fp.customName()));
 
                 components.add(Tooltips.decodeTranslationKey("gui.guide.rarity." + fp.rarity().getSerializedName()));
                 components.add(Component.translatable("gui.guide.caught").append(Component.literal(" [" + caught + "]")).withColor(0x40752c));
@@ -1288,7 +1288,7 @@ public class FishingGuideScreen extends Screen
 
         if (entries.size() <= entry) return;
 
-        ItemStack is = new ItemStack(entries.get(entry).fish());
+        ItemStack is = new ItemStack(entries.get(entry).catchInfo().fish());
         FishProperties fp = entries.get(entry);
 
         if (!fpsSeen.contains(fp)) fpsSeen.add(fp);
@@ -1399,9 +1399,9 @@ public class FishingGuideScreen extends Screen
         {
             MutableComponent compName;
             if (fp.customName().isEmpty())
-                compName = Component.translatable(fp.fish().value().getDescriptionId());
+                compName = Component.translatable(fp.catchInfo().fish().value().getDescriptionId());
             else
-                compName = Component.translatable("item.starcatcher." + fp.customName());
+                compName = Component.translatable("fish.starcatcher." + fp.customName());
 
             //todo fix this holy shit this has to be the worse hard coded offset possible omg wd why did you code it like this
             if (xOffset > 200)
