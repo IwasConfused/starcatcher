@@ -399,7 +399,6 @@ public record FishProperties(
         public static final WorldRestrictions OVERWORLD_CAVES =
                 WorldRestrictions.DEFAULT
                         .withDims(Level.OVERWORLD.location())
-                        .withBiomes(Biomes.LUSH_CAVES.location())
                         .withMustBeCaughtBelowY(50)
                         .withMustBeCaughtAboveY(0);
 
