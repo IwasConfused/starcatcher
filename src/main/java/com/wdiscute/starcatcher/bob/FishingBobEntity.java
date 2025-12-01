@@ -298,6 +298,13 @@ public class FishingBobEntity extends Projectile
     }
 
     @Override
+    public void kill()
+    {
+        player.setData(ModDataAttachments.FISHING, "");
+        super.kill();
+    }
+
+    @Override
     public void tick()
     {
         super.tick();
