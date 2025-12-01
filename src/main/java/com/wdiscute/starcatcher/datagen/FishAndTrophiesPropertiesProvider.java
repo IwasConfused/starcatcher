@@ -68,7 +68,7 @@ public class FishAndTrophiesPropertiesProvider extends DatapackBuiltinEntriesPro
 //                                    .withBiomesTags(BiomeTags.IS_JUNGLE.location())
 //                                    .withBiomesBlacklist(Biomes.BAMBOO_JUNGLE.location())
 //                                    .withBiomesBlacklistTags(BiomeTags.HAS_ANCIENT_CITY.location())
-//                                    .withFluids(ResourceLocation.fromNamespaceAndPath("coolmod", "magic_fluid"))
+//                                    .withFluids(rl("coolmod", "magic_fluid"))
 //                            )
 //
 //                            .withBaitRestrictions(FishProperties.BaitRestrictions.DEFAULT
@@ -1591,7 +1591,7 @@ public class FishAndTrophiesPropertiesProvider extends DatapackBuiltinEntriesPro
                     .withRarity(FishProperties.Rarity.UNCOMMON)
                     .withDifficulty(FishProperties.Difficulty.HARD_MOVING)
                     .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD
-                            .withBiomesTags(ResourceLocation.fromNamespaceAndPath("sullysmod", "biome/piranha_spawn_in")))
+                            .withBiomesTags(rl("sullysmod", "biome/piranha_spawn_in")))
                     .withMod("sullysmod"),
 
             fish(fromRL("sullysmod", "lanternfish"))
@@ -1599,7 +1599,7 @@ public class FishAndTrophiesPropertiesProvider extends DatapackBuiltinEntriesPro
                     .withRarity(FishProperties.Rarity.UNCOMMON)
                     .withDifficulty(FishProperties.Difficulty.HARD)
                     .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD
-                            .withBiomesTags(ResourceLocation.fromNamespaceAndPath("sullysmod", "biome/lanternfish_spawn_in")))
+                            .withBiomesTags(rl("sullysmod", "biome/lanternfish_spawn_in")))
                     .withMod("sullysmod"),
             //endregion Sullys Mod
 
@@ -1612,23 +1612,20 @@ public class FishAndTrophiesPropertiesProvider extends DatapackBuiltinEntriesPro
             // `-----'  |  |-'  .`-  /  `--'     `--`--'  `---'   `----'     `--' `--'  `-|  |  `----'   `--`--'   `--'   `--'  `---'
             //          `--'    `---'                                                     `--'
 
-
-
             fish(fromRL("upgrade_aquatic", "pike"))
                     .withSizeAndWeight(FishProperties.sw(75, 20, 5000, 3000, 10, 20))
                     .withDifficulty(FishProperties.Difficulty.EASY_MOVING)
                     .withRarity(FishProperties.Rarity.COMMON)
                     .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD
-                            .withBiomesTags(ResourceLocation.fromNamespaceAndPath("upgrade_aquatic", "biome/has_spawn/pike")))
+                            .withBiomesTags(rl("upgrade_aquatic", "biome/has_spawn/pike")))
                     .withMod("upgrade_aquatic"),
-
 
             fish(fromRL("upgrade_aquatic", "perch"))
                     .withSizeAndWeight(FishProperties.sw(27.0f, 11, 500, 352, 5, 36))
                     .withDifficulty(FishProperties.Difficulty.EASY_MOVING)
                     .withRarity(FishProperties.Rarity.COMMON)
                     .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD
-                            .withBiomesTags(ResourceLocation.fromNamespaceAndPath("upgrade_aquatic", "biome/has_spawn/perch")))
+                            .withBiomesTags(rl("upgrade_aquatic", "biome/has_spawn/perch")))
                     .withMod("upgrade_aquatic"),
 
             fish(fromRL("upgrade_aquatic", "lionfish"))
@@ -1636,11 +1633,32 @@ public class FishAndTrophiesPropertiesProvider extends DatapackBuiltinEntriesPro
                     .withDifficulty(FishProperties.Difficulty.EVERYTHING_VANISHING)
                     .withRarity(FishProperties.Rarity.UNCOMMON)
                     .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD
-                            .withBiomesTags(ResourceLocation.fromNamespaceAndPath("upgrade_aquatic", "biome/has_spawn/lionfish")))
-                    .withMod("upgrade_aquatic")
+                            .withBiomesTags(rl("upgrade_aquatic", "biome/has_spawn/lionfish")))
+                    .withMod("upgrade_aquatic"),
+
+            //add thrasher as an entity spawn with hide during minigame
 
             //endregion Upgrade Aquatic
 
+            //region Environmental
+            //
+            //,------.                     ,--.                                                        ,--.            ,--.
+            //|  .---' ,--,--,  ,--.  ,--. `--' ,--.--.  ,---.  ,--,--,  ,--,--,--.  ,---.  ,--,--,  ,-'  '-.  ,--,--. |  |
+            //|  `--,  |      \  \  `'  /  ,--. |  .--' | .-. | |      \ |        | | .-. : |      \ '-.  .-' ' ,-.  | |  |
+            //|  `---. |  ||  |   \    /   |  | |  |    ' '-' ' |  ||  | |  |  |  | \   --. |  ||  |   |  |   \ '-'  | |  |
+            //`------' `--''--'    `--'    `--' `--'     `---'  `--''--' `--`--`--'  `----' `--''--'   `--'    `--`--' `--'
+            //
+
+            fish(fromRL("environmental", "koi"))
+                    .withSizeAndWeight(FishProperties.sw(60, 20, 3000, 2000, 10, 20))
+                    .withDifficulty(FishProperties.Difficulty.EVERYTHING_VANISHING)
+                    .withRarity(FishProperties.Rarity.UNCOMMON)
+                    .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD
+                            .withMustBeCaughtAboveY(55)
+                            .withBiomes(rl("environmental", "blossom_woods"), rl("environmental", "blossom_valleys")))
+                    .withMod("environmental")
+
+            //endregion Environmental
 
 
             //collectorsreap:
