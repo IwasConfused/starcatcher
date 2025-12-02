@@ -180,6 +180,12 @@ public class Starcatcher {
                     TournamentNameChangePayload.STREAM_CODEC,
                     TournamentNameChangePayload::handle
             );
+
+            registrar.playToServer(
+                    TournamentScoringChangePayload.TYPE,
+                    TournamentScoringChangePayload.STREAM_CODEC,
+                    TournamentScoringChangePayload::handle
+            );
         }
 
     }

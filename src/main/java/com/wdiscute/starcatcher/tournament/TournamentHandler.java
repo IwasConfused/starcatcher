@@ -43,7 +43,7 @@ public class TournamentHandler
                 null,
                 new HashMap<>(),
                 new TournamentSettings(
-                        TournamentSettings.Type.SIMPLE,
+                        TournamentSettings.Scoring.SIMPLE,
                         110660,
                         0,
                         0,
@@ -72,7 +72,7 @@ public class TournamentHandler
         {
             if (t.playerScores.containsKey(player.getUUID()))
             {
-                if (t.settings.type.equals(TournamentSettings.Type.SIMPLE))
+                if (t.settings.scoring.equals(TournamentSettings.Scoring.SIMPLE))
                 {
                     t.playerScores.get(player.getUUID()).addScore(1);
                 }
@@ -88,6 +88,19 @@ public class TournamentHandler
             if(t.tournamentUUID.equals(uuid) && player.getUUID().equals(t.owner))
             {
                 t.name = name;
+                PacketDistributor.sendToAllPlayers(TournamentUpdatePayload.helper(player, t));
+            }
+        }
+    }
+
+    public static void setScoring(ServerPlayer player, UUID uuid, TournamentSettings.Scoring scoringType)
+    {
+        if(player.level().isClientSide) return;
+        for (Tournament t : setupTournaments)
+        {
+            if(t.tournamentUUID.equals(uuid) && player.getUUID().equals(t.owner))
+            {
+                t.settings.scoring = scoringType;
                 PacketDistributor.sendToAllPlayers(TournamentUpdatePayload.helper(player, t));
             }
         }

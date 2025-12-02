@@ -576,6 +576,7 @@
   "gui.starcatcher.tournament.signed_up" : "[Signed Up!]",
   "gui.starcatcher.tournament.other" : "Others:",
   "gui.starcatcher.tournament.status" : "Status",
+  "gui.starcatcher.tournament.scoring" : "Scoring",
   "gui.starcatcher.tournament.duration" : "Duration",
   "gui.starcatcher.tournament.start" : "[Start Tournament]",
 
@@ -583,6 +584,11 @@
   "gui.starcatcher.tournament.status.active" : "Ongoing",
   "gui.starcatcher.tournament.status.finished" : "Complete",
 
+  "gui.starcatcher.tournament.scoring.simple" : "Simple",
+  "gui.starcatcher.tournament.scoring.weight" : "Weight",
+  "gui.starcatcher.tournament.scoring.rarity" : "Rarity",
+  "gui.starcatcher.tournament.scoring.golden" : "Golden",
+  "gui.starcatcher.tournament.scoring.advanced" : "Advanced",
 
 
   "gui.secret_note.sample_note.0" : "Hey how did you get this note??",
