@@ -61,12 +61,12 @@ dependencies {
     runtimeOnly "dev.emi:emi-neoforge:${emi_version}"
 
     //Serene Seasons
-    compileOnly files(".libs/SereneSeasons-neoforge-1.21.1-10.1.0.3.jar")
-    compileOnly files(".libs/GlitchCore-neoforge-1.21.1-2.1.0.0.jar")
+    compileOnly files(".compatmods/SereneSeasons-neoforge-1.21.1-10.1.0.3.jar")
+    compileOnly files(".compatmods/GlitchCore-neoforge-1.21.1-2.1.0.0.jar")
 
     //Ecliptic Seasons
-    compileOnly files(".libs/EclipticSeasons-1.21.1-neoforge-0.12.5-all.jar")
-    runtimeOnly files(".libs/EclipticSeasons-1.21.1-neoforge-0.12.5-all.jar")
+    compileOnly files(".compatmods/EclipticSeasons-1.21.1-neoforge-0.12.5-all.jar")
+    //runtimeOnly files(".libs/EclipticSeasons-1.21.1-neoforge-0.12.5-all.jar")
 
 
 }

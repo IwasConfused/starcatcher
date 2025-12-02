@@ -31,13 +31,13 @@ public class StandMenu extends AbstractContainerMenu
         level = inv.player.level();
 
         //player inventory
-        for (int i = 0; i < 3; ++i)
-        {
-            for (int l = 0; l < 9; ++l)
-            {
-                this.addSlot(new Slot(inv, l + i * 9 + 9, 210 + l * 16, 131 + i * 16));
-            }
-        }
+//        for (int i = 0; i < 3; ++i)
+//        {
+//            for (int l = 0; l < 9; ++l)
+//            {
+//                this.addSlot(new Slot(inv, l + i * 9 + 9, 210 + l * 16, 131 + i * 16));
+//            }
+//        }
 
         //player hotbar
         for (int i = 0; i < 9; ++i)
@@ -45,7 +45,7 @@ public class StandMenu extends AbstractContainerMenu
             this.addSlot(new Slot(inv, i, 210 + i * 16, 185));
         }
 
-        if(!level.isClientSide)
+        if (!level.isClientSide)
         {
             Tournament tournament = TournamentHandler.getTournament(sbe.uuid);
             for (int i = 0; i < tournament.settings.entryCost.size(); i++)
@@ -65,12 +65,13 @@ public class StandMenu extends AbstractContainerMenu
         for (int i = 0; i < 9; i++)
         {
             int slotid = i;
-            this.addSlot(new SlotItemHandler(sbe.entryCost, slotid, 210 + slotid * 16, 99)
+            this.addSlot(new SlotItemHandler(sbe.entryCost, slotid, 210 + slotid * 16, 157)
             {
+
                 @Override
                 public boolean mayPickup(Player playerIn)
                 {
-                    if(level.isClientSide) return false;
+                    if (level.isClientSide) return false;
 
                     sbe.entryCost.setStackInSlot(slotid, ItemStack.EMPTY);
                     sbe.tournament.settings.entryCost = SingleStackContainer.fromItemStackHandler(sbe.entryCost);
@@ -78,11 +79,11 @@ public class StandMenu extends AbstractContainerMenu
                 }
 
                 @Override
-                public boolean mayPlace(ItemStack stack)
+                public boolean mayPlace(ItemStack stackInHand)
                 {
-                    if(level.isClientSide) return false;
+                    if (level.isClientSide) return false;
 
-                    sbe.entryCost.setStackInSlot(slotid, stack.copy());
+                    sbe.entryCost.setStackInSlot(slotid, stackInHand.copy());
                     sbe.tournament.settings.entryCost = SingleStackContainer.fromItemStackHandler(sbe.entryCost);
                     return false;
                 }

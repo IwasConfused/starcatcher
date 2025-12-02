@@ -3,10 +3,12 @@ package com.wdiscute.starcatcher.tournament;
 import com.mojang.authlib.GameProfile;
 import com.wdiscute.starcatcher.io.FishProperties;
 import com.wdiscute.starcatcher.io.SingleStackContainer;
+import com.wdiscute.starcatcher.io.network.TournamentUpdatePayload;
 import net.minecraft.server.players.GameProfileCache;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.event.tick.ServerTickEvent;
+import net.neoforged.neoforge.network.PacketDistributor;
 
 import java.util.*;
 
@@ -64,6 +66,7 @@ public class TournamentHandler
 
     public static void addScore(Player player, FishProperties fp, boolean perfectCatch, int size, int weight)
     {
+        if(player.level().isClientSide) return;
         for (Tournament t : activeTournaments)
         {
             if (t.playerScores.containsKey(player.getUUID()))
@@ -72,6 +75,19 @@ public class TournamentHandler
                 {
                     t.playerScores.get(player.getUUID()).addScore(1);
                 }
+            }
+        }
+    }
+
+    public static void setName(Level level, UUID uuid, String name)
+    {
+        if(level.isClientSide) return;
+        for (Tournament t : setupTournaments)
+        {
+            if(t.tournamentUUID.equals(uuid))
+            {
+                t.name = name;
+                PacketDistributor.sendToAllPlayers(TournamentUpdatePayload.helper(level, t));
             }
         }
     }

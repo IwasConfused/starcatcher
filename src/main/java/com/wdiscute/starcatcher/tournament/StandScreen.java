@@ -5,6 +5,7 @@ import com.wdiscute.starcatcher.Starcatcher;
 import com.wdiscute.starcatcher.io.SingleStackContainer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -19,6 +20,8 @@ public class StandScreen extends AbstractContainerScreen<StandMenu>
     private final StandMenu standMenu;
 
     private static String durationCache = "waiting...";
+    private EditBox editBox;
+    private boolean wasFocused;
 
     private static final ResourceLocation BACKGROUND = Starcatcher.rl("textures/gui/tournament/background.png");
 
@@ -31,12 +34,48 @@ public class StandScreen extends AbstractContainerScreen<StandMenu>
         super.init();
         uiX = (width - imageWidth) / 2;
         uiY = (height - imageHeight) / 2;
+        subInit();
+    }
+
+    @Override
+    public void resize(Minecraft minecraft, int width, int height)
+    {
+        String s = this.editBox.getValue();
+        this.init(minecraft, width, height);
+        this.editBox.setValue(s);
+    }
+
+    protected void subInit()
+    {
+        this.editBox = new EditBox(this.font, uiX + 53, uiY + 36, 210, 12, Component.translatable("container.repair"));
+        this.editBox.setCanLoseFocus(true);
+        this.editBox.setTextColor(0x635040);
+        this.editBox.setBordered(false);
+        this.editBox.setMaxLength(20);
+        this.editBox.setValue("");
+        this.editBox.setTextShadow(false);
+        this.editBox.setEditable(false);
+        this.addWidget(this.editBox);
     }
 
     @Override
     protected void renderBg(GuiGraphics guiGraphics, float v, int i, int i1)
     {
         this.renderBlurredBackground(i);
+    }
+
+    private void onFocusEditBox()
+    {
+        editBox.setValue(tournamentCache.name);
+        tournamentCache.name = "";
+    }
+
+    private void onUnfocusEditBox()
+    {
+        //send packet
+        tournamentCache.name = editBox.getValue();
+        editBox.setValue("");
+        System.out.println("should send packet here!");
     }
 
     @Override
@@ -50,8 +89,20 @@ public class StandScreen extends AbstractContainerScreen<StandMenu>
         if (tournamentCache == null) return;
         if (gameProfilesCache == null) return;
 
+        //handle editbox focusing
+        if (wasFocused != editBox.isFocused())
+        {
+            if (editBox.isFocused())
+                onFocusEditBox();
+            else
+                onUnfocusEditBox();
+        }
+        wasFocused = editBox.isFocused();
+
+        //render background
         renderImage(guiGraphics, BACKGROUND);
 
+        //render tournament name
         guiGraphics.drawString(this.font, tournamentCache.name, uiX + 53, uiY + 36, 0x635040, false);
 
         //organizer
@@ -86,12 +137,11 @@ public class StandScreen extends AbstractContainerScreen<StandMenu>
 
             signUpCostList.add(Component.literal("Sign Up Fee:"));
 
-            System.out.println(menu.sbe.entryCost);
-
 
             for (SingleStackContainer ssc : tournamentCache.settings.entryCost)
             {
-                if(!ssc.stack().isEmpty()) signUpCostList.add(Component.literal(ssc.stack().getCount() + "x ").append(Component.translatable(ssc.stack().getItem().getDescriptionId())));
+                if (!ssc.stack().isEmpty())
+                    signUpCostList.add(Component.literal(ssc.stack().getCount() + "x ").append(Component.translatable(ssc.stack().getItem().getDescriptionId())));
             }
 
             guiGraphics.renderTooltip(this.font, signUpCostList, Optional.empty(), mouseX, mouseY);
@@ -144,14 +194,14 @@ public class StandScreen extends AbstractContainerScreen<StandMenu>
 
 
         //entry fee
-        guiGraphics.drawString(this.font, Component.translatable("gui.starcatcher.tournament.entry_fee"), uiX + 212, uiY + 89, 0x9c897c, false);
+        guiGraphics.drawString(this.font, Component.translatable("gui.starcatcher.tournament.entry_fee"), uiX + 212, uiY + 147, 0x9c897c, false);
 
         //inventory
-        guiGraphics.drawString(this.font, Component.translatable("gui.starcatcher.tournament.inventory"), uiX + 212, uiY + 102, 0x9c897c, false);
+        guiGraphics.drawString(this.font, Component.translatable("gui.starcatcher.tournament.inventory"), uiX + 212, uiY + 175, 0x9c897c, false);
 
         //start
         guiGraphics.drawString(this.font, Component.translatable("gui.starcatcher.tournament.start"), uiX + 215, uiY + 50, 0x635040, false);
-        if(x > 209 && x < 317 && y > 44 && y < 60)
+        if (x > 209 && x < 317 && y > 44 && y < 60)
         {
             List<Component> list = new ArrayList<>();
 
@@ -164,24 +214,26 @@ public class StandScreen extends AbstractContainerScreen<StandMenu>
             guiGraphics.renderTooltip(this.font, list, Optional.empty(), mouseX, mouseY);
         }
 
+        this.editBox.render(guiGraphics, mouseX, mouseY, partialTick);
         renderTooltip(guiGraphics, mouseX, mouseY);
     }
 
-    public static void getTournamentCache(Tournament tournament)
+    public void onTournamentReceived(Tournament tournament)
     {
         tournamentCache = tournament;
+        editBox.setEditable(tournamentCache.owner.equals(Minecraft.getInstance().player.getUUID()));
         updateDurationCache();
     }
 
     private static void updateDurationCache()
     {
-        if(Config.DURATION.get().equals(DurationDisplay.MINUTES))
+        if (Config.DURATION.get().equals(DurationDisplay.MINUTES))
         {
             String s = "";
             int totalSeconds = tournamentCache.settings.duration / 20;
             int hours = totalSeconds / 3600;
 
-            if(hours > 0)
+            if (hours > 0)
             {
                 totalSeconds -= 3600 * hours;
                 s = hours + "h ";
@@ -189,7 +241,7 @@ public class StandScreen extends AbstractContainerScreen<StandMenu>
 
             int minutes = totalSeconds / 60;
 
-            if(minutes > 0)
+            if (minutes > 0)
             {
                 totalSeconds -= 60 * minutes;
                 s += minutes + "m ";
@@ -200,12 +252,12 @@ public class StandScreen extends AbstractContainerScreen<StandMenu>
             durationCache = s;
         }
 
-        if(Config.DURATION.get().equals(DurationDisplay.MINECRAFT_DAYS))
+        if (Config.DURATION.get().equals(DurationDisplay.MINECRAFT_DAYS))
         {
             durationCache = tournamentCache.settings.duration / 24000 + " days";
         }
 
-        if(Config.DURATION.get().equals(DurationDisplay.TICKS))
+        if (Config.DURATION.get().equals(DurationDisplay.TICKS))
         {
             durationCache = tournamentCache.settings.duration + " ticks";
         }
@@ -228,7 +280,7 @@ public class StandScreen extends AbstractContainerScreen<StandMenu>
         }
 
         //start
-        if(x > 209 && x < 317 && y > 44 && y < 60)
+        if (x > 209 && x < 317 && y > 44 && y < 60)
         {
             minecraft.gameMode.handleInventoryButtonClick(this.menu.containerId, 69);
         }
@@ -241,6 +293,8 @@ public class StandScreen extends AbstractContainerScreen<StandMenu>
             Config.SORT.save();
             updateDurationCache();
         }
+
+        editBox.setFocused(false);
 
         return super.mouseClicked(mouseX, mouseY, button);
     }
@@ -271,6 +325,18 @@ public class StandScreen extends AbstractContainerScreen<StandMenu>
     {
         guiGraphics.blit(rl, uiX + xOffset, uiY + yOffset, 0, 0, 420, 260, 420, 260);
     }
+
+    @Override
+    public boolean keyPressed(int keyCode, int scanCode, int modifiers)
+    {
+        if (keyCode == 256)
+        {
+            this.minecraft.player.closeContainer();
+        }
+
+        return this.editBox.keyPressed(keyCode, scanCode, modifiers) || this.editBox.canConsumeInput() || super.keyPressed(keyCode, scanCode, modifiers);
+    }
+
 
     public enum DurationDisplay
     {
