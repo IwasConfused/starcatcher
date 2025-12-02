@@ -27,6 +27,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraft.world.scores.PlayerScoreEntry;
 import net.neoforged.neoforge.network.PacketDistributor;
 import org.jetbrains.annotations.Nullable;
 
@@ -53,13 +54,18 @@ public class StandBlock extends Block implements EntityBlock
             if (sbe.tournament == null)
             {
                 sbe.tournament = TournamentHandler.getTournament(sbe.uuid);
-                System.out.println(sbe.uuid);
+            }
+
+            if(sbe.tournament.owner == null)
+            {
+                sbe.tournament.owner = player.getUUID();
+                sbe.tournament.playerScores.put(player.getUUID(), TournamentPlayerScore.empty());
             }
 
             player.openMenu(new SimpleMenuProvider(sbe, Component.empty()), pos);
 
             //send payload to client with tournament info
-            PacketDistributor.sendToPlayer(((ServerPlayer) player), TournamentUpdatePayload.helper(level, sbe.tournament));
+            PacketDistributor.sendToPlayer(((ServerPlayer) player), TournamentUpdatePayload.helper(player, sbe.tournament));
         }
 
         return InteractionResult.SUCCESS;

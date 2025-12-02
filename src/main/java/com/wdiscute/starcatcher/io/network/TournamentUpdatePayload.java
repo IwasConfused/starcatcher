@@ -13,6 +13,7 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.server.players.GameProfileCache;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
@@ -27,13 +28,13 @@ public record TournamentUpdatePayload(List<GameProfile> listSignups,
                                       Tournament tour) implements CustomPacketPayload
 {
 
-    public static TournamentUpdatePayload helper(Level level, Tournament tournament)
+    public static TournamentUpdatePayload helper(Player player, Tournament tournament)
     {
-        if(level.isClientSide) throw new RuntimeException();
+        if (player.level().isClientSide) throw new RuntimeException();
         List<GameProfile> list = new ArrayList<>();
         for (var entry : tournament.getPlayerScores().entrySet())
         {
-            GameProfileCache profileCache = level.getServer().getProfileCache();
+            GameProfileCache profileCache = player.level().getServer().getProfileCache();
             if (profileCache != null)
             {
                 Optional<GameProfile> gameProfile = profileCache.get(entry.getKey());
@@ -76,7 +77,13 @@ public record TournamentUpdatePayload(List<GameProfile> listSignups,
     @OnlyIn(Dist.CLIENT)
     public static void clientReceiveTournamentData(TournamentUpdatePayload data, final IPayloadContext context)
     {
-        if (Minecraft.getInstance().screen instanceof StandScreen ss) ss.onTournamentReceived(data.tour());
+        if (Minecraft.getInstance().screen instanceof StandScreen ss)
+        {
+            if (ss.tournamentCache == null)
+                ss.onTournamentReceived(data.tour());
+            else if (ss.tournamentCache.tournamentUUID.equals(data.tour.tournamentUUID))
+                ss.onTournamentReceived(data.tour());
+        }
         StandScreen.gameProfilesCache = new HashMap<>();
         data.listSignups().forEach(e -> StandScreen.gameProfilesCache.put(e.getId(), e.getName()));
     }

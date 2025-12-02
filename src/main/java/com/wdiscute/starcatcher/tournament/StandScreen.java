@@ -3,19 +3,22 @@ package com.wdiscute.starcatcher.tournament;
 import com.wdiscute.starcatcher.Config;
 import com.wdiscute.starcatcher.Starcatcher;
 import com.wdiscute.starcatcher.io.SingleStackContainer;
+import com.wdiscute.starcatcher.io.network.TournamentNameChangePayload;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.packs.repository.Pack;
 import net.minecraft.world.entity.player.Inventory;
+import net.neoforged.neoforge.network.PacketDistributor;
 
 import java.util.*;
 
 public class StandScreen extends AbstractContainerScreen<StandMenu>
 {
-    public static Tournament tournamentCache;
+    public Tournament tournamentCache;
     public static Map<UUID, String> gameProfilesCache;
     private final StandMenu standMenu;
 
@@ -73,9 +76,9 @@ public class StandScreen extends AbstractContainerScreen<StandMenu>
     private void onUnfocusEditBox()
     {
         //send packet
+        PacketDistributor.sendToServer(new TournamentNameChangePayload(tournamentCache.tournamentUUID, editBox.getValue()));
         tournamentCache.name = editBox.getValue();
         editBox.setValue("");
-        System.out.println("should send packet here!");
     }
 
     @Override
@@ -225,7 +228,7 @@ public class StandScreen extends AbstractContainerScreen<StandMenu>
         updateDurationCache();
     }
 
-    private static void updateDurationCache()
+    private void updateDurationCache()
     {
         if (Config.DURATION.get().equals(DurationDisplay.MINUTES))
         {

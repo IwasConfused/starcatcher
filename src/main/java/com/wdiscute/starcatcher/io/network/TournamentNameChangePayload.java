@@ -17,6 +17,7 @@ import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.dedicated.DedicatedServer;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.Level;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
@@ -37,7 +38,7 @@ public record TournamentNameChangePayload(UUID uuid, String name) implements Cus
 
     public static final StreamCodec<ByteBuf, List<GameProfile>> GAME_PROFILE_STREAM_CODEC_LIST = GAME_PROFILE_STREAM_CODEC.apply(ByteBufCodecs.list());
 
-    public static final Type<TournamentNameChangePayload> TYPE = new Type<>(Starcatcher.rl("tour"));
+    public static final Type<TournamentNameChangePayload> TYPE = new Type<>(Starcatcher.rl("tournament_name_change"));
 
     public static final StreamCodec<RegistryFriendlyByteBuf, TournamentNameChangePayload> STREAM_CODEC = StreamCodec.composite(
             UUIDUtil.STREAM_CODEC, TournamentNameChangePayload::uuid,
@@ -54,7 +55,7 @@ public record TournamentNameChangePayload(UUID uuid, String name) implements Cus
 
     public void handle(IPayloadContext context)
     {
-        TournamentHandler.setName(context.player().level(), uuid, name);
+        TournamentHandler.setName(((ServerPlayer) context.player()), uuid, name);
     }
 
 }

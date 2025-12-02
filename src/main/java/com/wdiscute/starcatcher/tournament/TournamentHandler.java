@@ -4,6 +4,7 @@ import com.mojang.authlib.GameProfile;
 import com.wdiscute.starcatcher.io.FishProperties;
 import com.wdiscute.starcatcher.io.SingleStackContainer;
 import com.wdiscute.starcatcher.io.network.TournamentUpdatePayload;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.players.GameProfileCache;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
@@ -37,7 +38,7 @@ public class TournamentHandler
 
         Tournament tournament = new Tournament(
                 uuid,
-                "Unnamed Tourney " + uuid.toString().substring(0, 5),
+                "Unnamed Tournament",
                 Tournament.Status.SETUP,
                 null,
                 new HashMap<>(),
@@ -79,15 +80,15 @@ public class TournamentHandler
         }
     }
 
-    public static void setName(Level level, UUID uuid, String name)
+    public static void setName(ServerPlayer player, UUID uuid, String name)
     {
-        if(level.isClientSide) return;
+        if(player.level().isClientSide) return;
         for (Tournament t : setupTournaments)
         {
-            if(t.tournamentUUID.equals(uuid))
+            if(t.tournamentUUID.equals(uuid) && player.getUUID().equals(t.owner))
             {
                 t.name = name;
-                PacketDistributor.sendToAllPlayers(TournamentUpdatePayload.helper(level, t));
+                PacketDistributor.sendToAllPlayers(TournamentUpdatePayload.helper(player, t));
             }
         }
     }

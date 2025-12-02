@@ -27,7 +27,7 @@ public class Tournament
 
     public static final Codec<Tournament> CODEC = RecordCodecBuilder.create(instance ->
             instance.group(
-                    UUIDUtil.CODEC.fieldOf("tournament_uuid").forGetter(Tournament::getOwner),
+                    UUIDUtil.CODEC.fieldOf("tournament_uuid").forGetter(Tournament::getTournamentUUID),
                     Codec.STRING.optionalFieldOf("name", "Unnamed Tournament").forGetter(Tournament::getName),
                     Status.CODEC.fieldOf("status").forGetter(Tournament::getStatus),
                     UUIDUtil.CODEC.fieldOf("owner").forGetter(Tournament::getOwner),
