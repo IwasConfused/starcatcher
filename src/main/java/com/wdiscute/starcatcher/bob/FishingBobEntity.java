@@ -54,6 +54,8 @@ public class FishingBobEntity extends Projectile
     public ItemStack hook = ItemStack.EMPTY;
     public ItemStack bait = ItemStack.EMPTY;
 
+    public boolean netherite_upgraded = false;
+
     int minTicksToFish;
     int maxTicksToFish;
     int chanceToFishEachTick;
@@ -85,6 +87,9 @@ public class FishingBobEntity extends Projectile
         this.bobber = rod.get(ModDataComponents.BOBBER).stack().copy();
         this.bait = rod.get(ModDataComponents.BAIT).stack().copy();
         this.hook = rod.get(ModDataComponents.HOOK).stack().copy();
+
+        Boolean bool = rod.get(ModDataComponents.NETHERITE_UPGRADE);
+        if(bool != null) netherite_upgraded = bool;
 
         {
             this.setOwner(player);
@@ -268,14 +273,14 @@ public class FishingBobEntity extends Projectile
     @Override
     public boolean fireImmune()
     {
-        return hook.is(StarcatcherTags.HOOKS_SURVIVE_FIRE);
+        return netherite_upgraded;
     }
 
     @Override
     public void lavaHurt()
     {
         super.lavaHurt();
-        if (!hook.is(StarcatcherTags.HOOKS_SURVIVE_FIRE) && !level().isClientSide)
+        if (!netherite_upgraded && !level().isClientSide)
         {
             player.setData(ModDataAttachments.FISHING, "");
             kill();
