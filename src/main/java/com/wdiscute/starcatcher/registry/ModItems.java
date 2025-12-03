@@ -38,24 +38,18 @@ public interface ModItems
     DeferredItem<Item> SHINY_HOOK = singleStackItem("shiny_hook");
     DeferredItem<Item> GOLD_HOOK = singleStackItem("gold_hook");
     DeferredItem<Item> MOSSY_HOOK = singleStackItem("mossy_hook");
-    DeferredItem<Item> CRYSTAL_HOOK = singleStackItemFireResistant("crystal_hook");
     DeferredItem<Item> STONE_HOOK = singleStackItem("stone_hook");
     DeferredItem<Item> SPLIT_HOOK = singleStackItem("split_hook");
     DeferredItem<Item> STABILIZING_HOOK = singleStackItem("stabilizing_hook");
     DeferredItem<Item> HEAVY_HOOK = singleStackItem("heavy_hook");
 
     //bobbers
-    DeferredItem<Item> CREEPER_BOBBER = singleStackItem("creeper_bobber");
-    DeferredItem<Item> GLITTER_BOBBER = singleStackItem("glitter_bobber");
-    DeferredItem<Item> COLORFUL_BOBBER = ITEMS_REGISTRY.register("colorful_bobber", ColorfulBobber::new);
-    DeferredItem<Item> FRUGAL_BOBBER = singleStackItem("frugal_bobber");
+    DeferredItem<Item> BOBBER = singleStackItem("bobber");
     DeferredItem<Item> STEADY_BOBBER = singleStackItem("steady_bobber");
-    DeferredItem<Item> IMPATIENT_BOBBER = singleStackItem("impatient_bobber");
-    DeferredItem<Item> FROG_BOBBER = singleStackItem("frog_bobber");
-    DeferredItem<Item> KIMBE_BOBBER = singleStackItem("kimbe_bobber");
     DeferredItem<Item> CLEAR_BOBBER = singleStackItem("clear_bobber");
 
     //baits
+    DeferredItem<Item> CREEPER_BAIT = singleStackItem("creeper_bait");
     DeferredItem<Item> ALMIGHTY_WORM = basicItem("almighty_worm");
     DeferredItem<Item> CHERRY_BAIT = basicItem("cherry_bait");
     DeferredItem<Item> LUSH_BAIT = basicItem("lush_bait");
@@ -65,6 +59,10 @@ public interface ModItems
     DeferredItem<Item> LEGENDARY_BAIT = basicItem("legendary_bait");
     DeferredItem<Item> METEOROLOGICAL_BAIT = basicItem("meteorological_bait");
 
+    //bobber skin templates
+    DeferredItem<Item> COLORFUL_BOBBER_SMITHING_TEMPLATE = ITEMS_REGISTRY.register("colorful_bobber_smithing_template", ColorfulBobber::new);
+    DeferredItem<Item> PEARL_BOBBER_SMITHING_TEMPLATE = basicItem("pearl_bobber_smithing_template");
+    DeferredItem<Item> KIMBE_BOBBER_SMITHING_TEMPLATE = basicItem("kimbe_bobber_smithing_template");
 
     //rods
     DeferredItem<Item> ROD = RODS_REGISTRY.register("starcatcher_rod", StarcatcherFishingRod::new);

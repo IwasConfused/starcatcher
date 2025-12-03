@@ -41,7 +41,7 @@ public class ColorfulBobber extends Item
             BobberColor bobberColor = BobberColor.random();
             player.getItemInHand(usedHand).set(ModDataComponents.BOBBER_COLOR, bobberColor);
             sp.displayClientMessage(
-                    Component.literal("Your bobber shines differently...")
+                    Component.literal("The smithing template shines differently...")
                             .withColor(bobberColor.getColorAsInt()), true);
         }
 

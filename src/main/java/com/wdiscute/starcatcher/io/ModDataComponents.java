@@ -27,10 +27,6 @@ public class ModDataComponents
             "bobber_skin",
             builder -> builder.persistent(SingleStackContainer.CODEC));
 
-    public static final DeferredHolder<DataComponentType<?>, DataComponentType<SingleStackContainer>> PARTICLES_SKIN = register(
-            "particles",
-            builder -> builder.persistent(SingleStackContainer.CODEC));
-
 
     //rod menu
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<SingleStackContainer>> BOBBER = register(

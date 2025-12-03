@@ -90,20 +90,13 @@ public class FishingGuideScreen extends Screen
     private final ItemStack shinyHook;
     private final ItemStack goldHook;
     private final ItemStack mossyHook;
-    private final ItemStack crystalHook;
     private final ItemStack heavyHook;
     private final ItemStack stoneHook;
     private final ItemStack splitHook;
     private final ItemStack stabHook;
 
-    private final ItemStack frugalBobber;
-    private final ItemStack creeperBobber;
-    private final ItemStack glitterBobber;
-    private final ItemStack colorfulBobber;
+    private final ItemStack bobber;
     private final ItemStack steadyBobber;
-    private final ItemStack impatientBobber;
-    private final ItemStack frogBobber;
-    private final ItemStack kimbeBobber;
     private final ItemStack clearBobber;
 
     private final ItemStack cherryBait;
@@ -941,7 +934,6 @@ public class FishingGuideScreen extends Screen
             renderItemWithOutlineAndHover(guiGraphics, ironHook, 56, 157, mouseX, mouseY);
             renderItemWithOutlineAndHover(guiGraphics, goldHook, 84, 157, mouseX, mouseY);
             renderItemWithOutlineAndHover(guiGraphics, shinyHook, 112, 157, mouseX, mouseY);
-            renderItemWithOutlineAndHover(guiGraphics, crystalHook, 140, 157, mouseX, mouseY);
             renderItemWithOutlineAndHover(guiGraphics, heavyHook, 168, 157, mouseX, mouseY);
 
             renderItemWithOutlineAndHover(guiGraphics, mossyHook, 67, 182, mouseX, mouseY);
@@ -950,19 +942,11 @@ public class FishingGuideScreen extends Screen
             renderItemWithOutlineAndHover(guiGraphics, stabHook, 163, 182, mouseX, mouseY);
 
             //bobbers
-            renderItem(frugalBobber, uiX + 321, uiY + 39, 1);
+            renderItem(bobber, uiX + 321, uiY + 39, 1);
             guiGraphics.drawString(this.font, Component.translatable("gui.guide.bobbers"), uiX + 228, uiY + 45, 0xff000000, false);
 
-            renderItemWithOutlineAndHover(guiGraphics, creeperBobber, 220, 157, mouseX, mouseY);
-            renderItemWithOutlineAndHover(guiGraphics, glitterBobber, 248, 157, mouseX, mouseY);
-            renderItemWithOutlineAndHover(guiGraphics, colorfulBobber, 276, 157, mouseX, mouseY);
-            renderItemWithOutlineAndHover(guiGraphics, frugalBobber, 304, 157, mouseX, mouseY);
             renderItemWithOutlineAndHover(guiGraphics, clearBobber, 332, 157, mouseX, mouseY);
-
             renderItemWithOutlineAndHover(guiGraphics, steadyBobber, 233, 182, mouseX, mouseY);
-            renderItemWithOutlineAndHover(guiGraphics, impatientBobber, 265, 182, mouseX, mouseY);
-            renderItemWithOutlineAndHover(guiGraphics, frogBobber, 297, 182, mouseX, mouseY);
-            renderItemWithOutlineAndHover(guiGraphics, kimbeBobber, 329, 182, mouseX, mouseY);
         }
 
         if (page == 3)
@@ -1046,7 +1030,7 @@ public class FishingGuideScreen extends Screen
 
             //Bobbers
             auxX += 20;
-            renderTheBasicsIndex(guiGraphics, frugalBobber, auxX, y, mouseX, mouseY, "gui.guide.index.bobbers", 2);
+            renderTheBasicsIndex(guiGraphics, bobber, auxX, y, mouseX, mouseY, "gui.guide.index.bobbers", 2);
 
             //baits
             auxX += 20;
@@ -1979,20 +1963,13 @@ public class FishingGuideScreen extends Screen
         shinyHook = new ItemStack(ModItems.SHINY_HOOK.get());
         goldHook = new ItemStack(ModItems.GOLD_HOOK.get());
         mossyHook = new ItemStack(ModItems.MOSSY_HOOK.get());
-        crystalHook = new ItemStack(ModItems.CRYSTAL_HOOK.get());
         heavyHook = new ItemStack(ModItems.HEAVY_HOOK.get());
         stoneHook = new ItemStack(ModItems.STONE_HOOK.get());
         splitHook = new ItemStack(ModItems.SPLIT_HOOK.get());
         stabHook = new ItemStack(ModItems.STABILIZING_HOOK.get());
 
-        frugalBobber = new ItemStack(ModItems.FRUGAL_BOBBER.get());
-        creeperBobber = new ItemStack(ModItems.CREEPER_BOBBER.get());
-        glitterBobber = new ItemStack(ModItems.GLITTER_BOBBER.get());
-        colorfulBobber = new ItemStack(ModItems.COLORFUL_BOBBER.get());
+        bobber = new ItemStack(ModItems.BOBBER.get());
         steadyBobber = new ItemStack(ModItems.STEADY_BOBBER.get());
-        impatientBobber = new ItemStack(ModItems.IMPATIENT_BOBBER.get());
-        frogBobber = new ItemStack(ModItems.FROG_BOBBER.get());
-        kimbeBobber = new ItemStack(ModItems.KIMBE_BOBBER.get());
         clearBobber = new ItemStack(ModItems.CLEAR_BOBBER.get());
 
         cherryBait = new ItemStack(ModItems.CHERRY_BAIT.get());

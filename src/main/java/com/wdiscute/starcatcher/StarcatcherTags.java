@@ -36,7 +36,6 @@ public class StarcatcherTags
     public static final TagKey<Item> RODS = ItemTags.create(Starcatcher.rl("rods"));
 
     public static final TagKey<Item> BOBBER_SKIN_TEMPLATES = ItemTags.create(Starcatcher.rl("bobber_skin_templates"));
-    public static final TagKey<Item> PARTICLE_SKIN_TEMPLATES = ItemTags.create(Starcatcher.rl("particle_skin_templates"));
 
 
     public static final TagKey<Fluid> NETHERITE_UPGRADE_SURVIVES = FluidTags.create(Starcatcher.rl("netherite_upgrade_survives"));

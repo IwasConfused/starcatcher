@@ -2002,10 +2002,7 @@ public class FishAndTrophiesPropertiesProvider extends DatapackBuiltinEntriesPro
             //
 
 
-            new TrophyProperties(overworldDeepslateFish(ModItems.CRYSTAL_HOOK), false, TrophyProperties.TrophyType.EXTRA, "", new TrophyProperties.RarityProgress(6, 15), TrophyProperties.RarityProgress.DEFAULT, TrophyProperties.RarityProgress.DEFAULT, TrophyProperties.RarityProgress.DEFAULT, TrophyProperties.RarityProgress.DEFAULT, new TrophyProperties.RarityProgress(1, 0), 100),
-
             new TrophyProperties(overworldFish(ModItems.SHINY_HOOK), false, TrophyProperties.TrophyType.EXTRA, "", new TrophyProperties.RarityProgress(15, 0), TrophyProperties.RarityProgress.DEFAULT, TrophyProperties.RarityProgress.DEFAULT, TrophyProperties.RarityProgress.DEFAULT, TrophyProperties.RarityProgress.DEFAULT, TrophyProperties.RarityProgress.DEFAULT, 100),
-
 
             new TrophyProperties(overworldDeepslateFish(BuiltInRegistries.ITEM.wrapAsHolder(Items.DIAMOND)), false, TrophyProperties.TrophyType.EXTRA, "", TrophyProperties.RarityProgress.DEFAULT, TrophyProperties.RarityProgress.DEFAULT, TrophyProperties.RarityProgress.DEFAULT, new TrophyProperties.RarityProgress(1, 4), TrophyProperties.RarityProgress.DEFAULT, TrophyProperties.RarityProgress.DEFAULT, 100),
 

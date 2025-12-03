@@ -46,8 +46,8 @@ public class FishingBobRenderer extends EntityRenderer<FishingBobEntity>
         poseStack.translate(0.0F, 1.5F, 0.0F);
         poseStack.scale(-1.0F, -1.0F, 1.0F);
         int color = 0xffff9999;
-        ItemStack bobber = fishingBobEntity.getData(ModDataAttachments.BOBBER).stack().copy();
-        if (bobber.is(ModItems.COLORFUL_BOBBER))
+        ItemStack bobber = fishingBobEntity.getData(ModDataAttachments.BOBBER_SKIN).stack().copy();
+        if (bobber.is(ModItems.COLORFUL_BOBBER_SMITHING_TEMPLATE))
         {
             //why is rendering so annoying
             color = bobber.get(ModDataComponents.BOBBER_COLOR).getColorAsInt();

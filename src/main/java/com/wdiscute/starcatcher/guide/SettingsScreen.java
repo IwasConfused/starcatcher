@@ -49,6 +49,7 @@ public class SettingsScreen extends Screen
     final FishProperties fp;
     final ItemStack itemBeingFished;
     final ItemStack bobber;
+    final ItemStack bobberSkin;
     final ItemStack bait;
     final ItemStack hook;
 
@@ -119,6 +120,7 @@ public class SettingsScreen extends Screen
         this.fp = fp;
         this.itemBeingFished = new ItemStack(fp.catchInfo().fish());
         this.bobber = rod.get(ModDataComponents.BOBBER).stack().copy();
+        this.bobberSkin = rod.get(ModDataComponents.BOBBER_SKIN).stack().copy();
         this.bait = rod.get(ModDataComponents.BAIT).stack().copy();
         this.hook = rod.get(ModDataComponents.HOOK).stack().copy();
 
@@ -777,7 +779,7 @@ public class SettingsScreen extends Screen
 
         for (int i = 0; i < count; i++)
         {
-            if (bobber.is(ModItems.GLITTER_BOBBER))
+            if (bobberSkin.is(ModItems.PEARL_BOBBER_SMITHING_TEMPLATE))
             {
                 hitParticles.add(new HitFakeParticle(
                         xPos, yPos, new Vector2d(r.nextFloat() * 2 - 1, r.nextFloat() * 2 - 1),
@@ -789,7 +791,7 @@ public class SettingsScreen extends Screen
                 continue;
             }
 
-            if (bobber.is(ModItems.COLORFUL_BOBBER))
+            if (bobber.is(ModItems.COLORFUL_BOBBER_SMITHING_TEMPLATE))
             {
                 hitParticles.add(new HitFakeParticle(
                         xPos, yPos, new Vector2d(r.nextFloat() * 2 - 1, r.nextFloat() * 2 - 1),

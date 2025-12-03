@@ -3,7 +3,6 @@ package com.wdiscute.starcatcher.io;
 import com.mojang.serialization.Codec;
 import com.wdiscute.starcatcher.Starcatcher;
 import com.wdiscute.starcatcher.tournament.Tournament;
-import com.wdiscute.starcatcher.tournament.TournamentSettings;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.bus.api.IEventBus;
@@ -11,9 +10,7 @@ import net.neoforged.neoforge.attachment.AttachmentType;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.UUID;
 import java.util.function.Supplier;
 
 public class ModDataAttachments
@@ -64,8 +61,8 @@ public class ModDataAttachments
                             .build()
     );
 
-    public static final Supplier<AttachmentType<SingleStackContainer>> BOBBER = ATTACHMENT_TYPES.register(
-            "bobber", () ->
+    public static final Supplier<AttachmentType<SingleStackContainer>> BOBBER_SKIN = ATTACHMENT_TYPES.register(
+            "bobber_skin", () ->
                     AttachmentType.builder(() -> SingleStackContainer.EMPTY)
                             .serialize(SingleStackContainer.CODEC)
                             .sync(SingleStackContainer.STREAM_CODEC)

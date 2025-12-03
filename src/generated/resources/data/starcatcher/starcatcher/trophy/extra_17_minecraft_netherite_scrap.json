@@ -4,7 +4,7 @@
     "unique": 0
   },
   "always_show": false,
-  "chance_to_catch": 33,
+  "chance_to_catch": 1,
   "common": {
     "total": 0,
     "unique": 0
@@ -88,7 +88,7 @@
   },
   "legendary": {
     "total": 0,
-    "unique": 10
+    "unique": 0
   },
   "rare": {
     "total": 0,

@@ -93,8 +93,9 @@ public class FishingBobEntity extends Projectile
             maxTicksToFish = 300;
             chanceToFishEachTick = 100;
 
-            if (bobber.is(ModItems.IMPATIENT_BOBBER)) chanceToFishEachTick = 20;
-            if (bobber.is(ModItems.IMPATIENT_BOBBER)) minTicksToFish = 80;
+            if (!bobber.isEmpty()) chanceToFishEachTick = 20;
+            if (!bobber.isEmpty()) minTicksToFish = 80;
+            if (!bobber.isEmpty()) maxTicksToFish = 200;
 
             float f = player.getXRot();
             float f1 = player.getYRot();
@@ -221,13 +222,8 @@ public class FishingBobEntity extends Projectile
 
         fpToFish = available.get(random.nextInt(available.size()));
 
-        boolean skipsMinigame = fpToFish.skipMinigame() || (bobber.is(ModItems.CREEPER_BOBBER) && random.nextFloat() > 0.8);
-
-        //skip minigame if server config says so
-        if (!Config.ENABLE_MINIGAME.get())
-            skipsMinigame = true;
-
-        if (skipsMinigame || !Config.ENABLE_MINIGAME.get())
+        //if skips minigame or server config of minigame enabled = false
+        if (fpToFish.skipMinigame() || !Config.ENABLE_MINIGAME.get())
         {
             U.spawnFishFromFP(player, 0, false, false, 0);
         }
@@ -239,24 +235,13 @@ public class FishingBobEntity extends Projectile
             );
         }
 
-
         //consume bait
         if (fpToFish.br().consumesBait())
         {
-
-            if (bobber.is(ModItems.FRUGAL_BOBBER))
-            {
-                if (random.nextFloat() > 0.8f) bait.setCount(bait.getCount() - 1);
-            }
-            else
-            {
-                bait.setCount(bait.getCount() - 1);
-            }
+            bait.setCount(bait.getCount() - 1);
 
             rod.set(ModDataComponents.BAIT, new SingleStackContainer(bait));
         }
-
-
     }
 
 
@@ -328,7 +313,7 @@ public class FishingBobEntity extends Projectile
         if (player == null || this.shouldStopFishing(player))
         {
             this.discard();
-            if(player != null) player.setData(ModDataAttachments.FISHING.get(), "");
+            if (player != null) player.setData(ModDataAttachments.FISHING.get(), "");
         }
 
         BlockPos blockpos = this.blockPosition();
