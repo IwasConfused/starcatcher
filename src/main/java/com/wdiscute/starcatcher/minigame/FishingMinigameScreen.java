@@ -3,6 +3,7 @@ package com.wdiscute.starcatcher.minigame;
 import com.mojang.blaze3d.platform.InputConstants;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Axis;
 import com.wdiscute.libtooltips.Tooltips;
 import com.wdiscute.starcatcher.Config;
 import com.wdiscute.starcatcher.io.ModDataComponents;
@@ -14,6 +15,8 @@ import com.wdiscute.starcatcher.minigame.modifiers.FrogModifier;
 import com.wdiscute.starcatcher.minigame.modifiers.TntRainModifier;
 import com.wdiscute.starcatcher.registry.ModItems;
 import com.wdiscute.starcatcher.io.FishProperties;
+import net.minecraft.ChatFormatting;
+import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.events.GuiEventListener;
@@ -26,6 +29,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.FastColor;
+import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -222,13 +226,25 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener {
 
         renderDecor(guiGraphics, width, height, completionSmooth, itemBeingFished);
 
+        if (consecutiveHits >= 3) {
+            renderCombo(guiGraphics, consecutiveHits, partialTick + tickCount);
+        }
+
         modifiers.forEach(modifier -> modifier.render(guiGraphics, partialTick, poseStack));
 
         //particles
         for (HitFakeParticle instance : hitParticles) {
             renderParticle(guiGraphics, instance, poseStack, width, height);
         }
+    }
 
+    private void renderCombo(GuiGraphics guiGraphics, int consecutiveHits, float delta) {
+        PoseStack pose = guiGraphics.pose();
+        pose.translate(width / 2f + 20, height / 2f - 40, 0);
+        pose.mulPose(Axis.ZP.rotationDegrees(30));
+        float f = 1.8F - Mth.abs(Mth.sin(delta % 20) * ((float)Math.PI * 2F) * 0.01F);
+        pose.scale(f, f, 1);
+        guiGraphics.drawCenteredString(this.font, Component.translatable("fishing.combo", consecutiveHits).withStyle(ChatFormatting.GOLD), 0, -5, -1);
     }
 
     public static void renderParticle(GuiGraphics guiGraphics, HitFakeParticle instance, PoseStack poseStack, int width, int height) {
@@ -489,8 +505,7 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener {
         if (hitSomething) {
             consecutiveHits++;
             if ((hasTreasure && r.nextFloat() > 0.9 /*0.9*/ && completion < 60 && !treasureActive)
-                    ||
-                    (consecutiveHits == 3 && !treasureActive && hook.is(ModItems.SHINY_HOOK))) {
+                    || (consecutiveHits == 3 && !treasureActive && hook.is(ModItems.SHINY_HOOK))) {
                 treasureActive = true;
 
                 HitZoneType.Presets.TREASURE.copy().setFromProperties(fp, fp.dif(), hook, bobber).buildAndAdd(this);
