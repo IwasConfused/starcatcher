@@ -20,9 +20,14 @@ public interface ModItems
     List<DeferredItem<Item>> fishes = new ArrayList<>();
     List<DeferredItem<Item>> trash = new ArrayList<>();
 
-    DeferredRegister.Items REGISTRY = DeferredRegister.createItems(Starcatcher.MOD_ID);
+    DeferredRegister.Items ITEMS_REGISTRY = DeferredRegister.createItems(Starcatcher.MOD_ID);
+    DeferredRegister.Items RODS_REGISTRY = DeferredRegister.createItems(Starcatcher.MOD_ID);
+    DeferredRegister.Items OTHERS_REGISTRY = DeferredRegister.createItems(Starcatcher.MOD_ID);
 
-    DeferredItem<Item> GUIDE = REGISTRY.register("starcatcher_guide", FishingGuideItem::new);
+
+
+
+    DeferredItem<Item> GUIDE = ITEMS_REGISTRY.register("starcatcher_guide", FishingGuideItem::new);
 
     DeferredItem<Item> FISH_SPOTTER = singleStackItem("fish_spotter");
 
@@ -42,7 +47,7 @@ public interface ModItems
     //bobbers
     DeferredItem<Item> CREEPER_BOBBER = singleStackItem("creeper_bobber");
     DeferredItem<Item> GLITTER_BOBBER = singleStackItem("glitter_bobber");
-    DeferredItem<Item> COLORFUL_BOBBER = REGISTRY.register("colorful_bobber", ColorfulBobber::new);
+    DeferredItem<Item> COLORFUL_BOBBER = ITEMS_REGISTRY.register("colorful_bobber", ColorfulBobber::new);
     DeferredItem<Item> FRUGAL_BOBBER = singleStackItem("frugal_bobber");
     DeferredItem<Item> STEADY_BOBBER = singleStackItem("steady_bobber");
     DeferredItem<Item> IMPATIENT_BOBBER = singleStackItem("impatient_bobber");
@@ -51,6 +56,7 @@ public interface ModItems
     DeferredItem<Item> CLEAR_BOBBER = singleStackItem("clear_bobber");
 
     //baits
+    DeferredItem<Item> ALMIGHTY_WORM = basicItem("almighty_worm");
     DeferredItem<Item> CHERRY_BAIT = basicItem("cherry_bait");
     DeferredItem<Item> LUSH_BAIT = basicItem("lush_bait");
     DeferredItem<Item> SCULK_BAIT = basicItem("sculk_bait");
@@ -59,62 +65,84 @@ public interface ModItems
     DeferredItem<Item> LEGENDARY_BAIT = basicItem("legendary_bait");
     DeferredItem<Item> METEOROLOGICAL_BAIT = basicItem("meteorological_bait");
 
-    DeferredItem<Item> ROD = REGISTRY.register("starcatcher_rod", StarcatcherFishingRod::new); //missing better tooltip
 
-    DeferredItem<Item> SETTINGS = REGISTRY.register("settings", () -> new Item(new Item.Properties()));
+    //rods
+    DeferredItem<Item> ROD = RODS_REGISTRY.register("starcatcher_rod", StarcatcherFishingRod::new);
+
+    //fishing rod skins
+    DeferredItem<Item> NATURALIST_ROD = RODS_REGISTRY.register("naturalist_rod", StarcatcherFishingRod::new);
+    DeferredItem<Item> ICEBORN_ROD = RODS_REGISTRY.register("iceborn_rod", StarcatcherFishingRod::new);
+    DeferredItem<Item> MAGMAFORGED_ROD = RODS_REGISTRY.register("magmaforged_rod", StarcatcherFishingRod::new);
+    DeferredItem<Item> SLIMED_ROD = RODS_REGISTRY.register("slimed_rod", StarcatcherFishingRod::new);
+    DeferredItem<Item> SHARKTOOTH_ROD = RODS_REGISTRY.register("sharktooth_rod", StarcatcherFishingRod::new);
+    DeferredItem<Item> AZURE_CRYSTAL_ROD = RODS_REGISTRY.register("azure_crystal_rod", StarcatcherFishingRod::new);
+    DeferredItem<Item> GOOD_OLD_ROD = RODS_REGISTRY.register("good_old_rod", StarcatcherFishingRod::new);
+    DeferredItem<Item> BAMBOO_ROD = RODS_REGISTRY.register("bamboo_rod", StarcatcherFishingRod::new);
+    DeferredItem<Item> OBSIDIAN_ROD = RODS_REGISTRY.register("obsidian_rod", StarcatcherFishingRod::new);
+    DeferredItem<Item> ALPHA_ROD = RODS_REGISTRY.register("alpha_rod", StarcatcherFishingRod::new);
+    DeferredItem<Item> BONER_ROD = RODS_REGISTRY.register("boner_rod", StarcatcherFishingRod::new);
+    DeferredItem<Item> SKY_ROD = RODS_REGISTRY.register("sky_rod", StarcatcherFishingRod::new);
+    DeferredItem<Item> LUSH_GLOWBERRY_ROD = RODS_REGISTRY.register("lush_glowberry_rod", StarcatcherFishingRod::new);
+    DeferredItem<Item> HUMBLE_ROD = RODS_REGISTRY.register("humble_rod", StarcatcherFishingRod::new);
+
+    DeferredItem<Item> SETTINGS = ITEMS_REGISTRY.register("settings", () -> new Item(new Item.Properties()));
 
 
     //secrets
-    DeferredItem<Item> SECRET_NOTE = REGISTRY.register("secret_note", SecretNote::new);
-    DeferredItem<Item> BROKEN_BOTTLE = REGISTRY.register("broken_bottle", BrokenBottle::new);
+    DeferredItem<Item> SECRET_NOTE = ITEMS_REGISTRY.register("secret_note", SecretNote::new);
+    DeferredItem<Item> BROKEN_BOTTLE = ITEMS_REGISTRY.register("broken_bottle", BrokenBottle::new);
 
     //notes
-    DeferredItem<Item> DRIFTING_WATERLOGGED_BOTTLE = REGISTRY.register(
+    DeferredItem<Item> DRIFTING_WATERLOGGED_BOTTLE = ITEMS_REGISTRY.register(
             "drifting_waterlogged_bottle", () ->
                     new NoteContainer(SecretNote.Note.CRYSTAL_HOOK));
 
-    DeferredItem<Item> SCALDING_BOTTLE = REGISTRY.register(
+    DeferredItem<Item> SCALDING_BOTTLE = ITEMS_REGISTRY.register(
             "scalding_bottle", () ->
                     new NoteContainer(new Item.Properties().stacksTo(1).fireResistant(), SecretNote.Note.ARNWULF_1));
 
-    DeferredItem<Item> BURNING_BOTTLE = REGISTRY.register(
+    DeferredItem<Item> BURNING_BOTTLE = ITEMS_REGISTRY.register(
             "burning_bottle", () ->
                     new NoteContainer(new Item.Properties().stacksTo(1).fireResistant(), SecretNote.Note.ARNWULF_2));
 
-    DeferredItem<Item> HOPEFUL_BOTTLE = REGISTRY.register(
+    DeferredItem<Item> HOPEFUL_BOTTLE = ITEMS_REGISTRY.register(
             "hopeful_bottle", () ->
                     new NoteContainer(SecretNote.Note.HOPEFUL_NOTE));
 
-    DeferredItem<Item> HOPELESS_BOTTLE = REGISTRY.register(
+    DeferredItem<Item> HOPELESS_BOTTLE = ITEMS_REGISTRY.register(
             "hopeless_bottle", () ->
                     new NoteContainer(SecretNote.Note.HOPELESS_NOTE));
 
-    DeferredItem<Item> TRUE_BLUE_BOTTLE = REGISTRY.register(
+    DeferredItem<Item> TRUE_BLUE_BOTTLE = ITEMS_REGISTRY.register(
             "true_blue_bottle", () ->
                     new NoteContainer(SecretNote.Note.TRUE_BLUE));
 
 
+
+
+
     //cheater items
-    DeferredItem<Item> AWARD_ALL_FISHES = REGISTRY.register("award_all_fishes", AwardAllFishes::new);
-    DeferredItem<Item> AWARD_ONE_FISH = REGISTRY.register("award_one_fish", AwardOneFish::new);
-    DeferredItem<Item> REVOKE_ALL_FISHES = REGISTRY.register("revoke_all_fishes", RevokeAllFishes::new);
+    DeferredItem<Item> AWARD_ALL_FISHES = ITEMS_REGISTRY.register("award_all_fishes", AwardAllFishes::new);
+    DeferredItem<Item> AWARD_ONE_FISH = ITEMS_REGISTRY.register("award_one_fish", AwardOneFish::new);
+    DeferredItem<Item> REVOKE_ALL_FISHES = ITEMS_REGISTRY.register("revoke_all_fishes", RevokeAllFishes::new);
 
-    DeferredItem<Item> AWARD_ALL_TROPHIES = REGISTRY.register("award_all_trophies", AwardAllTrophies::new);
-    DeferredItem<Item> REVOKE_ALL_TROPHIES = REGISTRY.register("revoke_all_trophies", RevokeAllTrophies::new);
+    DeferredItem<Item> AWARD_ALL_TROPHIES = ITEMS_REGISTRY.register("award_all_trophies", AwardAllTrophies::new);
+    DeferredItem<Item> REVOKE_ALL_TROPHIES = ITEMS_REGISTRY.register("revoke_all_trophies", RevokeAllTrophies::new);
 
-    DeferredItem<Item> AWARD_ALL_SECRETS = REGISTRY.register("award_all_secrets", AwardAllSecrets::new);
-    DeferredItem<Item> REVOKE_ALL_SECRETS = REGISTRY.register("revoke_all_secrets", RevokeAllSecrets::new);
+    DeferredItem<Item> AWARD_ALL_SECRETS = ITEMS_REGISTRY.register("award_all_secrets", AwardAllSecrets::new);
+    DeferredItem<Item> REVOKE_ALL_SECRETS = ITEMS_REGISTRY.register("revoke_all_secrets", RevokeAllSecrets::new);
 
-    DeferredItem<Item> REVOKE_ALL_EXTRAS = REGISTRY.register("revoke_all_extras", RevokeAllExtras::new);
+    DeferredItem<Item> REVOKE_ALL_EXTRAS = ITEMS_REGISTRY.register("revoke_all_extras", RevokeAllExtras::new);
 
     //treasure
-    DeferredItem<Item> WATERLOGGED_SATCHEL = REGISTRY.register("waterlogged_satchel", () -> new FishingTreasure(Starcatcher.rl("treasure/waterlogged_satchel")));
-    DeferredItem<Item> TREASURE = REGISTRY.register("treasure", () -> new FishingTreasure(Starcatcher.rl("treasure/treasure")));
-    DeferredItem<Item> SCALDING_TREASURE = REGISTRY.register("scalding_treasure", () -> new FishingTreasure(Starcatcher.rl("treasure/scalding_treasure")));
+    DeferredItem<Item> WATERLOGGED_SATCHEL = ITEMS_REGISTRY.register("waterlogged_satchel", () -> new FishingTreasure(Starcatcher.rl("treasure/waterlogged_satchel")));
+    DeferredItem<Item> TREASURE = ITEMS_REGISTRY.register("treasure", () -> new FishingTreasure(Starcatcher.rl("treasure/treasure")));
+    DeferredItem<Item> SCALDING_TREASURE = ITEMS_REGISTRY.register("scalding_treasure", () -> new FishingTreasure(Starcatcher.rl("treasure/scalding_treasure")));
 
     DeferredItem<Item> FISH_BONES = basicItem("fish_bones");
 
     DeferredItem<Item> MISSINGNO = basicItem("missingno");
+    DeferredItem<Item> UNKNOWN_FISH = basicItem("unknown_fish");
 
     //
     //  ,---. ,--.         ,--.
@@ -123,6 +151,9 @@ public interface ModItems
     // |  .-' |  | .-'  `) |  | |  | \   --. .-'  `)
     // `--'   `--' `----'  `--' `--'  `----' `----'
     //
+
+    //bucket
+    DeferredItem<Item> STARCATCHED_BUCKET = ITEMS_REGISTRY.register("starcatched_bucket", StarcatchedBucket::new);
 
 
     //lake
@@ -171,6 +202,7 @@ public interface ModItems
     DeferredItem<Item> PINK_KOI = fish("pink_koi");
     DeferredItem<Item> MORGANITE = fish("morganite");
     DeferredItem<Item> ROSE_SIAMESE_FISH = fish("rose_siamese_fish");
+    DeferredItem<Item> VESANI = fish("vesani");
 
     //icy mountain
     DeferredItem<Item> CRYSTALBACK_STURGEON = fish("crystalback_sturgeon");
@@ -279,44 +311,44 @@ public interface ModItems
     private static DeferredItem<Item> fish(String name)
     {
         //chat didn't force me to write this comment
-        DeferredItem<Item> item = REGISTRY.register(name, () -> new FishItem(new Item.Properties().food(ModFoodProperties.BASIC_RAW_FISH)));
+        DeferredItem<Item> item = ITEMS_REGISTRY.register(name, () -> new FishItem(new Item.Properties().food(ModFoodProperties.BASIC_RAW_FISH)));
         fishes.add(item);
         return item;
     }
 
     private static DeferredItem<Item> trash(String name)
     {
-        DeferredItem<Item> item = REGISTRY.register(name, () -> new Item(new Item.Properties()));
+        DeferredItem<Item> item = ITEMS_REGISTRY.register(name, () -> new Item(new Item.Properties()));
         trash.add(item);
         return item;
     }
 
     private static DeferredItem<Item> fireResistantFish(String name)
     {
-        DeferredItem<Item> item = REGISTRY.register(name, () -> new FishItem(new Item.Properties().fireResistant()));
+        DeferredItem<Item> item = ITEMS_REGISTRY.register(name, () -> new FishItem(new Item.Properties().fireResistant()));
         fishes.add(item);
         return item;
     }
 
     private static DeferredItem<Item> fireResistantTrash(String name)
     {
-        DeferredItem<Item> item = REGISTRY.register(name, () -> new FishItem(new Item.Properties().fireResistant()));
+        DeferredItem<Item> item = ITEMS_REGISTRY.register(name, () -> new FishItem(new Item.Properties().fireResistant()));
         trash.add(item);
         return item;
     }
 
     private static DeferredItem<Item> singleStackItem(String name)
     {
-        return REGISTRY.register(name, () -> new Item(new Item.Properties().stacksTo(1)));
+        return ITEMS_REGISTRY.register(name, () -> new Item(new Item.Properties().stacksTo(1)));
     }
 
     private static DeferredItem<Item> singleStackItemFireResistant(String name)
     {
-        return REGISTRY.register(name, () -> new Item(new Item.Properties().stacksTo(1).fireResistant()));
+        return ITEMS_REGISTRY.register(name, () -> new Item(new Item.Properties().stacksTo(1).fireResistant()));
     }
 
     private static DeferredItem<Item> basicItem(String name)
     {
-        return REGISTRY.register(name, () -> new Item(new Item.Properties()));
+        return ITEMS_REGISTRY.register(name, () -> new Item(new Item.Properties()));
     }
 }

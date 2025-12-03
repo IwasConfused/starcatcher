@@ -34,7 +34,7 @@ public class DataGenerators
                         registries)
         );
 
-        //item models
+        //fish models
         PackOutput output = gen.getPackOutput();
         ExistingFileHelper existingFileHelper = event.getExistingFileHelper();
         gen.addProvider(event.includeServer(), new ModItemModelProvider(output, existingFileHelper));
@@ -43,7 +43,7 @@ public class DataGenerators
         BlockTagsProvider btp = new ModBlocksTagProvider(output, registries, existingFileHelper);
         gen.addProvider(event.includeServer(), btp);
 
-        //item tags
+        //fish tags
         ItemTagsProvider itp = new ModItemsTagProvider(output, registries, btp.contentsGetter(), existingFileHelper);
         gen.addProvider(event.includeServer(), itp);
 

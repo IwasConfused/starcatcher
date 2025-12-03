@@ -1,0 +1,24 @@
+package com.wdiscute.starcatcher.registry;
+
+import com.wdiscute.starcatcher.Starcatcher;
+import com.wdiscute.starcatcher.recipe.FishingRodSmithingRecipe;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.neoforge.registries.DeferredRegister;
+
+import java.util.function.Supplier;
+
+public class ModRecipes
+{
+    public static final DeferredRegister<RecipeSerializer<?>> REGISTRY =
+            DeferredRegister.create(Registries.RECIPE_SERIALIZER, Starcatcher.MOD_ID);
+
+    public static final  Supplier<RecipeSerializer<FishingRodSmithingRecipe>> FISHING_ROD_SMITHING = REGISTRY.register("fishing_rod_smithing", FishingRodSmithingRecipe.Serializer::new);
+
+
+    public static void register(IEventBus eventBus)
+    {
+        REGISTRY.register(eventBus);
+    }
+}

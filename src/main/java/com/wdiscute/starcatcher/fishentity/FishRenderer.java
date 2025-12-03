@@ -49,6 +49,13 @@ public class FishRenderer extends EntityRenderer<FishEntity>
         map.put(ModItems.WHITEVEIL.get(), new Whiteveil<>(context.bakeLayer(Whiteveil.LAYER_LOCATION)));
         map.put(ModItems.WILLOW_BREAM.get(), new WillowBream<>(context.bakeLayer(WillowBream.LAYER_LOCATION)));
         map.put(ModItems.WINTERY_PIKE.get(), new WinteryPike<>(context.bakeLayer(WinteryPike.LAYER_LOCATION)));
+        map.put(ModItems.CRYSTALBACK_TROUT.get(), new CrystalbackTrout<>(context.bakeLayer(CrystalbackTrout.LAYER_LOCATION)));
+        map.put(ModItems.EMBERGILL.get(), new Embergill<>(context.bakeLayer(Embergill.LAYER_LOCATION)));
+        map.put(ModItems.FROSTGILL_CHUB.get(), new FrostgillChub<>(context.bakeLayer(FrostgillChub.LAYER_LOCATION)));
+        map.put(ModItems.FROSTJAW_TROUT.get(), new FrostjawTrout<>(context.bakeLayer(FrostjawTrout.LAYER_LOCATION)));
+        map.put(ModItems.HOLLOWBELLY_DARTER.get(), new HollowbellyDarter<>(context.bakeLayer(HollowbellyDarter.LAYER_LOCATION)));
+        map.put(ModItems.ICETOOTH_STURGEON.get(), new IcetoothSturgeon<>(context.bakeLayer(IcetoothSturgeon.LAYER_LOCATION)));
+        map.put(ModItems.MISTBACK_CHUB.get(), new MistbackChub<>(context.bakeLayer(MistbackChub.LAYER_LOCATION)));
     }
 
     @Override
@@ -59,16 +66,6 @@ public class FishRenderer extends EntityRenderer<FishEntity>
         poseStack.scale(1.0F, -1.0F, -1.0F);
 
         poseStack.mulPose(Axis.YP.rotationDegrees(entityYaw));
-        //todo fish stuff!!!!!! DONT DELETE
-//        poseStack.pushPose();
-//
-//        poseStack.translate(0, 0.25f, 0);
-//
-//        poseStack.translate(0.0F, 1.5F, 0.0F);
-//        poseStack.scale(-1.0F, -1.0F, 1.0F);
-//        poseStack.mulPose(Axis.XP.rotationDegrees(fish.getXRot()));
-//        poseStack.mulPose(Axis.YP.rotationDegrees(90 - fish.getYRot()));
-//
 
         if (!fish.isInWater())
         {

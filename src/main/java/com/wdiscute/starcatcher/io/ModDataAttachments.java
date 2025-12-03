@@ -2,6 +2,8 @@ package com.wdiscute.starcatcher.io;
 
 import com.mojang.serialization.Codec;
 import com.wdiscute.starcatcher.Starcatcher;
+import com.wdiscute.starcatcher.tournament.Tournament;
+import com.wdiscute.starcatcher.tournament.TournamentSettings;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.bus.api.IEventBus;
@@ -9,7 +11,9 @@ import net.neoforged.neoforge.attachment.AttachmentType;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
 import java.util.function.Supplier;
 
 public class ModDataAttachments
@@ -26,38 +30,36 @@ public class ModDataAttachments
                     .build()
     );
 
+    public static final Supplier<AttachmentType<Tournament>> TOURNAMENT = ATTACHMENT_TYPES.register(
+            "tournament", () -> AttachmentType.builder(() -> Tournament.DEFAULT)
+                    .serialize(Tournament.CODEC)
+                    .sync(Tournament.STREAM_CODEC)
+                    .build()
+            );
+
     public static final Supplier<AttachmentType<List<FishCaughtCounter>>> FISHES_CAUGHT = ATTACHMENT_TYPES.register(
             "fishes_caught", () ->
-                    AttachmentType.builder(() -> List.of(new FishCaughtCounter(FishProperties.DEFAULT, 0, 0, 0, 0, 0, false, false)))
+                    AttachmentType.builder(() -> List.of(new FishCaughtCounter(Starcatcher.rl("missingno_rl"), 0, 0, 0, 0, 0, false, false)))
                             .serialize(FishCaughtCounter.LIST_CODEC)
                             .sync(FishCaughtCounter.LIST_STREAM_CODEC)
                             .copyOnDeath()
                             .build()
     );
 
-    public static final Supplier<AttachmentType<List<TrophyProperties>>> TROPHIES_CAUGHT = ATTACHMENT_TYPES.register(
+    public static final Supplier<AttachmentType<List<ResourceLocation>>> TROPHIES_CAUGHT = ATTACHMENT_TYPES.register(
             "trophies_caught", () ->
-                    AttachmentType.builder(() -> List.of(TrophyProperties.DEFAULT))
-                            .serialize(TrophyProperties.LIST_CODEC)
-                            .sync(TrophyProperties.LIST_STREAM_CODEC)
-                            .copyOnDeath()
-                            .build()
-    );
-
-    public static final Supplier<AttachmentType<List<ResourceLocation>>> TREASURES_CAUGHT = ATTACHMENT_TYPES.register(
-            "treasures_caught", () ->
-                    AttachmentType.builder(() -> List.of(Starcatcher.rl("missingno")))
+                    AttachmentType.builder(() -> List.of(Starcatcher.rl("missingno_rl")))
                             .serialize(ResourceLocation.CODEC.listOf())
                             .sync(ResourceLocation.STREAM_CODEC.apply(ByteBufCodecs.list()))
                             .copyOnDeath()
                             .build()
     );
 
-    public static final Supplier<AttachmentType<List<FishProperties>>> FISHES_NOTIFICATION = ATTACHMENT_TYPES.register(
+    public static final Supplier<AttachmentType<List<ResourceLocation>>> FISHES_NOTIFICATION = ATTACHMENT_TYPES.register(
             "fishes_notification", () ->
-                    AttachmentType.builder(() -> List.of(FishProperties.DEFAULT))
-                            .serialize(FishProperties.LIST_CODEC)
-                            .sync(FishProperties.STREAM_CODEC_LIST)
+                    AttachmentType.builder(() -> List.of(Starcatcher.rl("missingno_rl")))
+                            .serialize(ResourceLocation.CODEC.listOf())
+                            .sync(ResourceLocation.STREAM_CODEC.apply(ByteBufCodecs.list()))
                             .copyOnDeath()
                             .build()
     );

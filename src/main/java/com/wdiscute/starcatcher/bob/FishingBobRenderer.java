@@ -2,6 +2,7 @@ package com.wdiscute.starcatcher.bob;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.wdiscute.starcatcher.StarcatcherTags;
 import com.wdiscute.starcatcher.registry.ModItems;
 import com.wdiscute.starcatcher.Starcatcher;
 import com.wdiscute.starcatcher.io.ModDataAttachments;
@@ -110,7 +111,7 @@ public class FishingBobRenderer extends EntityRenderer<FishingBobEntity>
     private Vec3 getPlayerHandPos(Player player, float p_340872_, float partialTick) {
         int i = player.getMainArm() == HumanoidArm.RIGHT ? 1 : -1;
         ItemStack itemstack = player.getMainHandItem();
-        if (!itemstack.is(ModItems.ROD)) {
+        if (!itemstack.is(StarcatcherTags.RODS)) {
             i = -i;
         }
 

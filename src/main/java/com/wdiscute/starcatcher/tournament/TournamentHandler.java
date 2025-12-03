@@ -2,11 +2,15 @@ package com.wdiscute.starcatcher.tournament;
 
 import com.mojang.authlib.GameProfile;
 import com.wdiscute.starcatcher.io.FishProperties;
+import com.wdiscute.starcatcher.io.ModDataAttachments;
 import com.wdiscute.starcatcher.io.SingleStackContainer;
+import com.wdiscute.starcatcher.io.network.TournamentUpdatePayload;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.players.GameProfileCache;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.event.tick.ServerTickEvent;
+import net.neoforged.neoforge.network.PacketDistributor;
 
 import java.util.*;
 
@@ -35,12 +39,12 @@ public class TournamentHandler
 
         Tournament tournament = new Tournament(
                 uuid,
-                "Unnamed Tourney " + uuid.toString().substring(0, 5),
+                "Unnamed Tournament",
                 Tournament.Status.SETUP,
                 null,
                 new HashMap<>(),
                 new TournamentSettings(
-                        TournamentSettings.Type.SIMPLE,
+                        TournamentSettings.Scoring.SIMPLE,
                         110660,
                         0,
                         0,
@@ -53,8 +57,21 @@ public class TournamentHandler
         return tournament;
     }
 
-    public static void startTournament(Tournament tournament)
+    public static void startTournament(Player playerWhoStartedTheTournament, Tournament tournament)
     {
+        //todo test if it works :)
+        Level level = playerWhoStartedTheTournament.level();
+
+        for (Map.Entry<UUID, TournamentPlayerScore> entry : tournament.playerScores.entrySet())
+        {
+            ServerPlayer player = level.getServer().getPlayerList().getPlayer(entry.getKey());
+
+            if(player != null)
+            {
+                player.setData(ModDataAttachments.TOURNAMENT, tournament);
+            }
+        }
+
         activeTournaments.add(tournament);
         setupTournaments.remove(tournament);
         tournament.status = Tournament.Status.ACTIVE;
@@ -62,16 +79,72 @@ public class TournamentHandler
     }
 
 
-    public static void addScore(Player player, FishProperties fp, boolean perfectCatch)
+    public static void addScore(Player player, FishProperties fp, boolean perfectCatch, int size, int weight)
     {
+        if (player.level().isClientSide) return;
         for (Tournament t : activeTournaments)
         {
+            //update score
             if (t.playerScores.containsKey(player.getUUID()))
             {
-                if (t.settings.type.equals(TournamentSettings.Type.SIMPLE))
+                //simple scoring
+                if (t.settings.scoring.equals(TournamentSettings.Scoring.SIMPLE))
                 {
                     t.playerScores.get(player.getUUID()).addScore(1);
                 }
+
+                //weight scoring
+                if (t.settings.scoring.equals(TournamentSettings.Scoring.WEIGHT))
+                {
+                    t.playerScores.get(player.getUUID()).addScore(weight);
+                }
+
+                //weight scoring
+                if (t.settings.scoring.equals(TournamentSettings.Scoring.WEIGHT))
+                {
+                    t.playerScores.get(player.getUUID()).addScore(weight);
+                }
+
+
+            }
+        }
+    }
+
+    public static void setName(ServerPlayer player, UUID uuid, String name)
+    {
+        if (player.level().isClientSide) return;
+        for (Tournament t : setupTournaments)
+        {
+            if (t.tournamentUUID.equals(uuid) && player.getUUID().equals(t.owner))
+            {
+                t.name = name;
+                PacketDistributor.sendToAllPlayers(TournamentUpdatePayload.helper(player, t));
+            }
+        }
+    }
+
+    public static void setDuration(ServerPlayer player, UUID uuid, long duration)
+    {
+        if (player.level().isClientSide) return;
+        for (Tournament t : setupTournaments)
+        {
+            if (t.tournamentUUID.equals(uuid) && player.getUUID().equals(t.owner))
+            {
+                t.lastsUntil = player.getServer().getTickCount() + duration;
+                PacketDistributor.sendToAllPlayers(TournamentUpdatePayload.helper(player, t));
+            }
+        }
+    }
+
+    public static void setScoring(ServerPlayer player, UUID uuid, TournamentSettings.Scoring scoringType)
+    {
+        if (player.level().isClientSide) return;
+        for (Tournament t : setupTournaments)
+        {
+            if (t.tournamentUUID.equals(uuid) && player.getUUID().equals(t.owner))
+            {
+                t.settings.scoring = scoringType;
+                PacketDistributor.sendToAllPlayers(TournamentUpdatePayload.helper(player, t));
             }
         }
     }

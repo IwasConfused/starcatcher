@@ -20,6 +20,7 @@ import com.wdiscute.starcatcher.registry.*;
 import com.wdiscute.starcatcher.rod.FishingRodScreen;
 import com.wdiscute.starcatcher.tournament.StandScreen;
 import com.wdiscute.starcatcher.tournament.TournamentHandler;
+import com.wdiscute.starcatcher.tournament.TournamentOverlay;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
@@ -89,7 +90,7 @@ public class Starcatcher {
 
         Minecraft.getInstance().player.displayClientMessage(
                 Component.literal("")
-                        .append(Component.translatable(fp.fish().getDelegate().value().getDescriptionId()))
+                        .append(Component.translatable(fp.catchInfo().fish().getDelegate().value().getDescriptionId()))
                         .append(Component.literal(" - " + size + " - " + weight))
                 , true);
 
@@ -100,13 +101,16 @@ public class Starcatcher {
 
     public Starcatcher(IEventBus modEventBus, ModContainer modContainer) {
         ModCreativeModeTabs.register(modEventBus);
-        ModItems.REGISTRY.register(modEventBus);
+        ModItems.ITEMS_REGISTRY.register(modEventBus);
+        ModItems.RODS_REGISTRY.register(modEventBus);
+        ModItems.OTHERS_REGISTRY.register(modEventBus);
         ModBlocks.register(modEventBus);
         ModBlockEntities.register(modEventBus);
         ModDataComponents.register(modEventBus);
         ModSounds.register(modEventBus);
         ModEntities.register(modEventBus);
         ModParticles.register(modEventBus);
+        ModRecipes.register(modEventBus);
         ModMenuTypes.register(modEventBus);
         ModDataAttachments.register(modEventBus);
         ModCriterionTriggers.REGISTRY.register(modEventBus);
@@ -168,9 +172,21 @@ public class Starcatcher {
             );
 
             registrar.playToClient(
-                    TournamentDataToClientPayload.TYPE,
-                    TournamentDataToClientPayload.STREAM_CODEC,
-                    TournamentDataToClientPayload::handle
+                    TournamentUpdatePayload.TYPE,
+                    TournamentUpdatePayload.STREAM_CODEC,
+                    TournamentUpdatePayload::handle
+            );
+
+            registrar.playToServer(
+                    TournamentNameChangePayload.TYPE,
+                    TournamentNameChangePayload.STREAM_CODEC,
+                    TournamentNameChangePayload::handle
+            );
+
+            registrar.playToServer(
+                    TournamentScoringChangePayload.TYPE,
+                    TournamentScoringChangePayload.STREAM_CODEC,
+                    TournamentScoringChangePayload::handle
             );
         }
 
@@ -302,6 +318,7 @@ public class Starcatcher {
         @SubscribeEvent
         public static void FishSpotterLayer(RegisterGuiLayersEvent event) {
             event.registerAboveAll(Starcatcher.rl("fish_tracker"), new FishTrackerLayer());
+            event.registerAboveAll(Starcatcher.rl("tournament"), new TournamentOverlay());
         }
 
         @SubscribeEvent
@@ -339,6 +356,13 @@ public class Starcatcher {
             event.registerLayerDefinition(Whiteveil.LAYER_LOCATION, Whiteveil::createBodyLayer);
             event.registerLayerDefinition(WillowBream.LAYER_LOCATION, WillowBream::createBodyLayer);
             event.registerLayerDefinition(WinteryPike.LAYER_LOCATION, WinteryPike::createBodyLayer);
+            event.registerLayerDefinition(CrystalbackTrout.LAYER_LOCATION, CrystalbackTrout::createBodyLayer);
+            event.registerLayerDefinition(Embergill.LAYER_LOCATION, Embergill::createBodyLayer);
+            event.registerLayerDefinition(FrostgillChub.LAYER_LOCATION, FrostgillChub::createBodyLayer);
+            event.registerLayerDefinition(FrostjawTrout.LAYER_LOCATION, FrostjawTrout::createBodyLayer);
+            event.registerLayerDefinition(HollowbellyDarter.LAYER_LOCATION, HollowbellyDarter::createBodyLayer);
+            event.registerLayerDefinition(IcetoothSturgeon.LAYER_LOCATION, IcetoothSturgeon::createBodyLayer);
+            event.registerLayerDefinition(MistbackChub.LAYER_LOCATION, MistbackChub::createBodyLayer);
         }
 
     }

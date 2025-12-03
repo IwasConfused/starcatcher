@@ -1,5 +1,6 @@
 package com.wdiscute.starcatcher.rod;
 
+import com.wdiscute.starcatcher.StarcatcherTags;
 import com.wdiscute.starcatcher.io.ModDataComponents;
 import com.wdiscute.starcatcher.bob.FishingBobEntity;
 import com.wdiscute.starcatcher.registry.ModItems;
@@ -38,11 +39,9 @@ public class StarcatcherFishingRod extends Item implements MenuProvider
         );
     }
 
-
-    //comment - kuko010
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand)
     {
-        if (!player.getItemInHand(hand).is(ModItems.ROD))
+        if (!player.getItemInHand(hand).is(StarcatcherTags.RODS))
             return InteractionResultHolder.pass(player.getItemInHand(hand));
 
         if (player.isCrouching())
@@ -114,7 +113,7 @@ public class StarcatcherFishingRod extends Item implements MenuProvider
     @Override
     public @Nullable AbstractContainerMenu createMenu(int i, Inventory inventory, Player player)
     {
-        if (player.getMainHandItem().is(ModItems.ROD))
+        if (player.getMainHandItem().is(StarcatcherTags.RODS))
             return new FishingRodMenu(i, inventory, player.getMainHandItem());
         else
             return new FishingRodMenu(i, inventory, player.getOffhandItem());

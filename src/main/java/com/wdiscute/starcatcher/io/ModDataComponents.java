@@ -1,5 +1,6 @@
 package com.wdiscute.starcatcher.io;
 
+import com.mojang.serialization.Codec;
 import com.wdiscute.starcatcher.Starcatcher;
 import com.wdiscute.starcatcher.items.ColorfulBobber;
 import com.wdiscute.starcatcher.secretnotes.SecretNote;
@@ -17,6 +18,21 @@ public class ModDataComponents
             DeferredRegister.createDataComponents(Registries.DATA_COMPONENT_TYPE, Starcatcher.MOD_ID);
 
 
+    //smithing templates
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Boolean>> NETHERITE_UPGRADE = register(
+            "netherite_upgraded",
+            builder -> builder.persistent(Codec.BOOL));
+
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<SingleStackContainer>> BOBBER_SKIN = register(
+            "bobber_skin",
+            builder -> builder.persistent(SingleStackContainer.CODEC));
+
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<SingleStackContainer>> PARTICLES_SKIN = register(
+            "particles",
+            builder -> builder.persistent(SingleStackContainer.CODEC));
+
+
+    //rod menu
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<SingleStackContainer>> BOBBER = register(
             "bobber",
             builder -> builder.persistent(SingleStackContainer.CODEC));
@@ -28,6 +44,7 @@ public class ModDataComponents
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<SingleStackContainer>> HOOK = register(
             "hook",
             builder -> builder.persistent(SingleStackContainer.CODEC));
+
 
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<ColorfulBobber.BobberColor>> BOBBER_COLOR = register(
             "color",

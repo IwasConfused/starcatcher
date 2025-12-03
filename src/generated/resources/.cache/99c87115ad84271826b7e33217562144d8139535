@@ -1,5 +1,6 @@
-// 1.21.1	2025-11-26T16:28:37.4503746	Item Models: starcatcher
+// 1.21.1	2025-12-03T11:20:39.5337775	Item Models: starcatcher
 190248e04c8aaf81e80cc0d828c1b3f9addf4641 assets/starcatcher/models/item/agave_bream.json
+2acefa5cf3f98fbcb50f2258e2777ac75275271d assets/starcatcher/models/item/almighty_worm.json
 033477fbb520065b97801242f6e7c58288fea05d assets/starcatcher/models/item/amethystback.json
 c9d191032ac9251c4e385286728bcf4b6bb965b2 assets/starcatcher/models/item/aquamarine_pike.json
 70cd9103418171fc70d6792227ba0363d6cfe066 assets/starcatcher/models/item/aurora.json
@@ -127,6 +128,7 @@ f0fd4696bb77c46600fcd8b72e54bdda3fddef98 assets/starcatcher/models/item/shiny_ho
 0383069604e5c523a16837d94d99b6d9fc56e7c5 assets/starcatcher/models/item/split_hook.json
 a0b1b4a48004bd29218d918496264e80c07e32da assets/starcatcher/models/item/sporefish.json
 bc1781efa27b6d449e1f9a5df14bc14ef2b9eae1 assets/starcatcher/models/item/stabilizing_hook.json
+460627702b8a0b28c92c9cee96cdb56435885cc4 assets/starcatcher/models/item/starcatched_bucket.json
 ce5e10dc8fc86156b332f5aa3c844a4d4a9120e3 assets/starcatcher/models/item/starcatcher_guide.json
 3918c4ce228ba7e6b2dbfdb8761ee542d9822561 assets/starcatcher/models/item/starcatcher_twine.json
 c60f4d91d247f92cdef24770d406e46d63c06d97 assets/starcatcher/models/item/steady_bobber.json
@@ -143,6 +145,8 @@ ae1d6faf022894dbd8acdc2bb974dfa4ee1a7d60 assets/starcatcher/models/item/trophy_b
 4bbb418193a946c61d97c75767aeeccaf4ce3697 assets/starcatcher/models/item/trophy_silver.json
 6f13c844b940f4cd884b98b5493ffc4d7686a988 assets/starcatcher/models/item/true_blue_bottle.json
 0d146fe6435760833a0678c8ffda95f73a139b12 assets/starcatcher/models/item/twilight_koi.json
+c9e4806b81ff40a7424f42dcc56ee59e8736cabd assets/starcatcher/models/item/unknown_fish.json
+8e7e929a1bb8b539880cf10ea60c810b48071a69 assets/starcatcher/models/item/vesani.json
 38d92c7bf5f06561e97a46df04099c8c0354ec7d assets/starcatcher/models/item/vivid_moss.json
 f52bb9144ddc25b53baa049f5ae12af3f707a9bb assets/starcatcher/models/item/voidbiter.json
 9b811446384ffb617b1d650af26591b19e6c112f assets/starcatcher/models/item/ward.json

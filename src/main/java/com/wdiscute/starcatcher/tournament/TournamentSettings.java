@@ -14,20 +14,27 @@ import java.util.List;
 
 public class TournamentSettings
 {
-    public Type type;
-    public int duration;
+    public Scoring scoring;
+    public long duration;
     public float perfectCatchMultiplier;
     public int missPenalty;
     public List<SingleStackContainer> entryCost;
 
+    public static final TournamentSettings DEFAULT = new TournamentSettings(
+            TournamentSettings.Scoring.SIMPLE,
+            0,
+            0,
+            0,
+            List.of());
+
     public boolean canSignUp(Player player)
     {
         boolean canSignup = true;
-        if(!entryCost.isEmpty())
+        if (!entryCost.isEmpty())
         {
             for (SingleStackContainer ssc : entryCost)
             {
-                if(!player.getInventory().hasAnyMatching(is -> is.is(ssc.stack().getItem()) && is.getCount() >= ssc.stack().getCount()))
+                if (!player.getInventory().hasAnyMatching(is -> is.is(ssc.stack().getItem()) && is.getCount() >= ssc.stack().getCount()))
                     canSignup = false;
             }
         }
@@ -44,9 +51,9 @@ public class TournamentSettings
         return missPenalty;
     }
 
-    public Type getType()
+    public Scoring getScoring()
     {
-        return type;
+        return scoring;
     }
 
     public List<SingleStackContainer> getEntryCost()
@@ -54,17 +61,20 @@ public class TournamentSettings
         return entryCost;
     }
 
-    public int getDuration()
+    public long getDuration()
     {
         return duration;
     }
 
-    public enum Type implements StringRepresentable
+    public enum Scoring implements StringRepresentable
     {
-        SIMPLE("simple"),
-        SCORE_BASED("score_based");
+        SIMPLE("gui.starcatcher.tournament.scoring.simple"),
+        WEIGHT("gui.starcatcher.tournament.scoring.weight"),
+        RARITY("gui.starcatcher.tournament.scoring.rarity"),
+        GOLDEN("gui.starcatcher.tournament.scoring.golden"),
+        ADVANCED("gui.starcatcher.tournament.scoring.advanced");
 
-        Type(String name)
+        Scoring(String name)
         {
             this.key = name;
         }
@@ -74,8 +84,8 @@ public class TournamentSettings
             return this.key;
         }
 
-        public static final Codec<Type> CODEC = StringRepresentable.fromEnum(Type::values);
-        public static final StreamCodec<RegistryFriendlyByteBuf, Type> STREAM_CODEC = NeoForgeStreamCodecs.enumCodec(Type.class);
+        public static final Codec<Scoring> CODEC = StringRepresentable.fromEnum(Scoring::values);
+        public static final StreamCodec<RegistryFriendlyByteBuf, Scoring> STREAM_CODEC = NeoForgeStreamCodecs.enumCodec(Scoring.class);
         private final String key;
 
         @Override
@@ -83,11 +93,24 @@ public class TournamentSettings
         {
             return this.key;
         }
+
+        private static final Scoring[] vals = values();
+
+        public Scoring previous()
+        {
+            if (this.ordinal() == 0) return vals[vals.length - 1];
+            return vals[(this.ordinal() - 1) % vals.length];
+        }
+
+        public Scoring next()
+        {
+            return vals[(this.ordinal() + 1) % vals.length];
+        }
     }
 
-    public TournamentSettings(Type type, int duration, float perfectCatchMultiplier, int missPenalty, List<SingleStackContainer> entryCost)
+    public TournamentSettings(Scoring type, long duration, float perfectCatchMultiplier, int missPenalty, List<SingleStackContainer> entryCost)
     {
-        this.type = type;
+        this.scoring = type;
         this.duration = duration;
         this.perfectCatchMultiplier = perfectCatchMultiplier;
         this.missPenalty = missPenalty;
@@ -96,8 +119,8 @@ public class TournamentSettings
 
     public static final Codec<TournamentSettings> CODEC = RecordCodecBuilder.create(instance ->
             instance.group(
-                    Type.CODEC.optionalFieldOf("type", Type.SIMPLE).forGetter(TournamentSettings::getType),
-                    Codec.INT.optionalFieldOf("duration", 0).forGetter(TournamentSettings::getDuration),
+                    Scoring.CODEC.optionalFieldOf("type", Scoring.SIMPLE).forGetter(TournamentSettings::getScoring),
+                    Codec.LONG.optionalFieldOf("duration", 0L).forGetter(TournamentSettings::getDuration),
                     Codec.FLOAT.optionalFieldOf("perfect_catch_multiplier", 0.0f).forGetter(TournamentSettings::getPerfectCatchMultiplier),
                     Codec.INT.optionalFieldOf("miss_penalty", 0).forGetter(TournamentSettings::getMissPenalty),
                     SingleStackContainer.LIST_CODEC.optionalFieldOf("", List.of()).forGetter(TournamentSettings::getEntryCost)
@@ -105,8 +128,8 @@ public class TournamentSettings
     );
 
     public static final StreamCodec<RegistryFriendlyByteBuf, TournamentSettings> STREAM_CODEC = StreamCodec.composite(
-            Type.STREAM_CODEC, TournamentSettings::getType,
-            ByteBufCodecs.INT, TournamentSettings::getDuration,
+            Scoring.STREAM_CODEC, TournamentSettings::getScoring,
+            ByteBufCodecs.VAR_LONG, TournamentSettings::getDuration,
             ByteBufCodecs.FLOAT, TournamentSettings::getPerfectCatchMultiplier,
             ByteBufCodecs.VAR_INT, TournamentSettings::getMissPenalty,
             SingleStackContainer.STREAM_CODEC_LIST, TournamentSettings::getEntryCost,

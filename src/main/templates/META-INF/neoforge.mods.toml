@@ -1,0 +1,51 @@
+modLoader="javafml" #mandatory
+
+loaderVersion="[2,]" #mandatory
+
+license="MIT"
+
+issueTrackerURL="https://discord.gg/WsuFsGSegD" #optional
+
+[[mods]] #mandatory
+modId="starcatcher"
+version="${mod_version}"
+displayName="${mod_name}"
+displayURL="http://curseforge.com/minecraft/mc-mods/starcatcher"
+logoFile="starcatcher 256x256.png" #optional
+mod_authors="${mod_authors}" #optional
+description='''A fishing mod with lots of fishes to collect!
+Big thank you to Kapitencraft, Quarris, Kaupenjoe's discord community and Neoforge discord community!
+
+Credits:
+wdiscute - Main Developer
+
+Nikdo53 - Fishing minigame art, tweaked all fish sprites
+
+ScribbleDemon - Guide book, fish spotter and "Fish Caught!" notification art
+
+DayTheMagpie - Fish Trophies Models
+
+Spring - 3d Fish models
+'''
+
+[[mixins]]
+config="starcatcher.mixins.json"
+
+# In neoforge.mods.toml:
+[[accessTransformers]]
+file="META-INF/accesstransformer.cfg"
+
+[[dependencies.starcatcher]] #optional
+modId="neoforge" #mandatory
+type="required" #mandatory
+versionRange="${neo_version_range}" #mandatory
+ordering="AFTER"
+side="BOTH"
+
+# Here's another dependency
+[[dependencies.starcatcher]]
+modId="minecraft"
+type="required"
+versionRange="${minecraft_version_range}"
+ordering="AFTER"
+side="BOTH"

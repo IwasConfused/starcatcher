@@ -1,20 +1,16 @@
 package com.wdiscute.starcatcher.blocks;
 
-import com.mojang.authlib.GameProfile;
-import com.wdiscute.starcatcher.io.SingleStackContainer;
-import com.wdiscute.starcatcher.io.network.TournamentDataToClientPayload;
+import com.wdiscute.starcatcher.io.network.TournamentUpdatePayload;
 import com.wdiscute.starcatcher.tournament.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.server.players.GameProfileCache;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.*;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -30,7 +26,6 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.neoforged.fml.ISystemReportExtender;
 import net.neoforged.neoforge.network.PacketDistributor;
 import org.jetbrains.annotations.Nullable;
 
@@ -57,12 +52,7 @@ public class StandBlock extends Block implements EntityBlock
             if (sbe.tournament == null)
             {
                 sbe.tournament = TournamentHandler.getTournament(sbe.uuid);
-                System.out.println(sbe.uuid);
             }
-
-            player.openMenu(new SimpleMenuProvider(sbe, Component.empty()), pos);
-
-            List<GameProfile> list = new ArrayList<>();
 
             if(sbe.tournament.owner == null)
             {
@@ -70,19 +60,10 @@ public class StandBlock extends Block implements EntityBlock
                 sbe.tournament.playerScores.put(player.getUUID(), TournamentPlayerScore.empty());
             }
 
-            for (var entry : sbe.tournament.getPlayerScores().entrySet())
-            {
-                GameProfileCache profileCache = level.getServer().getProfileCache();
-                if (profileCache != null)
-                {
-                    Optional<GameProfile> gameProfile = profileCache.get(entry.getKey());
-                    gameProfile.ifPresent(list::add);
-                }
-            }
+            player.openMenu(new SimpleMenuProvider(sbe, Component.empty()), pos);
 
-            PacketDistributor.sendToPlayer(
-                    ((ServerPlayer) player),
-                    new TournamentDataToClientPayload(list, sbe.tournament));
+            //send payload to client with tournament info
+            PacketDistributor.sendToPlayer(((ServerPlayer) player), TournamentUpdatePayload.helper(player, sbe.tournament));
         }
 
         return InteractionResult.SUCCESS;

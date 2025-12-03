@@ -25,9 +25,19 @@ public class Tournament
     public List<SingleStackContainer> lootPool;
     public long lastsUntil;
 
+    public static final Tournament DEFAULT = new Tournament(
+            UUID.randomUUID(),
+            "missingno",
+            Tournament.Status.SETUP,
+            UUID.randomUUID(),
+            new HashMap<>(),
+            TournamentSettings.DEFAULT,
+            List.of(),
+            0);
+
     public static final Codec<Tournament> CODEC = RecordCodecBuilder.create(instance ->
             instance.group(
-                    UUIDUtil.CODEC.fieldOf("tournament_uuid").forGetter(Tournament::getOwner),
+                    UUIDUtil.CODEC.fieldOf("tournament_uuid").forGetter(Tournament::getTournamentUUID),
                     Codec.STRING.optionalFieldOf("name", "Unnamed Tournament").forGetter(Tournament::getName),
                     Status.CODEC.fieldOf("status").forGetter(Tournament::getStatus),
                     UUIDUtil.CODEC.fieldOf("owner").forGetter(Tournament::getOwner),

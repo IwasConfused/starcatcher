@@ -34,11 +34,11 @@ public class StarcatcherEmiRecipe implements EmiRecipe
 
     public StarcatcherEmiRecipe(ResourceLocation id, FishProperties fp)
     {
-        this.output = List.of(EmiStack.of(fp.fish().value()));
+        this.output = List.of(EmiStack.of(fp.catchInfo().fish().value()));
         this.id = id;
         this.fp = fp;
         this.tp = null;
-        this.is = new ItemStack(fp.fish());
+        this.is = new ItemStack(fp.catchInfo().fish());
         if (!this.fp.customName().equals(FishProperties.DEFAULT.customName()))
             is.set(DataComponents.ITEM_NAME, Component.translatable(fp.customName()));
 
@@ -46,12 +46,12 @@ public class StarcatcherEmiRecipe implements EmiRecipe
 
     public StarcatcherEmiRecipe(ResourceLocation id, TrophyProperties tp)
     {
-        this.output = List.of(EmiStack.of(tp.fp().fish().value()));
+        this.output = List.of(EmiStack.of(tp.fp().catchInfo().fish().value()));
         this.id = id;
         this.fp = tp.fp();
         this.tp = tp;
 
-        this.is = new ItemStack(fp.fish());
+        this.is = new ItemStack(fp.catchInfo().fish());
 
         if (!this.tp.customName().equals(TrophyProperties.DEFAULT.customName()) && tp.trophyType().equals(TrophyProperties.TrophyType.TROPHY))
             is.set(DataComponents.ITEM_NAME, Component.translatable(tp.customName()));

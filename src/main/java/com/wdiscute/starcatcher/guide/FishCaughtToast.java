@@ -27,7 +27,7 @@ public class FishCaughtToast implements Toast
     public FishCaughtToast(FishProperties fp)
     {
 
-        this.is = new ItemStack(fp.fish());
+        this.is = new ItemStack(fp.catchInfo().fish());
         this.title = Component.translatable("gui.starcatcher.toast.fish_caught");
         this.description =  is.getHoverName().getString();
     }

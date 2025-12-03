@@ -49,88 +49,46 @@ public class FishAndTrophiesPropertiesProvider extends DatapackBuiltinEntriesPro
     //region fps
     public static final List<FishProperties> FPS = new ArrayList<>(List.of(
 
-            //example fish datagen
-//                    fish(BuiltInRegistries.ITEM.wrapAsHolder(Items.COD))
-//                            .withCustomName("super_rare_cod_of_doom")
-//                            .withDaytime(FishProperties.Daytime.MIDNIGHT)
-//                            .withWeather(FishProperties.Weather.THUNDER)
-//                            .withRarity(FishProperties.Rarity.LEGENDARY)
-//                            .withSkipMinigame(true)
-//                            .withBaseChance(10)
-//                            .withHasGuideEntry(false)
-//                            .withMustBeCaughtAboveY(20)
-//                            .withMustBeCaughtBelowY(30)
-//
-//                            .withWorldRestrictions(FishProperties.WorldRestrictions.DEFAULT
-//                                    .withDims(Level.OVERWORLD.location())
-//                                    .withDimsBlacklist(Level.END.location())
-//                                    .withBiomes(Biomes.OLD_GROWTH_PINE_TAIGA.location())
-//                                    .withBiomesTags(BiomeTags.IS_JUNGLE.location())
-//                                    .withBiomesBlacklist(Biomes.BAMBOO_JUNGLE.location())
-//                                    .withBiomesBlacklistTags(BiomeTags.HAS_ANCIENT_CITY.location())
-//                                    .withFluids(ResourceLocation.fromNamespaceAndPath("coolmod", "magic_fluid"))
-//                            )
-//
-//                            .withBaitRestrictions(FishProperties.BaitRestrictions.DEFAULT
-//                                    .withCorrectBait(BuiltInRegistries.ITEM.getKey(Items.WHEAT))
-//                                    .withCorrectBobber(BuiltInRegistries.ITEM.getKey(Items.DIAMOND))
-//                                    .withIncorrectBaits(ModItems.STARCATCHER_TWINE.getId())
-//                                    .withMustHaveCorrectBait(true)
-//                                    .withConsumesBait(false)
-//                                    .withCorrectBaitChanceAdded(100)
-//                            )
-//
-//                            .withDifficulty(
-//                                    new FishProperties.Difficulty(
-//                                            8, 21, 26, 5, 2, false, false, true, true,
-//                                            new FishProperties.Treasure(
-//                                                    true,
-//                                                    BuiltInRegistries.ITEM.getKey(Items.DIAMOND),
-//                                                    20),
-//                                            false
-//                                    )
-//                            )
-//                    ,
+            //all
+            overworldFish(fromRL("minecraft", "creeper_head"))
+                    .withSizeAndWeight(FishProperties.SizeAndWeight.NONE)
+                    .withBaseChance(20)
+                    .withBaitRestrictions(
+                            FishProperties.BaitRestrictions.DEFAULT
+                                    .withCorrectBobber(Starcatcher.rl("creeper_bobber")))
+                    .withAlwaysSpawnEntity(true)
+                    .withEntityToSpawn(rl("minecraft", "creeper"))
+                    .withOverrideMinigameItem(true)
+                    .withItemToOverrideWith(ModItems.UNKNOWN_FISH)
+                    .withSkipMinigame(true),
 
-
-            fish(BuiltInRegistries.ITEM.wrapAsHolder(Items.PUFFERFISH)).withCustomName("Super Cool Pufferfish")
-                    .withBaseChance(2)
-                    .withSizeAndWeight(new FishProperties.SizeAndWeight(100, 10, 1000, 100, 10, 20))
-                    .withRarity(FishProperties.Rarity.LEGENDARY)
-                    .withWorldRestrictions(FishProperties.WorldRestrictions.DEFAULT.withDims(Level.OVERWORLD.location())
-                            .withDimsBlacklist(Level.NETHER.location())
-                            .withBiomes(Biomes.BADLANDS.location())
-                            .withBiomesTags(BiomeTags.IS_JUNGLE.location())
-                            .withBiomesBlacklist(Biomes.SPARSE_JUNGLE.location())
-                            .withBiomesBlacklist(BiomeTags.IS_BEACH.location())
-                            .withFluids(ResourceLocation.withDefaultNamespace("lava"))
-                            .withMustBeCaughtAboveY(40)
-                            .withMustBeCaughtBelowY(70))
-                    .withBaitRestrictions(FishProperties.BaitRestrictions.DEFAULT.withCorrectBobber(ModItems.CLEAR_BOBBER.getId())
-                            .withCorrectBait(ModItems.CHERRY_BAIT.getId())
-                            .withConsumesBait(false)
-                            .withCorrectBaitChanceAdded(9)
-                            .withIncorrectBaits(ModItems.LUSH_BAIT.getId())
-                            .withMustHaveCorrectBait(true))
-                    .withDifficulty(new FishProperties.Difficulty(
-                            10, 21, 2, 7, 2,
-                            new FishProperties.Difficulty.Markers(true, false, true, false),
-                            new FishProperties.Treasure(true, Starcatcher.rl("cool_item"), 13),
-                            new FishProperties.Difficulty.Extras(false, true, true)))
-                    .withDaytime(FishProperties.Daytime.MIDNIGHT)
-                    .withWeather(FishProperties.Weather.THUNDER)
-                    .withSkipMinigame(true)
-                    .withHasGuideEntry(false),
+            overworldSurfaceFish(fromRL("minecraft", "rotten_flesh"))
+                    .withSizeAndWeight(FishProperties.SizeAndWeight.NONE)
+                    .withBaseChance(1)
+                    .withDaytime(FishProperties.Daytime.NIGHT)
+                    .withWeather(FishProperties.Weather.RAIN)
+                    .withHasGuideEntry(false)
+                    .withAlwaysSpawnEntity(true)
+                    .withEntityToSpawn(rl("minecraft", "drowned"))
+                    .withOverrideMinigameItem(true)
+                    .withItemToOverrideWith(ModItems.UNKNOWN_FISH)
+                    .withSkipMinigame(true),
 
 
             //lakes
             overworldLakeFish(ModItems.OBIDONTIEE)
                     .withSizeAndWeight(FishProperties.sw(17.7f, 5, 1200, 200, 20, 33)),
 
+            overworldLakeFish(ModItems.MORGANITE)
+                    .withSeasons(Seasons.SUMMER)
+                    .withSizeAndWeight(FishProperties.sw(120, 80, 7000, 1000, 10, 20))
+                    .withWeather(FishProperties.Weather.RAIN)
+                    .withRarity(FishProperties.Rarity.UNCOMMON)
+                    .withDifficulty(FishProperties.Difficulty.MEDIUM),
+
             overworldLakeFish(ModItems.SILVERVEIL_PERCH)
                     .withSeasons(Seasons.SPRING, Seasons.WINTER)
                     .withSizeAndWeight(FishProperties.sw(27.0f, 11, 500, 352, 5, 36))
-                    .withWeather(FishProperties.Weather.RAIN)
                     .withRarity(FishProperties.Rarity.UNCOMMON)
                     .withDifficulty(FishProperties.Difficulty.EVERYTHING_VANISHING),
 
@@ -298,6 +256,12 @@ public class FishAndTrophiesPropertiesProvider extends DatapackBuiltinEntriesPro
 
 
             //cherry grove
+            overworldCherryGroveFish(ModItems.VESANI)
+                    .withSeasons(Seasons.SPRING, Seasons.EARLY_SUMMER)
+                    .withSizeAndWeight(FishProperties.sw(10, 3, 67, 0, 10, 0))
+                    .withRarity(FishProperties.Rarity.LEGENDARY)
+                    .withDifficulty(FishProperties.Difficulty.VESANI),
+
             overworldCherryGroveFish(ModItems.BLOSSOMFISH)
                     .withSeasons(Seasons.SPRING)
                     .withSizeAndWeight(FishProperties.sw(60, 20, 6000, 4000, 10, 20))
@@ -313,12 +277,6 @@ public class FishAndTrophiesPropertiesProvider extends DatapackBuiltinEntriesPro
                     .withSeasons(Seasons.SPRING)
                     .withSizeAndWeight(FishProperties.sw(60, 20, 3000, 2000, 10, 20))
                     .withWeather(FishProperties.Weather.RAIN),
-
-            overworldCherryGroveFish(ModItems.MORGANITE)
-                    .withSeasons(Seasons.SUMMER)
-                    .withSizeAndWeight(FishProperties.sw(120, 80, 7000, 1000, 10, 20))
-                    .withRarity(FishProperties.Rarity.UNCOMMON)
-                    .withDifficulty(FishProperties.Difficulty.MEDIUM),
 
             overworldCherryGroveFish(ModItems.ROSE_SIAMESE_FISH)
                     .withSeasons(Seasons.SPRING, Seasons.AUTUMN)
@@ -424,7 +382,8 @@ public class FishAndTrophiesPropertiesProvider extends DatapackBuiltinEntriesPro
 
 
             //ocean
-            overworldOceanFish(BuiltInRegistries.ITEM.wrapAsHolder(Items.COD)).withDifficulty(FishProperties.Difficulty.EASY_MOVING)
+            overworldOceanFish(BuiltInRegistries.ITEM.wrapAsHolder(Items.COD))
+                    .withDifficulty(FishProperties.Difficulty.EASY_MOVING)
                     .withSizeAndWeight(FishProperties.sw(80, 40, 12000, 7000, 10, 20)),
 
             overworldOceanFish(BuiltInRegistries.ITEM.wrapAsHolder(Items.PUFFERFISH))
@@ -469,7 +428,8 @@ public class FishAndTrophiesPropertiesProvider extends DatapackBuiltinEntriesPro
                     .withRarity(FishProperties.Rarity.UNCOMMON)
                     .withDifficulty(FishProperties.Difficulty.SINGLE_BIG_FAST_NO_DECAY_VANISHING),
 
-            overworldOceanFish(ModItems.WATERLOGGED_BOTTLE).withBaseChance(1)
+            overworldOceanFish(ModItems.WATERLOGGED_BOTTLE)
+                    .withBaseChance(1)
                     .withHasGuideEntry(false)
                     .withSkipMinigame(true),
 
@@ -531,7 +491,7 @@ public class FishAndTrophiesPropertiesProvider extends DatapackBuiltinEntriesPro
                     .withSizeAndWeight(FishProperties.sw(300, 150, 16000, 7000, 10, 20))
                     .withDifficulty(FishProperties.Difficulty.SINGLE_BIG_FAST)
                     .withRarity(FishProperties.Rarity.EPIC)
-                    .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD_CAVES.withMustBeCaughtBelowY(-20)
+                    .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD_STONE_CAVES.withMustBeCaughtBelowY(-20)
                             .withMustBeCaughtAboveY(-40)),
 
             //dripstone caves
@@ -542,7 +502,7 @@ public class FishAndTrophiesPropertiesProvider extends DatapackBuiltinEntriesPro
 
             overworldDripstoneCavesFish(ModItems.DRIPFIN)
                     .withSizeAndWeight(FishProperties.sw(300, 150, 16000, 7000, 10, 20))
-                    .withDifficulty(FishProperties.Difficulty.EASY_VANISHING),
+                    .withDifficulty(FishProperties.Difficulty.EASY_MOVING),
 
             overworldDripstoneCavesFish(ModItems.YELLOWSTONE_FISH)
                     .withSizeAndWeight(FishProperties.sw(600, 150, 22000, 7000, 10, 20))
@@ -649,7 +609,7 @@ public class FishAndTrophiesPropertiesProvider extends DatapackBuiltinEntriesPro
 
             overworldUndergroundLava(ModItems.OBSIDIAN_CRAB)
                     .withSizeAndWeight(FishProperties.sw(15, 8, 700, 300, 10, 20))
-                    .withDifficulty(FishProperties.Difficulty.EASY_VANISHING)
+                    .withDifficulty(FishProperties.Difficulty.EASY_MOVING)
                     .withRarity(FishProperties.Rarity.UNCOMMON),
 
             //overworld deepslate lava
@@ -739,7 +699,7 @@ public class FishAndTrophiesPropertiesProvider extends DatapackBuiltinEntriesPro
             //list to store all fishes from other mods for compatibility, alongside the modid so it
             //datagens with the neoforge restrictions modifier
 
-            //example of a custom fish using starcatcher's pink_koi as a base for the item
+            //example of a custom fish using starcatcher's pink_koi as a base for the fish
 
 //            FishProperties.DEFAULT
 //                    .withFish(baseItem("starcatcher", "pink_koi"))
@@ -1591,7 +1551,7 @@ public class FishAndTrophiesPropertiesProvider extends DatapackBuiltinEntriesPro
                     .withRarity(FishProperties.Rarity.UNCOMMON)
                     .withDifficulty(FishProperties.Difficulty.HARD_MOVING)
                     .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD
-                            .withBiomesTags(ResourceLocation.fromNamespaceAndPath("sullysmod", "biome/piranha_spawn_in")))
+                            .withBiomesTags(rl("sullysmod", "biome/piranha_spawn_in")))
                     .withMod("sullysmod"),
 
             fish(fromRL("sullysmod", "lanternfish"))
@@ -1599,12 +1559,336 @@ public class FishAndTrophiesPropertiesProvider extends DatapackBuiltinEntriesPro
                     .withRarity(FishProperties.Rarity.UNCOMMON)
                     .withDifficulty(FishProperties.Difficulty.HARD)
                     .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD
-                            .withBiomesTags(ResourceLocation.fromNamespaceAndPath("sullysmod", "biome/lanternfish_spawn_in")))
-                    .withMod("sullysmod")
-
-
+                            .withBiomesTags(rl("sullysmod", "biome/lanternfish_spawn_in")))
+                    .withMod("sullysmod"),
             //endregion Sullys Mod
 
+            //region Upgrade Aquatic
+            //
+            //,--. ,--.                                     ,--.               ,---.                               ,--.   ,--.
+            //|  | |  |  ,---.   ,---.  ,--.--.  ,--,--.  ,-|  |  ,---.       /  O  \   ,---.  ,--.,--.  ,--,--. ,-'  '-. `--'  ,---.
+            //|  | |  | | .-. | | .-. | |  .--' ' ,-.  | ' .-. | | .-. :     |  .-.  | | .-. | |  ||  | ' ,-.  | '-.  .-' ,--. | .--'
+            //'  '-'  ' | '-' ' ' '-' ' |  |    \ '-'  | \ `-' | \   --.     |  | |  | ' '-' | '  ''  ' \ '-'  |   |  |   |  | \ `--.
+            // `-----'  |  |-'  .`-  /  `--'     `--`--'  `---'   `----'     `--' `--'  `-|  |  `----'   `--`--'   `--'   `--'  `---'
+            //          `--'    `---'                                                     `--'
+
+            fish(fromRL("upgrade_aquatic", "pike"))
+                    .withSizeAndWeight(FishProperties.sw(75, 20, 5000, 3000, 10, 20))
+                    .withDifficulty(FishProperties.Difficulty.EASY_MOVING)
+                    .withRarity(FishProperties.Rarity.COMMON)
+                    .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD
+                            .withBiomesTags(rl("upgrade_aquatic", "biome/has_spawn/pike")))
+                    .withMod("upgrade_aquatic"),
+
+            fish(fromRL("upgrade_aquatic", "perch"))
+                    .withSizeAndWeight(FishProperties.sw(27.0f, 11, 500, 352, 5, 36))
+                    .withDifficulty(FishProperties.Difficulty.EASY_MOVING)
+                    .withRarity(FishProperties.Rarity.COMMON)
+                    .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD
+                            .withBiomesTags(rl("upgrade_aquatic", "biome/has_spawn/perch")))
+                    .withMod("upgrade_aquatic"),
+
+            fish(fromRL("upgrade_aquatic", "lionfish"))
+                    .withSizeAndWeight(FishProperties.sw(27.0f, 11, 500, 352, 5, 36))
+                    .withDifficulty(FishProperties.Difficulty.EVERYTHING_VANISHING)
+                    .withRarity(FishProperties.Rarity.UNCOMMON)
+                    .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD
+                            .withBiomesTags(rl("upgrade_aquatic", "biome/has_spawn/lionfish")))
+                    .withMod("upgrade_aquatic"),
+
+            fish(fromRL("upgrade_aquatic", "thrasher_tooth"))
+                    .withSizeAndWeight(FishProperties.sw(28, 8, 260, 60, 10, 20))
+                    .withHasGuideEntry(false)
+                    .withDifficulty(FishProperties.Difficulty.REALLY_HEAVY_FISH)
+                    .withRarity(FishProperties.Rarity.LEGENDARY)
+                    .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD
+                            .withBiomesTags(rl("upgrade_aquatic", "biome/has_spawn/thrasher")))
+                    .withAlwaysSpawnEntity(true)
+                    .withBaseChance(1)
+                    .withEntityToSpawn(rl("upgrade_aquatic", "thrasher"))
+                    .withOverrideMinigameItem(true)
+                    .withItemToOverrideWith(ModItems.UNKNOWN_FISH)
+                    .withMod("upgrade_aquatic"),
+
+            //add thrasher as an entity spawn with hide during minigame
+
+            //endregion Upgrade Aquatic
+
+            //region Environmental
+            //
+            //,------.                     ,--.                                                        ,--.            ,--.
+            //|  .---' ,--,--,  ,--.  ,--. `--' ,--.--.  ,---.  ,--,--,  ,--,--,--.  ,---.  ,--,--,  ,-'  '-.  ,--,--. |  |
+            //|  `--,  |      \  \  `'  /  ,--. |  .--' | .-. | |      \ |        | | .-. : |      \ '-.  .-' ' ,-.  | |  |
+            //|  `---. |  ||  |   \    /   |  | |  |    ' '-' ' |  ||  | |  |  |  | \   --. |  ||  |   |  |   \ '-'  | |  |
+            //`------' `--''--'    `--'    `--' `--'     `---'  `--''--' `--`--`--'  `----' `--''--'   `--'    `--`--' `--'
+            //
+
+            fish(fromRL("environmental", "koi"))
+                    .withSizeAndWeight(FishProperties.sw(60, 20, 3000, 2000, 10, 20))
+                    .withDifficulty(FishProperties.Difficulty.EVERYTHING_VANISHING)
+                    .withRarity(FishProperties.Rarity.UNCOMMON)
+                    .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD
+                            .withMustBeCaughtAboveY(55)
+                            .withBiomes(rl("environmental", "blossom_woods"), rl("environmental", "blossom_valleys")))
+                    .withMod("environmental"),
+
+            //endregion Environmental
+
+            //region Collectors Reap
+            //
+            // ,-----.         ,--. ,--.                  ,--.                   ,--.             ,------.
+            //'  .--./  ,---.  |  | |  |  ,---.   ,---. ,-'  '-.  ,---.  ,--.--. |  |  ,---.      |  .--. '  ,---.   ,--,--.  ,---.
+            //|  |     | .-. | |  | |  | | .-. : | .--' '-.  .-' | .-. | |  .--' `-'  (  .-'      |  '--'.' | .-. : ' ,-.  | | .-. |
+            //'  '--'\ ' '-' ' |  | |  | \   --. \ `--.   |  |   ' '-' ' |  |         .-'  `)     |  |\  \  \   --. \ '-'  | | '-' '
+            // `-----'  `---'  `--' `--'  `----'  `---'   `--'    `---'  `--'         `----'      `--' '--'  `----'  `--`--' |  |-'
+            //                                                                                                               `--'
+            fish(fromRL("collectorsreap", "platinum_bass"))
+                    .withSeasons(Seasons.EARLY_SPRING, Seasons.MID_AUTUMN, Seasons.LATE_AUTUMN, Seasons.WINTER)
+                    .withSizeAndWeight(FishProperties.sw(40, 12, 1600, 1100, 10, 20))
+                    .withBaseChance(10)
+                    .withDifficulty(FishProperties.Difficulty.EASY_MOVING)
+                    .withRarity(FishProperties.Rarity.COMMON)
+                    .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD
+                            .withBiomesTags(rl("collectorsreap", "biome/has_spawn/platinum_bass")))
+                    .withMod("collectorsreap"),
+
+
+            fish(fromRL("collectorsreap", "tiger_prawn"))
+                    .withSizeAndWeight(FishProperties.sw(28, 8, 260, 60, 10, 20))
+                    .withBaseChance(10)
+                    .withDifficulty(FishProperties.Difficulty.EASY_MOVING)
+                    .withRarity(FishProperties.Rarity.COMMON)
+                    .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD
+                            .withBiomesTags(rl("collectorsreap", "biome/has_spawn/tiger_prawn")))
+                    .withMod("collectorsreap"),
+
+            fish(fromRL("collectorsreap", "clam"))  //no mini game
+                    .withBaseChance(5)
+                    .withHasGuideEntry(false)
+                    .withSkipMinigame(true)
+                    .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD
+                            .withBiomesTags(rl("collectorsreap", "biome/has_spawn/clam")))
+                    .withMod("collectorsreap"),
+
+            fish(fromRL("collectorsreap", "urchin"))  //no mini game
+                    .withBaseChance(5)
+                    .withHasGuideEntry(false)
+                    .withSkipMinigame(true)
+                    .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD
+                            .withBiomesTags(rl("collectorsreap", "biome/has_spawn/urchin")))
+                    .withMod("collectorsreap"),
+
+
+            fish(fromRL("collectorsreap", "chieftain_crab"))
+                    .withSizeAndWeight(FishProperties.sw(28, 8, 260, 60, 10, 20))
+                    .withBaseChance(5)
+                    .withHasGuideEntry(false)
+                    .withDifficulty(FishProperties.Difficulty.REALLY_HEAVY_FISH)
+                    .withRarity(FishProperties.Rarity.UNCOMMON)
+                    .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD
+                            .withBiomesTags(rl("collectorsreap", "biome/has_spawn/chieftain_crab")))
+                    .withAlwaysSpawnEntity(true)
+                    .withEntityToSpawn(rl("collectorsreap", "chieftain_crab"))
+                    .withOverrideMinigameItem(true)
+                    .withItemToOverrideWith(ModItems.UNKNOWN_FISH)
+                    .withMod("collectorsreap"),
+
+
+            //when you can do live catches add the chieftain crab
+            //endregion Collectors Reap
+
+            //region Miner's Delight
+
+            //
+            //,--.   ,--. ,--.                          ,--.             ,------.           ,--. ,--.         ,--.        ,--.
+            //|   `.'   | `--' ,--,--,   ,---.  ,--.--. |  |  ,---.      |  .-.  \   ,---.  |  | `--'  ,---.  |  ,---.  ,-'  '-.
+            //|  |'.'|  | ,--. |      \ | .-. : |  .--' `-'  (  .-'      |  |  \  : | .-. : |  | ,--. | .-. | |  .-.  | '-.  .-'
+            //|  |   |  | |  | |  ||  | \   --. |  |         .-'  `)     |  '--'  / \   --. |  | |  | ' '-' ' |  | |  |   |  |
+            //`--'   `--' `--' `--''--'  `----' `--'         `----'      `-------'   `----' `--' `--' .`-  /  `--' `--'   `--'
+            //                                                                                        `---'
+            fish(fromRL("miners_delight", "squid"))
+                    .withSizeAndWeight(FishProperties.sw(40, 20, 1300, 700, 10, 20))
+                    .withBaseChance(2) //low to avoid clutter as you are going to see them about the place
+                    .withDifficulty(FishProperties.Difficulty.SINGLE_BIG_FAST_MOVING)
+                    .withRarity(FishProperties.Rarity.COMMON)
+                    .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD
+                            .withMustBeCaughtAboveY(50)
+                            .withMustBeCaughtBelowY(63)
+                            .withBiomesTags(StarcatcherTags.IS_OCEAN, StarcatcherTags.IS_RIVER)
+                    )
+                    .withMod("miners_delight"),
+
+            fish(fromRL("miners_delight", "glow_squid"))
+                    .withSizeAndWeight(FishProperties.sw(40, 20, 1300, 700, 10, 20))
+                    .withBaseChance(2) //low to avoid clutter as you are going to see them about the place
+                    .withDifficulty(FishProperties.Difficulty.SINGLE_BIG_FAST_MOVING)
+                    .withRarity(FishProperties.Rarity.COMMON)
+                    .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD
+                            .withMustBeCaughtBelowY(30))
+                    .withMod("miners_delight"),
+
+            //endregion Miner's Delight
+
+            //region Alex's Caves
+            //
+            //  ,---.   ,--.                    ,--.              ,-----.
+            // /  O  \  |  |  ,---.  ,--.  ,--. |  |  ,---.      '  .--./  ,--,--. ,--.  ,--.  ,---.   ,---.
+            //|  .-.  | |  | | .-. :  \  `'  /  `-'  (  .-'      |  |     ' ,-.  |  \  `'  /  | .-. : (  .-'
+            //|  | |  | |  | \   --.  /  /.  \       .-'  `)     '  '--'\ \ '-'  |   \    /   \   --. .-'  `)
+            //`--' `--' `--'  `----' '--'  '--'      `----'       `-----'  `--`--'    `--'     `----' `----'
+            //
+            fish(fromRL("alexscaves", "radgill"))
+                    .withSizeAndWeight(FishProperties.sw(80, 40, 12000, 7000, 10, 10))
+                    .withRarity(FishProperties.Rarity.UNCOMMON)
+                    .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD
+                            .withFluids(rl("alexscaves","acid"))
+                            .withBiomes(rl("alexscaves", "toxic_caves")))
+                    .withDifficulty(new FishProperties.Difficulty(12, 25,35,25, 5,
+                            new FishProperties.Difficulty.Markers(true, true, true, false),
+                            FishProperties.Treasure.DEFAULT,
+                            new FishProperties.Difficulty.Extras(false, true, true)))
+                    .withMod("alexscaves"),
+
+            fish(fromRL("alexscaves", "sweetish_fish_blue"))
+                    .withSizeAndWeight(FishProperties.sw(80, 40, 12000, 7000, 10, 10))
+                    .withRarity(FishProperties.Rarity.UNCOMMON)
+                    .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD
+                            .withFluids(rl("alexscaves","purple_soda"))
+                            .withBiomes(rl("alexscaves", "candy_cavity")))
+                    .withDifficulty(new FishProperties.Difficulty(12, 15,35,25, 2,
+                            new FishProperties.Difficulty.Markers(true, true, true, false),
+                            new FishProperties.Treasure(true, rl("alexscaves","radiant_essence"),13),
+                            new FishProperties.Difficulty.Extras(true, false, true)))
+                    .withMod("alexscaves"),
+
+            fish(fromRL("alexscaves", "sweetish_fish_green"))
+                    .withSizeAndWeight(FishProperties.sw(80, 40, 12000, 7000, 10, 10))
+                    .withRarity(FishProperties.Rarity.UNCOMMON)
+                    .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD
+                            .withFluids(rl("alexscaves","purple_soda"))
+                            .withBiomes(rl("alexscaves", "candy_cavity")))
+                    .withDifficulty(new FishProperties.Difficulty(12, 15,35,25, 2,
+                            new FishProperties.Difficulty.Markers(true, true, true, false),
+                            new FishProperties.Treasure(true, rl("alexscaves","radiant_essence"),13),
+                            new FishProperties.Difficulty.Extras(true, false, true)))
+                    .withMod("alexscaves"),
+
+            fish(fromRL("alexscaves", "sweetish_fish_pink"))
+                    .withSizeAndWeight(FishProperties.sw(80, 40, 12000, 7000, 10, 10))
+                    .withRarity(FishProperties.Rarity.UNCOMMON)
+                    .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD
+                            .withFluids(rl("alexscaves","purple_soda"))
+                            .withBiomes(rl("alexscaves", "candy_cavity")))
+                    .withDifficulty(new FishProperties.Difficulty(12, 15,35,25, 2,
+                            new FishProperties.Difficulty.Markers(true, true, true, false),
+                            new FishProperties.Treasure(true, rl("alexscaves","radiant_essence"),13),
+                            new FishProperties.Difficulty.Extras(true, false, true)))
+                    .withMod("alexscaves"),
+
+            fish(fromRL("alexscaves", "sweetish_fish_red"))
+                    .withSizeAndWeight(FishProperties.sw(80, 40, 12000, 7000, 10, 10))
+                    .withRarity(FishProperties.Rarity.UNCOMMON)
+                    .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD
+                            .withFluids(rl("alexscaves","purple_soda"))
+                            .withBiomes(rl("alexscaves", "candy_cavity")))
+                    .withDifficulty(new FishProperties.Difficulty(12, 15,35,25, 2,
+                            new FishProperties.Difficulty.Markers(true, true, true, false),
+                            new FishProperties.Treasure(true, rl("alexscaves","radiant_essence"),13),
+                            new FishProperties.Difficulty.Extras(true, false, true)))
+                    .withMod("alexscaves"),
+
+            fish(fromRL("alexscaves", "sweetish_fish_yellow"))
+                    .withSizeAndWeight(FishProperties.sw(80, 40, 12000, 7000, 10, 10))
+                    .withRarity(FishProperties.Rarity.UNCOMMON)
+                    .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD
+                            .withFluids(rl("alexscaves","purple_soda"))
+                            .withBiomes(rl("alexscaves", "candy_cavity")))
+                    .withDifficulty(new FishProperties.Difficulty(12, 15,35,25, 2,
+                            new FishProperties.Difficulty.Markers(true, true, true, false),
+                            new FishProperties.Treasure(true, rl("alexscaves","radiant_essence"),13),
+                            new FishProperties.Difficulty.Extras(true, false, true)))
+                    .withMod("alexscaves"),
+
+
+            fish(fromRL("alexscaves", "lanternfish"))
+                    .withSizeAndWeight(FishProperties.sw(100, 50, 15000, 10000, 10, 20))
+                    .withRarity(FishProperties.Rarity.RARE)
+                    .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD
+                            .withBiomes(rl("alexscaves", "abyssal_chasm")))
+                    .withDifficulty(new FishProperties.Difficulty(12, 15,35,25, 2,
+                            new FishProperties.Difficulty.Markers(true, true, true, true),
+                            FishProperties.Treasure.DEFAULT,
+                            new FishProperties.Difficulty.Extras(false, false, true)))
+                    .withMod("alexscaves"),
+
+            fish(fromRL("alexscaves", "tripodfish"))
+                    .withSizeAndWeight(FishProperties.sw(30, 10, 1000, 5000, 10, 20))
+                    .withRarity(FishProperties.Rarity.RARE)
+                    .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD
+                            .withBiomes(rl("alexscaves", "abyssal_chasm")))
+                    .withDifficulty(new FishProperties.Difficulty(12, 15,30,25, 7,
+                            new FishProperties.Difficulty.Markers(true, true, true, false),
+                            FishProperties.Treasure.DEFAULT,
+                            new FishProperties.Difficulty.Extras(false, false, true)))
+                    .withMod("alexscaves"),
+
+
+            fish(fromRL("alexscaves", "trilocaris_tail"))
+                    .withSizeAndWeight(FishProperties.sw(30, 10, 1000, 5000, 10, 20))
+                    .withRarity(FishProperties.Rarity.RARE)
+                    .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD
+                            .withBiomes(rl("alexscaves", "primordial_caves")))
+                    .withDifficulty(new FishProperties.Difficulty(12, 15,30,25, 7,
+                            new FishProperties.Difficulty.Markers(true, true, true, false),
+                            FishProperties.Treasure.DEFAULT,
+                            new FishProperties.Difficulty.Extras(false, false, true)))
+                    .withAlwaysSpawnEntity(true)
+                    .withEntityToSpawn(rl("alexscaves", "trilocaris"))
+                    .withOverrideMinigameItem(true)
+                    .withItemToOverrideWith(ModItems.UNKNOWN_FISH)
+                    .withMod("alexscaves"),
+
+
+            // Trilocaris (when entity fishing is added
+
+            //endregion Alex's Caves
+
+            //region Critters and companions
+            //
+            // ,-----.         ,--.   ,--.     ,--.                                                    ,--.      ,-----.                                              ,--.
+            //'  .--./ ,--.--. `--' ,-'  '-. ,-'  '-.  ,---.  ,--.--.  ,---.       ,--,--. ,--,--,   ,-|  |     '  .--./  ,---.  ,--,--,--.  ,---.   ,--,--. ,--,--,  `--'  ,---.  ,--,--,   ,---.
+            //|  |     |  .--' ,--. '-.  .-' '-.  .-' | .-. : |  .--' (  .-'      ' ,-.  | |      \ ' .-. |     |  |     | .-. | |        | | .-. | ' ,-.  | |      \ ,--. | .-. | |      \ (  .-'
+            //'  '--'\ |  |    |  |   |  |     |  |   \   --. |  |    .-'  `)     \ '-'  | |  ||  | \ `-' |     '  '--'\ ' '-' ' |  |  |  | | '-' ' \ '-'  | |  ||  | |  | ' '-' ' |  ||  | .-'  `)
+            // `-----' `--'    `--'   `--'     `--'    `----' `--'    `----'       `--`--' `--''--'  `---'       `-----'  `---'  `--`--`--' |  |-'   `--`--' `--''--' `--'  `---'  `--''--' `----'
+            //                                                                                                                              `--'
+
+
+            fish(fromRL("crittersandcompanions", "clam"))  //no mini game
+                    .withBaseChance(1)
+                    .withHasGuideEntry(false)
+                    .withSkipMinigame(true)
+                    .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD_RIVER
+                            .withMustBeCaughtAboveY(48))
+                    .withMod("crittersandcompanions"),
+
+            fish(fromRL("crittersandcompanions", "koi_fish"))
+                    .withSizeAndWeight(FishProperties.sw(60, 20, 3000, 2000, 10, 20))
+                    .withDifficulty(FishProperties.Difficulty.EVERYTHING_VANISHING)
+                    .withRarity(FishProperties.Rarity.UNCOMMON)
+                    .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD_RIVER
+                            .withMustBeCaughtAboveY(55))
+                    .withMod("crittersandcompanions")
+
+            //could add sea bunny and dumbo octopus with entity fishing
+
+            //endregion  Critters and companions
+
+
+            //alexsmobs:
+            //  cosmic_cod
+            //  flying_fish
+            //  blobfish
+  
 
     );
     //endregion restricted fps
@@ -1614,6 +1898,7 @@ public class FishAndTrophiesPropertiesProvider extends DatapackBuiltinEntriesPro
 
             new TrophyProperties(
                     FishProperties.DEFAULT.withFish(ModBlocks.TROPHY_GOLD.asItem().builtInRegistryHolder()),
+                    true,
                     TrophyProperties.TrophyType.TROPHY,
                     "Trophy of Masterful Fishing",
                     new TrophyProperties.RarityProgress(50, 0),
@@ -1625,6 +1910,7 @@ public class FishAndTrophiesPropertiesProvider extends DatapackBuiltinEntriesPro
 
             new TrophyProperties(
                     FishProperties.DEFAULT.withFish(ModBlocks.TROPHY_SILVER.asItem().builtInRegistryHolder()),
+                    true,
                     TrophyProperties.TrophyType.TROPHY,
                     "Trophy of Skilled Fishing",
                     new TrophyProperties.RarityProgress(25, 0),
@@ -1637,6 +1923,7 @@ public class FishAndTrophiesPropertiesProvider extends DatapackBuiltinEntriesPro
 
             new TrophyProperties(
                     FishProperties.DEFAULT.withFish(ModBlocks.TROPHY_BRONZE.asItem().builtInRegistryHolder()),
+                    true,
                     TrophyProperties.TrophyType.TROPHY,
                     "Trophy of Pitiful Fishing",
                     new TrophyProperties.RarityProgress(10, 0),
@@ -1649,7 +1936,9 @@ public class FishAndTrophiesPropertiesProvider extends DatapackBuiltinEntriesPro
 
             new TrophyProperties(
                     FishProperties.DEFAULT.withFish(ModBlocks.TROPHY_SILVER.asItem().builtInRegistryHolder()),
-                    TrophyProperties.TrophyType.TROPHY, "Trophy of Flowing Fishes",
+                    true,
+                    TrophyProperties.TrophyType.TROPHY,
+                    "Trophy of Flowing Fishes",
                     new TrophyProperties.RarityProgress(0, 50),
                     TrophyProperties.RarityProgress.DEFAULT,
                     TrophyProperties.RarityProgress.DEFAULT,
@@ -1660,7 +1949,9 @@ public class FishAndTrophiesPropertiesProvider extends DatapackBuiltinEntriesPro
 
             new TrophyProperties(
                     FishProperties.DEFAULT.withFish(ModBlocks.TROPHY_GOLD.asItem().builtInRegistryHolder()),
-                    TrophyProperties.TrophyType.TROPHY, "Trophy of Infinite Fishes",
+                    true,
+                    TrophyProperties.TrophyType.TROPHY,
+                    "Trophy of Infinite Fishes",
                     new TrophyProperties.RarityProgress(0, 90),
                     TrophyProperties.RarityProgress.DEFAULT,
                     TrophyProperties.RarityProgress.DEFAULT,
@@ -1671,7 +1962,9 @@ public class FishAndTrophiesPropertiesProvider extends DatapackBuiltinEntriesPro
 
             new TrophyProperties(
                     FishProperties.DEFAULT.withFish(ModBlocks.TROPHY_GOLD.asItem().builtInRegistryHolder()),
-                    TrophyProperties.TrophyType.TROPHY, "Trophy of the Older Angler",
+                    true,
+                    TrophyProperties.TrophyType.TROPHY,
+                    "Trophy of the Older Angler",
                     new TrophyProperties.RarityProgress(200, 0),
                     new TrophyProperties.RarityProgress(0, 36),
                     new TrophyProperties.RarityProgress(0, 23),
@@ -1688,17 +1981,17 @@ public class FishAndTrophiesPropertiesProvider extends DatapackBuiltinEntriesPro
             //`----'   `----'  `---' `--'     `----'   `--'   `----'
             //
 
-            new TrophyProperties(overworldFish(ModItems.DRIFTING_WATERLOGGED_BOTTLE), TrophyProperties.TrophyType.SECRET, "", new TrophyProperties.RarityProgress(6, 15), TrophyProperties.RarityProgress.DEFAULT, TrophyProperties.RarityProgress.DEFAULT, TrophyProperties.RarityProgress.DEFAULT, TrophyProperties.RarityProgress.DEFAULT, TrophyProperties.RarityProgress.DEFAULT, 100),
+            new TrophyProperties(overworldFish(ModItems.DRIFTING_WATERLOGGED_BOTTLE), false, TrophyProperties.TrophyType.SECRET, "", new TrophyProperties.RarityProgress(6, 15), TrophyProperties.RarityProgress.DEFAULT, TrophyProperties.RarityProgress.DEFAULT, TrophyProperties.RarityProgress.DEFAULT, TrophyProperties.RarityProgress.DEFAULT, TrophyProperties.RarityProgress.DEFAULT, 100),
 
-            new TrophyProperties(overworldSurfaceLava(ModItems.SCALDING_BOTTLE), TrophyProperties.TrophyType.SECRET, "", new TrophyProperties.RarityProgress(0, 27), TrophyProperties.RarityProgress.DEFAULT, TrophyProperties.RarityProgress.DEFAULT, TrophyProperties.RarityProgress.DEFAULT, TrophyProperties.RarityProgress.DEFAULT, TrophyProperties.RarityProgress.DEFAULT, 33),
+            new TrophyProperties(overworldSurfaceLava(ModItems.SCALDING_BOTTLE), false, TrophyProperties.TrophyType.SECRET, "", new TrophyProperties.RarityProgress(0, 27), TrophyProperties.RarityProgress.DEFAULT, TrophyProperties.RarityProgress.DEFAULT, TrophyProperties.RarityProgress.DEFAULT, TrophyProperties.RarityProgress.DEFAULT, TrophyProperties.RarityProgress.DEFAULT, 33),
 
-            new TrophyProperties(overworldSurfaceLava(ModItems.BURNING_BOTTLE), TrophyProperties.TrophyType.SECRET, "", new TrophyProperties.RarityProgress(0, 42), TrophyProperties.RarityProgress.DEFAULT, TrophyProperties.RarityProgress.DEFAULT, TrophyProperties.RarityProgress.DEFAULT, TrophyProperties.RarityProgress.DEFAULT, TrophyProperties.RarityProgress.DEFAULT, 33),
+            new TrophyProperties(overworldSurfaceLava(ModItems.BURNING_BOTTLE), false, TrophyProperties.TrophyType.SECRET, "", new TrophyProperties.RarityProgress(0, 42), TrophyProperties.RarityProgress.DEFAULT, TrophyProperties.RarityProgress.DEFAULT, TrophyProperties.RarityProgress.DEFAULT, TrophyProperties.RarityProgress.DEFAULT, TrophyProperties.RarityProgress.DEFAULT, 33),
 
-            new TrophyProperties(overworldDeepOceanFish(ModItems.HOPEFUL_BOTTLE), TrophyProperties.TrophyType.SECRET, "", TrophyProperties.RarityProgress.DEFAULT, TrophyProperties.RarityProgress.DEFAULT, TrophyProperties.RarityProgress.DEFAULT, TrophyProperties.RarityProgress.DEFAULT, new TrophyProperties.RarityProgress(5, 0), TrophyProperties.RarityProgress.DEFAULT, 33),
+            new TrophyProperties(overworldDeepOceanFish(ModItems.HOPEFUL_BOTTLE), false, TrophyProperties.TrophyType.SECRET, "", TrophyProperties.RarityProgress.DEFAULT, TrophyProperties.RarityProgress.DEFAULT, TrophyProperties.RarityProgress.DEFAULT, TrophyProperties.RarityProgress.DEFAULT, new TrophyProperties.RarityProgress(5, 0), TrophyProperties.RarityProgress.DEFAULT, 33),
 
-            new TrophyProperties(overworldDeepOceanFish(ModItems.HOPELESS_BOTTLE), TrophyProperties.TrophyType.SECRET, "", TrophyProperties.RarityProgress.DEFAULT, TrophyProperties.RarityProgress.DEFAULT, TrophyProperties.RarityProgress.DEFAULT, TrophyProperties.RarityProgress.DEFAULT, new TrophyProperties.RarityProgress(5, 0), TrophyProperties.RarityProgress.DEFAULT, 33),
+            new TrophyProperties(overworldDeepOceanFish(ModItems.HOPELESS_BOTTLE), false, TrophyProperties.TrophyType.SECRET, "", TrophyProperties.RarityProgress.DEFAULT, TrophyProperties.RarityProgress.DEFAULT, TrophyProperties.RarityProgress.DEFAULT, TrophyProperties.RarityProgress.DEFAULT, new TrophyProperties.RarityProgress(5, 0), TrophyProperties.RarityProgress.DEFAULT, 33),
 
-            new TrophyProperties(overworldRiverFish(ModItems.TRUE_BLUE_BOTTLE), TrophyProperties.TrophyType.SECRET, "", TrophyProperties.RarityProgress.DEFAULT, TrophyProperties.RarityProgress.DEFAULT, TrophyProperties.RarityProgress.DEFAULT, TrophyProperties.RarityProgress.DEFAULT, TrophyProperties.RarityProgress.DEFAULT, new TrophyProperties.RarityProgress(1, 0), 1),
+            new TrophyProperties(overworldRiverFish(ModItems.TRUE_BLUE_BOTTLE), false, TrophyProperties.TrophyType.SECRET, "", TrophyProperties.RarityProgress.DEFAULT, TrophyProperties.RarityProgress.DEFAULT, TrophyProperties.RarityProgress.DEFAULT, TrophyProperties.RarityProgress.DEFAULT, TrophyProperties.RarityProgress.DEFAULT, new TrophyProperties.RarityProgress(1, 0), 1),
 
             //
             //          ,--.   ,--.
@@ -1709,22 +2002,22 @@ public class FishAndTrophiesPropertiesProvider extends DatapackBuiltinEntriesPro
             //
 
 
-            new TrophyProperties(overworldDeepslateFish(ModItems.CRYSTAL_HOOK), TrophyProperties.TrophyType.EXTRA, "", new TrophyProperties.RarityProgress(6, 15), TrophyProperties.RarityProgress.DEFAULT, TrophyProperties.RarityProgress.DEFAULT, TrophyProperties.RarityProgress.DEFAULT, TrophyProperties.RarityProgress.DEFAULT, new TrophyProperties.RarityProgress(1, 0), 100),
+            new TrophyProperties(overworldDeepslateFish(ModItems.CRYSTAL_HOOK), false, TrophyProperties.TrophyType.EXTRA, "", new TrophyProperties.RarityProgress(6, 15), TrophyProperties.RarityProgress.DEFAULT, TrophyProperties.RarityProgress.DEFAULT, TrophyProperties.RarityProgress.DEFAULT, TrophyProperties.RarityProgress.DEFAULT, new TrophyProperties.RarityProgress(1, 0), 100),
 
-            new TrophyProperties(overworldFish(ModItems.SHINY_HOOK), TrophyProperties.TrophyType.EXTRA, "", new TrophyProperties.RarityProgress(15, 0), TrophyProperties.RarityProgress.DEFAULT, TrophyProperties.RarityProgress.DEFAULT, TrophyProperties.RarityProgress.DEFAULT, TrophyProperties.RarityProgress.DEFAULT, TrophyProperties.RarityProgress.DEFAULT, 100),
+            new TrophyProperties(overworldFish(ModItems.SHINY_HOOK), false, TrophyProperties.TrophyType.EXTRA, "", new TrophyProperties.RarityProgress(15, 0), TrophyProperties.RarityProgress.DEFAULT, TrophyProperties.RarityProgress.DEFAULT, TrophyProperties.RarityProgress.DEFAULT, TrophyProperties.RarityProgress.DEFAULT, TrophyProperties.RarityProgress.DEFAULT, 100),
 
 
-            new TrophyProperties(overworldDeepslateFish(BuiltInRegistries.ITEM.wrapAsHolder(Items.DIAMOND)), TrophyProperties.TrophyType.EXTRA, "", TrophyProperties.RarityProgress.DEFAULT, TrophyProperties.RarityProgress.DEFAULT, TrophyProperties.RarityProgress.DEFAULT, new TrophyProperties.RarityProgress(1, 4), TrophyProperties.RarityProgress.DEFAULT, TrophyProperties.RarityProgress.DEFAULT, 100),
+            new TrophyProperties(overworldDeepslateFish(BuiltInRegistries.ITEM.wrapAsHolder(Items.DIAMOND)), false, TrophyProperties.TrophyType.EXTRA, "", TrophyProperties.RarityProgress.DEFAULT, TrophyProperties.RarityProgress.DEFAULT, TrophyProperties.RarityProgress.DEFAULT, new TrophyProperties.RarityProgress(1, 4), TrophyProperties.RarityProgress.DEFAULT, TrophyProperties.RarityProgress.DEFAULT, 100),
 
-            new TrophyProperties(netherLavaFish(BuiltInRegistries.ITEM.wrapAsHolder(Items.NETHERITE_SCRAP)), TrophyProperties.TrophyType.EXTRA, "", TrophyProperties.RarityProgress.DEFAULT, TrophyProperties.RarityProgress.DEFAULT, TrophyProperties.RarityProgress.DEFAULT, TrophyProperties.RarityProgress.DEFAULT, TrophyProperties.RarityProgress.DEFAULT, new TrophyProperties.RarityProgress(3, 0), 33),
+            new TrophyProperties(netherLavaFish(BuiltInRegistries.ITEM.wrapAsHolder(Items.NETHERITE_SCRAP)), false, TrophyProperties.TrophyType.EXTRA, "", TrophyProperties.RarityProgress.DEFAULT, TrophyProperties.RarityProgress.DEFAULT, TrophyProperties.RarityProgress.DEFAULT, TrophyProperties.RarityProgress.DEFAULT, TrophyProperties.RarityProgress.DEFAULT, new TrophyProperties.RarityProgress(3, 0), 33),
 
-            new TrophyProperties(netherLavaFish(BuiltInRegistries.ITEM.wrapAsHolder(Items.NETHERITE_SCRAP)), TrophyProperties.TrophyType.EXTRA, "", TrophyProperties.RarityProgress.DEFAULT, TrophyProperties.RarityProgress.DEFAULT, TrophyProperties.RarityProgress.DEFAULT, TrophyProperties.RarityProgress.DEFAULT, TrophyProperties.RarityProgress.DEFAULT, new TrophyProperties.RarityProgress(0, 10), 33),
+            new TrophyProperties(netherLavaFish(BuiltInRegistries.ITEM.wrapAsHolder(Items.NETHERITE_SCRAP)), false, TrophyProperties.TrophyType.EXTRA, "", TrophyProperties.RarityProgress.DEFAULT, TrophyProperties.RarityProgress.DEFAULT, TrophyProperties.RarityProgress.DEFAULT, TrophyProperties.RarityProgress.DEFAULT, TrophyProperties.RarityProgress.DEFAULT, new TrophyProperties.RarityProgress(0, 10), 33),
 
-            new TrophyProperties(netherLavaFish(BuiltInRegistries.ITEM.wrapAsHolder(Items.NETHERITE_SCRAP)), TrophyProperties.TrophyType.EXTRA, "", TrophyProperties.RarityProgress.DEFAULT, TrophyProperties.RarityProgress.DEFAULT, TrophyProperties.RarityProgress.DEFAULT, TrophyProperties.RarityProgress.DEFAULT, TrophyProperties.RarityProgress.DEFAULT, TrophyProperties.RarityProgress.DEFAULT, 1),
+            new TrophyProperties(netherLavaFish(BuiltInRegistries.ITEM.wrapAsHolder(Items.NETHERITE_SCRAP)), false, TrophyProperties.TrophyType.EXTRA, "", TrophyProperties.RarityProgress.DEFAULT, TrophyProperties.RarityProgress.DEFAULT, TrophyProperties.RarityProgress.DEFAULT, TrophyProperties.RarityProgress.DEFAULT, TrophyProperties.RarityProgress.DEFAULT, TrophyProperties.RarityProgress.DEFAULT, 1),
 
-            new TrophyProperties(netherLavaFish(BuiltInRegistries.ITEM.wrapAsHolder(Items.NETHERITE_SCRAP)), TrophyProperties.TrophyType.EXTRA, "", TrophyProperties.RarityProgress.DEFAULT, TrophyProperties.RarityProgress.DEFAULT, TrophyProperties.RarityProgress.DEFAULT, TrophyProperties.RarityProgress.DEFAULT, TrophyProperties.RarityProgress.DEFAULT, TrophyProperties.RarityProgress.DEFAULT, 1),
+            new TrophyProperties(netherLavaFish(BuiltInRegistries.ITEM.wrapAsHolder(Items.NETHERITE_SCRAP)), false, TrophyProperties.TrophyType.EXTRA, "", TrophyProperties.RarityProgress.DEFAULT, TrophyProperties.RarityProgress.DEFAULT, TrophyProperties.RarityProgress.DEFAULT, TrophyProperties.RarityProgress.DEFAULT, TrophyProperties.RarityProgress.DEFAULT, TrophyProperties.RarityProgress.DEFAULT, 1),
 
-            new TrophyProperties(netherLavaFish(BuiltInRegistries.ITEM.wrapAsHolder(Items.HEART_OF_THE_SEA)), TrophyProperties.TrophyType.EXTRA, "", new TrophyProperties.RarityProgress(25, 0), TrophyProperties.RarityProgress.DEFAULT, TrophyProperties.RarityProgress.DEFAULT, TrophyProperties.RarityProgress.DEFAULT, TrophyProperties.RarityProgress.DEFAULT, TrophyProperties.RarityProgress.DEFAULT, 1)
+            new TrophyProperties(netherLavaFish(BuiltInRegistries.ITEM.wrapAsHolder(Items.HEART_OF_THE_SEA)), false, TrophyProperties.TrophyType.EXTRA, "", new TrophyProperties.RarityProgress(25, 0), TrophyProperties.RarityProgress.DEFAULT, TrophyProperties.RarityProgress.DEFAULT, TrophyProperties.RarityProgress.DEFAULT, TrophyProperties.RarityProgress.DEFAULT, TrophyProperties.RarityProgress.DEFAULT, 1)
 
 
     );
@@ -1809,6 +2102,11 @@ public class FishAndTrophiesPropertiesProvider extends DatapackBuiltinEntriesPro
                 .withBaitRestrictions(FishProperties.BaitRestrictions.SCULK_BAIT);
     }
 
+    public static FishProperties overworldSurfaceFish(Holder<Item> fish) {
+        return FishProperties.DEFAULT.withFish(fish)
+                .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD_SURFACE);
+    }
+
     public static FishProperties overworldSurfaceLava(Holder<Item> fish) {
         return FishProperties.DEFAULT.withFish(fish)
                 .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD_LAVA_SURFACE);
@@ -1816,7 +2114,7 @@ public class FishAndTrophiesPropertiesProvider extends DatapackBuiltinEntriesPro
 
     public static FishProperties overworldCavesFish(Holder<Item> fish) {
         return FishProperties.DEFAULT.withFish(fish)
-                .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD_CAVES);
+                .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD_STONE_CAVES);
     }
 
     public static FishProperties overworldDripstoneCavesFish(Holder<Item> fish) {
@@ -1956,13 +2254,13 @@ public class FishAndTrophiesPropertiesProvider extends DatapackBuiltinEntriesPro
         if (fp.customName()
                 .isEmpty()) {
             return ResourceKey.create(
-                    Starcatcher.FISH_REGISTRY, Starcatcher.rl(fp.fish()
+                    Starcatcher.FISH_REGISTRY, Starcatcher.rl(fp.catchInfo().fish()
                             .getRegisteredName()
                             .replace(":", "_")));
         } else {
             customFishCount++;
             return ResourceKey.create(
-                    Starcatcher.FISH_REGISTRY, Starcatcher.rl(fp.fish()
+                    Starcatcher.FISH_REGISTRY, Starcatcher.rl(fp.catchInfo().fish()
                             .getRegisteredName()
                             .replace(":", "_") + "_" + customFishCount));
         }
@@ -1977,7 +2275,7 @@ public class FishAndTrophiesPropertiesProvider extends DatapackBuiltinEntriesPro
         return ResourceKey.create(
                 Starcatcher.TROPHY_REGISTRY, Starcatcher.rl(tp.trophyType()
                         .getSerializedName() + "_" + customTrophyCount + "_" + tp.fp()
-                        .fish()
+                        .catchInfo().fish()
                         .getRegisteredName()
                         .replace(":", "_")));
     }
