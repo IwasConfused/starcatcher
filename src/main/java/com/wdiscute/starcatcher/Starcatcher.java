@@ -110,6 +110,7 @@ public class Starcatcher {
         ModSounds.register(modEventBus);
         ModEntities.register(modEventBus);
         ModParticles.register(modEventBus);
+        ModRecipes.register(modEventBus);
         ModMenuTypes.register(modEventBus);
         ModDataAttachments.register(modEventBus);
         ModCriterionTriggers.REGISTRY.register(modEventBus);
