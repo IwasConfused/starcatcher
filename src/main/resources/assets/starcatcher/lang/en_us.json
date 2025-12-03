@@ -763,6 +763,7 @@
   "tooltip.starcatcher.crystalback_trout.1" : "back as a way to protect itself when attacked.",
 
   "item.starcatcher.aurora" : "Aurora",
+  "tooltip.starcatcher.aurora.name" : "<rgb>Aurora</rgb>",
   "tooltip.starcatcher.aurora.0" : "A beautiful <rgb>legendary</rgb> fish. It's size makes for an",
   "tooltip.starcatcher.aurora.1" : "incredibly hard and evasive catch, not letting the angler",
   "tooltip.starcatcher.aurora.2" : "rest if they wish to take it home as proof of their skills.",
@@ -977,6 +978,7 @@
   "tooltip.starcatcher.waterlogged_bottle.1" : "Whatever it once held, it's long gone by now.",
 
   "item.starcatcher.bigeye_tuna" : "Bigeye Tuna",
+  "tooltip.starcatcher.bigeye_tuna.name" : "<gradient-37>Bigeye Tuna</gradient-43>",
   "tooltip.starcatcher.bigeye_tuna.0" : "A big heavy fish known for it's big eye.",
   "tooltip.starcatcher.bigeye_tuna.1" : "This species is only found in deep ocean waters.",
 

@@ -55,7 +55,8 @@ public class FishAndTrophiesPropertiesProvider extends DatapackBuiltinEntriesPro
                     .withBaseChance(20)
                     .withBaitRestrictions(
                             FishProperties.BaitRestrictions.DEFAULT
-                                    .withCorrectBobber(Starcatcher.rl("creeper_bobber")))
+                                    .withCorrectBait(Starcatcher.rl("creeper_bait"))
+                                    .withCorrectBaitChanceAdded(20))
                     .withAlwaysSpawnEntity(true)
                     .withEntityToSpawn(rl("minecraft", "creeper"))
                     .withOverrideMinigameItem(true)

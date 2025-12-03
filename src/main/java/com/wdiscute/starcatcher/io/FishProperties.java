@@ -295,126 +295,94 @@ public record FishProperties(
     //region bait
 
     public record BaitRestrictions(
-            List<ResourceLocation> correctBobber,
             List<ResourceLocation> correctBait,
             boolean consumesBait,
             int correctBaitChanceAdded,
-            List<ResourceLocation> incorrectBaits,
             boolean mustHaveCorrectBait)
     {
         public static final Codec<BaitRestrictions> CODEC = RecordCodecBuilder.create(instance ->
                 instance.group(
-                        Codec.list(ResourceLocation.CODEC).fieldOf("correct_bobbers").forGetter(BaitRestrictions::correctBobber),
                         Codec.list(ResourceLocation.CODEC).fieldOf("correct_baits").forGetter(BaitRestrictions::correctBait),
                         Codec.BOOL.fieldOf("consumes_bait").forGetter(BaitRestrictions::consumesBait),
                         Codec.INT.fieldOf("correct_bait_chance_added").forGetter(BaitRestrictions::correctBaitChanceAdded),
-                        Codec.list(ResourceLocation.CODEC).fieldOf("incorrect_baits").forGetter(BaitRestrictions::incorrectBaits),
                         Codec.BOOL.fieldOf("must_have_correct_bait").forGetter(BaitRestrictions::mustHaveCorrectBait)
                 ).apply(instance, BaitRestrictions::new));
 
 
         public static final StreamCodec<ByteBuf, BaitRestrictions> STREAM_CODEC = StreamCodec.composite(
-                ByteBufCodecs.fromCodec(Codec.list(ResourceLocation.CODEC)), BaitRestrictions::correctBobber,
                 ByteBufCodecs.fromCodec(Codec.list(ResourceLocation.CODEC)), BaitRestrictions::correctBait,
                 ByteBufCodecs.BOOL, BaitRestrictions::consumesBait,
                 ByteBufCodecs.INT, BaitRestrictions::correctBaitChanceAdded,
-                ByteBufCodecs.fromCodec(Codec.list(ResourceLocation.CODEC)), BaitRestrictions::incorrectBaits,
                 ByteBufCodecs.BOOL, BaitRestrictions::mustHaveCorrectBait,
                 BaitRestrictions::new
         );
 
         public static final BaitRestrictions DEFAULT = new BaitRestrictions(
                 List.of(),
-                List.of(),
                 true,
                 0,
-                List.of(),
                 false);
 
         public static final BaitRestrictions CHERRY_BAIT = new BaitRestrictions(
-                List.of(),
                 List.of(ModItems.CHERRY_BAIT.getId()),
                 true,
                 15,
-                List.of(),
                 false);
 
         public static final BaitRestrictions LUSH_BAIT = new BaitRestrictions(
-                List.of(),
                 List.of(ModItems.LUSH_BAIT.getId()),
                 true,
                 15,
-                List.of(),
                 false);
 
         public static final BaitRestrictions SCULK_BAIT = new BaitRestrictions(
-                List.of(),
                 List.of(ModItems.SCULK_BAIT.getId()),
                 true,
                 15,
-                List.of(),
                 false);
 
         public static final BaitRestrictions DRIPSTONE_BAIT = new BaitRestrictions(
-                List.of(),
                 List.of(ModItems.DRIPSTONE_BAIT.getId()),
                 true,
                 15,
-                List.of(),
                 false);
 
         public static final BaitRestrictions MURKWATER_BAIT = new BaitRestrictions(
-                List.of(),
                 List.of(ModItems.MURKWATER_BAIT.getId()),
                 true,
                 15,
-                List.of(),
                 false);
 
         public static final BaitRestrictions LEGENDARY_BAIT = new BaitRestrictions(
-                List.of(),
                 List.of(ModItems.LEGENDARY_BAIT.getId()),
                 true,
                 15,
-                List.of(),
                 false);
 
         public static final BaitRestrictions LEGENDARY_BAIT_VOIDBITER = new BaitRestrictions(
-                List.of(),
                 List.of(ModItems.LEGENDARY_BAIT.getId()),
                 true,
                 50,
-                List.of(),
                 false);
-
-        public BaitRestrictions withCorrectBobber(ResourceLocation... correctBobber)
-        {
-            return new BaitRestrictions(List.of(correctBobber), this.correctBait, this.consumesBait, this.correctBaitChanceAdded, this.incorrectBaits, this.mustHaveCorrectBait);
-        }
 
         public BaitRestrictions withCorrectBait(ResourceLocation... correctBait)
         {
-            return new BaitRestrictions(this.correctBobber, List.of(correctBait), this.consumesBait, this.correctBaitChanceAdded, this.incorrectBaits, this.mustHaveCorrectBait);
+            return new BaitRestrictions(List.of(correctBait), this.consumesBait, this.correctBaitChanceAdded,  this.mustHaveCorrectBait);
         }
 
         public BaitRestrictions withConsumesBait(boolean consumesBait)
         {
-            return new BaitRestrictions(this.correctBobber, this.correctBait, consumesBait, this.correctBaitChanceAdded, this.incorrectBaits, this.mustHaveCorrectBait);
+            return new BaitRestrictions(this.correctBait, consumesBait, this.correctBaitChanceAdded,  this.mustHaveCorrectBait);
         }
 
         public BaitRestrictions withCorrectBaitChanceAdded(int correctBaitChanceAdded)
         {
-            return new BaitRestrictions(this.correctBobber, this.correctBait, consumesBait, correctBaitChanceAdded, this.incorrectBaits, this.mustHaveCorrectBait);
-        }
-
-        public BaitRestrictions withIncorrectBaits(ResourceLocation... incorrectBaits)
-        {
-            return new BaitRestrictions(this.correctBobber, this.correctBait, this.consumesBait, this.correctBaitChanceAdded, List.of(incorrectBaits), this.mustHaveCorrectBait);
+            return new BaitRestrictions(this.correctBait, consumesBait, correctBaitChanceAdded,  this.mustHaveCorrectBait);
         }
 
         public BaitRestrictions withMustHaveCorrectBait(boolean mustHaveCorrectBait)
         {
-            return new BaitRestrictions(this.correctBobber, correctBait, this.consumesBait, this.correctBaitChanceAdded, this.incorrectBaits, mustHaveCorrectBait);
+            return new BaitRestrictions(correctBait, this.consumesBait, this.correctBaitChanceAdded,  mustHaveCorrectBait);
         }
 
     }
@@ -1590,12 +1558,6 @@ public record FishProperties(
         if (!fluid && !fluidAbove && !fluidBelow && entity instanceof FishingBobEntity)
             return 0;
 
-        //blacklisted baits
-        if (fp.br().incorrectBaits().contains(BuiltInRegistries.ITEM.getKey(bait.getItem())))
-        {
-            return 0;
-        }
-
         //y level check
         if (entity.position().y > fp.wr.mustBeCaughtBelowY())
         {
@@ -1666,12 +1628,6 @@ public record FishProperties(
         if (fp.br().correctBait().contains(BuiltInRegistries.ITEM.getKey(bait.getItem())))
         {
             chance += fp.br().correctBaitChanceAdded();
-        }
-
-        //correct bobber check
-        if (!fp.br().correctBobber().isEmpty() && !fp.br().correctBobber().contains(BuiltInRegistries.ITEM.getKey(bobber.getItem())))
-        {
-            return 0;
         }
 
         return chance;
