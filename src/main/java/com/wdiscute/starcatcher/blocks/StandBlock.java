@@ -1,6 +1,5 @@
 package com.wdiscute.starcatcher.blocks;
 
-import com.mojang.authlib.GameProfile;
 import com.wdiscute.starcatcher.io.network.TournamentUpdatePayload;
 import com.wdiscute.starcatcher.tournament.*;
 import net.minecraft.core.BlockPos;
@@ -27,7 +26,6 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraft.world.scores.PlayerScoreEntry;
 import net.neoforged.neoforge.network.PacketDistributor;
 import org.jetbrains.annotations.Nullable;
 

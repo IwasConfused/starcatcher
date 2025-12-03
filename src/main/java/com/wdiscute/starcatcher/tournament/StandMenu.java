@@ -143,7 +143,7 @@ public class StandMenu extends AbstractContainerMenu
         {
             if (sbe.tournament.settings.duration > 0)
             {
-                TournamentHandler.startTournament(sbe.tournament);
+                TournamentHandler.startTournament(player, sbe.tournament);
             }
         }
 

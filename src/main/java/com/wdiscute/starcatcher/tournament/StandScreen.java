@@ -3,6 +3,7 @@ package com.wdiscute.starcatcher.tournament;
 import com.wdiscute.starcatcher.Config;
 import com.wdiscute.starcatcher.Starcatcher;
 import com.wdiscute.starcatcher.io.SingleStackContainer;
+import com.wdiscute.starcatcher.io.network.TournamentDurationChangePayload;
 import com.wdiscute.starcatcher.io.network.TournamentNameChangePayload;
 import com.wdiscute.starcatcher.io.network.TournamentScoringChangePayload;
 import net.minecraft.client.Minecraft;
@@ -25,7 +26,8 @@ public class StandScreen extends AbstractContainerScreen<StandMenu>
     private static String durationCache = "waiting...";
     private EditBox nameEditBox;
     private EditBox durationEditBox;
-    private boolean wasFocused;
+    private boolean nameWasFocused;
+    private boolean durationWasFocused;
 
     private static final ResourceLocation BACKGROUND = Starcatcher.rl("textures/gui/tournament/background.png");
 
@@ -41,14 +43,6 @@ public class StandScreen extends AbstractContainerScreen<StandMenu>
         subInit();
     }
 
-    @Override
-    public void resize(Minecraft minecraft, int width, int height)
-    {
-        String s = this.nameEditBox.getValue();
-        this.init(minecraft, width, height);
-        this.nameEditBox.setValue(s);
-    }
-
     protected void subInit()
     {
         nameEditBox = new EditBox(this.font, uiX + 53, uiY + 36, 210, 12, Component.translatable("container.repair"));
@@ -61,16 +55,16 @@ public class StandScreen extends AbstractContainerScreen<StandMenu>
         nameEditBox.setEditable(false);
         addWidget(this.nameEditBox);
 
-        durationEditBox = new EditBox(this.font, uiX + 53, uiY + 36, 210, 12, Component.translatable("container.repair"));
+        durationEditBox = new EditBox(this.font, uiX + 55, uiY + 88, 210, 12, Component.translatable("container.repair"));
         durationEditBox.setCanLoseFocus(true);
         durationEditBox.setBordered(true);
         durationEditBox.setTextColor(0x635040);
         durationEditBox.setBordered(false);
-        durationEditBox.setMaxLength(20);
+        durationEditBox.setMaxLength(10);
         durationEditBox.setValue("");
         durationEditBox.setTextShadow(false);
         durationEditBox.setEditable(false);
-        addWidget(this.nameEditBox);
+        addWidget(this.durationEditBox);
     }
 
     @Override
@@ -79,13 +73,13 @@ public class StandScreen extends AbstractContainerScreen<StandMenu>
         this.renderBlurredBackground(i);
     }
 
-    private void onFocusEditBox()
+    private void onFocusNameEditBox()
     {
         nameEditBox.setValue(tournamentCache.name);
         tournamentCache.name = "";
     }
 
-    private void onUnfocusEditBox()
+    private void onUnfocusNameEditBox()
     {
         //send packet
         PacketDistributor.sendToServer(new TournamentNameChangePayload(tournamentCache.tournamentUUID, nameEditBox.getValue()));
@@ -93,10 +87,27 @@ public class StandScreen extends AbstractContainerScreen<StandMenu>
         nameEditBox.setValue("");
     }
 
+    private void onFocusDurationEditBox()
+    {
+        durationEditBox.setValue(tournamentCache.settings.duration + "");
+        tournamentCache.settings.duration = 0;
+    }
+
+    private void onUnfocusDurationEditBox()
+    {
+        //send packet
+        long duration = Long.parseLong(durationEditBox.getValue());
+        PacketDistributor.sendToServer(new TournamentDurationChangePayload(tournamentCache.tournamentUUID, duration));
+        tournamentCache.settings.duration = duration;
+        durationEditBox.setValue("");
+    }
+
     @Override
     public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick)
     {
         super.render(guiGraphics, mouseX, mouseY, partialTick);
+
+        System.out.println(durationEditBox.isFocused());
 
         double x = mouseX - uiX;
         double y = mouseY - uiY;
@@ -104,15 +115,25 @@ public class StandScreen extends AbstractContainerScreen<StandMenu>
         if (tournamentCache == null) return;
         if (gameProfilesCache == null) return;
 
-        //handle editbox focusing
-        if (wasFocused != nameEditBox.isFocused())
+        //handle Name editbox focusing
+        if (nameWasFocused != nameEditBox.isFocused())
         {
             if (nameEditBox.isFocused())
-                onFocusEditBox();
+                onFocusNameEditBox();
             else
-                onUnfocusEditBox();
+                onUnfocusNameEditBox();
         }
-        wasFocused = nameEditBox.isFocused();
+        nameWasFocused = nameEditBox.isFocused();
+
+        //handle Duration editbox focusing
+        if (durationWasFocused != durationEditBox.isFocused())
+        {
+            if (durationEditBox.isFocused())
+                onFocusDurationEditBox();
+            else
+                onUnfocusDurationEditBox();
+        }
+        durationWasFocused = durationEditBox.isFocused();
 
         //render background
         renderImage(guiGraphics, BACKGROUND);
@@ -234,6 +255,7 @@ public class StandScreen extends AbstractContainerScreen<StandMenu>
             guiGraphics.renderTooltip(this.font, list, Optional.empty(), mouseX, mouseY);
         }
 
+        this.durationEditBox.render(guiGraphics, mouseX, mouseY, partialTick);
         this.nameEditBox.render(guiGraphics, mouseX, mouseY, partialTick);
         renderTooltip(guiGraphics, mouseX, mouseY);
     }
@@ -242,6 +264,7 @@ public class StandScreen extends AbstractContainerScreen<StandMenu>
     {
         tournamentCache = tournament;
         nameEditBox.setEditable(tournamentCache.owner.equals(Minecraft.getInstance().player.getUUID()));
+        durationEditBox.setEditable(tournamentCache.owner.equals(Minecraft.getInstance().player.getUUID()));
         updateDurationCache();
     }
 
@@ -250,8 +273,8 @@ public class StandScreen extends AbstractContainerScreen<StandMenu>
         if (Config.DURATION.get().equals(DurationDisplay.MINUTES))
         {
             String s = "";
-            int totalSeconds = tournamentCache.settings.duration / 20;
-            int hours = totalSeconds / 3600;
+            long totalSeconds = tournamentCache.settings.duration / 20;
+            long hours = totalSeconds / 3600;
 
             if (hours > 0)
             {
@@ -259,7 +282,7 @@ public class StandScreen extends AbstractContainerScreen<StandMenu>
                 s = hours + "h ";
             }
 
-            int minutes = totalSeconds / 60;
+            long minutes = totalSeconds / 60;
 
             if (minutes > 0)
             {
@@ -335,6 +358,7 @@ public class StandScreen extends AbstractContainerScreen<StandMenu>
 
 
         nameEditBox.setFocused(false);
+        durationEditBox.setFocused(false);
 
         return super.mouseClicked(mouseX, mouseY, button);
     }
@@ -374,7 +398,9 @@ public class StandScreen extends AbstractContainerScreen<StandMenu>
             this.minecraft.player.closeContainer();
         }
 
-        return this.nameEditBox.keyPressed(keyCode, scanCode, modifiers) || this.nameEditBox.canConsumeInput() || super.keyPressed(keyCode, scanCode, modifiers);
+        boolean editbox = this.nameEditBox.keyPressed(keyCode, scanCode, modifiers) || this.nameEditBox.canConsumeInput();
+        boolean durationBox = this.durationEditBox.keyPressed(keyCode, scanCode, modifiers) || this.durationEditBox.canConsumeInput();
+        return editbox || durationBox || super.keyPressed(keyCode, scanCode, modifiers);
     }
 
 

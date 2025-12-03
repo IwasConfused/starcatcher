@@ -20,6 +20,7 @@ import com.wdiscute.starcatcher.registry.*;
 import com.wdiscute.starcatcher.rod.FishingRodScreen;
 import com.wdiscute.starcatcher.tournament.StandScreen;
 import com.wdiscute.starcatcher.tournament.TournamentHandler;
+import com.wdiscute.starcatcher.tournament.TournamentOverlay;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
@@ -316,6 +317,7 @@ public class Starcatcher {
         @SubscribeEvent
         public static void FishSpotterLayer(RegisterGuiLayersEvent event) {
             event.registerAboveAll(Starcatcher.rl("fish_tracker"), new FishTrackerLayer());
+            event.registerAboveAll(Starcatcher.rl("tournament"), new TournamentOverlay());
         }
 
         @SubscribeEvent
