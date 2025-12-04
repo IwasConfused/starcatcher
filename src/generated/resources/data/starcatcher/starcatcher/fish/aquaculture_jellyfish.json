@@ -9,8 +9,6 @@
     "consumes_bait": true,
     "correct_bait_chance_added": 0,
     "correct_baits": [],
-    "correct_bobbers": [],
-    "incorrect_baits": [],
     "must_have_correct_bait": false
   },
   "base_chance": 3,

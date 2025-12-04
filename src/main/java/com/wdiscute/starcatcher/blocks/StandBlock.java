@@ -1,6 +1,6 @@
 package com.wdiscute.starcatcher.blocks;
 
-import com.wdiscute.starcatcher.io.network.TournamentUpdatePayload;
+import com.wdiscute.starcatcher.io.network.tournament.stand.CBStandTournamentUpdatePayload;
 import com.wdiscute.starcatcher.tournament.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -51,7 +51,7 @@ public class StandBlock extends Block implements EntityBlock
         {
             if (sbe.tournament == null)
             {
-                sbe.tournament = TournamentHandler.getTournament(sbe.uuid);
+                sbe.tournament = TournamentHandler.getTournamentOrNew(sbe.uuid);
             }
 
             if(sbe.tournament.owner == null)
@@ -63,7 +63,7 @@ public class StandBlock extends Block implements EntityBlock
             player.openMenu(new SimpleMenuProvider(sbe, Component.empty()), pos);
 
             //send payload to client with tournament info
-            PacketDistributor.sendToPlayer(((ServerPlayer) player), TournamentUpdatePayload.helper(player, sbe.tournament));
+            PacketDistributor.sendToPlayer(((ServerPlayer) player), CBStandTournamentUpdatePayload.helper(player, sbe.tournament));
         }
 
         return InteractionResult.SUCCESS;

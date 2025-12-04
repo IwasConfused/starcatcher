@@ -35,6 +35,7 @@ public class StarcatcherFishingRod extends Item implements MenuProvider
                 .stacksTo(1)
                 .component(ModDataComponents.BOBBER.get(), SingleStackContainer.EMPTY)
                 .component(ModDataComponents.BAIT.get(), SingleStackContainer.EMPTY)
+                .component(ModDataComponents.BOBBER_SKIN.get(), SingleStackContainer.EMPTY)
                 .component(ModDataComponents.HOOK.get(), new SingleStackContainer(new ItemStack(ModItems.HOOK.get())))
         );
     }
@@ -65,7 +66,8 @@ public class StarcatcherFishingRod extends Item implements MenuProvider
                 level.addFreshEntity(entity);
 
                 player.setData(ModDataAttachments.FISHING.get(), entity.getStringUUID());
-                entity.setData(ModDataAttachments.BOBBER_SKIN.get(), player.getItemInHand(hand).get(ModDataComponents.BOBBER_SKIN));
+                SingleStackContainer bobberSkin = player.getItemInHand(hand).get(ModDataComponents.BOBBER_SKIN);
+                if(bobberSkin != null) entity.setData(ModDataAttachments.BOBBER_SKIN.get(), bobberSkin);
             }
         }
         else

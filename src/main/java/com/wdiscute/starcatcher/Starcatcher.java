@@ -13,6 +13,8 @@ import com.wdiscute.starcatcher.guide.FishCaughtToast;
 import com.wdiscute.starcatcher.guide.SettingsScreen;
 import com.wdiscute.starcatcher.io.*;
 import com.wdiscute.starcatcher.io.network.*;
+import com.wdiscute.starcatcher.io.network.tournament.*;
+import com.wdiscute.starcatcher.io.network.tournament.stand.*;
 import com.wdiscute.starcatcher.particles.FishingBitingLavaParticles;
 import com.wdiscute.starcatcher.particles.FishingBitingParticles;
 import com.wdiscute.starcatcher.particles.FishingNotificationParticles;
@@ -172,21 +174,39 @@ public class Starcatcher {
             );
 
             registrar.playToClient(
-                    TournamentUpdatePayload.TYPE,
-                    TournamentUpdatePayload.STREAM_CODEC,
-                    TournamentUpdatePayload::handle
+                    CBStandTournamentUpdatePayload.TYPE,
+                    CBStandTournamentUpdatePayload.STREAM_CODEC,
+                    CBStandTournamentUpdatePayload::handle
             );
 
             registrar.playToServer(
-                    TournamentNameChangePayload.TYPE,
-                    TournamentNameChangePayload.STREAM_CODEC,
-                    TournamentNameChangePayload::handle
+                    SBStandTournamentNameChangePayload.TYPE,
+                    SBStandTournamentNameChangePayload.STREAM_CODEC,
+                    SBStandTournamentNameChangePayload::handle
             );
 
             registrar.playToServer(
-                    TournamentScoringChangePayload.TYPE,
-                    TournamentScoringChangePayload.STREAM_CODEC,
-                    TournamentScoringChangePayload::handle
+                    SBStandTournamentDurationChangePayload.TYPE,
+                    SBStandTournamentDurationChangePayload.STREAM_CODEC,
+                    SBStandTournamentDurationChangePayload::handle
+            );
+
+            registrar.playToServer(
+                    SBStandTournamentScoringTypeChangePayload.TYPE,
+                    SBStandTournamentScoringTypeChangePayload.STREAM_CODEC,
+                    SBStandTournamentScoringTypeChangePayload::handle
+            );
+
+            registrar.playToClient(
+                    CBActiveTournamentUpdatePayload.TYPE,
+                    CBActiveTournamentUpdatePayload.STREAM_CODEC,
+                    CBActiveTournamentUpdatePayload::handle
+            );
+
+            registrar.playToServer(
+                    SBStandTournamentStartCancelPayload.TYPE,
+                    SBStandTournamentStartCancelPayload.STREAM_CODEC,
+                    SBStandTournamentStartCancelPayload::handle
             );
         }
 

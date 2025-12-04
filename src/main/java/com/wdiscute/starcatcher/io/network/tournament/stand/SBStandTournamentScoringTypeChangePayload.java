@@ -1,4 +1,4 @@
-package com.wdiscute.starcatcher.io.network;
+package com.wdiscute.starcatcher.io.network.tournament.stand;
 
 
 import com.mojang.authlib.GameProfile;
@@ -17,7 +17,7 @@ import net.neoforged.neoforge.network.handling.IPayloadContext;
 import java.util.List;
 import java.util.UUID;
 
-public record TournamentScoringChangePayload(UUID uuid, TournamentSettings.Scoring scoringType) implements CustomPacketPayload
+public record SBStandTournamentScoringTypeChangePayload(UUID uuid, TournamentSettings.Scoring scoringType) implements CustomPacketPayload
 {
 
     public static final StreamCodec<ByteBuf, GameProfile> GAME_PROFILE_STREAM_CODEC = StreamCodec.composite(
@@ -28,12 +28,12 @@ public record TournamentScoringChangePayload(UUID uuid, TournamentSettings.Scori
 
     public static final StreamCodec<ByteBuf, List<GameProfile>> GAME_PROFILE_STREAM_CODEC_LIST = GAME_PROFILE_STREAM_CODEC.apply(ByteBufCodecs.list());
 
-    public static final Type<TournamentScoringChangePayload> TYPE = new Type<>(Starcatcher.rl("tournament_scoring_change"));
+    public static final Type<SBStandTournamentScoringTypeChangePayload> TYPE = new Type<>(Starcatcher.rl("sb_stand_tournament_scoring"));
 
-    public static final StreamCodec<RegistryFriendlyByteBuf, TournamentScoringChangePayload> STREAM_CODEC = StreamCodec.composite(
-            UUIDUtil.STREAM_CODEC, TournamentScoringChangePayload::uuid,
-            TournamentSettings.Scoring.STREAM_CODEC, TournamentScoringChangePayload::scoringType,
-            TournamentScoringChangePayload::new
+    public static final StreamCodec<RegistryFriendlyByteBuf, SBStandTournamentScoringTypeChangePayload> STREAM_CODEC = StreamCodec.composite(
+            UUIDUtil.STREAM_CODEC, SBStandTournamentScoringTypeChangePayload::uuid,
+            TournamentSettings.Scoring.STREAM_CODEC, SBStandTournamentScoringTypeChangePayload::scoringType,
+            SBStandTournamentScoringTypeChangePayload::new
     );
 
     @Override

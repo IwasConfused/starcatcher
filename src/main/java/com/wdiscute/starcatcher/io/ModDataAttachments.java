@@ -27,13 +27,6 @@ public class ModDataAttachments
                     .build()
     );
 
-    public static final Supplier<AttachmentType<Tournament>> TOURNAMENT = ATTACHMENT_TYPES.register(
-            "tournament", () -> AttachmentType.builder(() -> Tournament.DEFAULT)
-                    .serialize(Tournament.CODEC)
-                    .sync(Tournament.STREAM_CODEC)
-                    .build()
-            );
-
     public static final Supplier<AttachmentType<List<FishCaughtCounter>>> FISHES_CAUGHT = ATTACHMENT_TYPES.register(
             "fishes_caught", () ->
                     AttachmentType.builder(() -> List.of(new FishCaughtCounter(Starcatcher.rl("missingno_rl"), 0, 0, 0, 0, 0, false, false)))

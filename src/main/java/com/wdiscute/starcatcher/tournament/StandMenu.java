@@ -1,5 +1,6 @@
 package com.wdiscute.starcatcher.tournament;
 
+import com.wdiscute.starcatcher.io.network.tournament.stand.CBStandTournamentUpdatePayload;
 import com.wdiscute.starcatcher.registry.ModMenuTypes;
 import com.wdiscute.starcatcher.blocks.ModBlocks;
 import com.wdiscute.starcatcher.blocks.StandBlockEntity;
@@ -47,7 +48,7 @@ public class StandMenu extends AbstractContainerMenu
 
         if (!level.isClientSide)
         {
-            Tournament tournament = TournamentHandler.getTournament(sbe.uuid);
+            Tournament tournament = TournamentHandler.getTournamentOrNew(sbe.uuid);
             for (int i = 0; i < tournament.settings.entryCost.size(); i++)
             {
                 sbe.entryCost.setStackInSlot(i, tournament.settings.entryCost.get(i).stack().copy());
@@ -99,6 +100,7 @@ public class StandMenu extends AbstractContainerMenu
     @Override
     public boolean clickMenuButton(Player player, int id)
     {
+        if(player.level().isClientSide) return false;
         //six seven
         //¯\_(ツ)¯\_
         //
@@ -108,10 +110,9 @@ public class StandMenu extends AbstractContainerMenu
             //if player has the items to signup and is not already signed up
             if (sbe.tournament.settings.canSignUp(player) && !sbe.tournament.playerScores.containsKey(player.getUUID()))
             {
-
-                System.out.println("signed up " + player.getName());
                 //sign up player with empty score
                 sbe.tournament.playerScores.put(player.getUUID(), TournamentPlayerScore.empty());
+                PacketDistributor.sendToAllPlayers(CBStandTournamentUpdatePayload.helper(player, sbe.tournament));
 
                 List<SingleStackContainer> entryCost = sbe.tournament.settings.entryCost;
 
@@ -138,14 +139,6 @@ public class StandMenu extends AbstractContainerMenu
             }
         }
 
-        //start/cancel tournament
-        if (id == 69)
-        {
-            if (sbe.tournament.settings.duration > 0)
-            {
-                TournamentHandler.startTournament(player, sbe.tournament);
-            }
-        }
 
 
         return super.clickMenuButton(player, id);

@@ -545,6 +545,7 @@
   "gui.starcatcher.tournament.scoring" : "Scoring",
   "gui.starcatcher.tournament.duration" : "Duration",
   "gui.starcatcher.tournament.start" : "[Start Tournament]",
+  "gui.starcatcher.tournament.cancel" : "[Cancel Tournament]",
 
   "gui.starcatcher.tournament.status.setup" : "Preparing",
   "gui.starcatcher.tournament.status.active" : "Ongoing",

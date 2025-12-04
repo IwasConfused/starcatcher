@@ -52,7 +52,7 @@ public class FishAndTrophiesPropertiesProvider extends DatapackBuiltinEntriesPro
             //all
             overworldFish(fromRL("minecraft", "creeper_head"))
                     .withSizeAndWeight(FishProperties.SizeAndWeight.NONE)
-                    .withBaseChance(20)
+                    .withBaseChance(0)
                     .withBaitRestrictions(
                             FishProperties.BaitRestrictions.DEFAULT
                                     .withCorrectBait(Starcatcher.rl("creeper_bait"))

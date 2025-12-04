@@ -32,7 +32,6 @@ public class FishingRodMenu extends AbstractContainerMenu
     public FishingRodMenu(int containerId, Inventory inv, FriendlyByteBuf extraData)
     {
         this(containerId, inv, inv.player.getMainHandItem());
-        System.out.println(extraData);
     }
 
     public FishingRodMenu(int containerId, Inventory inv, ItemStack itemStack)

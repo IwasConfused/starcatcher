@@ -1,4 +1,4 @@
-package com.wdiscute.starcatcher.io.network;
+package com.wdiscute.starcatcher.io.network.tournament.stand;
 
 
 import com.mojang.authlib.GameProfile;
@@ -16,7 +16,7 @@ import net.neoforged.neoforge.network.handling.IPayloadContext;
 import java.util.List;
 import java.util.UUID;
 
-public record TournamentDurationChangePayload(UUID uuid, long duration) implements CustomPacketPayload
+public record SBStandTournamentDurationChangePayload(UUID uuid, long duration) implements CustomPacketPayload
 {
 
     public static final StreamCodec<ByteBuf, GameProfile> GAME_PROFILE_STREAM_CODEC = StreamCodec.composite(
@@ -27,12 +27,12 @@ public record TournamentDurationChangePayload(UUID uuid, long duration) implemen
 
     public static final StreamCodec<ByteBuf, List<GameProfile>> GAME_PROFILE_STREAM_CODEC_LIST = GAME_PROFILE_STREAM_CODEC.apply(ByteBufCodecs.list());
 
-    public static final Type<TournamentDurationChangePayload> TYPE = new Type<>(Starcatcher.rl("tournament_name_change"));
+    public static final Type<SBStandTournamentDurationChangePayload> TYPE = new Type<>(Starcatcher.rl("sb_stand_tournament_duration"));
 
-    public static final StreamCodec<RegistryFriendlyByteBuf, TournamentDurationChangePayload> STREAM_CODEC = StreamCodec.composite(
-            UUIDUtil.STREAM_CODEC, TournamentDurationChangePayload::uuid,
-            ByteBufCodecs.VAR_LONG, TournamentDurationChangePayload::duration,
-            TournamentDurationChangePayload::new
+    public static final StreamCodec<RegistryFriendlyByteBuf, SBStandTournamentDurationChangePayload> STREAM_CODEC = StreamCodec.composite(
+            UUIDUtil.STREAM_CODEC, SBStandTournamentDurationChangePayload::uuid,
+            ByteBufCodecs.VAR_LONG, SBStandTournamentDurationChangePayload::duration,
+            SBStandTournamentDurationChangePayload::new
     );
 
     @Override

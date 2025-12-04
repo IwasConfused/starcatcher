@@ -3,13 +3,15 @@ package com.wdiscute.starcatcher.tournament;
 import com.wdiscute.starcatcher.Config;
 import com.wdiscute.starcatcher.Starcatcher;
 import com.wdiscute.starcatcher.io.SingleStackContainer;
-import com.wdiscute.starcatcher.io.network.TournamentDurationChangePayload;
-import com.wdiscute.starcatcher.io.network.TournamentNameChangePayload;
-import com.wdiscute.starcatcher.io.network.TournamentScoringChangePayload;
+import com.wdiscute.starcatcher.io.network.tournament.stand.SBStandTournamentDurationChangePayload;
+import com.wdiscute.starcatcher.io.network.tournament.stand.SBStandTournamentNameChangePayload;
+import com.wdiscute.starcatcher.io.network.tournament.stand.SBStandTournamentScoringTypeChangePayload;
+import com.wdiscute.starcatcher.io.network.tournament.stand.SBStandTournamentStartCancelPayload;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.client.model.AnimationUtils;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
@@ -82,7 +84,7 @@ public class StandScreen extends AbstractContainerScreen<StandMenu>
     private void onUnfocusNameEditBox()
     {
         //send packet
-        PacketDistributor.sendToServer(new TournamentNameChangePayload(tournamentCache.tournamentUUID, nameEditBox.getValue()));
+        PacketDistributor.sendToServer(new SBStandTournamentNameChangePayload(tournamentCache.tournamentUUID, nameEditBox.getValue()));
         tournamentCache.name = nameEditBox.getValue();
         nameEditBox.setValue("");
     }
@@ -97,7 +99,7 @@ public class StandScreen extends AbstractContainerScreen<StandMenu>
     {
         //send packet
         long duration = Long.parseLong(durationEditBox.getValue());
-        PacketDistributor.sendToServer(new TournamentDurationChangePayload(tournamentCache.tournamentUUID, duration));
+        PacketDistributor.sendToServer(new SBStandTournamentDurationChangePayload(tournamentCache.tournamentUUID, duration));
         tournamentCache.settings.duration = duration;
         durationEditBox.setValue("");
     }
@@ -106,8 +108,6 @@ public class StandScreen extends AbstractContainerScreen<StandMenu>
     public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick)
     {
         super.render(guiGraphics, mouseX, mouseY, partialTick);
-
-        System.out.println(durationEditBox.isFocused());
 
         double x = mouseX - uiX;
         double y = mouseY - uiY;
@@ -155,7 +155,7 @@ public class StandScreen extends AbstractContainerScreen<StandMenu>
 
         //scoring
         int xOwnerOffset = 0;
-        if(Minecraft.getInstance().player.getUUID().equals(tournamentCache.owner))
+        if (Minecraft.getInstance().player.getUUID().equals(tournamentCache.owner))
             xOwnerOffset += 4;
         guiGraphics.drawString(this.font, Component.translatable(tournamentCache.settings.scoring.getSerializedName()), uiX + 130, uiY + 88, 0x635040, false);
         guiGraphics.drawString(this.font, Component.translatable("gui.starcatcher.tournament.scoring"), uiX + 130 + xOwnerOffset, uiY + 100, 0x9c897c, false);
@@ -240,24 +240,49 @@ public class StandScreen extends AbstractContainerScreen<StandMenu>
         //inventory
         guiGraphics.drawString(this.font, Component.translatable("gui.starcatcher.tournament.inventory"), uiX + 212, uiY + 175, 0x9c897c, false);
 
-        //start
-        guiGraphics.drawString(this.font, Component.translatable("gui.starcatcher.tournament.start"), uiX + 215, uiY + 50, 0x635040, false);
-        if (x > 209 && x < 317 && y > 44 && y < 60)
+        //start / cancel
+        if (tournamentCache.status == Tournament.Status.SETUP)
         {
-            List<Component> list = new ArrayList<>();
+            guiGraphics.drawString(this.font, Component.translatable("gui.starcatcher.tournament.start"), uiX + 215, uiY + 50, 0x635040, false);
+            if (x > 209 && x < 317 && y > 44 && y < 60)
+            {
+                List<Component> list = new ArrayList<>();
 
-            list.add(Component.literal("This will start the tournament which will"));
-            list.add(Component.literal("automatically end once the duration has"));
-            list.add(Component.literal("ended. Settings can not be changed"));
-            list.add(Component.literal("once the tournament has started."));
-            list.add(Component.literal("Items can still be added to the prize pool."));
+                list.add(Component.literal("This will start the tournament which will"));
+                list.add(Component.literal("automatically end once the duration has"));
+                list.add(Component.literal("ended. Settings can not be changed"));
+                list.add(Component.literal("once the tournament has started."));
+                list.add(Component.literal("Items can still be added to the prize pool."));
 
-            guiGraphics.renderTooltip(this.font, list, Optional.empty(), mouseX, mouseY);
+                guiGraphics.renderTooltip(this.font, list, Optional.empty(), mouseX, mouseY);
+            }
+
+            this.durationEditBox.render(guiGraphics, mouseX, mouseY, partialTick);
+            this.nameEditBox.render(guiGraphics, mouseX, mouseY, partialTick);
+            renderTooltip(guiGraphics, mouseX, mouseY);
+        }
+        else if (tournamentCache.status == Tournament.Status.ACTIVE)
+        {
+            guiGraphics.drawString(this.font, Component.translatable("gui.starcatcher.tournament.cancel"), uiX + 215, uiY + 50, 0xa34536, false);
+            if (x > 209 && x < 317 && y > 44 && y < 60)
+            {
+                List<Component> list = new ArrayList<>();
+
+                list.add(Component.literal("This will start the tournament which will"));
+                list.add(Component.literal("automatically end once the duration has"));
+                list.add(Component.literal("ended. Settings can not be changed"));
+                list.add(Component.literal("once the tournament has started."));
+                list.add(Component.literal("Items can still be added to the prize pool."));
+
+                guiGraphics.renderTooltip(this.font, list, Optional.empty(), mouseX, mouseY);
+            }
+
+            this.durationEditBox.render(guiGraphics, mouseX, mouseY, partialTick);
+            this.nameEditBox.render(guiGraphics, mouseX, mouseY, partialTick);
+            renderTooltip(guiGraphics, mouseX, mouseY);
         }
 
-        this.durationEditBox.render(guiGraphics, mouseX, mouseY, partialTick);
-        this.nameEditBox.render(guiGraphics, mouseX, mouseY, partialTick);
-        renderTooltip(guiGraphics, mouseX, mouseY);
+
     }
 
     public void onTournamentReceived(Tournament tournament)
@@ -325,7 +350,10 @@ public class StandScreen extends AbstractContainerScreen<StandMenu>
         //start
         if (x > 209 && x < 317 && y > 44 && y < 60)
         {
-            minecraft.gameMode.handleInventoryButtonClick(this.menu.containerId, 69);
+            if (tournamentCache.status == Tournament.Status.SETUP)
+                PacketDistributor.sendToServer(new SBStandTournamentStartCancelPayload(true, tournamentCache.tournamentUUID));
+            else if (tournamentCache.status == Tournament.Status.ACTIVE)
+                PacketDistributor.sendToServer(new SBStandTournamentStartCancelPayload(false, tournamentCache.tournamentUUID));
         }
 
         //duration cycling previous
@@ -347,13 +375,13 @@ public class StandScreen extends AbstractContainerScreen<StandMenu>
         //duration cycling previous
         if (x > 124 && x < 134 && y > 99 && y < 109)
         {
-            PacketDistributor.sendToServer(new TournamentScoringChangePayload(tournamentCache.tournamentUUID, tournamentCache.settings.scoring.previous()));
+            PacketDistributor.sendToServer(new SBStandTournamentScoringTypeChangePayload(tournamentCache.tournamentUUID, tournamentCache.settings.scoring.previous()));
         }
 
         //duration cycling next
         if (x > 182 && x < 192 && y > 99 && y < 109)
         {
-            PacketDistributor.sendToServer(new TournamentScoringChangePayload(tournamentCache.tournamentUUID, tournamentCache.settings.scoring.next()));
+            PacketDistributor.sendToServer(new SBStandTournamentScoringTypeChangePayload(tournamentCache.tournamentUUID, tournamentCache.settings.scoring.next()));
         }
 
 

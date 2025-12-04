@@ -11,8 +11,6 @@
     "correct_baits": [
       "starcatcher:legendary_bait"
     ],
-    "correct_bobbers": [],
-    "incorrect_baits": [],
     "must_have_correct_bait": false
   },
   "base_chance": 1,

@@ -2,9 +2,9 @@ package com.wdiscute.starcatcher.tournament;
 
 import com.mojang.authlib.GameProfile;
 import com.wdiscute.starcatcher.io.FishProperties;
-import com.wdiscute.starcatcher.io.ModDataAttachments;
 import com.wdiscute.starcatcher.io.SingleStackContainer;
-import com.wdiscute.starcatcher.io.network.TournamentUpdatePayload;
+import com.wdiscute.starcatcher.io.network.tournament.CBActiveTournamentUpdatePayload;
+import com.wdiscute.starcatcher.io.network.tournament.stand.CBStandTournamentUpdatePayload;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.players.GameProfileCache;
 import net.minecraft.world.entity.player.Player;
@@ -20,7 +20,7 @@ public class TournamentHandler
     private static final List<Tournament> activeTournaments = new ArrayList<>();
     private static final List<Tournament> setupTournaments = new ArrayList<>();
 
-    public static Tournament getTournament(UUID uuid)
+    public static Tournament getTournamentOrNew(UUID uuid)
     {
         for (Tournament t : setupTournaments)
         {
@@ -57,55 +57,84 @@ public class TournamentHandler
         return tournament;
     }
 
+    public static void sendActiveTournamentUpdateToClient(ServerPlayer sp, Tournament tournament)
+    {
+        if(sp == null || tournament == null) return;
+        PacketDistributor.sendToPlayer(sp, CBActiveTournamentUpdatePayload.helper(sp, tournament));
+    }
+
     public static void startTournament(Player playerWhoStartedTheTournament, Tournament tournament)
     {
-        //todo test if it works :)
         Level level = playerWhoStartedTheTournament.level();
 
         for (Map.Entry<UUID, TournamentPlayerScore> entry : tournament.playerScores.entrySet())
         {
             ServerPlayer player = level.getServer().getPlayerList().getPlayer(entry.getKey());
-
-            if(player != null)
-            {
-                player.setData(ModDataAttachments.TOURNAMENT, tournament);
-            }
+            sendActiveTournamentUpdateToClient(player, tournament);
         }
+
+
+        //send to all players to update stand screens
+        PacketDistributor.sendToAllPlayers(CBStandTournamentUpdatePayload.helper(playerWhoStartedTheTournament, tournament));
 
         activeTournaments.add(tournament);
         setupTournaments.remove(tournament);
         tournament.status = Tournament.Status.ACTIVE;
+        tournament.lastsUntil = level.getGameTime() + tournament.settings.duration;
         System.out.println("tournament: " + tournament.name + " has started");
     }
 
-
-    public static void addScore(Player player, FishProperties fp, boolean perfectCatch, int size, int weight)
+    public static void cancelTournament(Player ownerPlayer, Tournament tournament)
     {
-        if (player.level().isClientSide) return;
+        Level level = ownerPlayer.level();
+
+        for (Map.Entry<UUID, TournamentPlayerScore> entry : tournament.playerScores.entrySet())
+        {
+            ServerPlayer player = level.getServer().getPlayerList().getPlayer(entry.getKey());
+            sendActiveTournamentUpdateToClient(player, tournament);
+        }
+
+        activeTournaments.remove(tournament);
+        finishedTournaments.add(tournament);
+        tournament.status = Tournament.Status.CANCELLED;
+
+        PacketDistributor.sendToAllPlayers(CBStandTournamentUpdatePayload.helper(ownerPlayer, tournament));
+    }
+
+
+    public static void addScore(Player playerToAwardScoreTo, FishProperties fp, boolean perfectCatch, int size, int weight)
+    {
+        if (playerToAwardScoreTo.level().isClientSide) return;
         for (Tournament t : activeTournaments)
         {
             //update score
-            if (t.playerScores.containsKey(player.getUUID()))
+            if (t.playerScores.containsKey(playerToAwardScoreTo.getUUID()))
             {
                 //simple scoring
                 if (t.settings.scoring.equals(TournamentSettings.Scoring.SIMPLE))
                 {
-                    t.playerScores.get(player.getUUID()).addScore(1);
+                    t.playerScores.get(playerToAwardScoreTo.getUUID()).addScore(1);
                 }
 
                 //weight scoring
                 if (t.settings.scoring.equals(TournamentSettings.Scoring.WEIGHT))
                 {
-                    t.playerScores.get(player.getUUID()).addScore(weight);
+                    t.playerScores.get(playerToAwardScoreTo.getUUID()).addScore(weight);
                 }
 
                 //weight scoring
                 if (t.settings.scoring.equals(TournamentSettings.Scoring.WEIGHT))
                 {
-                    t.playerScores.get(player.getUUID()).addScore(weight);
+                    t.playerScores.get(playerToAwardScoreTo.getUUID()).addScore(weight);
                 }
 
 
+                Level level = playerToAwardScoreTo.level();
+                for (Map.Entry<UUID, TournamentPlayerScore> entry : t.playerScores.entrySet())
+                {
+                    ServerPlayer sp = level.getServer().getPlayerList().getPlayer(entry.getKey());
+                    sendActiveTournamentUpdateToClient(sp, t);
+                }
             }
         }
     }
@@ -118,7 +147,7 @@ public class TournamentHandler
             if (t.tournamentUUID.equals(uuid) && player.getUUID().equals(t.owner))
             {
                 t.name = name;
-                PacketDistributor.sendToAllPlayers(TournamentUpdatePayload.helper(player, t));
+                PacketDistributor.sendToAllPlayers(CBStandTournamentUpdatePayload.helper(player, t));
             }
         }
     }
@@ -130,8 +159,8 @@ public class TournamentHandler
         {
             if (t.tournamentUUID.equals(uuid) && player.getUUID().equals(t.owner))
             {
-                t.lastsUntil = player.getServer().getTickCount() + duration;
-                PacketDistributor.sendToAllPlayers(TournamentUpdatePayload.helper(player, t));
+                t.settings.duration = player.getServer().getTickCount() + duration;
+                PacketDistributor.sendToAllPlayers(CBStandTournamentUpdatePayload.helper(player, t));
             }
         }
     }
@@ -144,7 +173,7 @@ public class TournamentHandler
             if (t.tournamentUUID.equals(uuid) && player.getUUID().equals(t.owner))
             {
                 t.settings.scoring = scoringType;
-                PacketDistributor.sendToAllPlayers(TournamentUpdatePayload.helper(player, t));
+                PacketDistributor.sendToAllPlayers(CBStandTournamentUpdatePayload.helper(player, t));
             }
         }
     }
@@ -210,6 +239,34 @@ public class TournamentHandler
         }
 
         activeTournaments.removeAll(finishedTournaments);
+    }
+
+    //getters
+    public static Tournament getSetupTournamentOrNull(UUID uuid)
+    {
+        for (Tournament t : setupTournaments)
+        {
+            if(t.tournamentUUID.equals(uuid)) return t;
+        }
+        return null;
+    }
+
+    public static Tournament getActiveTournamentOrNull(UUID uuid)
+    {
+        for (Tournament t : activeTournaments)
+        {
+            if(t.tournamentUUID.equals(uuid)) return t;
+        }
+        return null;
+    }
+
+    public static Tournament getFinishedTournamentOrNull(UUID uuid)
+    {
+        for (Tournament t : finishedTournaments)
+        {
+            if(t.tournamentUUID.equals(uuid)) return t;
+        }
+        return null;
     }
 
 }
