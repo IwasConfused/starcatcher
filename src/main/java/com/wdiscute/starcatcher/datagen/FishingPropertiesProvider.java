@@ -54,7 +54,6 @@ public class FishingPropertiesProvider extends DatapackBuiltinEntriesProvider {
 
 //            FishProperties.DEFAULT
 //                    .withFish(baseItem("starcatcher", "pink_koi"))
-//                    .withCustomName("Very Cool Mysticcraft Fish")
 //                    .withWorldRestrictions(
 //                            FishProperties.WorldRestrictions.DEFAULT
 //                                    .withBiomes(List.of(baseItem("mysticcraft", "cool_biome")))
