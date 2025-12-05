@@ -1072,11 +1072,11 @@
 
   "item.starcatcher.bright_amethyst_snapper" : "Bright Amethyst Snapper",
   "tooltip.starcatcher.bright_amethyst_snapper.0" : "A gorgeous pink colored fish found at deepslate level.",
-  "tooltip.starcatcher.bright_amethyst_snapper.1" : "It's said to swim around in pairs with a Dark Amethyst Snapper.",
+  "tooltip.starcatcher.bright_amethyst_snapper.1" : "It's said to always swim around with it's pair of Dark Amethyst Snapper.",
 
   "item.starcatcher.dark_amethyst_snapper" : "Dark Amethyst Snapper",
   "tooltip.starcatcher.dark_amethyst_snapper.0" : "A gorgeous dark blue colored fish found at deepslate level.",
-  "tooltip.starcatcher.dark_amethyst_snapper.1" : "It's said to swim around in pairs with a Dark Amethyst Snapper.",
+  "tooltip.starcatcher.dark_amethyst_snapper.1" : "It's said to always swim around with it's pair of Bright Amethyst Snapper.",
 
   "item.starcatcher.deepslatefish" : "Deepslatefish",
   "tooltip.starcatcher.deepslatefish.0" : "A hard to catch fish found high up in the mountains.",
