@@ -2,6 +2,7 @@ package com.wdiscute.starcatcher.registry.fishing;
 
 import com.wdiscute.starcatcher.registry.ModItems;
 import com.wdiscute.starcatcher.storage.FishProperties;
+import com.wdiscute.starcatcher.storage.FishProperties.WorldRestrictions.Seasons;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.tags.BiomeTags;
 import net.minecraft.world.item.Items;
@@ -15,28 +16,28 @@ public class StarcatcherOverworldFishingProperties {
                 .withSizeAndWeight(FishProperties.sw(17.7f, 5, 1200, 200, 20, 33)));
 
         register(overworldLakeFish(ModItems.MORGANITE)
-                .withSeasons(FishProperties.WorldRestrictions.Seasons.SUMMER)
+                .withSeasons(Seasons.SUMMER)
                 .withSizeAndWeight(FishProperties.sw(120, 80, 7000, 1000, 10, 20))
                 .withWeather(FishProperties.Weather.RAIN)
                 .withRarity(FishProperties.Rarity.UNCOMMON)
                 .withDifficulty(FishProperties.Difficulty.MEDIUM));
 
         register(overworldLakeFish(ModItems.SILVERVEIL_PERCH)
-                .withSeasons(FishProperties.WorldRestrictions.Seasons.SPRING, FishProperties.WorldRestrictions.Seasons.WINTER)
+                .withSeasons(Seasons.SPRING, Seasons.WINTER)
                 .withSizeAndWeight(FishProperties.sw(27.0f, 11, 500, 352, 5, 36))
                 .withRarity(FishProperties.Rarity.UNCOMMON)
                 .withDifficulty(FishProperties.Difficulty.EVERYTHING_VANISHING));
 
         register(overworldLakeFish(ModItems.ELDERSCALE)
                 .withSizeAndWeight(FishProperties.sw(160.0f, 85, 2300, 652, 10, 20))
-                .withSeasons(FishProperties.WorldRestrictions.Seasons.LATE_SPRING, FishProperties.WorldRestrictions.Seasons.SUMMER, FishProperties.WorldRestrictions.Seasons.AUTUMN)
+                .withSeasons(Seasons.LATE_SPRING, Seasons.SUMMER, Seasons.AUTUMN)
                 .withDifficulty(FishProperties.Difficulty.EASY_VANISHING)
                 .withRarity(FishProperties.Rarity.UNCOMMON)
                 .withBaseChance(3));
 
         register(overworldLakeFish(ModItems.DRIFTFIN)
                 .withSizeAndWeight(FishProperties.sw(16.0f, 3, 167, 70, 10, 20))
-                .withSeasons(FishProperties.WorldRestrictions.Seasons.SUMMER, FishProperties.WorldRestrictions.Seasons.AUTUMN)
+                .withSeasons(Seasons.SUMMER, Seasons.AUTUMN)
                 .withWeather(FishProperties.Weather.CLEAR));
 
         register(overworldLakeFish(ModItems.TWILIGHT_KOI)
@@ -48,14 +49,14 @@ public class StarcatcherOverworldFishingProperties {
 
         register(overworldLakeFish(ModItems.THUNDER_BASS)
                 .withSizeAndWeight(FishProperties.sw(40, 12, 1200, 800, 10, 20))
-                .withSeasons(FishProperties.WorldRestrictions.Seasons.SUMMER, FishProperties.WorldRestrictions.Seasons.AUTUMN)
+                .withSeasons(Seasons.SUMMER, Seasons.AUTUMN)
                 .withRarity(FishProperties.Rarity.RARE)
                 .withWeather(FishProperties.Weather.THUNDER)
                 .withDifficulty(FishProperties.Difficulty.HARD_ONLY_THIN_MOVING));
 
         register(overworldLakeFish(ModItems.LIGHTNING_BASS)
                 .withSizeAndWeight(FishProperties.sw(40, 12, 1300, 620, 10, 20))
-                .withSeasons(FishProperties.WorldRestrictions.Seasons.SUMMER, FishProperties.WorldRestrictions.Seasons.AUTUMN)
+                .withSeasons(Seasons.SUMMER, Seasons.AUTUMN)
                 .withRarity(FishProperties.Rarity.RARE)
                 .withWeather(FishProperties.Weather.THUNDER)
                 .withDifficulty(FishProperties.Difficulty.HARD_VANISHING));
@@ -72,7 +73,7 @@ public class StarcatcherOverworldFishingProperties {
 
         register(overworldColdLakeFish(ModItems.CRYSTALBACK_TROUT)
                 .withSizeAndWeight(FishProperties.sw(35, 8, 1600, 1200, 10, 20))
-                .withSeasons(FishProperties.WorldRestrictions.Seasons.WINTER)
+                .withSeasons(Seasons.WINTER)
                 .withDifficulty(FishProperties.Difficulty.MEDIUM));
 
         register(overworldColdLakeFish(ModItems.AURORA)
@@ -83,7 +84,7 @@ public class StarcatcherOverworldFishingProperties {
                 .withDifficulty(FishProperties.Difficulty.NON_STOP_ACTION_VANISHING));
 
         register(overworldColdLakeFish(ModItems.WINTERY_PIKE)
-                .withSeasons(FishProperties.WorldRestrictions.Seasons.EARLY_SPRING, FishProperties.WorldRestrictions.Seasons.LATE_AUTUMN, FishProperties.WorldRestrictions.Seasons.WINTER)
+                .withSeasons(Seasons.EARLY_SPRING, Seasons.LATE_AUTUMN, Seasons.WINTER)
                 .withSizeAndWeight(FishProperties.sw(75, 20, 5000, 3000, 10, 20))
                 .withDifficulty(FishProperties.Difficulty.EASY_MOVING));
 
@@ -91,7 +92,7 @@ public class StarcatcherOverworldFishingProperties {
         //lake warm
         register(overworldWarmLakeFish(ModItems.SANDTAIL)
                 .withSizeAndWeight(FishProperties.sw(200, 100, 1600, 1200, 10, 20))
-                .withSeasons(FishProperties.WorldRestrictions.Seasons.SUMMER)
+                .withSeasons(Seasons.SUMMER)
                 .withDaytime(FishProperties.Daytime.NIGHT));
 
         register(overworldWarmLakeFish(ModItems.MIRAGE_CARP)
@@ -103,12 +104,12 @@ public class StarcatcherOverworldFishingProperties {
 
         register(overworldWarmLakeFish(ModItems.SCORCHFISH)
                 .withSizeAndWeight(FishProperties.sw(60, 20, 6000, 4000, 10, 20))
-                .withSeasons(FishProperties.WorldRestrictions.Seasons.SPRING, FishProperties.WorldRestrictions.Seasons.SUMMER, FishProperties.WorldRestrictions.Seasons.AUTUMN)
+                .withSeasons(Seasons.SPRING, Seasons.SUMMER, Seasons.AUTUMN)
                 .withWeather(FishProperties.Weather.CLEAR));
 
         register(overworldWarmLakeFish(ModItems.CACTIFISH)
                 .withSizeAndWeight(FishProperties.sw(100, 50, 10000, 3000, 10, 20))
-                .withSeasons(FishProperties.WorldRestrictions.Seasons.SUMMER)
+                .withSeasons(Seasons.SUMMER)
                 .withDaytime(FishProperties.Daytime.DAY));
 
         register(overworldWarmLakeFish(ModItems.AGAVE_BREAM)
@@ -122,14 +123,14 @@ public class StarcatcherOverworldFishingProperties {
         //mountain
         register(overworldMountainFish(ModItems.SUNNY_STURGEON)
                 .withSizeAndWeight(FishProperties.sw(400, 200, 100000, 50000, 10, 10))
-                .withSeasons(FishProperties.WorldRestrictions.Seasons.SPRING, FishProperties.WorldRestrictions.Seasons.SUMMER)
+                .withSeasons(Seasons.SPRING, Seasons.SUMMER)
                 .withDifficulty(FishProperties.Difficulty.HARD_ONLY_THIN)
                 .withRarity(FishProperties.Rarity.RARE)
                 .withDaytime(FishProperties.Daytime.DAY)
                 .withBaseChance(2));
 
         register(overworldMountainFish(ModItems.PEAKDWELLER)
-                .withSeasons(FishProperties.WorldRestrictions.Seasons.EARLY_SPRING, FishProperties.WorldRestrictions.Seasons.AUTUMN, FishProperties.WorldRestrictions.Seasons.WINTER)
+                .withSeasons(Seasons.EARLY_SPRING, Seasons.AUTUMN, Seasons.WINTER)
                 .withSizeAndWeight(FishProperties.sw(100, 50, 10000, 5000, 10, 10))
                 .withDifficulty(FishProperties.Difficulty.HARD));
 
@@ -138,7 +139,7 @@ public class StarcatcherOverworldFishingProperties {
                 .withDifficulty(FishProperties.Difficulty.MEDIUM));
 
         register(overworldMountainFish(ModItems.SUN_SEEKING_CARP)
-                .withSeasons(FishProperties.WorldRestrictions.Seasons.LATE_SPRING, FishProperties.WorldRestrictions.Seasons.SUMMER, FishProperties.WorldRestrictions.Seasons.EARLY_AUTUMN)
+                .withSeasons(Seasons.LATE_SPRING, Seasons.SUMMER, Seasons.EARLY_AUTUMN)
                 .withSizeAndWeight(FishProperties.sw(60, 20, 6000, 4000, 10, 20))
                 .withRarity(FishProperties.Rarity.RARE)
                 .withBaseChance(2)
@@ -148,7 +149,7 @@ public class StarcatcherOverworldFishingProperties {
         //swamp
         register(overworldSwampFish(ModItems.SLUDGE_CATFISH)
                 .withSizeAndWeight(FishProperties.sw(100, 50, 10000, 3000, 10, 20))
-                .withSeasons(FishProperties.WorldRestrictions.Seasons.SPRING)
+                .withSeasons(Seasons.SPRING)
                 .withRarity(FishProperties.Rarity.UNCOMMON));
 
         register(overworldSwampFish(ModItems.LILY_SNAPPER)
@@ -158,7 +159,7 @@ public class StarcatcherOverworldFishingProperties {
 
         register(overworldSwampFish(ModItems.SAGE_CATFISH)
                 .withSizeAndWeight(FishProperties.sw(100, 50, 10000, 3000, 10, 20))
-                .withSeasons(FishProperties.WorldRestrictions.Seasons.EARLY_SPRING, FishProperties.WorldRestrictions.Seasons.AUTUMN, FishProperties.WorldRestrictions.Seasons.WINTER)
+                .withSeasons(Seasons.EARLY_SPRING, Seasons.AUTUMN, Seasons.WINTER)
                 .withRarity(FishProperties.Rarity.EPIC)
                 .withDifficulty(FishProperties.Difficulty.SINGLE_BIG_FAST_NO_DECAY)
                 .withDaytime(FishProperties.Daytime.NIGHT)
@@ -172,7 +173,7 @@ public class StarcatcherOverworldFishingProperties {
         //darkoak forest
         register(overworldDarkForestFish(ModItems.PALE_PINFISH)
                 .withSizeAndWeight(FishProperties.sw(15, 5, 150, 100, 10, 20))
-                .withSeasons(FishProperties.WorldRestrictions.Seasons.EARLY_SPRING, FishProperties.WorldRestrictions.Seasons.LATE_AUTUMN, FishProperties.WorldRestrictions.Seasons.WINTER)
+                .withSeasons(Seasons.EARLY_SPRING, Seasons.LATE_AUTUMN, Seasons.WINTER)
                 .withDaytime(FishProperties.Daytime.MIDNIGHT)
                 .withRarity(FishProperties.Rarity.RARE)
                 .withDifficulty(FishProperties.Difficulty.EASY_NO_FLIP_VANISHING));
@@ -184,20 +185,20 @@ public class StarcatcherOverworldFishingProperties {
                 .withDifficulty(FishProperties.Difficulty.MEDIUM));
 
         register(overworldDarkForestFish(ModItems.PALE_CARP)
-                .withSeasons(FishProperties.WorldRestrictions.Seasons.EARLY_SPRING, FishProperties.WorldRestrictions.Seasons.LATE_AUTUMN, FishProperties.WorldRestrictions.Seasons.WINTER)
+                .withSeasons(Seasons.EARLY_SPRING, Seasons.LATE_AUTUMN, Seasons.WINTER)
                 .withSizeAndWeight(FishProperties.sw(60, 20, 6000, 4000, 10, 20))
                 .withDaytime(FishProperties.Daytime.DAY));
 
 
         //cherry grove
         register(overworldCherryGroveFish(ModItems.VESANI)
-                .withSeasons(FishProperties.WorldRestrictions.Seasons.SPRING, FishProperties.WorldRestrictions.Seasons.EARLY_SUMMER)
+                .withSeasons(Seasons.SPRING, Seasons.EARLY_SUMMER)
                 .withSizeAndWeight(FishProperties.sw(10, 3, 67, 0, 10, 0))
                 .withRarity(FishProperties.Rarity.LEGENDARY)
                 .withDifficulty(FishProperties.Difficulty.VESANI));
 
         register(overworldCherryGroveFish(ModItems.BLOSSOMFISH)
-                .withSeasons(FishProperties.WorldRestrictions.Seasons.SPRING)
+                .withSeasons(Seasons.SPRING)
                 .withSizeAndWeight(FishProperties.sw(60, 20, 6000, 4000, 10, 20))
                 .withWeather(FishProperties.Weather.CLEAR));
 
@@ -208,12 +209,12 @@ public class StarcatcherOverworldFishingProperties {
                 .withRarity(FishProperties.Rarity.UNCOMMON));
 
         register(overworldCherryGroveFish(ModItems.PINK_KOI)
-                .withSeasons(FishProperties.WorldRestrictions.Seasons.SPRING)
+                .withSeasons(Seasons.SPRING)
                 .withSizeAndWeight(FishProperties.sw(60, 20, 3000, 2000, 10, 20))
                 .withWeather(FishProperties.Weather.RAIN));
 
         register(overworldCherryGroveFish(ModItems.ROSE_SIAMESE_FISH)
-                .withSeasons(FishProperties.WorldRestrictions.Seasons.SPRING, FishProperties.WorldRestrictions.Seasons.AUTUMN)
+                .withSeasons(Seasons.SPRING, Seasons.AUTUMN)
                 .withSizeAndWeight(FishProperties.sw(30, 10, 1000, 500, 10, 20))
                 .withDifficulty(FishProperties.Difficulty.MEDIUM_VANISHING)
                 .withDaytime(FishProperties.Daytime.DAY)
@@ -226,7 +227,7 @@ public class StarcatcherOverworldFishingProperties {
                 .withSizeAndWeight(FishProperties.sw(400, 200, 100000, 50000, 10, 10)));
 
         register(overworldColdMountainFish(ModItems.ICETOOTH_STURGEON)
-                .withSeasons(FishProperties.WorldRestrictions.Seasons.EARLY_SPRING, FishProperties.WorldRestrictions.Seasons.WINTER)
+                .withSeasons(Seasons.EARLY_SPRING, Seasons.WINTER)
                 .withSizeAndWeight(FishProperties.sw(400, 200, 100000, 50000, 10, 10))
                 .withDifficulty(FishProperties.Difficulty.MEDIUM));
 
@@ -238,7 +239,7 @@ public class StarcatcherOverworldFishingProperties {
                 .withBaseChance(3));
 
         register(overworldColdMountainFish(ModItems.CRYSTALBACK_BOREAL)
-                .withSeasons(FishProperties.WorldRestrictions.Seasons.SUMMER, FishProperties.WorldRestrictions.Seasons.WINTER)
+                .withSeasons(Seasons.SUMMER, Seasons.WINTER)
                 .withSizeAndWeight(FishProperties.sw(30, 15, 6000, 2000, 10, 10))
                 .withDifficulty(FishProperties.Difficulty.MEDIUM));
 
@@ -251,13 +252,13 @@ public class StarcatcherOverworldFishingProperties {
                 .withDifficulty(FishProperties.Difficulty.EASY_VANISHING));
 
         register(overworldRiverFish(ModItems.DRIFTING_BREAM)
-                .withSeasons(FishProperties.WorldRestrictions.Seasons.SUMMER, FishProperties.WorldRestrictions.Seasons.AUTUMN)
+                .withSeasons(Seasons.SUMMER, Seasons.AUTUMN)
                 .withSizeAndWeight(FishProperties.sw(36, 12, 2000, 1000, 10, 10))
                 .withDaytime(FishProperties.Daytime.NIGHT)
                 .withDifficulty(FishProperties.Difficulty.EASY_MOVING));
 
         register(overworldRiverFish(ModItems.WILLOW_BREAM)
-                .withSeasons(FishProperties.WorldRestrictions.Seasons.SUMMER, FishProperties.WorldRestrictions.Seasons.AUTUMN)
+                .withSeasons(Seasons.SUMMER, Seasons.AUTUMN)
                 .withSizeAndWeight(FishProperties.sw(36, 12, 2000, 1000, 10, 10))
                 .withDaytime(FishProperties.Daytime.NIGHT)
                 .withDifficulty(FishProperties.Difficulty.HARD_VANISHING)
@@ -265,12 +266,12 @@ public class StarcatcherOverworldFishingProperties {
                 .withBaseChance(2));
 
         register(overworldRiverFish(ModItems.HOLLOWBELLY_DARTER)
-                .withSeasons(FishProperties.WorldRestrictions.Seasons.SPRING)
+                .withSeasons(Seasons.SPRING)
                 .withSizeAndWeight(FishProperties.sw(6, 2, 7, 6, 10, 10))
                 .withDifficulty(FishProperties.Difficulty.EASY_MOVING));
 
         register(overworldRiverFish(ModItems.MISTBACK_CHUB)
-                .withSeasons(FishProperties.WorldRestrictions.Seasons.SPRING)
+                .withSeasons(Seasons.SPRING)
                 .withSizeAndWeight(FishProperties.sw(30, 10, 1400, 600, 10, 10)));
 
         register(overworldRiverFish(ModItems.SILVERFIN_PIKE)
@@ -290,11 +291,11 @@ public class StarcatcherOverworldFishingProperties {
         //cold river
         register(overworldColdRiverFish(ModItems.FROSTGILL_CHUB)
                 .withSizeAndWeight(FishProperties.sw(30, 10, 1400, 600, 10, 10))
-                .withSeasons(FishProperties.WorldRestrictions.Seasons.SPRING, FishProperties.WorldRestrictions.Seasons.SUMMER, FishProperties.WorldRestrictions.Seasons.AUTUMN));
+                .withSeasons(Seasons.SPRING, Seasons.SUMMER, Seasons.AUTUMN));
 
         register(overworldColdRiverFish(ModItems.CRYSTALBACK_MINNOW)
                 .withSizeAndWeight(FishProperties.sw(6, 4, 5, 3, 10, 10))
-                .withSeasons(FishProperties.WorldRestrictions.Seasons.WINTER)
+                .withSeasons(Seasons.WINTER)
                 .withDifficulty(FishProperties.Difficulty.EASY_MOVING)
                 .withDaytime(FishProperties.Daytime.NIGHT));
 
@@ -307,7 +308,7 @@ public class StarcatcherOverworldFishingProperties {
                 .withDifficulty(FishProperties.Difficulty.NON_STOP_ACTION));
 
         register(overworldColdRiverFish(ModItems.BLUE_CRYSTAL_FIN)
-                .withSeasons(FishProperties.WorldRestrictions.Seasons.WINTER)
+                .withSeasons(Seasons.WINTER)
                 .withSizeAndWeight(FishProperties.sw(12, 4, 70, 30, 10, 10))
                 .withDaytime(FishProperties.Daytime.DAY)
                 .withDifficulty(FishProperties.Difficulty.EASY_MOVING)
@@ -326,7 +327,7 @@ public class StarcatcherOverworldFishingProperties {
                 .withBaseChance(4));
 
         register(overworldOceanFish(ModItems.SEA_BASS)
-                .withSeasons(FishProperties.WorldRestrictions.Seasons.EARLY_SPRING, FishProperties.WorldRestrictions.Seasons.MID_AUTUMN, FishProperties.WorldRestrictions.Seasons.LATE_AUTUMN, FishProperties.WorldRestrictions.Seasons.WINTER)
+                .withSeasons(Seasons.EARLY_SPRING, Seasons.MID_AUTUMN, Seasons.LATE_AUTUMN, Seasons.WINTER)
                 .withSizeAndWeight(FishProperties.sw(40, 12, 1600, 1100, 10, 20))
                 .withBaseChance(15)
                 .withDifficulty(FishProperties.Difficulty.EASY_MOVING)
@@ -339,16 +340,16 @@ public class StarcatcherOverworldFishingProperties {
                 .withRarity(FishProperties.Rarity.UNCOMMON));
 
         register(overworldOceanFish(ModItems.DEEPJAW_HERRING)
-                .withSeasons(FishProperties.WorldRestrictions.Seasons.SPRING, FishProperties.WorldRestrictions.Seasons.SUMMER)
+                .withSeasons(Seasons.SPRING, Seasons.SUMMER)
                 .withSizeAndWeight(FishProperties.sw(30, 8, 300, 100, 10, 20))
                 .withDifficulty(FishProperties.Difficulty.MEDIUM));
 
         register(overworldOceanFish(ModItems.DUSKTAIL_SNAPPER)
-                .withSeasons(FishProperties.WorldRestrictions.Seasons.SPRING, FishProperties.WorldRestrictions.Seasons.SUMMER)
+                .withSeasons(Seasons.SPRING, Seasons.SUMMER)
                 .withSizeAndWeight(FishProperties.sw(60, 20, 7000, 2000, 10, 20)));
 
         register(overworldOceanFish(ModItems.JOEL)
-                .withSeasons(FishProperties.WorldRestrictions.Seasons.SUMMER)
+                .withSeasons(Seasons.SUMMER)
                 .withSizeAndWeight(FishProperties.sw(69, 0, 2000, 600, 10, 0))
                 .withDifficulty(FishProperties.Difficulty.EVERYTHING)
                 .withBaseChance(1)
@@ -368,7 +369,7 @@ public class StarcatcherOverworldFishingProperties {
 
         //deep ocean
         register(overworldDeepOceanFish(ModItems.BIGEYE_TUNA)
-                .withSeasons(FishProperties.WorldRestrictions.Seasons.SPRING, FishProperties.WorldRestrictions.Seasons.WINTER)
+                .withSeasons(Seasons.SPRING, Seasons.WINTER)
                 .withSizeAndWeight(FishProperties.sw(150, 50, 120000, 60000, 10, 20))
                 .withDaytime(FishProperties.Daytime.NIGHT)
                 .withRarity(FishProperties.Rarity.UNCOMMON)
@@ -555,5 +556,78 @@ public class StarcatcherOverworldFishingProperties {
                 .withSizeAndWeight(FishProperties.sw(15, 8, 700, 300, 10, 20))
                 .withRarity(FishProperties.Rarity.RARE)
                 .withDifficulty(FishProperties.Difficulty.HARD_VANISHING));
+
+
+
+        //nether
+        register(netherLavaFish(ModItems.EMBERGILL)
+                .withSizeAndWeight(FishProperties.sw(220, 70, 5700, 900, 10, 20))
+                .withDifficulty(FishProperties.Difficulty.HARD_ONLY_THIN.withTreasure(FishProperties.Treasure.NETHER)));
+
+        register(netherLavaFish(ModItems.LAVA_CRAB)
+                .withSizeAndWeight(FishProperties.sw(15, 8, 700, 300, 10, 20))
+                .withRarity(FishProperties.Rarity.EPIC)
+                .withDifficulty(FishProperties.Difficulty.EVERYTHING_FLIP.withTreasure(FishProperties.Treasure.NETHER)));
+
+        register(netherLavaFish(ModItems.MAGMA_FISH)
+                .withSizeAndWeight(FishProperties.sw(120, 40, 3700, 900, 10, 20))
+                .withRarity(FishProperties.Rarity.UNCOMMON)
+                .withDifficulty(FishProperties.Difficulty.HARD.withTreasure(FishProperties.Treasure.NETHER)));
+
+        register(netherLavaFish(ModItems.GLOWSTONE_SEEKER)
+                .withSizeAndWeight(FishProperties.sw(120, 40, 3700, 900, 10, 20))
+                .withDifficulty(FishProperties.Difficulty.EVERYTHING_FLIP_MOVING.withTreasure(FishProperties.Treasure.NETHER)));
+
+        register(netherLavaFish(ModItems.CINDER_SQUID)
+                .withSizeAndWeight(FishProperties.sw(40, 20, 1300, 700, 10, 20))
+                .withDifficulty(FishProperties.Difficulty.SINGLE_BIG_FAST_NO_DECAY.withTreasure(FishProperties.Treasure.NETHER))
+                .withRarity(FishProperties.Rarity.RARE)
+                .withBaseChance(2));
+
+        register(netherLavaFish(ModItems.SCALDING_PIKE)
+                .withSizeAndWeight(FishProperties.sw(75, 20, 5000, 3000, 10, 20))
+                .withDifficulty(FishProperties.Difficulty.MEDIUM_VANISHING.withTreasure(FishProperties.Treasure.NETHER)));
+
+        register(netherLavaFish(ModItems.GLOWSTONE_PUFFERFISH)
+                .withSizeAndWeight(FishProperties.sw(35, 25, 1000, 700, 10, 20))
+                .withRarity(FishProperties.Rarity.RARE)
+                .withDifficulty(FishProperties.Difficulty.MEDIUM_VANISHING.withTreasure(FishProperties.Treasure.NETHER)));
+
+        register(netherLavaBasaltDeltasFish(ModItems.WILLISH)
+                .withSizeAndWeight(FishProperties.sw(75, 25, 4000, 700, 10, 20))
+                .withRarity(FishProperties.Rarity.UNCOMMON)
+                .withDifficulty(FishProperties.Difficulty.MEDIUM_MOVING.withTreasure(FishProperties.Treasure.NETHER)));
+
+        register(netherLavaFish(ModItems.LAVA_CRAB_CLAW).withBaseChance(1)
+                .withSkipMinigame(true)
+                .withHasGuideEntry(false));
+
+
+
+
+        //the end
+        register(endFish(ModItems.CHARFISH)
+                .withSizeAndWeight(FishProperties.sw(135, 25, 4000, 700, 10, 20))
+                .withRarity(FishProperties.Rarity.RARE)
+                .withDifficulty(FishProperties.Difficulty.HARD));
+
+        register(endFish(ModItems.CHORUS_CRAB)
+                .withSizeAndWeight(FishProperties.sw(15, 8, 700, 300, 10, 70))
+                .withRarity(FishProperties.Rarity.EPIC)
+                .withDifficulty(FishProperties.Difficulty.EVERYTHING_FLIP_MOVING));
+
+        register(endFish(ModItems.END_GLOW)
+                .withSizeAndWeight(FishProperties.sw(235, 25, 7000, 700, 10, 20))
+                .withRarity(FishProperties.Rarity.UNCOMMON)
+                .withDifficulty(FishProperties.Difficulty.MOVING_THIN_NO_DECAY));
+
+        register(endOuterIslandsFish(ModItems.VOIDBITER)
+                .withSizeAndWeight(FishProperties.sw(50, 15, 2000, 200, 10, 20))
+                .withRarity(FishProperties.Rarity.EPIC)
+                .withDifficulty(FishProperties.Difficulty.VOIDBITER)
+                .withBaitRestrictions(FishProperties.BaitRestrictions.LEGENDARY_BAIT_VOIDBITER));
+
+
+
     }
 }

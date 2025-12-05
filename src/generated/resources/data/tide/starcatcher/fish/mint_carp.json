@@ -18,7 +18,6 @@
     "fish": "tide:mint_carp",
     "fish_bucket": "starcatcher:missingno"
   },
-  "custom_name": "",
   "daytime": "all",
   "difficulty": {
     "decay": 1,

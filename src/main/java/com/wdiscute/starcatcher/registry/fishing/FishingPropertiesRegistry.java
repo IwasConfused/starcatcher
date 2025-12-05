@@ -25,8 +25,6 @@ public class FishingPropertiesRegistry
     {
         MinecraftFishingProperties.bootstrap();
         StarcatcherOverworldFishingProperties.bootstrap();
-        StarcatcherNetherFishingProperties.bootstrap();
-        StarcatcherEndFishingProperties.bootstrap();
         TideFishingProperties.bootstrap();
         AquaCultureFishingProperties.bootstrap();
         FishOfThievesFishingProperties.bootstrap();
@@ -36,7 +34,7 @@ public class FishingPropertiesRegistry
         EnvironmentalFishingProperties.bootstrap();
         CollectorsReapFishingProperties.bootstrap();
         MinersDelightFishingProperties.bootstrap();
-        AlexesCavesFishingProperties.bootstrap();
+        AlexsCavesFishingProperties.bootstrap();
         CrittersAndCompanionsFishingProperties.bootstrap();
     }
 

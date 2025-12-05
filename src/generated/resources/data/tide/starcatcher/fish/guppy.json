@@ -18,7 +18,6 @@
     "fish": "tide:guppy",
     "fish_bucket": "starcatcher:missingno"
   },
-  "custom_name": "",
   "daytime": "night",
   "difficulty": {
     "decay": 1,

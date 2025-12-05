@@ -2,6 +2,7 @@ package com.wdiscute.starcatcher.registry.fishing;
 
 import com.wdiscute.starcatcher.registry.ModItems;
 import com.wdiscute.starcatcher.storage.FishProperties;
+import com.wdiscute.starcatcher.storage.FishProperties.WorldRestrictions.Seasons;
 
 import static com.wdiscute.starcatcher.registry.fishing.FishingPropertiesRegistry.*;
 
@@ -16,7 +17,7 @@ public class CollectorsReapFishingProperties {
         // `-----'  `---'  `--' `--'  `----'  `---'   `--'    `---'  `--'         `----'      `--' '--'  `----'  `--`--' |  |-'
         //                                                                                                               `--'
         register(fish(fromRL("collectorsreap", "platinum_bass"))
-                .withSeasons(FishProperties.WorldRestrictions.Seasons.EARLY_SPRING, FishProperties.WorldRestrictions.Seasons.MID_AUTUMN, FishProperties.WorldRestrictions.Seasons.LATE_AUTUMN, FishProperties.WorldRestrictions.Seasons.WINTER)
+                .withSeasons(Seasons.EARLY_SPRING, Seasons.MID_AUTUMN, Seasons.LATE_AUTUMN, Seasons.WINTER)
                 .withSizeAndWeight(FishProperties.sw(40, 12, 1600, 1100, 10, 20))
                 .withBaseChance(10)
                 .withDifficulty(FishProperties.Difficulty.EASY_MOVING)

@@ -18,7 +18,6 @@
     "fish": "tide:frostbite_flounder",
     "fish_bucket": "starcatcher:missingno"
   },
-  "custom_name": "",
   "daytime": "all",
   "difficulty": {
     "decay": 1,

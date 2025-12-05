@@ -12,7 +12,6 @@
     "fish": "starcatcher:cactifish",
     "fish_bucket": "starcatcher:missingno"
   },
-  "custom_name": "",
   "daytime": "day",
   "difficulty": {
     "decay": 1,

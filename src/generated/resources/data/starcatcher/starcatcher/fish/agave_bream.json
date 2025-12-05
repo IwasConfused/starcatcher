@@ -12,7 +12,6 @@
     "fish": "starcatcher:agave_bream",
     "fish_bucket": "starcatcher:missingno"
   },
-  "custom_name": "",
   "daytime": "night",
   "difficulty": {
     "decay": 2,

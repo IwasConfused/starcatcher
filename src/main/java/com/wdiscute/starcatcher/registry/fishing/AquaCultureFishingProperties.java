@@ -1,6 +1,7 @@
 package com.wdiscute.starcatcher.registry.fishing;
 
 import com.wdiscute.starcatcher.storage.FishProperties;
+import com.wdiscute.starcatcher.storage.FishProperties.WorldRestrictions.Seasons;
 
 import static com.wdiscute.starcatcher.registry.fishing.FishingPropertiesRegistry.*;
 
@@ -18,7 +19,7 @@ public class AquaCultureFishingProperties {
 
         //freshwater
         register(overworldRiverFish(fromRL("aquaculture", "smallmouth_bass"))
-                .withSeasons(FishProperties.WorldRestrictions.Seasons.SPRING, FishProperties.WorldRestrictions.Seasons.SUMMER, FishProperties.WorldRestrictions.Seasons.AUTUMN)
+                .withSeasons(Seasons.SPRING, Seasons.SUMMER, Seasons.AUTUMN)
                 .withSizeAndWeight(FishProperties.sw(30, 10, 1500, 500, 10, 20))
                 .withDifficulty(FishProperties.Difficulty.MEDIUM)
                 .withDaytime(FishProperties.Daytime.DAY)
@@ -26,19 +27,19 @@ public class AquaCultureFishingProperties {
         );
 
         register(overworldRiverFish(fromRL("aquaculture", "bluegill"))
-                .withSeasons(FishProperties.WorldRestrictions.Seasons.SUMMER, FishProperties.WorldRestrictions.Seasons.AUTUMN)
+                .withSeasons(Seasons.SUMMER, Seasons.AUTUMN)
                 .withSizeAndWeight(FishProperties.sw(15, 3, 300, 200, 10, 20))
         );
 
         register(overworldRiverFish(fromRL("aquaculture", "brown_trout"))
-                .withSeasons(FishProperties.WorldRestrictions.Seasons.SUMMER, FishProperties.WorldRestrictions.Seasons.AUTUMN, FishProperties.WorldRestrictions.Seasons.WINTER)
+                .withSeasons(Seasons.SUMMER, Seasons.AUTUMN, Seasons.WINTER)
                 .withSizeAndWeight(FishProperties.sw(45, 15, 3000, 2000, 10, 20))
                 .withDaytime(FishProperties.Daytime.NIGHT)
                 .withWeather(FishProperties.Weather.CLEAR)
         );
 
         register(overworldRiverFish(fromRL("aquaculture", "carp"))
-                .withSeasons(FishProperties.WorldRestrictions.Seasons.SPRING, FishProperties.WorldRestrictions.Seasons.WINTER)
+                .withSeasons(Seasons.SPRING, Seasons.WINTER)
                 .withSizeAndWeight(FishProperties.sw(60, 20, 10000, 4000, 10, 20))
                 .withDifficulty(FishProperties.Difficulty.HARD)
                 .withRarity(FishProperties.Rarity.RARE)
@@ -53,7 +54,7 @@ public class AquaCultureFishingProperties {
         );
 
         register(overworldMountainFish(fromRL("aquaculture", "gar"))
-                .withSeasons(FishProperties.WorldRestrictions.Seasons.SPRING, FishProperties.WorldRestrictions.Seasons.WINTER)
+                .withSeasons(Seasons.SPRING, Seasons.WINTER)
                 .withSizeAndWeight(FishProperties.sw(160, 30, 160000, 20000, 10, 20))
         );
 
@@ -68,13 +69,13 @@ public class AquaCultureFishingProperties {
         );
 
         register(overworldLakeFish(fromRL("aquaculture", "perch"))
-                .withSeasons(FishProperties.WorldRestrictions.Seasons.SUMMER, FishProperties.WorldRestrictions.Seasons.AUTUMN)
+                .withSeasons(Seasons.SUMMER, Seasons.AUTUMN)
                 .withSizeAndWeight(FishProperties.sw(20, 5, 500, 200, 10, 20))
         );
 
         //arid
         register(overworldWarmMountainFish(fromRL("aquaculture", "bayad"))
-                .withSeasons(FishProperties.WorldRestrictions.Seasons.SUMMER, FishProperties.WorldRestrictions.Seasons.AUTUMN)
+                .withSeasons(Seasons.SUMMER, Seasons.AUTUMN)
                 .withSizeAndWeight(FishProperties.sw(170, 30, 150000, 20000, 10, 20))
                 .withRarity(FishProperties.Rarity.UNCOMMON)
                 .withDifficulty(FishProperties.Difficulty.MEDIUM)
@@ -82,7 +83,7 @@ public class AquaCultureFishingProperties {
         );
 
         register(overworldWarmLakeFish(fromRL("aquaculture", "boulti"))
-                .withSeasons(FishProperties.WorldRestrictions.Seasons.SUMMER)
+                .withSeasons(Seasons.SUMMER)
                 .withSizeAndWeight(FishProperties.sw(40, 10, 4000, 300, 10, 20))
                 .withRarity(FishProperties.Rarity.RARE)
                 .withDaytime(FishProperties.Daytime.DAY)
@@ -90,7 +91,7 @@ public class AquaCultureFishingProperties {
         );
 
         register(overworldWarmMountainFish(fromRL("aquaculture", "capitaine"))
-                .withSeasons(FishProperties.WorldRestrictions.Seasons.SPRING, FishProperties.WorldRestrictions.Seasons.SUMMER)
+                .withSeasons(Seasons.SPRING, Seasons.SUMMER)
                 .withSizeAndWeight(FishProperties.sw(130, 50, 12000, 3000, 10, 20))
         );
 
@@ -102,20 +103,20 @@ public class AquaCultureFishingProperties {
 
         //arctic ocean
         register(overworldColdOceanFish(fromRL("aquaculture", "atlantic_cod"))
-                .withSeasons(FishProperties.WorldRestrictions.Seasons.WINTER)
+                .withSeasons(Seasons.WINTER)
                 .withSizeAndWeight(FishProperties.sw(100, 50, 15000, 10000, 10, 20))
                 .withDaytime(FishProperties.Daytime.DAY)
         );
 
         register(overworldColdOceanFish(fromRL("aquaculture", "blackfish"))
-                .withSeasons(FishProperties.WorldRestrictions.Seasons.WINTER)
+                .withSeasons(Seasons.WINTER)
                 .withSizeAndWeight(FishProperties.sw(50, 20, 5000, 3000, 10, 20))
                 .withDaytime(FishProperties.Daytime.NIGHT)
                 .withRarity(FishProperties.Rarity.UNCOMMON)
         );
 
         register(overworldColdOceanFish(fromRL("aquaculture", "pacific_halibut"))
-                .withSeasons(FishProperties.WorldRestrictions.Seasons.WINTER, FishProperties.WorldRestrictions.Seasons.AUTUMN, FishProperties.WorldRestrictions.Seasons.SPRING)
+                .withSeasons(Seasons.WINTER, Seasons.AUTUMN, Seasons.SPRING)
                 .withSizeAndWeight(FishProperties.sw(150, 50, 80000, 5000, 10, 20))
         );
 
@@ -126,7 +127,7 @@ public class AquaCultureFishingProperties {
         );
 
         register(overworldColdOceanFish(fromRL("aquaculture", "atlantic_herring"))
-                .withSeasons(FishProperties.WorldRestrictions.Seasons.WINTER, FishProperties.WorldRestrictions.Seasons.SPRING)
+                .withSeasons(Seasons.WINTER, Seasons.SPRING)
                 .withSizeAndWeight(FishProperties.sw(25, 5, 200, 100, 10, 20))
                 .withDifficulty(FishProperties.Difficulty.HARD_ONLY_THIN_MOVING)
                 .withRarity(FishProperties.Rarity.RARE)
@@ -134,7 +135,7 @@ public class AquaCultureFishingProperties {
         );
 
         register(overworldColdOceanFish(fromRL("aquaculture", "pink_salmon"))
-                .withSeasons(FishProperties.WorldRestrictions.Seasons.WINTER, FishProperties.WorldRestrictions.Seasons.SPRING)
+                .withSeasons(Seasons.WINTER, Seasons.SPRING)
                 .withSizeAndWeight(FishProperties.sw(50, 10, 2000, 1000, 10, 20))
                 .withRarity(FishProperties.Rarity.EPIC)
                 .withWeather(FishProperties.Weather.THUNDER)
@@ -146,7 +147,7 @@ public class AquaCultureFishingProperties {
         );
 
         register(overworldColdOceanFish(fromRL("aquaculture", "rainbow_trout"))
-                .withSeasons(FishProperties.WorldRestrictions.Seasons.WINTER)
+                .withSeasons(Seasons.WINTER)
                 .withSizeAndWeight(FishProperties.sw(60, 20, 2000, 1500, 10, 20))
                 .withRarity(FishProperties.Rarity.UNCOMMON)
                 .withDaytime(FishProperties.Daytime.DAY)
@@ -154,7 +155,7 @@ public class AquaCultureFishingProperties {
 
         //saltwater
         register(overworldOceanFish(fromRL("aquaculture", "jellyfish"))
-                .withSeasons(FishProperties.WorldRestrictions.Seasons.SUMMER)
+                .withSeasons(Seasons.SUMMER)
                 .withSizeAndWeight(FishProperties.sw(100, 70, 50000, 40000, 10, 20))
                 .withRarity(FishProperties.Rarity.UNCOMMON)
                 .withDifficulty(FishProperties.Difficulty.HARD)
@@ -162,7 +163,7 @@ public class AquaCultureFishingProperties {
         );
 
         register(overworldOceanFish(fromRL("aquaculture", "red_grouper"))
-                .withSeasons(FishProperties.WorldRestrictions.Seasons.AUTUMN)
+                .withSeasons(Seasons.AUTUMN)
                 .withSizeAndWeight(FishProperties.sw(100, 50, 15000, 10000, 10, 20))
         );
 
@@ -172,7 +173,7 @@ public class AquaCultureFishingProperties {
 
         //jungle
         register(overworldJungleFish(fromRL("aquaculture", "arapaima"))
-                .withSeasons(FishProperties.WorldRestrictions.Seasons.AUTUMN, FishProperties.WorldRestrictions.Seasons.WINTER)
+                .withSeasons(Seasons.AUTUMN, Seasons.WINTER)
                 .withSizeAndWeight(FishProperties.sw(250, 50, 50000, 150000, 10, 20))
                 .withRarity(FishProperties.Rarity.RARE)
                 .withDifficulty(FishProperties.Difficulty.HARD)
@@ -186,7 +187,7 @@ public class AquaCultureFishingProperties {
 
 
         register(overworldJungleFish(fromRL("aquaculture", "piranha"))
-                .withSeasons(FishProperties.WorldRestrictions.Seasons.SPRING, FishProperties.WorldRestrictions.Seasons.SUMMER, FishProperties.WorldRestrictions.Seasons.AUTUMN)
+                .withSeasons(Seasons.SPRING, Seasons.SUMMER, Seasons.AUTUMN)
                 .withSizeAndWeight(FishProperties.sw(30, 10, 500, 300, 10, 20))
                 .withBaitRestrictions(FishProperties.BaitRestrictions.LEGENDARY_BAIT)
                 .withRarity(FishProperties.Rarity.LEGENDARY)
@@ -202,7 +203,7 @@ public class AquaCultureFishingProperties {
 
         //swamp
         register(overworldSwampFish(fromRL("aquaculture", "leech"))
-                .withSeasons(FishProperties.WorldRestrictions.Seasons.AUTUMN)
+                .withSeasons(Seasons.AUTUMN)
                 .withSizeAndWeight(FishProperties.sw(10, 5, 5, 3, 10, 20))
                 .withRarity(FishProperties.Rarity.RARE)
                 .withDifficulty(FishProperties.Difficulty.HARD)
@@ -230,7 +231,7 @@ public class AquaCultureFishingProperties {
 
         //anywhere
         register(overworldFish(fromRL("aquaculture", "goldfish"))
-                .withSeasons(FishProperties.WorldRestrictions.Seasons.SUMMER)
+                .withSeasons(Seasons.SUMMER)
                 .withSizeAndWeight(FishProperties.sw(15, 5, 100, 5, 10, 20))
                 .withBaseChance(1)
         );

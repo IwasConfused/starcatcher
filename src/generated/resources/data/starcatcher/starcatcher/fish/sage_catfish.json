@@ -14,7 +14,6 @@
     "fish": "starcatcher:sage_catfish",
     "fish_bucket": "starcatcher:missingno"
   },
-  "custom_name": "",
   "daytime": "night",
   "difficulty": {
     "decay": 0,
