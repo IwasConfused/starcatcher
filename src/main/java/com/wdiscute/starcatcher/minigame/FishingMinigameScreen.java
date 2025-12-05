@@ -65,7 +65,8 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener {
     public final boolean isMoving;
 
     public float lastHitMarkerPos = 0;
-    public float kimbeColor = 0;
+    public float missedHitAlpha = 0;
+    private float landedHitAlpha = 0;
 
     public int gracePeriod = 80;
 
@@ -235,7 +236,8 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener {
         renderPointer(guiGraphics, partialTick, poseStack);
 
         //KIMBE MARKER
-        renderKimbeMarker(guiGraphics, poseStack, width, height, kimbeColor, lastHitMarkerPos, bobber);
+        renderHitMarker(guiGraphics, poseStack, width, height, missedHitAlpha, lastHitMarkerPos, bobber, 1, 0, 0);
+        renderHitMarker(guiGraphics, poseStack, width, height, landedHitAlpha, lastHitMarkerPos, bobber, 0, 1, 0);
 
         renderDecor(guiGraphics, width, height, completionSmooth, itemBeingFished);
 
@@ -401,7 +403,7 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener {
         guiGraphics.renderItem(itemBeingFished, width / 2 - 8 - 100, height / 2 - 8 + 35 - completionSmooth);
     }
 
-    public static void renderKimbeMarker(GuiGraphics guiGraphics, PoseStack poseStack, int width, int height, float kimbeColor, float lastHitMarkerPos, ItemStack bobber) {
+    public static void renderHitMarker(GuiGraphics guiGraphics, PoseStack poseStack, int width, int height, float color, float lastHitMarkerPos, ItemStack bobber, float r, float g, float b) {
         poseStack.pushPose();
 
         float centerX = width / 2f;
@@ -411,7 +413,7 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener {
         poseStack.mulPose(new Quaternionf().rotateZ((float) Math.toRadians(lastHitMarkerPos)));
         poseStack.translate(-centerX, -centerY, 0);
 
-        RenderSystem.setShaderColor(1, 0, 0, kimbeColor);
+        RenderSystem.setShaderColor(r, g, b, color);
         RenderSystem.enableBlend();
 
         //16 offset on y for texture centering
@@ -529,11 +531,13 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener {
 
             if (bobber.is(ModItems.KIMBE_BOBBER_SMITHING_TEMPLATE))
                 Minecraft.getInstance().player.playSound(SoundEvents.VILLAGER_NO, 1, 1);
-            kimbeColor = 1;
+            missedHitAlpha = 1;
             consecutiveHits = 0;
             level.playLocalSound(pos.x, pos.y, pos.z, SoundEvents.COMPARATOR_CLICK, SoundSource.BLOCKS, 1, 1, false);
             completion -= penalty;
             perfectCatch = false;
+        } else {
+            landedHitAlpha = 1;
         }
     }
 
@@ -590,7 +594,8 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener {
 
         pointerPos += (int) (pointerSpeed * currentRotation);
 
-        kimbeColor -= 0.1f;
+        missedHitAlpha -= 0.1f;
+        landedHitAlpha -= 0.1f;
 
         fishingHitZones.removeIf(fishingHitZone -> {
             boolean shouldRemove = fishingHitZone.shouldRemove();

@@ -932,7 +932,7 @@ public class SettingsScreen extends Screen
     }
 
     public void renderKimbeMarker(GuiGraphics guiGraphics, PoseStack poseStack){
-        FishingMinigameScreen.renderKimbeMarker(guiGraphics, poseStack, width, height, 0, lastHitMarkerPos, bobber);
+        FishingMinigameScreen.renderHitMarker(guiGraphics, poseStack, width, height, 0, lastHitMarkerPos, bobber, 1, 0, 0);
     }
 
 
