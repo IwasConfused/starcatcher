@@ -32,6 +32,7 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
@@ -140,9 +141,9 @@ public class FishingBobEntity extends Projectile {
 
         List<TrophyProperties> trophiesCaught = new ArrayList<>(U.getTpsFromRls(level(), data));
 
-        //-1 on the common to account for the default "fish" unfortunately, theres probably a way to fix this
+        //-1 on the common to account for the default "fish" unfortunately, there's probably a way to fix this
         TrophyProperties.RarityProgress all = new TrophyProperties.RarityProgress(0, player.getData(ModDataAttachments.FISHES_CAUGHT).size() - 1); //-1 to remove the default
-        Map<FishProperties.Rarity, TrophyProperties.RarityProgress> progressMap = new EnumMap<FishProperties.Rarity, TrophyProperties.RarityProgress>(Map.of(
+        Map<FishProperties.Rarity, TrophyProperties.RarityProgress> progressMap = new EnumMap<>(Map.of(
                 FishProperties.Rarity.COMMON, new TrophyProperties.RarityProgress(0, -1),
                 FishProperties.Rarity.UNCOMMON, TrophyProperties.RarityProgress.DEFAULT,
                 FishProperties.Rarity.RARE, TrophyProperties.RarityProgress.DEFAULT,
@@ -168,14 +169,17 @@ public class FishingBobEntity extends Projectile {
                     && random.nextIntBetweenInclusive(0, 99) < tp.chanceToCatch()
             ) {
 
-                ItemStack is = new ItemStack(tp.fish().value());
+                ItemStack is;
+                if (this.bait.is(Items.BUCKET) && tp.fp().catchInfo().bucketedFish() != ModItems.MISSINGNO) {
+                    is = new ItemStack(tp.fp().catchInfo().bucketedFish().value());
+                } else
+                    is = new ItemStack(tp.fish().value());
                 is.set(ModDataComponents.TROPHY, tp);
                 if (!tp.customName().isEmpty())
                     is.set(DataComponents.ITEM_NAME, Component.translatable(tp.customName()));
 
                 Entity itemFished = new ItemEntity(
-                        level(), position().x, position().y + 1.2f, position().z,
-                        is);
+                        level(), position().x, position().y + 1.2f, position().z, is);
 
                 Vec3 vec3 = new Vec3(
                         Math.clamp((player.position().x - position().x) / 25, -1, 1),
@@ -223,8 +227,7 @@ public class FishingBobEntity extends Projectile {
 
         //consume bait
         if (fpToFish.br().consumesBait()) {
-            bait.setCount(bait.getCount() - 1);
-
+            bait.shrink(1);
             rod.set(ModDataComponents.BAIT, new SingleStackContainer(bait));
         }
     }
