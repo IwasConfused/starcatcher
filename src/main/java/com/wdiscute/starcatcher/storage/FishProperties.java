@@ -118,7 +118,6 @@ public record FishProperties(
     public static class Builder {
         private CatchInfo.Builder catchInfo = new CatchInfo.Builder();
         private int baseChance = 5;
-        private String customName = "";
 
         private SizeAndWeight sw = SizeAndWeight.DEFAULT;
         private Rarity rarity = Rarity.COMMON;
@@ -167,11 +166,6 @@ public record FishProperties(
 
         public Builder withBaseChance(int baseChance) {
             this.baseChance = baseChance;
-            return this;
-        }
-
-        public Builder withCustomName(String customName) {
-            this.customName = customName;
             return this;
         }
 

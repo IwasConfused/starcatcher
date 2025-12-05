@@ -85,7 +85,6 @@ public record TrophyProperties(
         private FishProperties.Builder fp = FishProperties.builder().withFish(ModItems.MISSINGNO);
         private boolean alwaysShow = false;
         private TrophyType trophyType = TrophyType.EXTRA;
-        private String customName = "";
         private RarityProgress all = RarityProgress.DEFAULT;
         private final Map<FishProperties.Rarity, RarityProgress> progressMap = new EnumMap<>(FishProperties.Rarity.class);
         private int chanceToCatch = 100;
@@ -100,11 +99,6 @@ public record TrophyProperties(
 
         public Builder setTrophyType(TrophyType type) {
             this.trophyType = type;
-            return this;
-        }
-
-        public Builder setCustomName(String customName) {
-            this.customName = customName;
             return this;
         }
 
