@@ -1185,5 +1185,7 @@
   "tooltip.starcatcher.voidbiter.3" : "caught it before.",
   "advancements.husbandry.starcatcher.fisherman.title": "Fisherman",
   "advancements.husbandry.starcatcher.fisherman.description": "Catch a Fish without missing once",
-  "fishing.combo": "%1$s COMBO"
+  "fishing.combo": "%1$s COMBO",
+  "key.category.starcatcher.minigame": "Starcatcher Minigame",
+  "key.starcatcher.minigame_hit": "Minigame Hit"
 }

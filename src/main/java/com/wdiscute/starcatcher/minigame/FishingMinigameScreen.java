@@ -12,6 +12,7 @@ import com.wdiscute.starcatcher.io.network.FishingCompletedPayload;
 import com.wdiscute.starcatcher.items.ColorfulBobber;
 import com.wdiscute.starcatcher.minigame.modifiers.AbstractFishingModifier;
 import com.wdiscute.starcatcher.registry.ModItems;
+import com.wdiscute.starcatcher.registry.ModKeymappings;
 import com.wdiscute.starcatcher.storage.FishProperties;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
@@ -100,7 +101,7 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener {
     // Nikdo53 values, these are mine dont steal them
     public final int holdingDelay = 6;
     public int holdingTicks = 0;
-    private boolean isHoldingSpace = false;
+    private boolean isHoldingKey = false;
     private boolean isHoldingMouse = false;
 
     public List<FishingHitZone> fishingHitZones = new ArrayList<>();
@@ -221,7 +222,7 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener {
 
         if (treasureActive) renderTreasure(guiGraphics);
 
-        renderMainElements(guiGraphics, width, height, isHoldingSpace, tankTexture);
+        renderMainElements(guiGraphics, width, height, isHoldingKey, tankTexture);
 
         //render all hit zones
         List<FishingHitZone> renderList = new ArrayList<>(fishingHitZones);
@@ -430,7 +431,7 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener {
     }
 
     public void renderPointer(GuiGraphics guiGraphics, float partialTick, PoseStack poseStack) {
-        renderPointer(guiGraphics, partialTick, poseStack, width, height, isHoldingSpace, pointerPos, pointerSpeed, currentRotation);
+        renderPointer(guiGraphics, partialTick, poseStack, width, height, isHoldingKey, pointerPos, pointerSpeed, currentRotation);
     }
 
     public static void renderPointer(GuiGraphics guiGraphics, float partialTick, PoseStack poseStack, int width, int height, boolean isHoldingSpace, int pointerPos, float speed, int currentRotation) {
@@ -461,8 +462,8 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener {
 
     @Override
     public boolean keyReleased(int keyCode, int scanCode, int modifiers) {
-        if (keyCode == Minecraft.getInstance().options.keyJump.getKey().getValue()) {
-            isHoldingSpace = false;
+        if (keyCode == ModKeymappings.MINIGAME_HIT.getKey().getValue()) {
+            isHoldingKey = false;
             holdingTicks = 0;
         }
         return super.keyReleased(keyCode, scanCode, modifiers);
@@ -492,11 +493,11 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener {
             return true;
         }
 
-        //spacebar input
-        if (keyCode == Minecraft.getInstance().options.keyJump.getKey().getValue()) {
-            if (!isHoldingSpace) inputPressed();
+        //hit input
+        if (ModKeymappings.MINIGAME_HIT.isActiveAndMatches(mouseKey)) {
+            if (!isHoldingKey) inputPressed();
 
-            isHoldingSpace = true;
+            isHoldingKey = true;
         }
 
         return super.keyPressed(keyCode, scanCode, modifiers);
@@ -707,7 +708,7 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener {
     }
 
     public boolean isHoldingInput() {
-        return isHoldingMouse || isHoldingSpace;
+        return isHoldingMouse || isHoldingKey;
     }
 
     public static int normalizePos(int pos) {

@@ -230,7 +230,6 @@ public class FishingBobEntity extends Projectile {
         }
     }
 
-
     private boolean shouldStopFishing(Player player) {
         if (level().isClientSide) return false;
 
