@@ -10,7 +10,8 @@ import net.minecraft.world.level.biome.Biomes;
 
 import static com.wdiscute.starcatcher.registry.fishing.FishingPropertiesRegistry.*;
 
-public class StarcatcherOverworldFishingProperties {
+public class StarcatcherFishingProperties
+{
     public static void bootstrap() {
         register(overworldLakeFish(ModItems.OBIDONTIEE)
                 .withSizeAndWeight(FishProperties.sw(17.7f, 5, 1200, 200, 20, 33)));
@@ -280,9 +281,6 @@ public class StarcatcherOverworldFishingProperties {
                 .withDifficulty(FishProperties.Difficulty.EASY_MOVING)
                 .withRarity(FishProperties.Rarity.UNCOMMON));
 
-        register(overworldRiverFish(BuiltInRegistries.ITEM.wrapAsHolder(Items.SALMON))
-                .withSizeAndWeight(FishProperties.sw(80, 40, 10000, 8000, 10, 20)));
-
         register(overworldRiverFish(ModItems.DRIED_SEAWEED).withBaseChance(1)
                 .withSkipMinigame(true)
                 .withHasGuideEntry(false));
@@ -316,16 +314,6 @@ public class StarcatcherOverworldFishingProperties {
 
 
         //ocean
-        register(overworldOceanFish(BuiltInRegistries.ITEM.wrapAsHolder(Items.COD))
-                .withDifficulty(FishProperties.Difficulty.EASY_MOVING)
-                .withSizeAndWeight(FishProperties.sw(80, 40, 12000, 7000, 10, 20)));
-
-        register(overworldOceanFish(BuiltInRegistries.ITEM.wrapAsHolder(Items.PUFFERFISH))
-                .withSizeAndWeight(FishProperties.sw(70, 20, 10000, 3000, 10, 20))
-                .withDifficulty(FishProperties.Difficulty.EVERYTHING_VANISHING)
-                .withRarity(FishProperties.Rarity.UNCOMMON)
-                .withBaseChance(4));
-
         register(overworldOceanFish(ModItems.SEA_BASS)
                 .withSeasons(Seasons.EARLY_SPRING, Seasons.MID_AUTUMN, Seasons.LATE_AUTUMN, Seasons.WINTER)
                 .withSizeAndWeight(FishProperties.sw(40, 12, 1600, 1100, 10, 20))

@@ -24,7 +24,7 @@ public class FishingPropertiesRegistry
     public static void register()
     {
         MinecraftFishingProperties.bootstrap();
-        StarcatcherOverworldFishingProperties.bootstrap();
+        StarcatcherFishingProperties.bootstrap();
         TideFishingProperties.bootstrap();
         AquaCultureFishingProperties.bootstrap();
         FishOfThievesFishingProperties.bootstrap();
