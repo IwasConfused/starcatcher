@@ -22,7 +22,6 @@ public record TrophyProperties(
         FishProperties fp,
         boolean alwaysShow,
         TrophyType trophyType,
-        String customName,
         RarityProgress all,
         Map<FishProperties.Rarity, RarityProgress> progress,
         int chanceToCatch
@@ -40,7 +39,6 @@ public record TrophyProperties(
             FishProperties.builder().withFish(ModItems.MISSINGNO).build(),
             false,
             TrophyType.EXTRA,
-            "",
             RarityProgress.DEFAULT,
             Map.of(),
             100
@@ -53,7 +51,6 @@ public record TrophyProperties(
                     FishProperties.CODEC.fieldOf("fish_properties").forGetter(TrophyProperties::fp),
                     Codec.BOOL.fieldOf("always_show").forGetter(TrophyProperties::alwaysShow),
                     TrophyType.CODEC.fieldOf("trophy_type").forGetter(TrophyProperties::trophyType),
-                    Codec.STRING.optionalFieldOf("custom_name", "").forGetter(TrophyProperties::customName),
                     RarityProgress.CODEC.fieldOf("all").forGetter(TrophyProperties::all),
                     Codec.unboundedMap(FishProperties.Rarity.CODEC, RarityProgress.CODEC).fieldOf("progress").forGetter(TrophyProperties::progress),
                     Codec.INT.fieldOf("chance_to_catch").forGetter(TrophyProperties::chanceToCatch)
@@ -64,7 +61,6 @@ public record TrophyProperties(
             FishProperties.STREAM_CODEC, TrophyProperties::fp,
             ByteBufCodecs.BOOL, TrophyProperties::alwaysShow,
             TrophyType.STREAM_CODEC, TrophyProperties::trophyType,
-            ByteBufCodecs.STRING_UTF8, TrophyProperties::customName,
             RarityProgress.STREAM_CODEC, TrophyProperties::all,
             ByteBufCodecs.fromCodec(Codec.unboundedMap(FishProperties.Rarity.CODEC, RarityProgress.CODEC)), TrophyProperties::progress, //TODO make better ig
             ByteBufCodecs.VAR_INT, TrophyProperties::chanceToCatch,
@@ -142,7 +138,6 @@ public record TrophyProperties(
                     fp.build(),
                     alwaysShow,
                     trophyType,
-                    customName,
                     all,
                     progressMap,
                     chanceToCatch

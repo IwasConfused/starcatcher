@@ -121,10 +121,6 @@ public class U {
                             //create itemStacks
                             ItemStack is = new ItemStack(fp.catchInfo().fish());
 
-                            //assign custom name if fish has one
-                            if (!fp.customName().isEmpty())
-                                is.set(DataComponents.ITEM_NAME, Component.translatable(fp.customName()));
-
                             //store fish properties in itemstack
                             is.set(ModDataComponents.FISH_PROPERTIES, fp);
 

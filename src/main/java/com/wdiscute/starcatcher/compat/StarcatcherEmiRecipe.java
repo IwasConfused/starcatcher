@@ -35,8 +35,6 @@ public class StarcatcherEmiRecipe implements EmiRecipe {
         this.id = id;
         this.tp = null;
         this.is = new ItemStack(fp.catchInfo().fish());
-        if (!fp.customName().isEmpty())
-            is.set(DataComponents.ITEM_NAME, Component.translatable(fp.customName()));
 
     }
 
@@ -47,11 +45,7 @@ public class StarcatcherEmiRecipe implements EmiRecipe {
 
         this.is = new ItemStack(tp.fish());
 
-        if (!this.tp.customName().isEmpty() && tp.trophyType().equals(TrophyProperties.TrophyType.TROPHY))
-            is.set(DataComponents.ITEM_NAME, Component.translatable(tp.customName()));
-
         is.set(ModDataComponents.TROPHY, this.tp);
-
     }
 
     @Override

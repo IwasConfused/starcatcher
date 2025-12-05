@@ -34,10 +34,6 @@ public class TrophyBlockEntity extends BlockEntity {
     protected void collectImplicitComponents(DataComponentMap.Builder components) {
         super.collectImplicitComponents(components);
         components.set(ModDataComponents.TROPHY, trophyProperties);
-
-        if (!trophyProperties.customName().isEmpty()) {
-            components.set(DataComponents.ITEM_NAME, Component.translatable(trophyProperties.customName()));
-        }
     }
 
     @Override

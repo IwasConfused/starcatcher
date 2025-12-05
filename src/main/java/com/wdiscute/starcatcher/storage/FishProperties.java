@@ -46,8 +46,6 @@ import java.util.Optional;
 public record FishProperties(
         CatchInfo catchInfo,
         int baseChance,
-        String customName,
-
         SizeAndWeight sw,
         Rarity rarity,
         WorldRestrictions wr,
@@ -62,7 +60,6 @@ public record FishProperties(
             instance.group(
                     CatchInfo.CODEC.fieldOf("catch_info").forGetter(FishProperties::catchInfo),
                     Codec.INT.fieldOf("base_chance").forGetter(FishProperties::baseChance),
-                    Codec.STRING.fieldOf("custom_name").forGetter(FishProperties::customName),
                     SizeAndWeight.CODEC.fieldOf("size_and_weight").forGetter(FishProperties::sw),
                     Rarity.CODEC.fieldOf("rarity").forGetter(FishProperties::rarity),
                     WorldRestrictions.CODEC.fieldOf("world_restrictions").forGetter(FishProperties::wr),
@@ -81,7 +78,6 @@ public record FishProperties(
     public static final StreamCodec<RegistryFriendlyByteBuf, FishProperties> STREAM_CODEC = ExtraComposites.composite(
             CatchInfo.STREAM_CODEC, FishProperties::catchInfo,
             ByteBufCodecs.VAR_INT, FishProperties::baseChance,
-            ByteBufCodecs.STRING_UTF8, FishProperties::customName,
             SizeAndWeight.STREAM_CODEC, FishProperties::sw,
             Rarity.STREAM_CODEC, FishProperties::rarity,
             WorldRestrictions.STREAM_CODEC, FishProperties::wr,
@@ -104,7 +100,6 @@ public record FishProperties(
     public static final FishProperties DEFAULT = new FishProperties(
             CatchInfo.DEFAULT,
             5,
-            "",
             SizeAndWeight.DEFAULT,
             Rarity.COMMON,
             WorldRestrictions.DEFAULT,
@@ -234,7 +229,6 @@ public record FishProperties(
             return new FishProperties(
                     catchInfo.build(),
                     baseChance,
-                    customName,
                     sw,
                     rarity,
                     wr,
