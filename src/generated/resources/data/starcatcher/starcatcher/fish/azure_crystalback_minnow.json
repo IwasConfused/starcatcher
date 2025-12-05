@@ -14,7 +14,6 @@
     "fish": "starcatcher:azure_crystalback_minnow",
     "fish_bucket": "starcatcher:missingno"
   },
-  "custom_name": "",
   "daytime": "midnight",
   "difficulty": {
     "decay": 10,

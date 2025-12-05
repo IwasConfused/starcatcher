@@ -5,7 +5,8 @@ import com.wdiscute.starcatcher.storage.FishProperties;
 
 import static com.wdiscute.starcatcher.registry.fishing.FishingPropertiesRegistry.*;
 
-public class AlexesCavesFishingProperties {
+public class AlexsCavesFishingProperties
+{
     public static void bootstrap() {
 
         //region Alex's Caves

@@ -1,6 +1,7 @@
 package com.wdiscute.starcatcher.registry.fishing;
 
 import com.wdiscute.starcatcher.storage.FishProperties;
+import com.wdiscute.starcatcher.storage.FishProperties.WorldRestrictions.Seasons;
 
 import static com.wdiscute.starcatcher.registry.fishing.FishingPropertiesRegistry.*;
 
@@ -10,13 +11,13 @@ public class FishOfThievesFishingProperties {
         //region Fish of Thieves
 
         register(overworldOceanFish(fromRL("fishofthieves", "splashtail"))
-                .withSeasons(FishProperties.WorldRestrictions.Seasons.SUMMER, FishProperties.WorldRestrictions.Seasons.AUTUMN)
+                .withSeasons(Seasons.SUMMER, Seasons.AUTUMN)
                 .withSizeAndWeight(FishProperties.sw(250, 70, 7600, 2000, 10, 20))
                 .withDifficulty(FishProperties.Difficulty.EASY_MOVING)
         );
 
         register(overworldLakeFish(fromRL("fishofthieves", "pondie"))
-                .withSeasons(FishProperties.WorldRestrictions.Seasons.SPRING, FishProperties.WorldRestrictions.Seasons.SUMMER)
+                .withSeasons(Seasons.SPRING, Seasons.SUMMER)
                 .withSizeAndWeight(FishProperties.sw(190, 30, 9000, 3600, 10, 20))
                 .withDifficulty(FishProperties.Difficulty.MEDIUM)
                 .withRarity(FishProperties.Rarity.UNCOMMON)
@@ -31,7 +32,7 @@ public class FishOfThievesFishingProperties {
         );
 
         register(overworldWarmOceanFish(fromRL("fishofthieves", "ancientscale"))
-                .withSeasons(FishProperties.WorldRestrictions.Seasons.SPRING, FishProperties.WorldRestrictions.Seasons.WINTER)
+                .withSeasons(Seasons.SPRING, Seasons.WINTER)
                 .withSizeAndWeight(FishProperties.sw(70, 10, 4000, 2000, 10, 20))
                 .withDifficulty(FishProperties.Difficulty.HARD_VANISHING)
                 .withRarity(FishProperties.Rarity.RARE)
@@ -44,7 +45,7 @@ public class FishOfThievesFishingProperties {
         );
 
         register(overworldLushCavesFish(fromRL("fishofthieves", "wildsplash"))
-                .withSeasons(FishProperties.WorldRestrictions.Seasons.WINTER)
+                .withSeasons(Seasons.WINTER)
                 .withSizeAndWeight(FishProperties.sw(120, 30, 8000, 2200, 10, 20))
                 .withDifficulty(FishProperties.Difficulty.MEDIUM_MOVING)
                 .withRarity(FishProperties.Rarity.UNCOMMON)
@@ -57,21 +58,21 @@ public class FishOfThievesFishingProperties {
         );
 
         register(overworldColdOceanFish(fromRL("fishofthieves", "battlegill"))
-                .withSeasons(FishProperties.WorldRestrictions.Seasons.SUMMER, FishProperties.WorldRestrictions.Seasons.AUTUMN)
+                .withSeasons(Seasons.SUMMER, Seasons.AUTUMN)
                 .withSizeAndWeight(FishProperties.sw(100, 10, 19000, 4200, 10, 20))
                 .withDifficulty(FishProperties.Difficulty.MEDIUM_VANISHING)
                 .withRarity(FishProperties.Rarity.UNCOMMON)
         );
 
         register(endFish(fromRL("fishofthieves", "wrecker"))
-                .withSeasons(FishProperties.WorldRestrictions.Seasons.SPRING, FishProperties.WorldRestrictions.Seasons.AUTUMN)
+                .withSeasons(Seasons.SPRING, Seasons.AUTUMN)
                 .withSizeAndWeight(FishProperties.sw(100, 10, 19000, 4200, 10, 20))
                 .withDifficulty(FishProperties.Difficulty.MEDIUM_FAST_FISH_VANISHING)
                 .withRarity(FishProperties.Rarity.EPIC)
         );
 
         register(overworldOceanFish(fromRL("fishofthieves", "stormfish"))
-                .withSeasons(FishProperties.WorldRestrictions.Seasons.SUMMER)
+                .withSeasons(Seasons.SUMMER)
                 .withSizeAndWeight(FishProperties.sw(150, 30, 14000, 2000, 10, 20))
                 .withDifficulty(FishProperties.Difficulty.MEDIUM_FAST_FISH_VANISHING)
                 .withWeather(FishProperties.Weather.THUNDER)

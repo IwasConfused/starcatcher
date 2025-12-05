@@ -19,7 +19,6 @@
     "fish_bucket": "starcatcher:missingno",
     "override_minigame_item": "starcatcher:unknown_fish"
   },
-  "custom_name": "",
   "daytime": "all",
   "difficulty": {
     "decay": 0,

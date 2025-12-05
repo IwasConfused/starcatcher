@@ -2,6 +2,7 @@ package com.wdiscute.starcatcher.registry.fishing;
 
 import com.wdiscute.starcatcher.StarcatcherTags;
 import com.wdiscute.starcatcher.storage.FishProperties;
+import com.wdiscute.starcatcher.storage.FishProperties.WorldRestrictions.Seasons;
 import net.minecraft.tags.BiomeTags;
 
 import static com.wdiscute.starcatcher.registry.fishing.FishingPropertiesRegistry.*;
@@ -21,7 +22,7 @@ public class TideFishingProperties {
         //tide freshwater
 
         register(overworldColdLakeFish(fromRL("tide", "trout"))
-                .withSeasons(FishProperties.WorldRestrictions.Seasons.SPRING, FishProperties.WorldRestrictions.Seasons.WINTER)
+                .withSeasons(Seasons.SPRING, Seasons.WINTER)
                 .withSizeAndWeight(FishProperties.sw(50, 20, 2000, 1600, 10, 20))
                 .withDifficulty(FishProperties.Difficulty.EASY_MOVING)
                 .withDaytime(FishProperties.Daytime.DAY)
@@ -29,25 +30,25 @@ public class TideFishingProperties {
         );
 
                 register(overworldLakeFish(fromRL("tide", "bass"))
-                        .withSeasons(FishProperties.WorldRestrictions.Seasons.SPRING, FishProperties.WorldRestrictions.Seasons.WINTER)
+                        .withSeasons(Seasons.SPRING, Seasons.WINTER)
                         .withSizeAndWeight(FishProperties.sw(50, 20, 2000, 1600, 10, 20))
                         .withWeather(FishProperties.Weather.CLEAR)
                 );
 
                 register(overworldLakeFish(fromRL("tide", "yellow_perch"))
-                        .withSeasons(FishProperties.WorldRestrictions.Seasons.SPRING, FishProperties.WorldRestrictions.Seasons.SUMMER)
+                        .withSeasons(Seasons.SPRING, Seasons.SUMMER)
                         .withSizeAndWeight(FishProperties.sw(25, 10, 200, 20, 10, 20))
                         .withDifficulty(FishProperties.Difficulty.EASY_VANISHING)
                         .withWeather(FishProperties.Weather.RAIN)
                 );
 
                 register(overworldMountainFish(fromRL("tide", "bluegill"))
-                        .withSeasons(FishProperties.WorldRestrictions.Seasons.SPRING, FishProperties.WorldRestrictions.Seasons.SUMMER)
+                        .withSeasons(Seasons.SPRING, Seasons.SUMMER)
                         .withSizeAndWeight(FishProperties.sw(15, 5, 200, 20, 10, 20))
                 );
 
                 register(overworldWarmMountainFish(fromRL("tide", "mint_carp"))
-                        .withSeasons(FishProperties.WorldRestrictions.Seasons.SUMMER, FishProperties.WorldRestrictions.Seasons.AUTUMN)
+                        .withSeasons(Seasons.SUMMER, Seasons.AUTUMN)
                         .withSizeAndWeight(FishProperties.sw(80, 40, 10000, 5000, 10, 20))
                         .withDifficulty(FishProperties.Difficulty.EASY_VANISHING)
                         .withWeather(FishProperties.Weather.RAIN)
@@ -55,7 +56,7 @@ public class TideFishingProperties {
                 );
 
                 register(overworldColdRiverFish(fromRL("tide", "pike"))
-                        .withSeasons(FishProperties.WorldRestrictions.Seasons.WINTER)
+                        .withSeasons(Seasons.WINTER)
                         .withSizeAndWeight(FishProperties.sw(100, 50, 15000, 5000, 10, 20))
                 );
 
@@ -78,12 +79,12 @@ public class TideFishingProperties {
 
                 //tide saltwater
                 register(overworldOceanFish(fromRL("tide", "tuna"))
-                        .withSeasons(FishProperties.WorldRestrictions.Seasons.AUTUMN, FishProperties.WorldRestrictions.Seasons.WINTER)
+                        .withSeasons(Seasons.AUTUMN, Seasons.WINTER)
                         .withSizeAndWeight(FishProperties.sw(200, 100, 200000, 150000, 10, 20))
                 );
 
                 register(overworldColdOceanFish(fromRL("tide", "ocean_perch"))
-                        .withSeasons(FishProperties.WorldRestrictions.Seasons.AUTUMN, FishProperties.WorldRestrictions.Seasons.WINTER)
+                        .withSeasons(Seasons.AUTUMN, Seasons.WINTER)
                         .withSizeAndWeight(FishProperties.sw(50, 20, 2000, 1600, 10, 20))
                         .withDifficulty(FishProperties.Difficulty.EASY_MOVING)
                         .withDaytime(FishProperties.Daytime.NIGHT)
@@ -91,13 +92,13 @@ public class TideFishingProperties {
                 );
 
                 register(overworldOceanFish(fromRL("tide", "mackerel"))
-                        .withSeasons(FishProperties.WorldRestrictions.Seasons.AUTUMN)
+                        .withSeasons(Seasons.AUTUMN)
                         .withSizeAndWeight(FishProperties.sw(35, 15, 500, 400, 10, 20))
                         .withDifficulty(FishProperties.Difficulty.MEDIUM)
                 );
 
                 register(overworldWarmOceanFish(fromRL("tide", "angelfish"))
-                        .withSeasons(FishProperties.WorldRestrictions.Seasons.SUMMER)
+                        .withSeasons(Seasons.SUMMER)
                         .withSizeAndWeight(FishProperties.sw(15, 5, 100, 5, 10, 20))
                         .withWeather(FishProperties.Weather.RAIN)
                 );
@@ -111,7 +112,7 @@ public class TideFishingProperties {
                 );
 
                 register(overworldWarmOceanFish(fromRL("tide", "sailfish"))
-                        .withSeasons(FishProperties.WorldRestrictions.Seasons.SUMMER)
+                        .withSeasons(Seasons.SUMMER)
                         .withSizeAndWeight(FishProperties.sw(250, 50, 100000, 50000, 10, 20))
                         .withWeather(FishProperties.Weather.RAIN)
                 );
@@ -199,7 +200,7 @@ public class TideFishingProperties {
                 );
 
                 register(fish(fromRL("tide", "sandskipper"))
-                        .withSeasons(FishProperties.WorldRestrictions.Seasons.SUMMER)
+                        .withSeasons(Seasons.SUMMER)
                         .withSizeAndWeight(FishProperties.sw(30, 10, 1000, 500, 10, 20))
                         .withWorldRestrictions(FishProperties.WorldRestrictions.DEFAULT.withBiomes(rl("minecraft", "desert")))
                         .withRarity(FishProperties.Rarity.UNCOMMON)
@@ -207,27 +208,27 @@ public class TideFishingProperties {
                 );
 
                 register(overworldCherryGroveFish(fromRL("tide", "blossom_bass"))
-                        .withSeasons(FishProperties.WorldRestrictions.Seasons.SPRING)
+                        .withSeasons(Seasons.SPRING)
                         .withSizeAndWeight(FishProperties.sw(50, 20, 5000, 3000, 10, 20))
                         .withDifficulty(FishProperties.Difficulty.MEDIUM)
                         .withRarity(FishProperties.Rarity.UNCOMMON)
                 );
 
                 register(overworldFish(fromRL("tide", "oakfish"))
-                        .withSeasons(FishProperties.WorldRestrictions.Seasons.SPRING, FishProperties.WorldRestrictions.Seasons.AUTUMN)
+                        .withSeasons(Seasons.SPRING, Seasons.AUTUMN)
                         .withSizeAndWeight(FishProperties.sw(40, 20, 3000, 2000, 10, 20))
                         .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD.withBiomesTags(BiomeTags.IS_FOREST.location()))
                         .withDifficulty(FishProperties.Difficulty.MEDIUM)
                 );
 
                 register(overworldColdLakeFish(fromRL("tide", "frostbite_flounder"))
-                        .withSeasons(FishProperties.WorldRestrictions.Seasons.AUTUMN, FishProperties.WorldRestrictions.Seasons.WINTER)
+                        .withSeasons(Seasons.AUTUMN, Seasons.WINTER)
                         .withSizeAndWeight(FishProperties.sw(60, 30, 6000, 4000, 10, 20))
                         .withDifficulty(FishProperties.Difficulty.EASY_VANISHING)
                 );
 
                 register(overworldFish(fromRL("tide", "mirage_catfish"))
-                        .withSeasons(FishProperties.WorldRestrictions.Seasons.SUMMER)
+                        .withSeasons(Seasons.SUMMER)
                         .withSizeAndWeight(FishProperties.sw(100, 50, 15000, 10000, 10, 20))
                         .withRarity(FishProperties.Rarity.EPIC)
                         .withDifficulty(FishProperties.Difficulty.EVERYTHING_FLIP)
@@ -277,7 +278,7 @@ public class TideFishingProperties {
                 );
 
                 register(overworldJungleFish(fromRL("tide", "leafback"))
-                        .withSeasons(FishProperties.WorldRestrictions.Seasons.SPRING, FishProperties.WorldRestrictions.Seasons.AUTUMN)
+                        .withSeasons(Seasons.SPRING, Seasons.AUTUMN)
                         .withSizeAndWeight(FishProperties.sw(40, 20, 3000, 2000, 10, 20))
                         .withRarity(FishProperties.Rarity.EPIC)
                         .withDifficulty(FishProperties.Difficulty.EVERYTHING)
@@ -290,7 +291,7 @@ public class TideFishingProperties {
                 );
 
                 register(overworldTaigaFish(fromRL("tide", "pine_perch"))
-                        .withSeasons(FishProperties.WorldRestrictions.Seasons.SPRING, FishProperties.WorldRestrictions.Seasons.AUTUMN)
+                        .withSeasons(Seasons.SPRING, Seasons.AUTUMN)
                         .withSizeAndWeight(FishProperties.sw(25, 10, 500, 300, 10, 20))
                         .withDifficulty(FishProperties.Difficulty.MEDIUM)
                 );
@@ -311,7 +312,7 @@ public class TideFishingProperties {
                         );
 
                 register(overworldSurfaceLava(fromRL("tide", "obsidian_pike"))
-                        .withSeasons(FishProperties.WorldRestrictions.Seasons.SUMMER)
+                        .withSeasons(Seasons.SUMMER)
                         .withSizeAndWeight(FishProperties.sw(100, 5, 15000, 10000, 10, 20))
                         .withRarity(FishProperties.Rarity.UNCOMMON)
                         .withDifficulty(FishProperties.Difficulty.HARD)

@@ -20,7 +20,6 @@
     "fish": "tide:shooting_starfish",
     "fish_bucket": "starcatcher:missingno"
   },
-  "custom_name": "",
   "daytime": "midnight",
   "difficulty": {
     "decay": 2,

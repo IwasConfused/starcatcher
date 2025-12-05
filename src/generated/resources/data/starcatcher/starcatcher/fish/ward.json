@@ -14,7 +14,6 @@
     "fish": "starcatcher:ward",
     "fish_bucket": "starcatcher:missingno"
   },
-  "custom_name": "",
   "daytime": "all",
   "difficulty": {
     "decay": 0,
