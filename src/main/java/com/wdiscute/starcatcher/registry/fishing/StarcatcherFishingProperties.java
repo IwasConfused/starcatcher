@@ -12,7 +12,8 @@ import static com.wdiscute.starcatcher.registry.fishing.FishingPropertiesRegistr
 
 public class StarcatcherFishingProperties
 {
-    public static void bootstrap() {
+    public static void bootstrap()
+    {
         register(overworldLakeFish(ModItems.OBIDONTIEE)
                 .withSizeAndWeight(FishProperties.sw(17.7f, 5, 1200, 200, 20, 33)));
 
@@ -546,7 +547,6 @@ public class StarcatcherFishingProperties
                 .withDifficulty(FishProperties.Difficulty.HARD_VANISHING));
 
 
-
         //nether
         register(netherLavaFish(ModItems.EMBERGILL)
                 .withSizeAndWeight(FishProperties.sw(220, 70, 5700, 900, 10, 20))
@@ -591,8 +591,6 @@ public class StarcatcherFishingProperties
                 .withHasGuideEntry(false));
 
 
-
-
         //the end
         register(endFish(ModItems.CHARFISH)
                 .withSizeAndWeight(FishProperties.sw(135, 25, 4000, 700, 10, 20))
@@ -614,7 +612,6 @@ public class StarcatcherFishingProperties
                 .withRarity(FishProperties.Rarity.EPIC)
                 .withDifficulty(FishProperties.Difficulty.VOIDBITER)
                 .withBaitRestrictions(FishProperties.BaitRestrictions.LEGENDARY_BAIT_VOIDBITER));
-
 
 
     }
