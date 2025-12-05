@@ -4,6 +4,8 @@ import com.mojang.serialization.Codec;
 import com.wdiscute.starcatcher.Starcatcher;
 import com.wdiscute.starcatcher.items.ColorfulBobber;
 import com.wdiscute.starcatcher.secretnotes.SecretNote;
+import com.wdiscute.starcatcher.storage.FishProperties;
+import com.wdiscute.starcatcher.storage.TrophyProperties;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.Registries;
 import net.neoforged.bus.api.IEventBus;

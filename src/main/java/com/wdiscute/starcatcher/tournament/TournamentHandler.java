@@ -1,7 +1,7 @@
 package com.wdiscute.starcatcher.tournament;
 
 import com.mojang.authlib.GameProfile;
-import com.wdiscute.starcatcher.io.FishProperties;
+import com.wdiscute.starcatcher.storage.FishProperties;
 import com.wdiscute.starcatcher.io.SingleStackContainer;
 import com.wdiscute.starcatcher.io.network.tournament.CBActiveTournamentUpdatePayload;
 import com.wdiscute.starcatcher.io.network.tournament.stand.CBStandTournamentUpdatePayload;

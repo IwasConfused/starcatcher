@@ -4,6 +4,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.wdiscute.starcatcher.Starcatcher;
 import com.wdiscute.starcatcher.io.network.FishCaughtPayload;
+import com.wdiscute.starcatcher.storage.FishProperties;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
@@ -24,8 +25,7 @@ public record FishCaughtCounter(
         int weight,
         boolean caughtGolden,
         boolean perfectCatch
-)
-{
+) {
 
     public static final Codec<FishCaughtCounter> CODEC = RecordCodecBuilder.create(instance ->
             instance.group(
@@ -58,38 +58,33 @@ public record FishCaughtCounter(
     public static final Codec<List<FishCaughtCounter>> LIST_CODEC = FishCaughtCounter.CODEC.listOf();
 
 
-    public static int getRandomSize(FishProperties fp)
-    {
+    public static int getRandomSize(FishProperties fp) {
         return ((int) Starcatcher.truncatedNormal(fp.sw().sizeAverage(), fp.sw().sizeDeviation()));
 
     }
 
-    public static int getRandomWeight(FishProperties fp)
-    {
+    public static int getRandomWeight(FishProperties fp) {
         return ((int) Starcatcher.truncatedNormal(fp.sw().weightAverage(), fp.sw().weightDeviation()));
 
     }
 
-    public static void AwardFishCaughtCounter(FishProperties fpCaught, Player player, int ticks, int size, int weight, boolean perfectCatch)
-    {
+    public static void awardFishCaughtCounter(FishProperties fpCaught, Player player, int ticks, int size, int weight, boolean perfectCatch) {
         List<FishCaughtCounter> listFishCaughtCounter = player.getData(ModDataAttachments.FISHES_CAUGHT);
         List<FishCaughtCounter> newlist = new ArrayList<>();
 
         boolean newFish = true;
 
-        for (FishCaughtCounter fcc : listFishCaughtCounter)
-        {
-            if (fpCaught.equals(fcc.fp))
-            {
+        for (FishCaughtCounter fcc : listFishCaughtCounter) {
+            if (fpCaught.equals(fcc.fp)) {
                 int fastestToSave = Math.min(fcc.fastestTicks, ticks);
                 float averageToSave = (fcc.averageTicks * fcc.count + ticks) / (fcc.count + 1);
                 int countToSave = fcc.count;
                 boolean perfect = perfectCatch || fcc.perfectCatch;
 
                 //if cheated in, fixes trackers
-                if(fcc.fastestTicks == 0) fastestToSave = ticks;
-                if(fcc.averageTicks == 0) averageToSave = ticks;
-                if(fcc.count == 999999) countToSave = 0;
+                if (fcc.fastestTicks == 0) fastestToSave = ticks;
+                if (fcc.averageTicks == 0) averageToSave = ticks;
+                if (fcc.count == 999999) countToSave = 0;
 
                 int sizeToSave = Math.max(size, fcc.size);
                 int weightToSave = Math.max(weight, fcc.weight);
@@ -104,14 +99,13 @@ public record FishCaughtCounter(
 
 
                 newFish = false;
-            }
-            else
-            {
+            } else {
                 newlist.add(fcc);
             }
         }
 
-        if (newFish) newlist.add(new FishCaughtCounter(player.level().registryAccess().registryOrThrow(Starcatcher.FISH_REGISTRY).getKey(fpCaught), 1, ticks, ticks, size, weight, false, perfectCatch));
+        if (newFish)
+            newlist.add(new FishCaughtCounter(player.level().registryAccess().registryOrThrow(Starcatcher.FISH_REGISTRY).getKey(fpCaught), 1, ticks, ticks, size, weight, false, perfectCatch));
 
         //display message above exp bar
         PacketDistributor.sendToPlayer(((ServerPlayer) player), new FishCaughtPayload(fpCaught, newFish, size, weight));

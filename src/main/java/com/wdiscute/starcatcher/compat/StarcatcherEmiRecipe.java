@@ -1,10 +1,10 @@
 package com.wdiscute.starcatcher.compat;
 
-import com.wdiscute.starcatcher.registry.ModItems;
 import com.wdiscute.starcatcher.Starcatcher;
-import com.wdiscute.starcatcher.io.FishProperties;
 import com.wdiscute.starcatcher.io.ModDataComponents;
-import com.wdiscute.starcatcher.io.TrophyProperties;
+import com.wdiscute.starcatcher.registry.ModItems;
+import com.wdiscute.starcatcher.storage.FishProperties;
+import com.wdiscute.starcatcher.storage.TrophyProperties;
 import dev.emi.emi.api.recipe.EmiRecipe;
 import dev.emi.emi.api.recipe.EmiRecipeCategory;
 import dev.emi.emi.api.render.EmiTexture;
@@ -20,40 +20,34 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class StarcatcherEmiRecipe implements EmiRecipe
-{
+public class StarcatcherEmiRecipe implements EmiRecipe {
 
     private final ResourceLocation id;
     private final List<EmiStack> output;
-    private final FishProperties fp;
     private final TrophyProperties tp;
     private final List<EmiIngredient> input = List.of(
             EmiIngredient.of(Ingredient.of(ModItems.GUIDE)),
             EmiIngredient.of(Ingredient.of(ModItems.ROD)));
     private final ItemStack is;
 
-    public StarcatcherEmiRecipe(ResourceLocation id, FishProperties fp)
-    {
+    public StarcatcherEmiRecipe(ResourceLocation id, FishProperties fp) {
         this.output = List.of(EmiStack.of(fp.catchInfo().fish().value()));
         this.id = id;
-        this.fp = fp;
         this.tp = null;
         this.is = new ItemStack(fp.catchInfo().fish());
-        if (!this.fp.customName().equals(FishProperties.DEFAULT.customName()))
+        if (!fp.customName().isEmpty())
             is.set(DataComponents.ITEM_NAME, Component.translatable(fp.customName()));
 
     }
 
-    public StarcatcherEmiRecipe(ResourceLocation id, TrophyProperties tp)
-    {
-        this.output = List.of(EmiStack.of(tp.fp().catchInfo().fish().value()));
+    public StarcatcherEmiRecipe(ResourceLocation id, TrophyProperties tp) {
+        this.output = List.of(EmiStack.of(tp.fish().value()));
         this.id = id;
-        this.fp = tp.fp();
         this.tp = tp;
 
-        this.is = new ItemStack(fp.catchInfo().fish());
+        this.is = new ItemStack(tp.fish());
 
-        if (!this.tp.customName().equals(TrophyProperties.DEFAULT.customName()) && tp.trophyType().equals(TrophyProperties.TrophyType.TROPHY))
+        if (!this.tp.customName().isEmpty() && tp.trophyType().equals(TrophyProperties.TrophyType.TROPHY))
             is.set(DataComponents.ITEM_NAME, Component.translatable(tp.customName()));
 
         is.set(ModDataComponents.TROPHY, this.tp);
@@ -61,51 +55,43 @@ public class StarcatcherEmiRecipe implements EmiRecipe
     }
 
     @Override
-    public EmiRecipeCategory getCategory()
-    {
+    public EmiRecipeCategory getCategory() {
         return StarcatcherEmiPlugin.STARCATCHER_CATEGORY;
     }
 
     @Override
-    public @Nullable ResourceLocation getId()
-    {
+    public @Nullable ResourceLocation getId() {
         return Starcatcher.rl("/" + id.getPath());
     }
 
     @Override
-    public List<EmiIngredient> getInputs()
-    {
+    public List<EmiIngredient> getInputs() {
         return List.of();
     }
 
     @Override
-    public List<EmiIngredient> getCatalysts()
-    {
+    public List<EmiIngredient> getCatalysts() {
         return input;
     }
 
     @Override
-    public List<EmiStack> getOutputs()
-    {
+    public List<EmiStack> getOutputs() {
         return output;
     }
 
     @Override
-    public int getDisplayWidth()
-    {
+    public int getDisplayWidth() {
         return 100;
     }
 
     @Override
-    public int getDisplayHeight()
-    {
+    public int getDisplayHeight() {
         return 22;
     }
 
 
     @Override
-    public void addWidgets(WidgetHolder widgets)
-    {
+    public void addWidgets(WidgetHolder widgets) {
         widgets.addSlot(input.get(0), 5, 2);
         widgets.addSlot(input.get(1), 23, 2);
 

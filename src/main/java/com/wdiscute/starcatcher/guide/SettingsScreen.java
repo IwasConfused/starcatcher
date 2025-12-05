@@ -8,7 +8,7 @@ import com.wdiscute.starcatcher.registry.ModItems;
 import com.wdiscute.starcatcher.Starcatcher;
 import com.wdiscute.starcatcher.minigame.FishingMinigameScreen;
 import com.wdiscute.starcatcher.minigame.HitFakeParticle;
-import com.wdiscute.starcatcher.io.FishProperties;
+import com.wdiscute.starcatcher.storage.FishProperties;
 import com.wdiscute.starcatcher.io.ModDataComponents;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
@@ -333,7 +333,6 @@ public class SettingsScreen extends Screen
 
         //Units
         guiGraphics.drawString(this.font, Component.translatable(unitSelected.translationKey), width / 2 - 50, height / 2 + 102, 0x000000, false);
-
 
         if (treasureActive)
             renderTreasure(guiGraphics);

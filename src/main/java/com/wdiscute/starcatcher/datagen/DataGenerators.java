@@ -3,14 +3,10 @@ package com.wdiscute.starcatcher.datagen;
 import com.wdiscute.starcatcher.Starcatcher;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.ItemTagsProvider;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.neoforge.client.model.generators.BlockModelProvider;
-import net.neoforged.neoforge.client.model.generators.ItemModelBuilder;
-import net.neoforged.neoforge.client.model.generators.ItemModelProvider;
 import net.neoforged.neoforge.common.data.BlockTagsProvider;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
@@ -28,14 +24,15 @@ public class DataGenerators
 
         //fish properties
         CompletableFuture<HolderLookup.Provider> registries = event.getLookupProvider();
+        PackOutput output = gen.getPackOutput();
         gen.addProvider(
                 event.includeServer(),
-                (DataProvider.Factory<FishAndTrophiesPropertiesProvider>) output -> new FishAndTrophiesPropertiesProvider(output,
-                        registries)
+                new FishingPropertiesProvider(output, registries)
         );
 
+        gen.addProvider(event.includeServer(), new ModRegistryProvider(output, registries));
+
         //fish models
-        PackOutput output = gen.getPackOutput();
         ExistingFileHelper existingFileHelper = event.getExistingFileHelper();
         gen.addProvider(event.includeServer(), new ModItemModelProvider(output, existingFileHelper));
 

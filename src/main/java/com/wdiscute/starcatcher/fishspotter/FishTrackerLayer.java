@@ -5,7 +5,7 @@ import com.wdiscute.starcatcher.U;
 import com.wdiscute.starcatcher.registry.ModItems;
 import com.wdiscute.starcatcher.Starcatcher;
 import com.wdiscute.starcatcher.io.FishCaughtCounter;
-import com.wdiscute.starcatcher.io.FishProperties;
+import com.wdiscute.starcatcher.storage.FishProperties;
 import com.wdiscute.starcatcher.io.ModDataAttachments;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;

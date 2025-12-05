@@ -1,7 +1,7 @@
 package com.wdiscute.starcatcher.minigame;
 
 import com.wdiscute.starcatcher.registry.ModItems;
-import com.wdiscute.starcatcher.io.FishProperties;
+import com.wdiscute.starcatcher.storage.FishProperties;
 import com.wdiscute.starcatcher.io.ModDataComponents;
 import com.wdiscute.starcatcher.io.SingleStackContainer;
 import net.minecraft.client.Minecraft;

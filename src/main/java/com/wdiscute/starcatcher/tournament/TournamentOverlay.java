@@ -4,6 +4,11 @@ import com.mojang.authlib.GameProfile;
 import com.mojang.datafixers.util.Pair;
 import com.teamtea.eclipticseasons.config.ClientConfig;
 import com.wdiscute.starcatcher.Starcatcher;
+import com.wdiscute.starcatcher.U;
+import com.wdiscute.starcatcher.io.FishCaughtCounter;
+import com.wdiscute.starcatcher.storage.FishProperties;
+import com.wdiscute.starcatcher.io.ModDataAttachments;
+import com.wdiscute.starcatcher.registry.ModItems;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
@@ -96,7 +101,7 @@ public class TournamentOverlay implements LayeredDraw.Layer
         firstPlace = Pair.of(Component.literal("[empty]"), 0);
         secondPlace = Pair.of(Component.literal("[empty]"), 0);
         thirdPlace = Pair.of(Component.literal("[empty]"), 0);
-        
+
         if (t.status.equals(Tournament.Status.ACTIVE))
         {
             for (Map.Entry<UUID, TournamentPlayerScore> tps : t.playerScores.entrySet())

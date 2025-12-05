@@ -1,7 +1,8 @@
 package com.wdiscute.starcatcher.guide;
 
 import com.wdiscute.starcatcher.Starcatcher;
-import com.wdiscute.starcatcher.io.FishProperties;
+import com.wdiscute.starcatcher.storage.FishProperties;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.toasts.Toast;
@@ -14,26 +15,25 @@ import net.minecraft.world.item.ItemStack;
 import java.util.Random;
 
 
-public class FishCaughtToast implements Toast
-{
+public class FishCaughtToast implements Toast {
     private static final ResourceLocation BACKGROUND_SPRITE = Starcatcher.rl("toast/fish_caught");
     private final Component title;
     private final String description;
+    private final ChatFormatting style;
     private static final String gibberish = "§kaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
     private int old;
     private static final Random r = new Random();
     private final ItemStack is;
 
-    public FishCaughtToast(FishProperties fp)
-    {
+    public FishCaughtToast(FishProperties fp) {
 
         this.is = new ItemStack(fp.catchInfo().fish());
         this.title = Component.translatable("gui.starcatcher.toast.fish_caught");
-        this.description =  is.getHoverName().getString();
+        this.description = is.getHoverName().getString();
+        this.style = fp.rarity().getColor();
     }
 
-    public Visibility render(GuiGraphics guiGraphics, ToastComponent toastComponent, long timeSinceLastVisible)
-    {
+    public Visibility render(GuiGraphics guiGraphics, ToastComponent toastComponent, long timeSinceLastVisible) {
         guiGraphics.blitSprite(BACKGROUND_SPRITE, 0, 0, this.width(), this.height());
 
         guiGraphics.renderItem(is, 8, 8);
@@ -42,23 +42,19 @@ public class FishCaughtToast implements Toast
 
         int lettersRevealed = Math.clamp((timeSinceLastVisible - 500) / 150, 0, description.length());
 
-        if(old != lettersRevealed)
-        {
+        if (old != lettersRevealed) {
             Minecraft.getInstance().player.playSound(SoundEvents.BAMBOO_WOOD_BUTTON_CLICK_ON, 0.4f, r.nextFloat(0.2f) + 1.3f);
             old = lettersRevealed;
         }
 
-        Component comp = Component.literal(description.substring(0, lettersRevealed))
-                .append(Component.literal(gibberish.substring(0, description.length() - lettersRevealed + 2)));
+        Component comp = Component.literal(description.substring(0, lettersRevealed)).withStyle(style)
+                .append(Component.literal(gibberish.substring(0, description.length() - lettersRevealed + 2)).withStyle(ChatFormatting.BLACK));
 
         guiGraphics.drawString(toastComponent.getMinecraft().font, comp, 30, 18, 0, false);
 
-        if (timeSinceLastVisible < 10000)
-        {
+        if (timeSinceLastVisible < 10000) {
             return Visibility.SHOW;
-        }
-        else
-        {
+        } else {
             return Visibility.HIDE;
         }
     }
