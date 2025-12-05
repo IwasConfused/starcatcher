@@ -1,11 +1,10 @@
-package com.wdiscute.starcatcher.registry.fishing;
+package com.wdiscute.starcatcher.registry.fishing.compatiblemods;
 
 import com.wdiscute.starcatcher.registry.ModItems;
+import com.wdiscute.starcatcher.registry.fishing.FishingPropertiesRegistry;
 import com.wdiscute.starcatcher.storage.FishProperties;
 
-import static com.wdiscute.starcatcher.registry.fishing.FishingPropertiesRegistry.*;
-
-public class AlexsCavesFishingProperties
+public class AlexsCavesFishingProperties extends FishingPropertiesRegistry
 {
     public static void bootstrap() {
 
