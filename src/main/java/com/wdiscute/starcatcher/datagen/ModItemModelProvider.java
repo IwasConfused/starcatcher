@@ -24,6 +24,11 @@ public class ModItemModelProvider extends ItemModelProvider
         {
             simpleItem((DeferredItem<? extends Item>) item);
         }
+
+        for (DeferredHolder<Item, ? extends Item> item : ModItems.BAITS_REGISTRY.getEntries())
+        {
+            simpleItem((DeferredItem<? extends Item>) item);
+        }
     }
 
     private ItemModelBuilder simpleItem(DeferredItem<? extends Item> item) {
