@@ -68,6 +68,9 @@ dependencies {
     compileOnly files(".compatmods/EclipticSeasons-1.21.1-neoforge-0.12.5-all.jar")
     //runtimeOnly files(".libs/EclipticSeasons-1.21.1-neoforge-0.12.5-all.jar")
 
+    //ftb teams
+    compileOnly files(".compatmods/ftb-teams-neoforge-2101.1.7.jar")
+    runtimeOnly files(".compatmods/ftb-teams-neoforge-2101.1.7.jar")
 
 }
 
