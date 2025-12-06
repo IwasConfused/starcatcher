@@ -2,6 +2,7 @@ package com.wdiscute.starcatcher.storage;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.wdiscute.starcatcher.Config;
 import com.wdiscute.starcatcher.Starcatcher;
 import com.wdiscute.starcatcher.StarcatcherTags;
 import com.wdiscute.starcatcher.bob.FishingBobEntity;
@@ -1573,13 +1574,13 @@ public record FishProperties(
 
 
         //Serene Seasons check
-        if (ModList.get().isLoaded("sereneseasons"))
+        if (ModList.get().isLoaded("sereneseasons") && Config.ENABLE_SEASONS.get())
         {
             if (!SereneSeasonsCompat.canCatch(fp, level)) return 0;
         }
 
         //Ecliptic Seasons check
-        if (ModList.get().isLoaded("eclipticseasons"))
+        if (ModList.get().isLoaded("eclipticseasons") && Config.ENABLE_SEASONS.get())
         {
             if (!EclipticSeasonsCompat.canCatch(fp, level)) return 0;
         }

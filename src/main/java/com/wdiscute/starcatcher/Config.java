@@ -38,6 +38,16 @@ public class Config
     public static final ModConfigSpec.BooleanValue ENABLE_MINIGAME = BUILDER_SERVER
             .define("enable_minigame", true);
 
+    public static final ModConfigSpec.BooleanValue ENABLE_FTB_TEAM_SHARING = BUILDER_SERVER
+            .comment("enables/disables fishes caught being unlocked for all online team members.")
+            .comment("Offline players won't be awarded the entry.")
+            .define("enable_seasons", true);
+
+    public static final ModConfigSpec.BooleanValue ENABLE_SEASONS = BUILDER_SERVER
+            .comment("enables/disables fishes being restricted by seasons.")
+            .comment("Useful if you want to play with a seasons mod but don't like the built-in restrictions.")
+            .define("enable_seasons", true);
+
     static final ModConfigSpec SPEC_SERVER = BUILDER_SERVER.build();
 
 
