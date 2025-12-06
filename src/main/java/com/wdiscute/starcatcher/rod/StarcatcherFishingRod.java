@@ -35,6 +35,7 @@ public class StarcatcherFishingRod extends Item implements MenuProvider
                 .stacksTo(1)
                 .component(ModDataComponents.BOBBER.get(), SingleStackContainer.EMPTY)
                 .component(ModDataComponents.BAIT.get(), SingleStackContainer.EMPTY)
+                .component(ModDataComponents.NETHERITE_UPGRADE.get(), false)
                 .component(ModDataComponents.BOBBER_SKIN.get(), SingleStackContainer.EMPTY)
                 .component(ModDataComponents.HOOK.get(), new SingleStackContainer(new ItemStack(ModItems.HOOK.get())))
         );
@@ -45,7 +46,7 @@ public class StarcatcherFishingRod extends Item implements MenuProvider
         if (!player.getItemInHand(hand).is(StarcatcherTags.RODS))
             return InteractionResultHolder.pass(player.getItemInHand(hand));
 
-        if (player.isCrouching())
+        if (player.isCrouching() && player.getData(ModDataAttachments.FISHING.get()).isEmpty())
         {
             player.openMenu(this);
             return InteractionResultHolder.success(player.getItemInHand(hand));
