@@ -64,9 +64,9 @@ public class ModDataComponents
             "secret_note",
             builder -> builder.persistent(SecretNote.Note.CODEC));
 
-    public static final DeferredHolder<DataComponentType<?>, DataComponentType<SizeAndWeight>> SIZE_AND_WEIGHT = register(
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<SizeAndWeightInstance>> SIZE_AND_WEIGHT = register(
             "size_and_weight",
-            builder -> builder.persistent(SizeAndWeight.CODEC));
+            builder -> builder.persistent(SizeAndWeightInstance.CODEC));
 
     private static <T> DeferredHolder<DataComponentType<?>, DataComponentType<T>> register(String name,
                                                                                            UnaryOperator<DataComponentType.Builder<T>> builderOperator)

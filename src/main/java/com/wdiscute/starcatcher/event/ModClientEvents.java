@@ -10,7 +10,7 @@ import com.wdiscute.starcatcher.fishentity.fishmodels.*;
 import com.wdiscute.starcatcher.fishspotter.FishTrackerLayer;
 import com.wdiscute.starcatcher.guide.SettingsScreen;
 import com.wdiscute.starcatcher.io.ModDataComponents;
-import com.wdiscute.starcatcher.io.SizeAndWeight;
+import com.wdiscute.starcatcher.io.SizeAndWeightInstance;
 import com.wdiscute.starcatcher.particles.FishingBitingLavaParticles;
 import com.wdiscute.starcatcher.particles.FishingBitingParticles;
 import com.wdiscute.starcatcher.particles.FishingNotificationParticles;
@@ -43,7 +43,7 @@ public class ModClientEvents {
         ItemStack stack = event.getItemStack();
 
         if (stack.has(ModDataComponents.SIZE_AND_WEIGHT)) {
-            SizeAndWeight sw = stack.get(ModDataComponents.SIZE_AND_WEIGHT);
+            SizeAndWeightInstance sw = stack.get(ModDataComponents.SIZE_AND_WEIGHT);
 
             SettingsScreen.Units units = Config.UNIT.get();
 

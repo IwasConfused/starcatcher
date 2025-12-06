@@ -10,9 +10,7 @@ import com.wdiscute.starcatcher.storage.TrophyProperties;
 import com.wdiscute.starcatcher.tournament.TournamentHandler;
 import net.minecraft.core.Registry;
 import net.minecraft.core.RegistryAccess;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -137,7 +135,7 @@ public class U
                                 is = new ItemStack(fp.catchInfo().fish());
 
                                 //store size and weight data component
-                                is.set(ModDataComponents.SIZE_AND_WEIGHT, new SizeAndWeight(size, weight));
+                                is.set(ModDataComponents.SIZE_AND_WEIGHT, new SizeAndWeightInstance(size, weight));
 
                                 //split hook double drops
                                 if (perfectCatch && fbe.hook.is(ModItems.SPLIT_HOOK) && !isStarcaughtBucket) is.setCount(2);

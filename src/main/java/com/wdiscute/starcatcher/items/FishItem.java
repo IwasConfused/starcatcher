@@ -20,18 +20,22 @@ public class FishItem extends Item
     @Override
     public InteractionResult useOn(UseOnContext context)
     {
-        FishEntity fe = new FishEntity(ModEntities.FISH.get(), context.getLevel());
-        fe.setFish(context.getItemInHand().copyWithCount(1));
-        fe.setPos(context.getClickedPos().relative(context.getClickedFace()).getCenter());
+        if(context.getPlayer().isCreative())
+        {
+            FishEntity fe = new FishEntity(ModEntities.FISH.get(), context.getLevel());
+            fe.setFish(context.getItemInHand().copyWithCount(1));
+            fe.setPos(context.getClickedPos().relative(context.getClickedFace()).getCenter());
 
-        context.getLevel().addFreshEntity(fe);
+            context.getLevel().addFreshEntity(fe);
 
-        ItemStack is = context.getPlayer().getItemInHand(context.getHand());
-        is.shrink(1);
+            ItemStack is = context.getPlayer().getItemInHand(context.getHand());
+            is.shrink(1);
 
-        context.getPlayer().setItemInHand(context.getHand(), is);
+            context.getPlayer().setItemInHand(context.getHand(), is);
+            return InteractionResult.CONSUME;
+        }
 
-        return InteractionResult.CONSUME;
+        return InteractionResult.PASS;
     }
 
     @Override
