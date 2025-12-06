@@ -37,6 +37,7 @@ import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.Style;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.FastColor;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
@@ -1004,20 +1005,20 @@ public class FishingGuideScreen extends Screen {
         guiGraphics.fill(xOffset - 1, yOffset - 1, xOffset + 17, yOffset + 17, backgroundFillColor);
 
         //glow color
-        switch (fp.rarity()) {
-            case FishProperties.Rarity.COMMON -> guiGraphics.setColor(1, 1, 1, 0);
-            case FishProperties.Rarity.UNCOMMON -> guiGraphics.setColor(0.7f, 1, 0.7f, 1);
-            case FishProperties.Rarity.RARE -> guiGraphics.setColor(0.2f, 0.4f, 0.7f, 0.7f);
-            case FishProperties.Rarity.EPIC -> guiGraphics.setColor(1f, 0, 1f, 0.5f);
-            case FishProperties.Rarity.LEGENDARY -> {
-                Color color = Color.getHSBColor(Tooltips.hue * 2, 1, 1);
-                float r = (float) color.getRed() / 255;
-                float g = (float) color.getGreen() / 255;
-                float b = (float) color.getBlue() / 255;
+        int color = switch (fp.rarity()) {
+            case FishProperties.Rarity.COMMON -> FastColor.ARGB32.color(0, -1);
+            case FishProperties.Rarity.UNCOMMON -> FastColor.ARGB32.color(255, 0x92f28d);
+            case FishProperties.Rarity.RARE -> FastColor.ARGB32.color(255, 0x78c8ff);
+            case FishProperties.Rarity.EPIC -> FastColor.ARGB32.color(255, 0xc060ff);
+            case FishProperties.Rarity.LEGENDARY -> FastColor.ARGB32.color(175, Color.HSBtoRGB(Tooltips.hue * 2, 1, 1));
+        };
 
-                guiGraphics.setColor(r, g, b, 0.7f);
-            }
-        }
+        float red = FastColor.ARGB32.red(color) / 255f;
+        float green = FastColor.ARGB32.green(color) / 255f;
+        float blue = FastColor.ARGB32.blue(color) / 255f;
+        float alpha = FastColor.ARGB32.alpha(color) / 255f;
+
+        guiGraphics.setColor(red, green, blue, alpha);
 
         //render glow
         RenderSystem.enableBlend();
@@ -1194,21 +1195,21 @@ public class FishingGuideScreen extends Screen {
 
         //render fish
         if (fcc != null) renderItem(is, uiX + xOffset + 26, uiY + 70);
-        switch (fp.rarity()) {
-            case FishProperties.Rarity.COMMON -> guiGraphics.setColor(1, 1, 1, 1);
-            case FishProperties.Rarity.UNCOMMON -> guiGraphics.setColor(0.7f, 1, 0.7f, 1);
-            case FishProperties.Rarity.RARE -> guiGraphics.setColor(0.2f, 0.4f, 0.7f, 0.7f);
-            case FishProperties.Rarity.EPIC -> guiGraphics.setColor(1f, 0, 1f, 0.5f);
-            case FishProperties.Rarity.LEGENDARY -> {
 
-                Color color = Color.getHSBColor(Tooltips.hue, 1, 1);
-                float r = (float) color.getRed() / 255;
-                float g = (float) color.getGreen() / 255;
-                float b = (float) color.getBlue() / 255;
+        int color = switch (fp.rarity()) {
+            case FishProperties.Rarity.COMMON -> FastColor.ARGB32.color(0, -1);
+            case FishProperties.Rarity.UNCOMMON -> FastColor.ARGB32.color(200, 0x92f28d);
+            case FishProperties.Rarity.RARE -> FastColor.ARGB32.color(200, 0x78c8ff);
+            case FishProperties.Rarity.EPIC -> FastColor.ARGB32.color(200, 0xc060ff);
+            case FishProperties.Rarity.LEGENDARY -> FastColor.ARGB32.color(175, Color.HSBtoRGB(Tooltips.hue * 2, 1, 1));
+        };
 
-                guiGraphics.setColor(r, g, b, 0.7f);
-            }
-        }
+        float red = FastColor.ARGB32.red(color) / 255f;
+        float green = FastColor.ARGB32.green(color) / 255f;
+        float blue = FastColor.ARGB32.blue(color) / 255f;
+        float alpha = FastColor.ARGB32.alpha(color) / 255f;
+
+        guiGraphics.setColor(red, green, blue, alpha);
 
         //render glow
         RenderSystem.enableBlend();
