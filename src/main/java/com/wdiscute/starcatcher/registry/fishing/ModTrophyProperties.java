@@ -32,48 +32,24 @@ public class ModTrophyProperties
 
         register(
                 context, TrophyProperties.builder()
-                        .setFish(ModBlocks.TROPHY_GOLD.asItem().builtInRegistryHolder())
-                        .alwaysShow()
-                        .setTrophyType(TrophyProperties.TrophyType.TROPHY)
-                        .setAllProgress(new TrophyProperties.RarityProgress(50, 0))
-        );
-
-        register(
-                context, TrophyProperties.builder()
-                        .setFish(ModBlocks.TROPHY_SILVER.asItem().builtInRegistryHolder())
-                        .alwaysShow()
-                        .setTrophyType(TrophyProperties.TrophyType.TROPHY)
-                        .setAllProgress(new TrophyProperties.RarityProgress(25, 0))
-        );
-
-        register(
-                context, TrophyProperties.builder()
                         .setFish(ModBlocks.TROPHY_BRONZE.asItem().builtInRegistryHolder())
-                        .alwaysShow()
+                        .hideUntilCaught()
                         .setTrophyType(TrophyProperties.TrophyType.TROPHY)
-                        .setAllProgress(new TrophyProperties.RarityProgress(10, 0))
+                        .setAllProgress(new TrophyProperties.RarityProgress(50, 20))
         );
 
         register(
                 context, TrophyProperties.builder()
                         .setFish(ModBlocks.TROPHY_SILVER.asItem().builtInRegistryHolder())
-                        .alwaysShow()
+                        .hideUntilCaught()
                         .setTrophyType(TrophyProperties.TrophyType.TROPHY)
-                        .setAllProgress(new TrophyProperties.RarityProgress(0, 50))
+                        .setAllProgress(new TrophyProperties.RarityProgress(100, 50))
         );
 
         register(
                 context, TrophyProperties.builder()
                         .setFish(ModBlocks.TROPHY_GOLD.asItem().builtInRegistryHolder())
-                        .alwaysShow()
-                        .setTrophyType(TrophyProperties.TrophyType.TROPHY)
-                        .setAllProgress(new TrophyProperties.RarityProgress(0, 90))
-        );
-
-        register(
-                context, TrophyProperties.builder()
-                        .setFish(ModBlocks.TROPHY_GOLD.asItem().builtInRegistryHolder())
-                        .alwaysShow()
+                        .hideUntilCaught()
                         .setTrophyType(TrophyProperties.TrophyType.TROPHY)
                         .setAllProgress(new TrophyProperties.RarityProgress(200, 0))
                         .withProgress(FishProperties.Rarity.COMMON, new TrophyProperties.RarityProgress(0, 36))

@@ -38,6 +38,10 @@ public class ModItemsTagProvider extends ItemTagsProvider
             tag(Tags.Items.FOODS_RAW_FISH).add(item.get());
         }
 
+        for (DeferredHolder<Item, ? extends Item> item : ModItems.BAITS_REGISTRY.getEntries())
+        {
+            tag(StarcatcherTags.BAITS).add(item.get());
+        }
 
         for (DeferredHolder<Item, ? extends Item> item : ModItems.RODS_REGISTRY.getEntries())
         {

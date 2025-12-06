@@ -162,12 +162,6 @@ public record FishProperties(
             return this;
         }
 
-        public Builder withOverrideMinigameItem(boolean overrideMinigameItem)
-        {
-            this.catchInfo.withOverrideMinigameItem(overrideMinigameItem);
-            return this;
-        }
-
         public Builder withItemToOverrideWith(Holder<Item> itemToOverrideWith)
         {
             this.catchInfo.withItemToOverrideWith(itemToOverrideWith);
@@ -264,8 +258,7 @@ public record FishProperties(
             Holder<Item> bucketedFish,
             ResourceLocation entityToSpawn,
             boolean alwaysSpawnEntity,
-            boolean overrideMinigameItem,
-            Holder<Item> itemToOverrideWith
+            Holder<Item> overrideMinigameWith
     )
     {
         public static final Codec<CatchInfo> CODEC = RecordCodecBuilder.create(instance ->
@@ -274,8 +267,7 @@ public record FishProperties(
                         BuiltInRegistries.ITEM.holderByNameCodec().fieldOf("fish_bucket").forGetter(CatchInfo::bucketedFish),
                         ResourceLocation.CODEC.fieldOf("entity_to_spawn").forGetter(CatchInfo::entityToSpawn),
                         Codec.BOOL.fieldOf("always_spawn_entity").forGetter(CatchInfo::alwaysSpawnEntity),
-                        Codec.BOOL.fieldOf("always_spawn_entity").forGetter(CatchInfo::overrideMinigameItem),
-                        BuiltInRegistries.ITEM.holderByNameCodec().optionalFieldOf("override_minigame_item", ModItems.MISSINGNO).forGetter(CatchInfo::itemToOverrideWith)
+                        BuiltInRegistries.ITEM.holderByNameCodec().optionalFieldOf("override_minigame_item", ModItems.MISSINGNO).forGetter(CatchInfo::overrideMinigameWith)
                 ).apply(instance, CatchInfo::new));
 
 
@@ -284,8 +276,7 @@ public record FishProperties(
                 ByteBufCodecs.holderRegistry(Registries.ITEM), CatchInfo::bucketedFish,
                 ByteBufCodecs.fromCodec(ResourceLocation.CODEC), CatchInfo::entityToSpawn,
                 ByteBufCodecs.BOOL, CatchInfo::alwaysSpawnEntity,
-                ByteBufCodecs.BOOL, CatchInfo::overrideMinigameItem,
-                ByteBufCodecs.holderRegistry(Registries.ITEM), CatchInfo::itemToOverrideWith,
+                ByteBufCodecs.holderRegistry(Registries.ITEM), CatchInfo::overrideMinigameWith,
                 CatchInfo::new
         );
 
@@ -294,13 +285,12 @@ public record FishProperties(
                 ModItems.MISSINGNO,
                 Starcatcher.rl("missingno"),
                 false,
-                false,
                 ModItems.MISSINGNO
         );
 
         public CatchInfo withItemToOverrideWith(Holder<Item> itemToOverrideWith)
         {
-            return new CatchInfo(this.fish, this.bucketedFish, this.entityToSpawn, alwaysSpawnEntity, this.overrideMinigameItem, itemToOverrideWith);
+            return new CatchInfo(this.fish, this.bucketedFish, this.entityToSpawn, alwaysSpawnEntity, itemToOverrideWith);
         }
 
         public static class Builder
@@ -350,7 +340,7 @@ public record FishProperties(
 
             public CatchInfo build()
             {
-                return new CatchInfo(fish, bucketedFish, entityToSpawn, alwaysSpawnEntity, overrideMinigameItem, itemToOverrideWith);
+                return new CatchInfo(fish, bucketedFish, entityToSpawn, alwaysSpawnEntity, itemToOverrideWith);
             }
         }
     }
@@ -386,8 +376,8 @@ public record FishProperties(
                 true,
                 0);
 
-        public static final BaitRestrictions SEA_OF_THIEVES = new BaitRestrictions(
-                List.of(),
+        public static final BaitRestrictions FISH_OF_THIEVES = new BaitRestrictions(
+                List.of(rl("fishofthieves", "earthworms"), rl("fishofthieves", "grubs"), rl("fishofthieves", "leeches")),
                 true,
                 20);
 
@@ -1680,12 +1670,6 @@ public record FishProperties(
             }
         }
 
-        //correct bait check
-        if (fp.br().mustHaveCorrectBait() && !fp.br().correctBait().contains(BuiltInRegistries.ITEM.getKey(bait.getItem())))
-        {
-            return 0;
-        }
-
         //correct bait chance bonus
         if (fp.br().correctBait().contains(BuiltInRegistries.ITEM.getKey(bait.getItem())))
         {
@@ -1719,6 +1703,11 @@ public record FishProperties(
     public static SizeAndWeight sw(float s, float s1, float w, float w1, int g, int g1)
     {
         return new SizeAndWeight(s, s1, w, w1, g, g1);
+    }
+
+    public static ResourceLocation rl(String ns, String path)
+    {
+        return ResourceLocation.fromNamespaceAndPath(ns, path);
     }
 
 }

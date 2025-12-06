@@ -119,8 +119,9 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener {
 
         this.fp = fp;
 
-        if (fp.catchInfo().overrideMinigameItem()) {
-            this.itemBeingFished = new ItemStack(fp.catchInfo().itemToOverrideWith());
+        //if override is not missingno (default) then use the override item set
+        if (!fp.catchInfo().overrideMinigameWith().is(ModItems.MISSINGNO.getKey())) {
+            this.itemBeingFished = new ItemStack(fp.catchInfo().overrideMinigameWith());
         } else {
             this.itemBeingFished = new ItemStack(fp.catchInfo().fish());
         }
