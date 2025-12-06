@@ -4,8 +4,7 @@
     "correct_bait_chance_added": 15,
     "correct_baits": [
       "starcatcher:murkwater_bait"
-    ],
-    "must_have_correct_bait": false
+    ]
   },
   "base_chance": 5,
   "catch_info": {

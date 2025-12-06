@@ -7,16 +7,19 @@
   ],
   "bait_restrictions": {
     "consumes_bait": true,
-    "correct_bait_chance_added": 0,
-    "correct_baits": [],
-    "must_have_correct_bait": false
+    "correct_bait_chance_added": 20,
+    "correct_baits": [
+      "fishofthieves:earthworms",
+      "fishofthieves:grubs",
+      "fishofthieves:leeches"
+    ]
   },
   "base_chance": 5,
   "catch_info": {
     "always_spawn_entity": false,
-    "entity_to_spawn": "starcatcher:missingno",
+    "entity_to_spawn": "fishofthieves:ancientscale",
     "fish": "fishofthieves:ancientscale",
-    "fish_bucket": "starcatcher:missingno"
+    "fish_bucket": "fishofthieves:ancientscale_bucket"
   },
   "daytime": "all",
   "difficulty": {
