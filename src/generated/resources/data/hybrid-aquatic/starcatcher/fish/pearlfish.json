@@ -13,7 +13,7 @@
   "base_chance": 5,
   "catch_info": {
     "always_spawn_entity": false,
-    "entity_to_spawn": "starcatcher:missingno",
+    "entity_to_spawn": "hybrid-aquatic:pearlfish",
     "fish": "hybrid-aquatic:pearlfish",
     "fish_bucket": "starcatcher:missingno"
   },

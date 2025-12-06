@@ -13,8 +13,8 @@
   "base_chance": 5,
   "catch_info": {
     "always_spawn_entity": false,
-    "entity_to_spawn": "starcatcher:missingno",
-    "fish": "hybrid-aquatic:tetra",
+    "entity_to_spawn": "hybrid-aquatic:tetra",
+    "fish": "hybrid-aquatic:neon_tetra",
     "fish_bucket": "starcatcher:missingno"
   },
   "daytime": "all",

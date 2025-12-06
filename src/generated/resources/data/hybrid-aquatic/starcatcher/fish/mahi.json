@@ -13,7 +13,7 @@
   "base_chance": 5,
   "catch_info": {
     "always_spawn_entity": false,
-    "entity_to_spawn": "starcatcher:missingno",
+    "entity_to_spawn": "hybrid-aquatic:mahi",
     "fish": "hybrid-aquatic:mahi",
     "fish_bucket": "starcatcher:missingno"
   },
