@@ -14,12 +14,13 @@ displayURL="http://curseforge.com/minecraft/mc-mods/starcatcher"
 logoFile="starcatcher 256x256.png" #optional
 mod_authors="${mod_authors}" #optional
 description='''A fishing mod with lots of fishes to collect!
-Big thank you to Kapitencraft, Quarris, Kaupenjoe's discord community and Neoforge discord community!
 
 Credits:
 wdiscute - Main Developer
 
-Nikdo53 - Fishing minigame art, tweaked all fish sprites
+Kapitenft, DuckXYZ, Nikdo53, Quarris - Coding support and fixing my mess
+
+Nikdo53 - Fishing minigame art & miscellaneous texture tweeks
 
 ScribbleDemon - Guide book, fish spotter and "Fish Caught!" notification art
 
