@@ -37,6 +37,7 @@ public class FishingPropertiesRegistry
         MinersDelightFishingProperties.bootstrap();
         AlexsCavesFishingProperties.bootstrap();
         CrittersAndCompanionsFishingProperties.bootstrap();
+        HybridAquaticFishingProperties.bootstrap();
     }
 
     //region builders
