@@ -1,7 +1,7 @@
 {
   "all": {
-    "total": 10,
-    "unique": 0
+    "total": 50,
+    "unique": 20
   },
   "always_show": true,
   "chance_to_catch": 100,
@@ -9,8 +9,7 @@
     "bait_restrictions": {
       "consumes_bait": true,
       "correct_bait_chance_added": 0,
-      "correct_baits": [],
-      "must_have_correct_bait": false
+      "correct_baits": []
     },
     "base_chance": 5,
     "catch_info": {
@@ -19,7 +18,6 @@
       "fish": "starcatcher:trophy_bronze",
       "fish_bucket": "starcatcher:missingno"
     },
-    "custom_name": "",
     "daytime": "all",
     "difficulty": {
       "decay": 1,

@@ -83,9 +83,8 @@ public record TrophyProperties(
 
     public static class Builder {
         private FishProperties.Builder fp = FishProperties.builder().withFish(ModItems.MISSINGNO);
-        private boolean alwaysShow = false;
+        private boolean hide_until_caught = false;
         private TrophyType trophyType = TrophyType.EXTRA;
-        private String customName = "";
         private RarityProgress all = RarityProgress.DEFAULT;
         private final Map<FishProperties.Rarity, RarityProgress> progressMap = new EnumMap<>(FishProperties.Rarity.class);
         private int chanceToCatch = 100;
@@ -93,18 +92,13 @@ public record TrophyProperties(
         private Builder() {
         }
 
-        public Builder alwaysShow() {
-            this.alwaysShow = true;
+        public Builder hideUntilCaught() {
+            this.hide_until_caught = true;
             return this;
         }
 
         public Builder setTrophyType(TrophyType type) {
             this.trophyType = type;
-            return this;
-        }
-
-        public Builder setCustomName(String customName) {
-            this.customName = customName;
             return this;
         }
 
@@ -136,7 +130,7 @@ public record TrophyProperties(
         public TrophyProperties build() {
             return new TrophyProperties(
                     fp.build(),
-                    alwaysShow,
+                    hide_until_caught,
                     trophyType,
                     all,
                     progressMap,

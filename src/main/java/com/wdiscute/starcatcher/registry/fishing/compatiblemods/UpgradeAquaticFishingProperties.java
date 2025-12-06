@@ -1,12 +1,15 @@
-package com.wdiscute.starcatcher.registry.fishing;
+package com.wdiscute.starcatcher.registry.fishing.compatiblemods;
 
 import com.wdiscute.starcatcher.registry.ModItems;
+import com.wdiscute.starcatcher.registry.fishing.FishingPropertiesRegistry;
 import com.wdiscute.starcatcher.storage.FishProperties;
 
 import static com.wdiscute.starcatcher.registry.fishing.FishingPropertiesRegistry.*;
 
-public class UpgradeAquaticFishingProperties {
-    public static void bootstrap() {
+public class UpgradeAquaticFishingProperties extends FishingPropertiesRegistry
+{
+    public static void bootstrap()
+    {
 
         //region Upgrade Aquatic
         //
@@ -51,7 +54,6 @@ public class UpgradeAquaticFishingProperties {
                 .withAlwaysSpawnEntity(true)
                 .withBaseChance(1)
                 .withEntityToSpawn(rl("upgrade_aquatic", "thrasher"))
-                .withOverrideMinigameItem(true)
                 .withItemToOverrideWith(ModItems.UNKNOWN_FISH)
         );
 

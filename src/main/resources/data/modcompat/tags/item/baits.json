@@ -1,0 +1,13 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "fishofthieves"
+    }
+  ],
+  "values": [
+    "fishofthieves:earthworms",
+    "fishofthieves:grubs",
+    "fishofthieves:leeches"
+  ]
+}

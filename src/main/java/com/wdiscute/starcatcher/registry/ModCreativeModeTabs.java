@@ -37,6 +37,11 @@ public class ModCreativeModeTabs
                             if (item != ModItems.MISSINGNO && item != ModItems.SETTINGS)
                                 output.accept(item.get());
 
+                        //adds baits
+                        for (DeferredHolder<Item, ? extends Item> item : ModItems.BAITS_REGISTRY.getEntries())
+                            output.accept(item.get());
+
+
                         //adds all rods besides main rod which is first in list
                         for (DeferredHolder<Item, ? extends Item> item : ModItems.RODS_REGISTRY.getEntries())
                             if (item != ModItems.ROD)

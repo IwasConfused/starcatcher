@@ -8,15 +8,14 @@
   "bait_restrictions": {
     "consumes_bait": true,
     "correct_bait_chance_added": 0,
-    "correct_baits": [],
-    "must_have_correct_bait": false
+    "correct_baits": []
   },
   "base_chance": 5,
   "catch_info": {
     "always_spawn_entity": false,
-    "entity_to_spawn": "starcatcher:missingno",
+    "entity_to_spawn": "aquaculture:pacific_halibut",
     "fish": "aquaculture:pacific_halibut",
-    "fish_bucket": "starcatcher:missingno"
+    "fish_bucket": "aquaculture:pacific_halibut_bucket"
   },
   "daytime": "all",
   "difficulty": {

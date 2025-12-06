@@ -58,6 +58,7 @@ public class FishingRodMenu extends AbstractContainerMenu
         inventory.setStackInSlot(1, is.get(ModDataComponents.BAIT.get()).stack().copy());
         inventory.setStackInSlot(2, is.get(ModDataComponents.HOOK.get()).stack().copy());
 
+        //bobbers first slot
         this.addSlot(new SlotItemHandler(inventory, 0, 50, 35)
         {
             @Override
@@ -66,14 +67,18 @@ public class FishingRodMenu extends AbstractContainerMenu
                 return stack.is(StarcatcherTags.BOBBERS);
             }
         });
+
+        //baits second slot
         this.addSlot(new SlotItemHandler(inventory, 1, 80, 35)
         {
             @Override
             public boolean mayPlace(ItemStack stack)
             {
-                return !stack.is(StarcatcherTags.HOOKS) && !stack.is(StarcatcherTags.BOBBERS);
+                return stack.is(StarcatcherTags.BAITS);
             }
         });
+
+        //hooks third slot
         this.addSlot(new SlotItemHandler(inventory, 2, 110, 35)
         {
             @Override

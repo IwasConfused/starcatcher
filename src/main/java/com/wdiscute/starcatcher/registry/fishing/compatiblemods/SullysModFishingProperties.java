@@ -1,11 +1,12 @@
-package com.wdiscute.starcatcher.registry.fishing;
+package com.wdiscute.starcatcher.registry.fishing.compatiblemods;
 
+import com.wdiscute.starcatcher.registry.fishing.FishingPropertiesRegistry;
 import com.wdiscute.starcatcher.storage.FishProperties;
 
-import static com.wdiscute.starcatcher.registry.fishing.FishingPropertiesRegistry.*;
-
-public class SullysModFishingProperties {
-    public static void bootstrap() {
+public class SullysModFishingProperties extends FishingPropertiesRegistry
+{
+    public static void bootstrap()
+    {
 
         //region Sullys Mod
 

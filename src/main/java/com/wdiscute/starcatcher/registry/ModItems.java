@@ -8,6 +8,7 @@ import com.wdiscute.starcatcher.rod.StarcatcherFishingRod;
 import com.wdiscute.starcatcher.secretnotes.NoteContainer;
 import com.wdiscute.starcatcher.secretnotes.SecretNote;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
@@ -21,6 +22,7 @@ public interface ModItems {
 
     DeferredRegister.Items ITEMS_REGISTRY = DeferredRegister.createItems(Starcatcher.MOD_ID);
     DeferredRegister.Items RODS_REGISTRY = DeferredRegister.createItems(Starcatcher.MOD_ID);
+    DeferredRegister.Items BAITS_REGISTRY = DeferredRegister.createItems(Starcatcher.MOD_ID);
     DeferredRegister.Items OTHERS_REGISTRY = DeferredRegister.createItems(Starcatcher.MOD_ID);
 
     DeferredItem<Item> GUIDE = ITEMS_REGISTRY.register("starcatcher_guide", FishingGuideItem::new);
@@ -45,15 +47,15 @@ public interface ModItems {
     DeferredItem<Item> CLEAR_BOBBER = singleStackItem("clear_bobber");
 
     //baits
-    DeferredItem<Item> CREEPER_BAIT = singleStackItem("creeper_bait");
-    DeferredItem<Item> ALMIGHTY_WORM = basicItem("almighty_worm");
-    DeferredItem<Item> CHERRY_BAIT = basicItem("cherry_bait");
-    DeferredItem<Item> LUSH_BAIT = basicItem("lush_bait");
-    DeferredItem<Item> SCULK_BAIT = basicItem("sculk_bait");
-    DeferredItem<Item> DRIPSTONE_BAIT = basicItem("dripstone_bait");
-    DeferredItem<Item> MURKWATER_BAIT = basicItem("murkwater_bait");
-    DeferredItem<Item> LEGENDARY_BAIT = basicItem("legendary_bait");
-    DeferredItem<Item> METEOROLOGICAL_BAIT = basicItem("meteorological_bait");
+    DeferredItem<Item> CREEPER_BAIT = BAITS_REGISTRY.register("creeper_bait", () -> new Item(new Item.Properties()));
+    DeferredItem<Item> ALMIGHTY_WORM = BAITS_REGISTRY.register("almighty_worm", () -> new Item(new Item.Properties()));
+    DeferredItem<Item> CHERRY_BAIT = BAITS_REGISTRY.register("cherry_bait", () -> new Item(new Item.Properties()));
+    DeferredItem<Item> LUSH_BAIT = BAITS_REGISTRY.register("lush_bait", () -> new Item(new Item.Properties()));
+    DeferredItem<Item> SCULK_BAIT = BAITS_REGISTRY.register("sculk_bait", () -> new Item(new Item.Properties()));
+    DeferredItem<Item> DRIPSTONE_BAIT = BAITS_REGISTRY.register("dripstone_bait", () -> new Item(new Item.Properties()));
+    DeferredItem<Item> MURKWATER_BAIT = BAITS_REGISTRY.register("murkwater_bait", () -> new Item(new Item.Properties()));
+    DeferredItem<Item> LEGENDARY_BAIT = BAITS_REGISTRY.register("legendary_bait", () -> new Item(new Item.Properties()));
+    DeferredItem<Item> METEOROLOGICAL_BAIT = BAITS_REGISTRY.register("meteorological_bait", () -> new Item(new Item.Properties()));
 
     //bobber skin templates
     DeferredItem<Item> COLORFUL_BOBBER_SMITHING_TEMPLATE = ITEMS_REGISTRY.register("colorful_bobber_smithing_template", ColorfulBobber::new);

@@ -1,13 +1,13 @@
-package com.wdiscute.starcatcher.registry.fishing;
+package com.wdiscute.starcatcher.registry.fishing.compatiblemods;
 
 import com.wdiscute.starcatcher.StarcatcherTags;
+import com.wdiscute.starcatcher.registry.fishing.FishingPropertiesRegistry;
 import com.wdiscute.starcatcher.storage.FishProperties;
 import com.wdiscute.starcatcher.storage.FishProperties.WorldRestrictions.Seasons;
 import net.minecraft.tags.BiomeTags;
 
-import static com.wdiscute.starcatcher.registry.fishing.FishingPropertiesRegistry.*;
-
-public class TideFishingProperties {
+public class TideFishingProperties extends FishingPropertiesRegistry
+{
     public static void bootstrap() {
         //region Tide
 
