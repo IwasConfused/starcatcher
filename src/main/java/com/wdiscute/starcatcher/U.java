@@ -2,10 +2,7 @@ package com.wdiscute.starcatcher;
 
 import com.mojang.logging.LogUtils;
 import com.wdiscute.starcatcher.bob.FishingBobEntity;
-import com.wdiscute.starcatcher.io.FishCaughtCounter;
-import com.wdiscute.starcatcher.io.ModDataAttachments;
-import com.wdiscute.starcatcher.io.ModDataComponents;
-import com.wdiscute.starcatcher.io.SizeAndWeight;
+import com.wdiscute.starcatcher.io.*;
 import com.wdiscute.starcatcher.registry.ModCriterionTriggers;
 import com.wdiscute.starcatcher.registry.ModItems;
 import com.wdiscute.starcatcher.storage.FishProperties;
@@ -125,21 +122,34 @@ public class U
                         //SPAWN ITEMSTACK
                         else
                         {
+                            boolean isStarcaughtBucket = fp.catchInfo().bucketedFish().is(ModItems.STARCAUGHT_BUCKET.getKey());
+                            boolean isBucket = fp.catchInfo().bucketedFish().is(ModItems.MISSINGNO.getKey());
+
                             ItemStack is;
                             //create itemStack
-                            if (fp.catchInfo().bucketedFish().is(ModItems.MISSINGNO.getKey()))
-                                is = new ItemStack(fp.catchInfo().fish());
-                            else
+                            if (isBucket)
+                            {
                                 is = new ItemStack(fp.catchInfo().bucketedFish());
+                            }
+                            else
+                            {
+                                //make fish itemstack
+                                is = new ItemStack(fp.catchInfo().fish());
 
-                            //store fish properties in itemstack
-                            is.set(ModDataComponents.FISH_PROPERTIES, fp);
+                                //store size and weight data component
+                                is.set(ModDataComponents.SIZE_AND_WEIGHT, new SizeAndWeight(size, weight));
 
-                            //store size and weight data component
-                            is.set(ModDataComponents.SIZE_AND_WEIGHT, new SizeAndWeight(size, weight));
+                                //split hook double drops
+                                if (perfectCatch && fbe.hook.is(ModItems.SPLIT_HOOK) && !isStarcaughtBucket) is.setCount(2);
 
-                            //split hook double drops
-                            if (perfectCatch && fbe.hook.is(ModItems.SPLIT_HOOK)) is.setCount(2);
+                                if(isStarcaughtBucket)
+                                {
+                                    ItemStack starcaughtBucket = new ItemStack(fp.catchInfo().bucketedFish());
+                                    starcaughtBucket.set(ModDataComponents.BUCKETED_FISH, new SingleStackContainer(is.copy()));
+                                    is = starcaughtBucket;
+                                }
+                            }
+
 
                             //make ItemEntities for fish item stack
                             ItemEntity itemFished = new ItemEntity(level, fbe.position().x, fbe.position().y + 1.2f, fbe.position().z, is);

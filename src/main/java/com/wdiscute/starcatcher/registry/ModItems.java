@@ -8,7 +8,7 @@ import com.wdiscute.starcatcher.rod.StarcatcherFishingRod;
 import com.wdiscute.starcatcher.secretnotes.NoteContainer;
 import com.wdiscute.starcatcher.secretnotes.SecretNote;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Items;
+import net.minecraft.world.level.material.Fluids;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
@@ -147,10 +147,6 @@ public interface ModItems {
     // |  .-' |  | .-'  `) |  | |  | \   --. .-'  `)
     // `--'   `--' `----'  `--' `--'  `----' `----'
     //
-
-    //bucket
-    DeferredItem<Item> STARCATCHED_BUCKET = ITEMS_REGISTRY.register("starcatched_bucket", StarcatchedBucket::new);
-
 
     //lake
     DeferredItem<Item> OBIDONTIEE = fish("obidontiee");
@@ -303,6 +299,9 @@ public interface ModItems {
     DeferredItem<Item> END_GLOW = fish("end_glow");
     DeferredItem<Item> VOIDBITER = fish("voidbiter");
 
+    //bucket
+    DeferredItem<Item> STARCAUGHT_BUCKET = ITEMS_REGISTRY.register("starcaught_bucket",  () -> new StarcaughtBucket(Fluids.WATER));
+    DeferredItem<Item> STARCAUGHT_LAVA_BUCKET = ITEMS_REGISTRY.register("starcaught_lava_bucket", () -> new StarcaughtBucket(Fluids.LAVA));
 
     private static DeferredItem<Item> fish(String name) {
         //chat didn't force me to write this comment

@@ -10,14 +10,16 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
 
-public class FishItem extends Item {
-    public FishItem(Properties properties) {
+public class FishItem extends Item
+{
+    public FishItem(Properties properties)
+    {
         super(properties);
     }
 
     @Override
-    public InteractionResult useOn(UseOnContext context) {
-        //Twitch chat didn't force me to do write this
+    public InteractionResult useOn(UseOnContext context)
+    {
         FishEntity fe = new FishEntity(ModEntities.FISH.get(), context.getLevel());
         fe.setFish(context.getItemInHand().copyWithCount(1));
         fe.setPos(context.getClickedPos().relative(context.getClickedFace()).getCenter());
@@ -33,7 +35,8 @@ public class FishItem extends Item {
     }
 
     @Override
-    public Component getName(ItemStack stack) {
+    public Component getName(ItemStack stack)
+    {
         FishProperties properties = stack.get(ModDataComponents.FISH_PROPERTIES);
         if (properties != null)
             return Component.translatable(this.getDescriptionId(stack)).withStyle(properties.rarity().getColor());

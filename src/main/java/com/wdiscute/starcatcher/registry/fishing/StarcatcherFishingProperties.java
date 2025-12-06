@@ -14,49 +14,49 @@ public class StarcatcherFishingProperties
 {
     public static void bootstrap()
     {
-        register(overworldLakeFish(ModItems.OBIDONTIEE)
+        registerStarcatcherBucketAndEntity(overworldLakeFish(ModItems.OBIDONTIEE)
                 .withSizeAndWeight(FishProperties.sw(17.7f, 5, 1200, 200, 20, 33)));
 
-        register(overworldLakeFish(ModItems.MORGANITE)
+        registerStarcatcherBucketAndEntity(overworldLakeFish(ModItems.MORGANITE)
                 .withSeasons(Seasons.SUMMER)
                 .withSizeAndWeight(FishProperties.sw(120, 80, 7000, 1000, 10, 20))
                 .withWeather(FishProperties.Weather.RAIN)
                 .withRarity(FishProperties.Rarity.UNCOMMON)
                 .withDifficulty(FishProperties.Difficulty.MEDIUM));
 
-        register(overworldLakeFish(ModItems.SILVERVEIL_PERCH)
+        registerStarcatcherBucketAndEntity(overworldLakeFish(ModItems.SILVERVEIL_PERCH)
                 .withSeasons(Seasons.SPRING, Seasons.WINTER)
                 .withSizeAndWeight(FishProperties.sw(27.0f, 11, 500, 352, 5, 36))
                 .withRarity(FishProperties.Rarity.UNCOMMON)
                 .withDifficulty(FishProperties.Difficulty.EVERYTHING_VANISHING));
 
-        register(overworldLakeFish(ModItems.ELDERSCALE)
+        registerStarcatcherBucketAndEntity(overworldLakeFish(ModItems.ELDERSCALE)
                 .withSizeAndWeight(FishProperties.sw(160.0f, 85, 2300, 652, 10, 20))
                 .withSeasons(Seasons.LATE_SPRING, Seasons.SUMMER, Seasons.AUTUMN)
                 .withDifficulty(FishProperties.Difficulty.EASY_VANISHING)
                 .withRarity(FishProperties.Rarity.UNCOMMON)
                 .withBaseChance(3));
 
-        register(overworldLakeFish(ModItems.DRIFTFIN)
+        registerStarcatcherBucketAndEntity(overworldLakeFish(ModItems.DRIFTFIN)
                 .withSizeAndWeight(FishProperties.sw(16.0f, 3, 167, 70, 10, 20))
                 .withSeasons(Seasons.SUMMER, Seasons.AUTUMN)
                 .withWeather(FishProperties.Weather.CLEAR));
 
-        register(overworldLakeFish(ModItems.TWILIGHT_KOI)
+        registerStarcatcherBucketAndEntity(overworldLakeFish(ModItems.TWILIGHT_KOI)
                 .withSizeAndWeight(FishProperties.sw(60, 13, 3500, 731, 20, 10))
                 .withDaytime(FishProperties.Daytime.MIDNIGHT)
                 .withRarity(FishProperties.Rarity.EPIC)
                 .withWeather(FishProperties.Weather.RAIN)
                 .withDifficulty(FishProperties.Difficulty.HARD_ONLY_THIN_MOVING));
 
-        register(overworldLakeFish(ModItems.THUNDER_BASS)
+        registerStarcatcherBucketAndEntity(overworldLakeFish(ModItems.THUNDER_BASS)
                 .withSizeAndWeight(FishProperties.sw(40, 12, 1200, 800, 10, 20))
                 .withSeasons(Seasons.SUMMER, Seasons.AUTUMN)
                 .withRarity(FishProperties.Rarity.RARE)
                 .withWeather(FishProperties.Weather.THUNDER)
                 .withDifficulty(FishProperties.Difficulty.HARD_ONLY_THIN_MOVING));
 
-        register(overworldLakeFish(ModItems.LIGHTNING_BASS)
+        registerStarcatcherBucketAndEntity(overworldLakeFish(ModItems.LIGHTNING_BASS)
                 .withSizeAndWeight(FishProperties.sw(40, 12, 1300, 620, 10, 20))
                 .withSeasons(Seasons.SUMMER, Seasons.AUTUMN)
                 .withRarity(FishProperties.Rarity.RARE)
@@ -69,52 +69,52 @@ public class StarcatcherFishingProperties
 
 
         //cold lake
-        register(overworldColdLakeFish(ModItems.FROSTJAW_TROUT)
+        registerStarcatcherBucketAndEntity(overworldColdLakeFish(ModItems.FROSTJAW_TROUT)
                 .withSizeAndWeight(FishProperties.sw(35, 8, 1600, 1200, 10, 20))
                 .withDifficulty(FishProperties.Difficulty.EVERYTHING_VANISHING));
 
-        register(overworldColdLakeFish(ModItems.CRYSTALBACK_TROUT)
+        registerStarcatcherBucketAndEntity(overworldColdLakeFish(ModItems.CRYSTALBACK_TROUT)
                 .withSizeAndWeight(FishProperties.sw(35, 8, 1600, 1200, 10, 20))
                 .withSeasons(Seasons.WINTER)
                 .withDifficulty(FishProperties.Difficulty.MEDIUM));
 
-        register(overworldColdLakeFish(ModItems.AURORA)
+        registerStarcatcherBucketAndEntity(overworldColdLakeFish(ModItems.AURORA)
                 .withSizeAndWeight(FishProperties.sw(10, 8, 120, 30, 30, 20))
                 .withRarity(FishProperties.Rarity.LEGENDARY)
                 .withBaitRestrictions(FishProperties.BaitRestrictions.LEGENDARY_BAIT)
                 .withBaseChance(2)
                 .withDifficulty(FishProperties.Difficulty.NON_STOP_ACTION_VANISHING));
 
-        register(overworldColdLakeFish(ModItems.WINTERY_PIKE)
+        registerStarcatcherBucketAndEntity(overworldColdLakeFish(ModItems.WINTERY_PIKE)
                 .withSeasons(Seasons.EARLY_SPRING, Seasons.LATE_AUTUMN, Seasons.WINTER)
                 .withSizeAndWeight(FishProperties.sw(75, 20, 5000, 3000, 10, 20))
                 .withDifficulty(FishProperties.Difficulty.EASY_MOVING));
 
 
         //lake warm
-        register(overworldWarmLakeFish(ModItems.SANDTAIL)
+        registerStarcatcherBucketAndEntity(overworldWarmLakeFish(ModItems.SANDTAIL)
                 .withSizeAndWeight(FishProperties.sw(200, 100, 1600, 1200, 10, 20))
                 .withSeasons(Seasons.SUMMER)
                 .withDaytime(FishProperties.Daytime.NIGHT));
 
-        register(overworldWarmLakeFish(ModItems.MIRAGE_CARP)
+        registerStarcatcherBucketAndEntity(overworldWarmLakeFish(ModItems.MIRAGE_CARP)
                 .withSizeAndWeight(FishProperties.sw(60, 20, 6000, 4000, 10, 20))
                 .withDifficulty(FishProperties.Difficulty.MEDIUM)
                 .withDaytime(FishProperties.Daytime.DAY)
                 .withWeather(FishProperties.Weather.CLEAR)
                 .withRarity(FishProperties.Rarity.UNCOMMON));
 
-        register(overworldWarmLakeFish(ModItems.SCORCHFISH)
+        registerStarcatcherBucketAndEntity(overworldWarmLakeFish(ModItems.SCORCHFISH)
                 .withSizeAndWeight(FishProperties.sw(60, 20, 6000, 4000, 10, 20))
                 .withSeasons(Seasons.SPRING, Seasons.SUMMER, Seasons.AUTUMN)
                 .withWeather(FishProperties.Weather.CLEAR));
 
-        register(overworldWarmLakeFish(ModItems.CACTIFISH)
+        registerStarcatcherBucketAndEntity(overworldWarmLakeFish(ModItems.CACTIFISH)
                 .withSizeAndWeight(FishProperties.sw(100, 50, 10000, 3000, 10, 20))
                 .withSeasons(Seasons.SUMMER)
                 .withDaytime(FishProperties.Daytime.DAY));
 
-        register(overworldWarmLakeFish(ModItems.AGAVE_BREAM)
+        registerStarcatcherBucketAndEntity(overworldWarmLakeFish(ModItems.AGAVE_BREAM)
                 .withSizeAndWeight(FishProperties.sw(36, 12, 2000, 1000, 10, 10))
                 .withRarity(FishProperties.Rarity.RARE)
                 .withDaytime(FishProperties.Daytime.NIGHT)
@@ -123,7 +123,7 @@ public class StarcatcherFishingProperties
 
 
         //mountain
-        register(overworldMountainFish(ModItems.SUNNY_STURGEON)
+        registerStarcatcherBucketAndEntity(overworldMountainFish(ModItems.SUNNY_STURGEON)
                 .withSizeAndWeight(FishProperties.sw(400, 200, 100000, 50000, 10, 10))
                 .withSeasons(Seasons.SPRING, Seasons.SUMMER)
                 .withDifficulty(FishProperties.Difficulty.HARD_ONLY_THIN)
@@ -131,16 +131,16 @@ public class StarcatcherFishingProperties
                 .withDaytime(FishProperties.Daytime.DAY)
                 .withBaseChance(2));
 
-        register(overworldMountainFish(ModItems.PEAKDWELLER)
+        registerStarcatcherBucketAndEntity(overworldMountainFish(ModItems.PEAKDWELLER)
                 .withSeasons(Seasons.EARLY_SPRING, Seasons.AUTUMN, Seasons.WINTER)
                 .withSizeAndWeight(FishProperties.sw(100, 50, 10000, 5000, 10, 10))
                 .withDifficulty(FishProperties.Difficulty.HARD));
 
-        register(overworldMountainFish(ModItems.ROCKGILL)
+        registerStarcatcherBucketAndEntity(overworldMountainFish(ModItems.ROCKGILL)
                 .withSizeAndWeight(FishProperties.sw(100, 50, 10000, 5000, 10, 10))
                 .withDifficulty(FishProperties.Difficulty.MEDIUM));
 
-        register(overworldMountainFish(ModItems.SUN_SEEKING_CARP)
+        registerStarcatcherBucketAndEntity(overworldMountainFish(ModItems.SUN_SEEKING_CARP)
                 .withSeasons(Seasons.LATE_SPRING, Seasons.SUMMER, Seasons.EARLY_AUTUMN)
                 .withSizeAndWeight(FishProperties.sw(60, 20, 6000, 4000, 10, 20))
                 .withRarity(FishProperties.Rarity.RARE)
@@ -149,17 +149,17 @@ public class StarcatcherFishingProperties
 
 
         //swamp
-        register(overworldSwampFish(ModItems.SLUDGE_CATFISH)
+        registerStarcatcherBucketAndEntity(overworldSwampFish(ModItems.SLUDGE_CATFISH)
                 .withSizeAndWeight(FishProperties.sw(100, 50, 10000, 3000, 10, 20))
                 .withSeasons(Seasons.SPRING)
                 .withRarity(FishProperties.Rarity.UNCOMMON));
 
-        register(overworldSwampFish(ModItems.LILY_SNAPPER)
+        registerStarcatcherBucketAndEntity(overworldSwampFish(ModItems.LILY_SNAPPER)
                 .withSizeAndWeight(FishProperties.sw(60, 20, 7000, 2000, 10, 20))
                 .withRarity(FishProperties.Rarity.RARE)
                 .withDifficulty(FishProperties.Difficulty.MEDIUM));
 
-        register(overworldSwampFish(ModItems.SAGE_CATFISH)
+        registerStarcatcherBucketAndEntity(overworldSwampFish(ModItems.SAGE_CATFISH)
                 .withSizeAndWeight(FishProperties.sw(100, 50, 10000, 3000, 10, 20))
                 .withSeasons(Seasons.EARLY_SPRING, Seasons.AUTUMN, Seasons.WINTER)
                 .withRarity(FishProperties.Rarity.EPIC)
@@ -173,49 +173,49 @@ public class StarcatcherFishingProperties
 
 
         //darkoak forest
-        register(overworldDarkForestFish(ModItems.PALE_PINFISH)
+        registerStarcatcherBucketAndEntity(overworldDarkForestFish(ModItems.PALE_PINFISH)
                 .withSizeAndWeight(FishProperties.sw(15, 5, 150, 100, 10, 20))
                 .withSeasons(Seasons.EARLY_SPRING, Seasons.LATE_AUTUMN, Seasons.WINTER)
                 .withDaytime(FishProperties.Daytime.MIDNIGHT)
                 .withRarity(FishProperties.Rarity.RARE)
                 .withDifficulty(FishProperties.Difficulty.EASY_NO_FLIP_VANISHING));
 
-        register(overworldDarkForestFish(ModItems.PINFISH)
+        registerStarcatcherBucketAndEntity(overworldDarkForestFish(ModItems.PINFISH)
                 .withSizeAndWeight(FishProperties.sw(15, 5, 150, 100, 10, 20))
                 .withDaytime(FishProperties.Daytime.NIGHT)
                 .withRarity(FishProperties.Rarity.UNCOMMON)
                 .withDifficulty(FishProperties.Difficulty.MEDIUM));
 
-        register(overworldDarkForestFish(ModItems.PALE_CARP)
+        registerStarcatcherBucketAndEntity(overworldDarkForestFish(ModItems.PALE_CARP)
                 .withSeasons(Seasons.EARLY_SPRING, Seasons.LATE_AUTUMN, Seasons.WINTER)
                 .withSizeAndWeight(FishProperties.sw(60, 20, 6000, 4000, 10, 20))
                 .withDaytime(FishProperties.Daytime.DAY));
 
 
         //cherry grove
-        register(overworldCherryGroveFish(ModItems.VESANI)
+        registerStarcatcherBucketAndEntity(overworldCherryGroveFish(ModItems.VESANI)
                 .withSeasons(Seasons.SPRING, Seasons.EARLY_SUMMER)
                 .withSizeAndWeight(FishProperties.sw(10, 3, 67, 0, 10, 0))
                 .withRarity(FishProperties.Rarity.LEGENDARY)
                 .withDifficulty(FishProperties.Difficulty.VESANI));
 
-        register(overworldCherryGroveFish(ModItems.BLOSSOMFISH)
+        registerStarcatcherBucketAndEntity(overworldCherryGroveFish(ModItems.BLOSSOMFISH)
                 .withSeasons(Seasons.SPRING)
                 .withSizeAndWeight(FishProperties.sw(60, 20, 6000, 4000, 10, 20))
                 .withWeather(FishProperties.Weather.CLEAR));
 
-        register(overworldCherryGroveFish(ModItems.PETALDRIFT_CARP)
+        registerStarcatcherBucketAndEntity(overworldCherryGroveFish(ModItems.PETALDRIFT_CARP)
                 .withSizeAndWeight(FishProperties.sw(60, 20, 6000, 4000, 10, 20))
                 .withDifficulty(FishProperties.Difficulty.MEDIUM)
                 .withWeather(FishProperties.Weather.RAIN)
                 .withRarity(FishProperties.Rarity.UNCOMMON));
 
-        register(overworldCherryGroveFish(ModItems.PINK_KOI)
+        registerStarcatcherBucketAndEntity(overworldCherryGroveFish(ModItems.PINK_KOI)
                 .withSeasons(Seasons.SPRING)
                 .withSizeAndWeight(FishProperties.sw(60, 20, 3000, 2000, 10, 20))
                 .withWeather(FishProperties.Weather.RAIN));
 
-        register(overworldCherryGroveFish(ModItems.ROSE_SIAMESE_FISH)
+        registerStarcatcherBucketAndEntity(overworldCherryGroveFish(ModItems.ROSE_SIAMESE_FISH)
                 .withSeasons(Seasons.SPRING, Seasons.AUTUMN)
                 .withSizeAndWeight(FishProperties.sw(30, 10, 1000, 500, 10, 20))
                 .withDifficulty(FishProperties.Difficulty.MEDIUM_VANISHING)
@@ -225,41 +225,41 @@ public class StarcatcherFishingProperties
 
 
         //cold mountain
-        register(overworldColdMountainFish(ModItems.CRYSTALBACK_STURGEON)
+        registerStarcatcherBucketAndEntity(overworldColdMountainFish(ModItems.CRYSTALBACK_STURGEON)
                 .withSizeAndWeight(FishProperties.sw(400, 200, 100000, 50000, 10, 10)));
 
-        register(overworldColdMountainFish(ModItems.ICETOOTH_STURGEON)
+        registerStarcatcherBucketAndEntity(overworldColdMountainFish(ModItems.ICETOOTH_STURGEON)
                 .withSeasons(Seasons.EARLY_SPRING, Seasons.WINTER)
                 .withSizeAndWeight(FishProperties.sw(400, 200, 100000, 50000, 10, 10))
                 .withDifficulty(FishProperties.Difficulty.MEDIUM));
 
-        register(overworldColdMountainFish(ModItems.BOREAL)
+        registerStarcatcherBucketAndEntity(overworldColdMountainFish(ModItems.BOREAL)
                 .withSizeAndWeight(FishProperties.sw(30, 15, 1000, 200, 10, 10))
                 .withDifficulty(FishProperties.Difficulty.MEDIUM_VANISHING_MOVING)
                 .withRarity(FishProperties.Rarity.LEGENDARY)
                 .withBaitRestrictions(FishProperties.BaitRestrictions.LEGENDARY_BAIT)
                 .withBaseChance(3));
 
-        register(overworldColdMountainFish(ModItems.CRYSTALBACK_BOREAL)
+        registerStarcatcherBucketAndEntity(overworldColdMountainFish(ModItems.CRYSTALBACK_BOREAL)
                 .withSeasons(Seasons.SUMMER, Seasons.WINTER)
                 .withSizeAndWeight(FishProperties.sw(30, 15, 6000, 2000, 10, 10))
                 .withDifficulty(FishProperties.Difficulty.MEDIUM));
 
 
         //river
-        register(overworldRiverFish(ModItems.DOWNFALL_BREAM)
+        registerStarcatcherBucketAndEntity(overworldRiverFish(ModItems.DOWNFALL_BREAM)
                 .withSizeAndWeight(FishProperties.sw(36, 12, 2000, 1000, 10, 10))
                 .withDaytime(FishProperties.Daytime.NIGHT)
                 .withWeather(FishProperties.Weather.RAIN)
                 .withDifficulty(FishProperties.Difficulty.EASY_VANISHING));
 
-        register(overworldRiverFish(ModItems.DRIFTING_BREAM)
+        registerStarcatcherBucketAndEntity(overworldRiverFish(ModItems.DRIFTING_BREAM)
                 .withSeasons(Seasons.SUMMER, Seasons.AUTUMN)
                 .withSizeAndWeight(FishProperties.sw(36, 12, 2000, 1000, 10, 10))
                 .withDaytime(FishProperties.Daytime.NIGHT)
                 .withDifficulty(FishProperties.Difficulty.EASY_MOVING));
 
-        register(overworldRiverFish(ModItems.WILLOW_BREAM)
+        registerStarcatcherBucketAndEntity(overworldRiverFish(ModItems.WILLOW_BREAM)
                 .withSeasons(Seasons.SUMMER, Seasons.AUTUMN)
                 .withSizeAndWeight(FishProperties.sw(36, 12, 2000, 1000, 10, 10))
                 .withDaytime(FishProperties.Daytime.NIGHT)
@@ -267,16 +267,16 @@ public class StarcatcherFishingProperties
                 .withRarity(FishProperties.Rarity.EPIC)
                 .withBaseChance(2));
 
-        register(overworldRiverFish(ModItems.HOLLOWBELLY_DARTER)
+        registerStarcatcherBucketAndEntity(overworldRiverFish(ModItems.HOLLOWBELLY_DARTER)
                 .withSeasons(Seasons.SPRING)
                 .withSizeAndWeight(FishProperties.sw(6, 2, 7, 6, 10, 10))
                 .withDifficulty(FishProperties.Difficulty.EASY_MOVING));
 
-        register(overworldRiverFish(ModItems.MISTBACK_CHUB)
+        registerStarcatcherBucketAndEntity(overworldRiverFish(ModItems.MISTBACK_CHUB)
                 .withSeasons(Seasons.SPRING)
                 .withSizeAndWeight(FishProperties.sw(30, 10, 1400, 600, 10, 10)));
 
-        register(overworldRiverFish(ModItems.SILVERFIN_PIKE)
+        registerStarcatcherBucketAndEntity(overworldRiverFish(ModItems.SILVERFIN_PIKE)
                 .withSizeAndWeight(FishProperties.sw(75, 20, 5000, 3000, 10, 20))
                 .withDifficulty(FishProperties.Difficulty.MEDIUM)
                 .withDifficulty(FishProperties.Difficulty.EASY_MOVING)
@@ -288,17 +288,17 @@ public class StarcatcherFishingProperties
 
 
         //cold river
-        register(overworldColdRiverFish(ModItems.FROSTGILL_CHUB)
+        registerStarcatcherBucketAndEntity(overworldColdRiverFish(ModItems.FROSTGILL_CHUB)
                 .withSizeAndWeight(FishProperties.sw(30, 10, 1400, 600, 10, 10))
                 .withSeasons(Seasons.SPRING, Seasons.SUMMER, Seasons.AUTUMN));
 
-        register(overworldColdRiverFish(ModItems.CRYSTALBACK_MINNOW)
+        registerStarcatcherBucketAndEntity(overworldColdRiverFish(ModItems.CRYSTALBACK_MINNOW)
                 .withSizeAndWeight(FishProperties.sw(6, 4, 5, 3, 10, 10))
                 .withSeasons(Seasons.WINTER)
                 .withDifficulty(FishProperties.Difficulty.EASY_MOVING)
                 .withDaytime(FishProperties.Daytime.NIGHT));
 
-        register(overworldColdRiverFish(ModItems.AZURE_CRYSTALBACK_MINNOW)
+        registerStarcatcherBucketAndEntity(overworldColdRiverFish(ModItems.AZURE_CRYSTALBACK_MINNOW)
                 .withSizeAndWeight(FishProperties.sw(6, 4, 5, 3, 10, 10))
                 .withDaytime(FishProperties.Daytime.MIDNIGHT)
                 .withRarity(FishProperties.Rarity.LEGENDARY)
@@ -306,7 +306,7 @@ public class StarcatcherFishingProperties
                 .withBaseChance(1)
                 .withDifficulty(FishProperties.Difficulty.NON_STOP_ACTION));
 
-        register(overworldColdRiverFish(ModItems.BLUE_CRYSTAL_FIN)
+        registerStarcatcherBucketAndEntity(overworldColdRiverFish(ModItems.BLUE_CRYSTAL_FIN)
                 .withSeasons(Seasons.WINTER)
                 .withSizeAndWeight(FishProperties.sw(12, 4, 70, 30, 10, 10))
                 .withDaytime(FishProperties.Daytime.DAY)
@@ -315,29 +315,29 @@ public class StarcatcherFishingProperties
 
 
         //ocean
-        register(overworldOceanFish(ModItems.SEA_BASS)
+        registerStarcatcherBucketAndEntity(overworldOceanFish(ModItems.SEA_BASS)
                 .withSeasons(Seasons.EARLY_SPRING, Seasons.MID_AUTUMN, Seasons.LATE_AUTUMN, Seasons.WINTER)
                 .withSizeAndWeight(FishProperties.sw(40, 12, 1600, 1100, 10, 20))
                 .withBaseChance(15)
                 .withDifficulty(FishProperties.Difficulty.EASY_MOVING)
                 .withDaytime(FishProperties.Daytime.DAY));
 
-        register(overworldOceanFish(ModItems.IRONJAW_HERRING)
+        registerStarcatcherBucketAndEntity(overworldOceanFish(ModItems.IRONJAW_HERRING)
                 .withSizeAndWeight(FishProperties.sw(30, 8, 300, 100, 10, 20))
                 .withDifficulty(FishProperties.Difficulty.MOVING_THIN_NO_DECAY)
                 .withBaseChance(2)
                 .withRarity(FishProperties.Rarity.UNCOMMON));
 
-        register(overworldOceanFish(ModItems.DEEPJAW_HERRING)
+        registerStarcatcherBucketAndEntity(overworldOceanFish(ModItems.DEEPJAW_HERRING)
                 .withSeasons(Seasons.SPRING, Seasons.SUMMER)
                 .withSizeAndWeight(FishProperties.sw(30, 8, 300, 100, 10, 20))
                 .withDifficulty(FishProperties.Difficulty.MEDIUM));
 
-        register(overworldOceanFish(ModItems.DUSKTAIL_SNAPPER)
+        registerStarcatcherBucketAndEntity(overworldOceanFish(ModItems.DUSKTAIL_SNAPPER)
                 .withSeasons(Seasons.SPRING, Seasons.SUMMER)
                 .withSizeAndWeight(FishProperties.sw(60, 20, 7000, 2000, 10, 20)));
 
-        register(overworldOceanFish(ModItems.JOEL)
+        registerStarcatcherBucketAndEntity(overworldOceanFish(ModItems.JOEL)
                 .withSeasons(Seasons.SUMMER)
                 .withSizeAndWeight(FishProperties.sw(69, 0, 2000, 600, 10, 0))
                 .withDifficulty(FishProperties.Difficulty.EVERYTHING)
@@ -345,7 +345,7 @@ public class StarcatcherFishingProperties
                 .withBaitRestrictions(FishProperties.BaitRestrictions.LEGENDARY_BAIT)
                 .withRarity(FishProperties.Rarity.LEGENDARY));
 
-        register(overworldOceanFish(ModItems.REDSCALED_TUNA)
+        registerStarcatcherBucketAndEntity(overworldOceanFish(ModItems.REDSCALED_TUNA)
                 .withSizeAndWeight(FishProperties.sw(150, 50, 120000, 60000, 10, 20))
                 .withDaytime(FishProperties.Daytime.NIGHT)
                 .withRarity(FishProperties.Rarity.UNCOMMON)
@@ -357,7 +357,7 @@ public class StarcatcherFishingProperties
                 .withSkipMinigame(true));
 
         //deep ocean
-        register(overworldDeepOceanFish(ModItems.BIGEYE_TUNA)
+        registerStarcatcherBucketAndEntity(overworldDeepOceanFish(ModItems.BIGEYE_TUNA)
                 .withSeasons(Seasons.SPRING, Seasons.WINTER)
                 .withSizeAndWeight(FishProperties.sw(150, 50, 120000, 60000, 10, 20))
                 .withDaytime(FishProperties.Daytime.NIGHT)
@@ -374,43 +374,43 @@ public class StarcatcherFishingProperties
                 .withSkipMinigame(true));
 
         //mushroom islands
-        register(overworldMushroomFieldsFish(ModItems.SHROOMFISH)
+        registerStarcatcherBucketAndEntity(overworldMushroomFieldsFish(ModItems.SHROOMFISH)
                 .withSizeAndWeight(FishProperties.sw(70, 50, 4000, 2000, 10, 20))
                 .withRarity(FishProperties.Rarity.LEGENDARY)
                 .withBaitRestrictions(FishProperties.BaitRestrictions.LEGENDARY_BAIT)
                 .withDifficulty(FishProperties.Difficulty.THIN_NO_DECAY_NOT_FORGIVING_MOVING));
 
-        register(overworldMushroomFieldsFish(ModItems.SPOREFISH)
+        registerStarcatcherBucketAndEntity(overworldMushroomFieldsFish(ModItems.SPOREFISH)
                 .withSizeAndWeight(FishProperties.sw(70, 50, 4000, 2000, 10, 20))
                 .withRarity(FishProperties.Rarity.RARE)
                 .withDifficulty(FishProperties.Difficulty.HARD_MOVING));
 
 
         //underground
-        register(overworldUndergroundFish(ModItems.GOLD_FAN)
+        registerStarcatcherBucketAndEntity(overworldUndergroundFish(ModItems.GOLD_FAN)
                 .withSizeAndWeight(FishProperties.sw(70, 50, 4000, 2000, 10, 20)));
 
-        register(overworldUndergroundFish(ModItems.GEODE_EEL)
+        registerStarcatcherBucketAndEntity(overworldUndergroundFish(ModItems.GEODE_EEL)
                 .withSizeAndWeight(FishProperties.sw(500, 150, 10000, 2000, 10, 20))
                 .withRarity(FishProperties.Rarity.EPIC)
                 .withBaseChance(1)
                 .withDifficulty(FishProperties.Difficulty.HARD_VANISHING));
 
         //caves
-        register(overworldCavesFish(ModItems.WHITEVEIL)
+        registerStarcatcherBucketAndEntity(overworldCavesFish(ModItems.WHITEVEIL)
                 .withSizeAndWeight(FishProperties.sw(100, 30, 3000, 2000, 10, 20))
                 .withDifficulty(FishProperties.Difficulty.EASY_MOVING));
 
-        register(overworldCavesFish(ModItems.BLACK_EEL)
+        registerStarcatcherBucketAndEntity(overworldCavesFish(ModItems.BLACK_EEL)
                 .withSizeAndWeight(FishProperties.sw(500, 150, 6000, 2000, 10, 20))
                 .withDifficulty(FishProperties.Difficulty.MEDIUM)
                 .withRarity(FishProperties.Rarity.UNCOMMON));
 
-        register(overworldCavesFish(ModItems.STONEFISH)
+        registerStarcatcherBucketAndEntity(overworldCavesFish(ModItems.STONEFISH)
                 .withSizeAndWeight(FishProperties.sw(300, 150, 26000, 7000, 10, 20))
                 .withDifficulty(FishProperties.Difficulty.MEDIUM_MOVING));
 
-        register(overworldCavesFish(ModItems.AMETHYSTBACK)
+        registerStarcatcherBucketAndEntity(overworldCavesFish(ModItems.AMETHYSTBACK)
                 .withSizeAndWeight(FishProperties.sw(300, 150, 16000, 7000, 10, 20))
                 .withDifficulty(FishProperties.Difficulty.SINGLE_BIG_FAST)
                 .withRarity(FishProperties.Rarity.EPIC)
@@ -418,36 +418,36 @@ public class StarcatcherFishingProperties
                         .withMustBeCaughtAboveY(-40)));
 
         //dripstone caves
-        register(overworldDripstoneCavesFish(ModItems.FOSSILIZED_ANGELFISH)
+        registerStarcatcherBucketAndEntity(overworldDripstoneCavesFish(ModItems.FOSSILIZED_ANGELFISH)
                 .withSizeAndWeight(FishProperties.sw(700, 150, 36000, 7000, 10, 20))
                 .withRarity(FishProperties.Rarity.RARE)
                 .withDifficulty(FishProperties.Difficulty.THIN_NO_DECAY));
 
-        register(overworldDripstoneCavesFish(ModItems.DRIPFIN)
+        registerStarcatcherBucketAndEntity(overworldDripstoneCavesFish(ModItems.DRIPFIN)
                 .withSizeAndWeight(FishProperties.sw(300, 150, 16000, 7000, 10, 20))
                 .withDifficulty(FishProperties.Difficulty.EASY_MOVING));
 
-        register(overworldDripstoneCavesFish(ModItems.YELLOWSTONE_FISH)
+        registerStarcatcherBucketAndEntity(overworldDripstoneCavesFish(ModItems.YELLOWSTONE_FISH)
                 .withSizeAndWeight(FishProperties.sw(600, 150, 22000, 7000, 10, 20))
                 .withDifficulty(FishProperties.Difficulty.MEDIUM)
                 .withRarity(FishProperties.Rarity.UNCOMMON));
 
 
         //lush caves
-        register(overworldLushCavesFish(ModItems.LUSH_PIKE)
+        registerStarcatcherBucketAndEntity(overworldLushCavesFish(ModItems.LUSH_PIKE)
                 .withSizeAndWeight(FishProperties.sw(75, 20, 5000, 3000, 10, 20))
                 .withDifficulty(FishProperties.Difficulty.MOVING_THIN_NO_DECAY)
                 .withBaitRestrictions(FishProperties.BaitRestrictions.LEGENDARY_BAIT)
                 .withRarity(FishProperties.Rarity.LEGENDARY)
                 .withBaseChance(2));
 
-        register(overworldLushCavesFish(ModItems.VIVID_MOSS)
+        registerStarcatcherBucketAndEntity(overworldLushCavesFish(ModItems.VIVID_MOSS)
                 .withSizeAndWeight(FishProperties.sw(120, 70, 7000, 3000, 10, 20))
                 .withDifficulty(FishProperties.Difficulty.HARD_MOVING)
                 .withRarity(FishProperties.Rarity.UNCOMMON)
                 .withBaseChance(4));
 
-        register(overworldLushCavesFish(ModItems.THE_QUARRISH)
+        registerStarcatcherBucketAndEntity(overworldLushCavesFish(ModItems.THE_QUARRISH)
                 .withSizeAndWeight(FishProperties.sw(620, 270, 700000, 300000, 10, 20))
                 .withDifficulty(FishProperties.Difficulty.FAT_CATCH)
                 .withRarity(FishProperties.Rarity.EPIC)
@@ -456,31 +456,31 @@ public class StarcatcherFishingProperties
 
 
         //deepslate
-        register(overworldDeepslateFish(ModItems.GHOSTLY_PIKE)
+        registerStarcatcherBucketAndEntity(overworldDeepslateFish(ModItems.GHOSTLY_PIKE)
                 .withSizeAndWeight(FishProperties.sw(75, 20, 5000, 3000, 10, 20))
                 .withRarity(FishProperties.Rarity.UNCOMMON)
                 .withBaseChance(2));
 
-        register(overworldDeepslateFish(ModItems.DEEPSLATEFISH)
+        registerStarcatcherBucketAndEntity(overworldDeepslateFish(ModItems.DEEPSLATEFISH)
                 .withSizeAndWeight(FishProperties.sw(420, 70, 70000, 20000, 10, 20))
                 .withDifficulty(FishProperties.Difficulty.HARD));
 
-        register(overworldDeepslateFish(ModItems.AQUAMARINE_PIKE)
+        registerStarcatcherBucketAndEntity(overworldDeepslateFish(ModItems.AQUAMARINE_PIKE)
                 .withSizeAndWeight(FishProperties.sw(75, 20, 5000, 3000, 10, 20))
                 .withDifficulty(FishProperties.Difficulty.MEDIUM));
 
-        register(overworldDeepslateFish(ModItems.GARNET_MACKEREL)
+        registerStarcatcherBucketAndEntity(overworldDeepslateFish(ModItems.GARNET_MACKEREL)
                 .withSizeAndWeight(FishProperties.sw(40, 20, 2000, 1500, 10, 20))
                 .withDifficulty(FishProperties.Difficulty.HARD_VANISHING)
                 .withRarity(FishProperties.Rarity.UNCOMMON));
 
-        register(overworldDeepslateFish(ModItems.BRIGHT_AMETHYST_SNAPPER)
+        registerStarcatcherBucketAndEntity(overworldDeepslateFish(ModItems.BRIGHT_AMETHYST_SNAPPER)
                 .withSizeAndWeight(FishProperties.sw(60, 20, 7000, 2000, 10, 20))
                 .withDifficulty(FishProperties.Difficulty.HARD_ONLY_THIN)
                 .withRarity(FishProperties.Rarity.EPIC)
                 .withBaseChance(2));
 
-        register(overworldDeepslateFish(ModItems.DARK_AMETHYST_SNAPPER)
+        registerStarcatcherBucketAndEntity(overworldDeepslateFish(ModItems.DARK_AMETHYST_SNAPPER)
                 .withSizeAndWeight(FishProperties.sw(60, 20, 7000, 2000, 10, 20))
                 .withDifficulty(FishProperties.Difficulty.SINGLE_BIG_FAST_NO_DECAY)
                 .withRarity(FishProperties.Rarity.EPIC)
@@ -488,36 +488,36 @@ public class StarcatcherFishingProperties
 
 
         //deep dark
-        register(overworldDeepDarkFish(ModItems.SCULKFISH)
+        registerStarcatcherBucketAndEntity(overworldDeepDarkFish(ModItems.SCULKFISH)
                 .withSizeAndWeight(FishProperties.sw(30, 10, 2000, 600, 10, 20))
                 .withDifficulty(FishProperties.Difficulty.HARD_MOVING)
                 .withRarity(FishProperties.Rarity.UNCOMMON));
 
-        register(overworldDeepDarkFish(ModItems.WARD)
+        registerStarcatcherBucketAndEntity(overworldDeepDarkFish(ModItems.WARD)
                 .withSizeAndWeight(FishProperties.sw(50, 10, 2600, 600, 10, 20))
                 .withDifficulty(FishProperties.Difficulty.SINGLE_BIG_FAST_NO_DECAY_VANISHING)
                 .withBaitRestrictions(FishProperties.BaitRestrictions.LEGENDARY_BAIT)
                 .withRarity(FishProperties.Rarity.LEGENDARY)
                 .withBaseChance(2));
 
-        register(overworldDeepDarkFish(ModItems.GLOWING_DARK)
+        registerStarcatcherBucketAndEntity(overworldDeepDarkFish(ModItems.GLOWING_DARK)
                 .withSizeAndWeight(FishProperties.sw(100, 10, 3000, 600, 10, 20))
                 .withRarity(FishProperties.Rarity.UNCOMMON)
                 .withDifficulty(FishProperties.Difficulty.SINGLE_BIG_FAST_MOVING));
 
 
         //overworld surface lava
-        register(overworldSurfaceLava(ModItems.SUNEATER)
+        registerStarcatcherBucketAndEntity(overworldSurfaceLava(ModItems.SUNEATER)
                 .withSizeAndWeight(FishProperties.sw(100, 10, 3000, 600, 10, 20))
                 .withRarity(FishProperties.Rarity.RARE)
                 .withDifficulty(FishProperties.Difficulty.SINGLE_BIG_FAST_MOVING));
 
-        register(overworldSurfaceLava(ModItems.PYROTROUT)
+        registerStarcatcherBucketAndEntity(overworldSurfaceLava(ModItems.PYROTROUT)
                 .withSizeAndWeight(FishProperties.sw(40, 20, 1200, 700, 10, 20))
                 .withRarity(FishProperties.Rarity.UNCOMMON)
                 .withDifficulty(FishProperties.Difficulty.MEDIUM));
 
-        register(overworldSurfaceLava(ModItems.OBSIDIAN_EEL)
+        registerStarcatcherBucketAndEntity(overworldSurfaceLava(ModItems.OBSIDIAN_EEL)
                 .withSizeAndWeight(FishProperties.sw(500, 150, 70000, 13000, 10, 20))
                 .withWeather(FishProperties.Weather.RAIN)
                 .withDifficulty(FishProperties.Difficulty.MEDIUM_VANISHING_MOVING)
@@ -525,63 +525,63 @@ public class StarcatcherFishingProperties
                 .withRarity(FishProperties.Rarity.LEGENDARY));
 
         //overworld underground lava
-        register(overworldUndergroundLava(ModItems.MOLTEN_SHRIMP)
+        registerStarcatcherBucketAndEntity(overworldUndergroundLava(ModItems.MOLTEN_SHRIMP)
                 .withSizeAndWeight(FishProperties.sw(10, 3, 20, 10, 10, 20))
                 .withRarity(FishProperties.Rarity.RARE)
                 .withDifficulty(FishProperties.Difficulty.HARD));
 
-        register(overworldUndergroundLava(ModItems.OBSIDIAN_CRAB)
+        registerStarcatcherBucketAndEntity(overworldUndergroundLava(ModItems.OBSIDIAN_CRAB)
                 .withSizeAndWeight(FishProperties.sw(15, 8, 700, 300, 10, 20))
                 .withDifficulty(FishProperties.Difficulty.EASY_MOVING)
                 .withRarity(FishProperties.Rarity.UNCOMMON));
 
         //overworld deepslate lava
-        register(overworldDeepslateLava(ModItems.SCORCHED_BLOODSUCKER)
+        registerStarcatcherBucketAndEntity(overworldDeepslateLava(ModItems.SCORCHED_BLOODSUCKER)
                 .withSizeAndWeight(FishProperties.sw(60, 30, 1700, 300, 10, 20))
                 .withRarity(FishProperties.Rarity.EPIC)
                 .withDifficulty(FishProperties.Difficulty.HARD_ONLY_THIN));
 
-        register(overworldDeepslateLava(ModItems.MOLTEN_DEEPSLATE_CRAB)
+        registerStarcatcherBucketAndEntity(overworldDeepslateLava(ModItems.MOLTEN_DEEPSLATE_CRAB)
                 .withSizeAndWeight(FishProperties.sw(15, 8, 700, 300, 10, 20))
                 .withRarity(FishProperties.Rarity.RARE)
                 .withDifficulty(FishProperties.Difficulty.HARD_VANISHING));
 
 
         //nether
-        register(netherLavaFish(ModItems.EMBERGILL)
+        registerStarcatcherBucketAndEntity(netherLavaFish(ModItems.EMBERGILL)
                 .withSizeAndWeight(FishProperties.sw(220, 70, 5700, 900, 10, 20))
                 .withDifficulty(FishProperties.Difficulty.HARD_ONLY_THIN.withTreasure(FishProperties.Treasure.NETHER)));
 
-        register(netherLavaFish(ModItems.LAVA_CRAB)
+        registerStarcatcherBucketAndEntity(netherLavaFish(ModItems.LAVA_CRAB)
                 .withSizeAndWeight(FishProperties.sw(15, 8, 700, 300, 10, 20))
                 .withRarity(FishProperties.Rarity.EPIC)
                 .withDifficulty(FishProperties.Difficulty.EVERYTHING_FLIP.withTreasure(FishProperties.Treasure.NETHER)));
 
-        register(netherLavaFish(ModItems.MAGMA_FISH)
+        registerStarcatcherBucketAndEntity(netherLavaFish(ModItems.MAGMA_FISH)
                 .withSizeAndWeight(FishProperties.sw(120, 40, 3700, 900, 10, 20))
                 .withRarity(FishProperties.Rarity.UNCOMMON)
                 .withDifficulty(FishProperties.Difficulty.HARD.withTreasure(FishProperties.Treasure.NETHER)));
 
-        register(netherLavaFish(ModItems.GLOWSTONE_SEEKER)
+        registerStarcatcherBucketAndEntity(netherLavaFish(ModItems.GLOWSTONE_SEEKER)
                 .withSizeAndWeight(FishProperties.sw(120, 40, 3700, 900, 10, 20))
                 .withDifficulty(FishProperties.Difficulty.EVERYTHING_FLIP_MOVING.withTreasure(FishProperties.Treasure.NETHER)));
 
-        register(netherLavaFish(ModItems.CINDER_SQUID)
+        registerStarcatcherBucketAndEntity(netherLavaFish(ModItems.CINDER_SQUID)
                 .withSizeAndWeight(FishProperties.sw(40, 20, 1300, 700, 10, 20))
                 .withDifficulty(FishProperties.Difficulty.SINGLE_BIG_FAST_NO_DECAY.withTreasure(FishProperties.Treasure.NETHER))
                 .withRarity(FishProperties.Rarity.RARE)
                 .withBaseChance(2));
 
-        register(netherLavaFish(ModItems.SCALDING_PIKE)
+        registerStarcatcherBucketAndEntity(netherLavaFish(ModItems.SCALDING_PIKE)
                 .withSizeAndWeight(FishProperties.sw(75, 20, 5000, 3000, 10, 20))
                 .withDifficulty(FishProperties.Difficulty.MEDIUM_VANISHING.withTreasure(FishProperties.Treasure.NETHER)));
 
-        register(netherLavaFish(ModItems.GLOWSTONE_PUFFERFISH)
+        registerStarcatcherBucketAndEntity(netherLavaFish(ModItems.GLOWSTONE_PUFFERFISH)
                 .withSizeAndWeight(FishProperties.sw(35, 25, 1000, 700, 10, 20))
                 .withRarity(FishProperties.Rarity.RARE)
                 .withDifficulty(FishProperties.Difficulty.MEDIUM_VANISHING.withTreasure(FishProperties.Treasure.NETHER)));
 
-        register(netherLavaBasaltDeltasFish(ModItems.WILLISH)
+        registerStarcatcherBucketAndEntity(netherLavaBasaltDeltasFish(ModItems.WILLISH)
                 .withSizeAndWeight(FishProperties.sw(75, 25, 4000, 700, 10, 20))
                 .withRarity(FishProperties.Rarity.UNCOMMON)
                 .withDifficulty(FishProperties.Difficulty.MEDIUM_MOVING.withTreasure(FishProperties.Treasure.NETHER)));
@@ -592,22 +592,22 @@ public class StarcatcherFishingProperties
 
 
         //the end
-        register(endFish(ModItems.CHARFISH)
+        registerStarcatcherBucketAndEntity(endFish(ModItems.CHARFISH)
                 .withSizeAndWeight(FishProperties.sw(135, 25, 4000, 700, 10, 20))
                 .withRarity(FishProperties.Rarity.RARE)
                 .withDifficulty(FishProperties.Difficulty.HARD));
 
-        register(endFish(ModItems.CHORUS_CRAB)
+        registerStarcatcherBucketAndEntity(endFish(ModItems.CHORUS_CRAB)
                 .withSizeAndWeight(FishProperties.sw(15, 8, 700, 300, 10, 70))
                 .withRarity(FishProperties.Rarity.EPIC)
                 .withDifficulty(FishProperties.Difficulty.EVERYTHING_FLIP_MOVING));
 
-        register(endFish(ModItems.END_GLOW)
+        registerStarcatcherBucketAndEntity(endFish(ModItems.END_GLOW)
                 .withSizeAndWeight(FishProperties.sw(235, 25, 7000, 700, 10, 20))
                 .withRarity(FishProperties.Rarity.UNCOMMON)
                 .withDifficulty(FishProperties.Difficulty.MOVING_THIN_NO_DECAY));
 
-        register(endOuterIslandsFish(ModItems.VOIDBITER)
+        registerStarcatcherBucketAndEntity(endOuterIslandsFish(ModItems.VOIDBITER)
                 .withSizeAndWeight(FishProperties.sw(50, 15, 2000, 200, 10, 20))
                 .withRarity(FishProperties.Rarity.EPIC)
                 .withDifficulty(FishProperties.Difficulty.VOIDBITER)

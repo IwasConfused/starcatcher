@@ -29,6 +29,10 @@ public class ModDataComponents
             "bobber_skin",
             builder -> builder.persistent(SingleStackContainer.CODEC));
 
+    //bucketed fish
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<SingleStackContainer>> BUCKETED_FISH = register(
+            "bucketed_fish",
+            builder -> builder.persistent(SingleStackContainer.CODEC));
 
     //rod menu
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<SingleStackContainer>> BOBBER = register(

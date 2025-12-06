@@ -5,6 +5,7 @@ import com.wdiscute.starcatcher.blocks.ModBlockEntities;
 import com.wdiscute.starcatcher.blocks.ModBlocks;
 import com.wdiscute.starcatcher.bob.FishingBobModel;
 import com.wdiscute.starcatcher.bob.FishingBobRenderer;
+import com.wdiscute.starcatcher.datagen.TrustedHolder;
 import com.wdiscute.starcatcher.fishentity.FishEntity;
 import com.wdiscute.starcatcher.fishentity.FishRenderer;
 import com.wdiscute.starcatcher.fishentity.fishmodels.*;
@@ -29,10 +30,14 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.client.resources.language.I18n;
+import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
@@ -59,7 +64,8 @@ import java.util.Random;
 
 // The value here should match an entry in the META-INF/neoforge.mods.toml file
 @Mod(Starcatcher.MOD_ID)
-public class Starcatcher {
+public class Starcatcher
+{
     public static final String MOD_ID = "starcatcher";
 
     public static final ResourceKey<Registry<FishProperties>> FISH_REGISTRY =
@@ -70,21 +76,31 @@ public class Starcatcher {
 
     public static final Random r = new Random();
 
-    public static double truncatedNormal(double mean, double deviation) {
-        while (true) {
+    public static double truncatedNormal(double mean, double deviation)
+    {
+        while (true)
+        {
             double value = mean + deviation * r.nextGaussian();
-            if (value >= mean - deviation && value <= mean + deviation) {
+            if (value >= mean - deviation && value <= mean + deviation)
+            {
                 return value;
             }
         }
     }
 
-    public static ResourceLocation rl(String s) {
+    public static ResourceLocation rl(String s)
+    {
         return ResourceLocation.fromNamespaceAndPath(Starcatcher.MOD_ID, s);
     }
 
+    public static Holder<Item> fromRL(String ns, String path)
+    {
+        return TrustedHolder.createStandAlone(BuiltInRegistries.ITEM.holderOwner(), ResourceKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(ns, path)));
+    }
+
     @OnlyIn(Dist.CLIENT)
-    public static void fishCaughtToast(FishProperties fp, boolean newFish, int sizeCM, int weightCM) {
+    public static void fishCaughtToast(FishProperties fp, boolean newFish, int sizeCM, int weightCM)
+    {
         if (newFish) Minecraft.getInstance().getToasts().addToast(new FishCaughtToast(fp));
 
         SettingsScreen.Units units = Config.UNIT.get();
@@ -103,7 +119,8 @@ public class Starcatcher {
     }
 
 
-    public Starcatcher(IEventBus modEventBus, ModContainer modContainer) {
+    public Starcatcher(IEventBus modEventBus, ModContainer modContainer)
+    {
         ModCreativeModeTabs.register(modEventBus);
         ModItems.ITEMS_REGISTRY.register(modEventBus);
         ModItems.RODS_REGISTRY.register(modEventBus);

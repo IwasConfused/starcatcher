@@ -3,6 +3,7 @@ package com.wdiscute.starcatcher.registry.fishing;
 import com.mojang.datafixers.util.Pair;
 import com.wdiscute.starcatcher.Starcatcher;
 import com.wdiscute.starcatcher.datagen.TrustedHolder;
+import com.wdiscute.starcatcher.registry.ModItems;
 import com.wdiscute.starcatcher.registry.fishing.compat.*;
 import com.wdiscute.starcatcher.storage.FishProperties;
 import net.minecraft.core.Holder;
@@ -295,6 +296,13 @@ public class FishingPropertiesRegistry
         return ResourceKey.create(
                 Starcatcher.FISH_REGISTRY, ResourceLocation.parse(fp.catchInfo().fish()
                         .getRegisteredName()));
+    }
+
+    protected static void registerStarcatcherBucketAndEntity(FishProperties.Builder builder)
+    {
+        builder.withBucketedFish(ModItems.STARCAUGHT_BUCKET);
+        builder.withEntityToSpawn(rl("starcatcher", "fish"));
+        register(builder);
     }
 
     protected static void register(FishProperties.Builder builder)
