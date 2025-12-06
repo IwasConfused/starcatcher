@@ -36,7 +36,10 @@ public class FishingPropertiesProvider extends DatapackBuiltinEntriesProvider {
                 "collectorsreap",
                 "miners_delight",
                 "alexscaves",
-                "crittersandcompanions"
+                "crittersandcompanions",
+                "aquamirae",
+                "hybrid_aquatic",
+                "hybrid-aquatic"
                 //That's a lot of compatibilities
         ));
     }
@@ -44,34 +47,6 @@ public class FishingPropertiesProvider extends DatapackBuiltinEntriesProvider {
     private static void addConditions(final BiConsumer<ResourceKey<?>, ICondition> consumer) {
         FishingPropertiesRegistry.registerConditions(consumer);
     }
-
-    //region restricted fps
-
-    //list to store all fishes from other mods for compatibility, alongside the modid so it
-    //datagens with the neoforge restrictions modifier
-
-    //example of a custom fish using starcatcher's pink_koi as a base for the fish
-
-//            FishProperties.DEFAULT
-//                    .withFish(baseItem("starcatcher", "pink_koi"))
-//                    .withWorldRestrictions(
-//                            FishProperties.WorldRestrictions.DEFAULT
-//                                    .withBiomes(List.of(baseItem("mysticcraft", "cool_biome")))
-//                                    .withFluids(List.of(baseItem("mysticcraft", "magical_water"))))
-//                    .withDifficulty(FishProperties.Difficulty.HARD)
-//                    .withRarity(FishProperties.Rarity.EPIC)
-//                    .withWeather(FishProperties.Weather.RAIN)
-//                    .withDaytime(FishProperties.Daytime.MIDNIGHT)
-//                    .withMod("mysticcraft")
-
-    //alexsmobs:
-    //  cosmic_cod
-    //  flying_fish
-    //  blobfish
-
-    //endregion restricted fps
-
-    //endregion trophies
 
     @Override
     public String getName() {

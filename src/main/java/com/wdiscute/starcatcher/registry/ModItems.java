@@ -25,6 +25,9 @@ public interface ModItems {
     DeferredRegister.Items BAITS_REGISTRY = DeferredRegister.createItems(Starcatcher.MOD_ID);
     DeferredRegister.Items OTHERS_REGISTRY = DeferredRegister.createItems(Starcatcher.MOD_ID);
 
+
+
+
     DeferredItem<Item> GUIDE = ITEMS_REGISTRY.register("starcatcher_guide", FishingGuideItem::new);
 
     DeferredItem<Item> FISH_SPOTTER = singleStackItem("fish_spotter");
