@@ -1,10 +1,8 @@
-package com.wdiscute.starcatcher.registry.fishing.compatiblemods;
+package com.wdiscute.starcatcher.registry.fishing.compat;
 
 import com.wdiscute.starcatcher.registry.ModItems;
 import com.wdiscute.starcatcher.registry.fishing.FishingPropertiesRegistry;
 import com.wdiscute.starcatcher.storage.FishProperties;
-
-import static com.wdiscute.starcatcher.registry.fishing.FishingPropertiesRegistry.*;
 
 public class UpgradeAquaticFishingProperties extends FishingPropertiesRegistry
 {

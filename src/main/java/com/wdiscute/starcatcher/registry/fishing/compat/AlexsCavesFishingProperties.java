@@ -1,4 +1,4 @@
-package com.wdiscute.starcatcher.registry.fishing.compatiblemods;
+package com.wdiscute.starcatcher.registry.fishing.compat;
 
 import com.wdiscute.starcatcher.registry.ModItems;
 import com.wdiscute.starcatcher.registry.fishing.FishingPropertiesRegistry;

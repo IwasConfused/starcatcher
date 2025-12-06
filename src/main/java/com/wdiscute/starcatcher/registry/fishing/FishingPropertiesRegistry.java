@@ -3,7 +3,7 @@ package com.wdiscute.starcatcher.registry.fishing;
 import com.mojang.datafixers.util.Pair;
 import com.wdiscute.starcatcher.Starcatcher;
 import com.wdiscute.starcatcher.datagen.TrustedHolder;
-import com.wdiscute.starcatcher.registry.fishing.compatiblemods.*;
+import com.wdiscute.starcatcher.registry.fishing.compat.*;
 import com.wdiscute.starcatcher.storage.FishProperties;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
