@@ -1566,12 +1566,7 @@ public record FishProperties(
     public static int getChance(FishProperties fp, Entity entity, ItemStack rod)
     {
         Level level = entity.level();
-
-        int chance = fp.baseChance();
-
-        ItemStack bobber = rod.get(ModDataComponents.BOBBER).stack().copy();
         ItemStack bait = rod.get(ModDataComponents.BAIT).stack().copy();
-
 
         //Serene Seasons check
         if (ModList.get().isLoaded("sereneseasons") && Config.ENABLE_SEASONS.get())
@@ -1626,8 +1621,6 @@ public record FishProperties(
         //time check
         if (fp.daytime() != Daytime.ALL)
         {
-
-            //TODO change 24000 to the fraction of level day cycle
             long time = level.getDayTime() % 24000;
 
             switch (fp.daytime())
@@ -1674,10 +1667,10 @@ public record FishProperties(
         //correct bait chance bonus
         if (fp.br().correctBait().contains(BuiltInRegistries.ITEM.getKey(bait.getItem())))
         {
-            chance += fp.br().correctBaitChanceAdded();
+            return fp.baseChance() + fp.br().correctBaitChanceAdded();
         }
 
-        return chance;
+        return fp.baseChance();
     }
 
     public static List<FishProperties> getFpsWithGuideEntryForArea(Entity entity)
