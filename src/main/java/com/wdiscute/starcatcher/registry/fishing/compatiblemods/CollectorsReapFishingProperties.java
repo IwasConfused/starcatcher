@@ -64,7 +64,6 @@ public class CollectorsReapFishingProperties extends FishingPropertiesRegistry
                         .withBiomesTags(rl("collectorsreap", "biome/has_spawn/chieftain_crab")))
                 .withAlwaysSpawnEntity(true)
                 .withEntityToSpawn(rl("collectorsreap", "chieftain_crab"))
-                .withOverrideMinigameItem(true)
                 .withItemToOverrideWith(ModItems.UNKNOWN_FISH)
         );
 

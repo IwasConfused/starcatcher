@@ -29,7 +29,10 @@ public class MinecraftFishingProperties {
 
 
 
+
         register(overworldFish(fromRL("minecraft", "creeper_head"))
+                .withAlwaysSpawnEntity(true)
+                .withEntityToSpawn(rl("minecraft", "creeper"))
                 .withSizeAndWeight(FishProperties.SizeAndWeight.NONE)
                 .withBaseChance(0)
                 .withBaitRestrictions(
@@ -37,9 +40,6 @@ public class MinecraftFishingProperties {
                                 .withCorrectBait(Starcatcher.rl("creeper_bait"))
                                 .withCorrectBaitChanceAdded(20)
                 )
-                .withAlwaysSpawnEntity(true)
-                .withEntityToSpawn(rl("minecraft", "creeper"))
-                .withOverrideMinigameItem(true)
                 .withItemToOverrideWith(ModItems.UNKNOWN_FISH)
                 .withSkipMinigame(true));
 
@@ -51,7 +51,6 @@ public class MinecraftFishingProperties {
                 .withHasGuideEntry(false)
                 .withAlwaysSpawnEntity(true)
                 .withEntityToSpawn(rl("minecraft", "drowned"))
-                .withOverrideMinigameItem(true)
                 .withItemToOverrideWith(ModItems.UNKNOWN_FISH)
                 .withSkipMinigame(true));
     }

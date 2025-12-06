@@ -141,7 +141,6 @@ public class AlexsCavesFishingProperties extends FishingPropertiesRegistry
                 .withDifficulty(customDifficulty)
                 .withAlwaysSpawnEntity(true)
                 .withEntityToSpawn(rl("alexscaves", "trilocaris"))
-                .withOverrideMinigameItem(true)
                 .withItemToOverrideWith(ModItems.UNKNOWN_FISH)
         );
 

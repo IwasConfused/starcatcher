@@ -54,7 +54,6 @@ public class UpgradeAquaticFishingProperties extends FishingPropertiesRegistry
                 .withAlwaysSpawnEntity(true)
                 .withBaseChance(1)
                 .withEntityToSpawn(rl("upgrade_aquatic", "thrasher"))
-                .withOverrideMinigameItem(true)
                 .withItemToOverrideWith(ModItems.UNKNOWN_FISH)
         );
 
