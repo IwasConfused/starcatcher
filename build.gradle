@@ -41,7 +41,7 @@ repositories
 }
 
 dependencies {
-    jarJar(implementation("com.wdiscute:libtooltips")) {
+    jarJar(implementation(group: 'com.wdiscute', name: 'libtooltips')) {
         version {
             // Version used in your workspace and bundled in mod jar
             prefer '1.3'
@@ -70,9 +70,12 @@ dependencies {
 
     //ftb teams
     compileOnly files(".compatmods/ftb-teams-neoforge-2101.1.7.jar")
-    runtimeOnly files(".compatmods/ftb-teams-neoforge-2101.1.7.jar")
-    runtimeOnly files(".compatmods/ftb-library-neoforge-2101.1.28.jar")
-    runtimeOnly files(".compatmods/architectury-13.0.8-neoforge.jar")
+    compileOnly files(".compatmods/ftb-library-neoforge-2101.1.28.jar")
+    compileOnly files(".compatmods/architectury-13.0.8-neoforge.jar")
+    //runtimeOnly files(".compatmods/ftb-teams-neoforge-2101.1.7.jar")
+    //runtimeOnly files(".compatmods/ftb-teams-neoforge-2101.1.7.jar")
+    //runtimeOnly files(".compatmods/ftb-library-neoforge-2101.1.28.jar")
+    //runtimeOnly files(".compatmods/architectury-13.0.8-neoforge.jar")
 
 
 }
