@@ -11,6 +11,7 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagEntry;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
@@ -32,6 +33,7 @@ public class ModItemsTagProvider extends ItemTagsProvider
     @Override
     protected void addTags(HolderLookup.Provider provider)
     {
+        //fishes, cat_food, foods/raw_fish
         for (DeferredItem<Item> item : ModItems.fishes)
         {
             tag(ItemTags.FISHES).add(item.get());
@@ -39,15 +41,19 @@ public class ModItemsTagProvider extends ItemTagsProvider
             tag(Tags.Items.FOODS_RAW_FISH).add(item.get());
         }
 
+        //baits tag
         for (DeferredHolder<Item, ? extends Item> item : ModItems.BAITS_REGISTRY.getEntries())
         {
             tag(StarcatcherTags.BAITS).add(item.get());
         }
 
+        tag(StarcatcherTags.BAITS).add(Items.BUCKET);
         tag(StarcatcherTags.BAITS).addOptional(rl("fishofthieves", "earthworms"));
         tag(StarcatcherTags.BAITS).addOptional(rl("fishofthieves", "grubs"));
         tag(StarcatcherTags.BAITS).addOptional(rl("fishofthieves", "leeches"));
 
+
+        //rods and tools/fishing_rod
         for (DeferredHolder<Item, ? extends Item> item : ModItems.RODS_REGISTRY.getEntries())
         {
             tag(Tags.Items.TOOLS_FISHING_ROD).add(item.get());
