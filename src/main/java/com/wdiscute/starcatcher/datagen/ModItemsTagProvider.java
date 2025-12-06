@@ -8,6 +8,7 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.ItemTagsProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.TagEntry;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -43,11 +44,24 @@ public class ModItemsTagProvider extends ItemTagsProvider
             tag(StarcatcherTags.BAITS).add(item.get());
         }
 
+        tag(StarcatcherTags.BAITS).addOptional(rl("fishofthieves", "earthworms"));
+        tag(StarcatcherTags.BAITS).addOptional(rl("fishofthieves", "grubs"));
+        tag(StarcatcherTags.BAITS).addOptional(rl("fishofthieves", "leeches"));
+
         for (DeferredHolder<Item, ? extends Item> item : ModItems.RODS_REGISTRY.getEntries())
         {
             tag(Tags.Items.TOOLS_FISHING_ROD).add(item.get());
             tag(StarcatcherTags.RODS).add(item.get());
         }
 
+
+
+
+    }
+
+
+    public static ResourceLocation rl(String ns, String path)
+    {
+        return ResourceLocation.fromNamespaceAndPath(ns, path);
     }
 }

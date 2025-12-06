@@ -8,6 +8,18 @@
     "starcatcher:dripstone_bait",
     "starcatcher:murkwater_bait",
     "starcatcher:legendary_bait",
-    "starcatcher:meteorological_bait"
+    "starcatcher:meteorological_bait",
+    {
+      "id": "fishofthieves:earthworms",
+      "required": false
+    },
+    {
+      "id": "fishofthieves:grubs",
+      "required": false
+    },
+    {
+      "id": "fishofthieves:leeches",
+      "required": false
+    }
   ]
 }
