@@ -2,7 +2,9 @@ package com.wdiscute.starcatcher.io;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.wdiscute.starcatcher.Config;
 import com.wdiscute.starcatcher.Starcatcher;
+import com.wdiscute.starcatcher.compat.FTBTeamsCompat;
 import com.wdiscute.starcatcher.io.network.FishCaughtPayload;
 import com.wdiscute.starcatcher.storage.FishProperties;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -11,6 +13,7 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
+import net.neoforged.fml.ModList;
 import net.neoforged.neoforge.network.PacketDistributor;
 
 import java.util.ArrayList;
@@ -25,7 +28,8 @@ public record FishCaughtCounter(
         int weight,
         boolean caughtGolden,
         boolean perfectCatch
-) {
+)
+{
 
     public static final Codec<FishCaughtCounter> CODEC = RecordCodecBuilder.create(instance ->
             instance.group(
@@ -58,24 +62,35 @@ public record FishCaughtCounter(
     public static final Codec<List<FishCaughtCounter>> LIST_CODEC = FishCaughtCounter.CODEC.listOf();
 
 
-    public static int getRandomSize(FishProperties fp) {
+    public static int getRandomSize(FishProperties fp)
+    {
         return ((int) Starcatcher.truncatedNormal(fp.sw().sizeAverage(), fp.sw().sizeDeviation()));
 
     }
 
-    public static int getRandomWeight(FishProperties fp) {
+    public static int getRandomWeight(FishProperties fp)
+    {
         return ((int) Starcatcher.truncatedNormal(fp.sw().weightAverage(), fp.sw().weightDeviation()));
 
     }
 
-    public static void awardFishCaughtCounter(FishProperties fpCaught, Player player, int ticks, int size, int weight, boolean perfectCatch) {
+    public static void awardFishCaughtCounter(FishProperties fpCaught, Player player, int ticks, int size, int weight, boolean perfectCatch, boolean awardToTeam)
+    {
+        //ftb teams compat to share fishes caught to team, does not share size and weight
+        if(ModList.get().isLoaded("ftbteams") && awardToTeam && Config.ENABLE_FTB_TEAM_SHARING.get())
+        {
+            FTBTeamsCompat.awardToTeam(player, fpCaught);
+        }
+
         List<FishCaughtCounter> listFishCaughtCounter = player.getData(ModDataAttachments.FISHES_CAUGHT);
         List<FishCaughtCounter> newlist = new ArrayList<>();
 
         boolean newFish = true;
 
-        for (FishCaughtCounter fcc : listFishCaughtCounter) {
-            if (fpCaught.equals(fcc.fp)) {
+        for (FishCaughtCounter fcc : listFishCaughtCounter)
+        {
+            if (fpCaught.equals(fcc.fp))
+            {
                 int fastestToSave = Math.min(fcc.fastestTicks, ticks);
                 float averageToSave = (fcc.averageTicks * fcc.count + ticks) / (fcc.count + 1);
                 int countToSave = fcc.count;
@@ -99,7 +114,9 @@ public record FishCaughtCounter(
 
 
                 newFish = false;
-            } else {
+            }
+            else
+            {
                 newlist.add(fcc);
             }
         }
