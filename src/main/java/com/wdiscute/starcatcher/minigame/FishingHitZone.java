@@ -135,13 +135,14 @@ public class FishingHitZone {
 
         poseStack.rotateAround(Axis.ZP.rotationDegrees((float) pos - partialTick * moveDirection * moveRate), 0, -(wheelInset - wheelRadius), 0);
 
-        RenderSystem.setShaderColor(red, green, blue, alpha * vanishValue);
         RenderSystem.enableBlend();
+        guiGraphics.setColor(red, green, blue, alpha  * vanishValue);
 
         guiGraphicsConsumer.accept(guiGraphics, this);
 
+        guiGraphics.setColor(1, 1, 1, 1);
         RenderSystem.disableBlend();
-        RenderSystem.setShaderColor(1, 1, 1, 1);
+
         poseStack.popPose();
     }
 

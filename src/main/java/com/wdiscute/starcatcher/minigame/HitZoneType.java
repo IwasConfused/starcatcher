@@ -148,6 +148,7 @@ public enum HitZoneType{
 
             return (guiGraphics, zone) -> {
                 float distance = zone.getDistanceFromPointer();
+                if (distance > 180) distance %= 180;
                 float alpha = Math.clamp(distance / appearDistance, 0, 1);
 
                 guiGraphics.blit(
