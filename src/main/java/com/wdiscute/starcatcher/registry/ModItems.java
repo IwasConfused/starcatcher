@@ -7,7 +7,13 @@ import com.wdiscute.starcatcher.items.cheater.*;
 import com.wdiscute.starcatcher.rod.StarcatcherFishingRod;
 import com.wdiscute.starcatcher.secretnotes.NoteContainer;
 import com.wdiscute.starcatcher.secretnotes.SecretNote;
+import com.wdiscute.starcatcher.storage.FishProperties;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.material.Fluids;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -16,7 +22,8 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-public interface ModItems {
+public interface ModItems
+{
 
     List<DeferredItem<Item>> fishes = new ArrayList<>();
     List<DeferredItem<Item>> trash = new ArrayList<>();
@@ -25,8 +32,6 @@ public interface ModItems {
     DeferredRegister.Items RODS_REGISTRY = DeferredRegister.createItems(Starcatcher.MOD_ID);
     DeferredRegister.Items BAITS_REGISTRY = DeferredRegister.createItems(Starcatcher.MOD_ID);
     DeferredRegister.Items OTHERS_REGISTRY = DeferredRegister.createItems(Starcatcher.MOD_ID);
-
-
 
 
     DeferredItem<Item> GUIDE = ITEMS_REGISTRY.register("starcatcher_guide", FishingGuideItem::new);
@@ -92,7 +97,10 @@ public interface ModItems {
     DeferredItem<Item> LUSH_GLOWBERRY_ROD = RODS_REGISTRY.register("lush_glowberry_rod", StarcatcherFishingRod::new);
     DeferredItem<Item> HUMBLE_ROD = RODS_REGISTRY.register("humble_rod", StarcatcherFishingRod::new);
 
-    DeferredItem<Item> SETTINGS = ITEMS_REGISTRY.register("settings", () -> new Item(new Item.Properties()));
+    DeferredItem<Item> SETTINGS = ITEMS_REGISTRY.register("settings", () -> new Item(new Item.Properties())
+    {
+
+    });
 
 
     //secrets
@@ -308,43 +316,49 @@ public interface ModItems {
     DeferredItem<Item> VOIDBITER = fish("voidbiter");
 
     //bucket
-    DeferredItem<Item> STARCAUGHT_BUCKET = ITEMS_REGISTRY.register("starcaught_bucket",  () -> new StarcaughtBucket(Fluids.WATER));
+    DeferredItem<Item> STARCAUGHT_BUCKET = ITEMS_REGISTRY.register("starcaught_bucket", () -> new StarcaughtBucket(Fluids.WATER));
     DeferredItem<Item> STARCAUGHT_LAVA_BUCKET = ITEMS_REGISTRY.register("starcaught_lava_bucket", () -> new StarcaughtBucket(Fluids.LAVA));
 
-    private static DeferredItem<Item> fish(String name) {
-        //chat didn't force me to write this comment
+    private static DeferredItem<Item> fish(String name)
+    {
         DeferredItem<Item> item = ITEMS_REGISTRY.register(name, () -> new FishItem(new Item.Properties().food(ModFoodProperties.BASIC_RAW_FISH)));
         fishes.add(item);
         return item;
     }
 
-    private static DeferredItem<Item> trash(String name) {
+    private static DeferredItem<Item> trash(String name)
+    {
         DeferredItem<Item> item = ITEMS_REGISTRY.register(name, () -> new Item(new Item.Properties()));
         trash.add(item);
         return item;
     }
 
-    private static DeferredItem<Item> fireResistantFish(String name) {
+    private static DeferredItem<Item> fireResistantFish(String name)
+    {
         DeferredItem<Item> item = ITEMS_REGISTRY.register(name, () -> new FishItem(new Item.Properties().fireResistant()));
         fishes.add(item);
         return item;
     }
 
-    private static DeferredItem<Item> fireResistantTrash(String name) {
+    private static DeferredItem<Item> fireResistantTrash(String name)
+    {
         DeferredItem<Item> item = ITEMS_REGISTRY.register(name, () -> new FishItem(new Item.Properties().fireResistant()));
         trash.add(item);
         return item;
     }
 
-    private static DeferredItem<Item> singleStackItem(String name) {
+    private static DeferredItem<Item> singleStackItem(String name)
+    {
         return ITEMS_REGISTRY.register(name, () -> new Item(new Item.Properties().stacksTo(1)));
     }
 
-    private static DeferredItem<Item> singleStackItemFireResistant(String name) {
+    private static DeferredItem<Item> singleStackItemFireResistant(String name)
+    {
         return ITEMS_REGISTRY.register(name, () -> new Item(new Item.Properties().stacksTo(1).fireResistant()));
     }
 
-    private static DeferredItem<Item> basicItem(String name) {
+    private static DeferredItem<Item> basicItem(String name)
+    {
         return ITEMS_REGISTRY.register(name, () -> new Item(new Item.Properties()));
     }
 }
