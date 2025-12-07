@@ -40,6 +40,8 @@ public class U
 
         ServerLevel level = ((ServerLevel) player.level());
 
+        if(player.getData(ModDataAttachments.FISHING).isEmpty()) return;
+
         Entity levelEntity = level.getEntity(UUID.fromString(player.getData(ModDataAttachments.FISHING)));
         if (levelEntity instanceof FishingBobEntity fbe)
         {
