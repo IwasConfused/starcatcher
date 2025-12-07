@@ -291,6 +291,7 @@ public class FishingGuideScreen extends Screen {
 
         //caught
         if (sort.equals(Sort.CAUGHT_UP) || sort.equals(Sort.CAUGHT_DOWN)) {
+            //sort alphabetical first
             Config.SORT.set(Sort.ALPHABETICAL_UP);
             Config.SORT.save();
             sortEntries();
@@ -298,32 +299,24 @@ public class FishingGuideScreen extends Screen {
             Config.SORT.save();
             List<FishProperties> entriesSorted = new ArrayList<>();
 
+            List<FishProperties> notCaught = new ArrayList<>(entries);
+
+            //add all fishes caught to start
             entries.forEach(fp ->
             {
-                FishCaughtCounter fcc = null;
-                for (FishCaughtCounter fccAll : fishCaughtCounterList) {
-                    if (fp.equals(fccAll.fp())) {
-                        fcc = fccAll;
-                        break;
+                for (FishCaughtCounter fccAll : fishCaughtCounterList)
+                {
+                    if(fccAll.fp().equals(level.registryAccess().registryOrThrow(Starcatcher.FISH_REGISTRY).getKey(fp)))
+                    {
+                        entriesSorted.add(fp);
                     }
                 }
-
-                if (fcc != null) entriesSorted.add(fp);
             });
 
+            notCaught.removeAll(entriesSorted);
 
-            entries.forEach(fp ->
-            {
-                FishCaughtCounter fcc = null;
-                for (FishCaughtCounter fccAll : fishCaughtCounterList) {
-                    if (fp.equals(fccAll.fp())) {
-                        fcc = fccAll;
-                        break;
-                    }
-                }
+            entriesSorted.addAll(notCaught);
 
-                if (fcc == null) entriesSorted.add(fp);
-            });
 
             entries = sort.equals(Sort.CAUGHT_UP) ? entriesSorted : entriesSorted.reversed();
         }
@@ -423,6 +416,9 @@ public class FishingGuideScreen extends Screen {
         level = Minecraft.getInstance().level;
         player = Minecraft.getInstance().player;
 
+        fishInArea = FishProperties.getFpsWithGuideEntryForArea(player);
+        fishCaughtCounterList = player.getData(ModDataAttachments.FISHES_CAUGHT);
+
         for (FishProperties fp : FishProperties.getFPs(level)) if (fp.hasGuideEntry()) entries.add(fp);
         sortEntries();
 
@@ -434,8 +430,7 @@ public class FishingGuideScreen extends Screen {
                     && player.getData(ModDataAttachments.TROPHIES_CAUGHT).contains(tp)) secretsTps.add(tp);
         }
 
-        fishInArea = FishProperties.getFpsWithGuideEntryForArea(player);
-        fishCaughtCounterList = player.getData(ModDataAttachments.FISHES_CAUGHT);
+
 
         //-1 on the common to account for the default "fish" unfortunately, there's probably a way to fix this
         all = new TrophyProperties.RarityProgress(0, player.getData(ModDataAttachments.FISHES_CAUGHT).size() - 1); //-1 to remove the default

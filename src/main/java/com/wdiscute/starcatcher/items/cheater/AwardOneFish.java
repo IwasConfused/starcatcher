@@ -1,5 +1,6 @@
 package com.wdiscute.starcatcher.items.cheater;
 
+import com.sun.jna.platform.win32.COM.util.ComEventCallbackCookie;
 import com.wdiscute.starcatcher.Starcatcher;
 import com.wdiscute.starcatcher.U;
 import com.wdiscute.starcatcher.io.FishCaughtCounter;
@@ -7,6 +8,7 @@ import com.wdiscute.starcatcher.storage.FishProperties;
 import com.wdiscute.starcatcher.io.ModDataAttachments;
 import com.wdiscute.starcatcher.io.network.FishCaughtPayload;
 import net.minecraft.core.Holder;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -43,6 +45,7 @@ public class AwardOneFish extends Item
         {
             FishProperties fp = optional.get().value();
 
+            //todo fix this awarding repeated entries. It should check which entries the player doesnt have to award a new one instead
             fishCounter.add(new FishCaughtCounter(U.getRlFromFp(level, fp), 999999, 0, 0, 0, 0, false, false));
             fishes.add(fp);
 
