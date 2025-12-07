@@ -84,7 +84,6 @@ public class FishingHitZone {
                     setMoving(true, 8);
                 if (hook.is(ModItems.HEAVY_HOOK)) setMoving(true, 3);
             }
-
         }
 
         if (difficulty.extras().isVanishing()) {

@@ -11,6 +11,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.material.Fluids;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,16 +50,23 @@ public interface ModItems {
     DeferredItem<Item> STEADY_BOBBER = singleStackItem("steady_bobber");
     DeferredItem<Item> CLEAR_BOBBER = singleStackItem("clear_bobber");
 
+    private static @NotNull DeferredItem<Item> registerBait(String name) {
+        return BAITS_REGISTRY.register(name, () -> new Item(new Item.Properties()));
+    }
+
     //baits
-    DeferredItem<Item> CREEPER_BAIT = BAITS_REGISTRY.register("creeper_bait", () -> new Item(new Item.Properties()));
-    DeferredItem<Item> ALMIGHTY_WORM = BAITS_REGISTRY.register("almighty_worm", () -> new Item(new Item.Properties()));
-    DeferredItem<Item> CHERRY_BAIT = BAITS_REGISTRY.register("cherry_bait", () -> new Item(new Item.Properties()));
-    DeferredItem<Item> LUSH_BAIT = BAITS_REGISTRY.register("lush_bait", () -> new Item(new Item.Properties()));
-    DeferredItem<Item> SCULK_BAIT = BAITS_REGISTRY.register("sculk_bait", () -> new Item(new Item.Properties()));
-    DeferredItem<Item> DRIPSTONE_BAIT = BAITS_REGISTRY.register("dripstone_bait", () -> new Item(new Item.Properties()));
-    DeferredItem<Item> MURKWATER_BAIT = BAITS_REGISTRY.register("murkwater_bait", () -> new Item(new Item.Properties()));
-    DeferredItem<Item> LEGENDARY_BAIT = BAITS_REGISTRY.register("legendary_bait", () -> new Item(new Item.Properties()));
-    DeferredItem<Item> METEOROLOGICAL_BAIT = BAITS_REGISTRY.register("meteorological_bait", () -> new Item(new Item.Properties()));
+    DeferredItem<Item> CREEPER_BAIT = registerBait("creeper_bait");
+
+    DeferredItem<Item> ALMIGHTY_WORM = registerBait("almighty_worm");
+    DeferredItem<Item> CHERRY_BAIT = registerBait("cherry_bait");
+    DeferredItem<Item> LUSH_BAIT = registerBait("lush_bait");
+    DeferredItem<Item> SCULK_BAIT = registerBait("sculk_bait");
+    DeferredItem<Item> DRIPSTONE_BAIT = registerBait("dripstone_bait");
+    DeferredItem<Item> MURKWATER_BAIT = registerBait("murkwater_bait");
+    DeferredItem<Item> LEGENDARY_BAIT = registerBait("legendary_bait");
+    DeferredItem<Item> METEOROLOGICAL_BAIT = registerBait("meteorological_bait");
+    DeferredItem<Item> TREASURE_BAIT = registerBait("treasure_bait");
+
 
     //bobber skin templates
     DeferredItem<Item> COLORFUL_BOBBER_SMITHING_TEMPLATE = ITEMS_REGISTRY.register("colorful_bobber_smithing_template", ColorfulBobber::new);

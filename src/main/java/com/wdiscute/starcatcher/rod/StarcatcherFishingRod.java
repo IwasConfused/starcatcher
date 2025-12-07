@@ -1,11 +1,11 @@
 package com.wdiscute.starcatcher.rod;
 
 import com.wdiscute.starcatcher.StarcatcherTags;
-import com.wdiscute.starcatcher.io.ModDataComponents;
 import com.wdiscute.starcatcher.bob.FishingBobEntity;
-import com.wdiscute.starcatcher.registry.ModItems;
 import com.wdiscute.starcatcher.io.ModDataAttachments;
+import com.wdiscute.starcatcher.io.ModDataComponents;
 import com.wdiscute.starcatcher.io.SingleStackContainer;
+import com.wdiscute.starcatcher.registry.ModItems;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
@@ -26,10 +26,8 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class StarcatcherFishingRod extends Item implements MenuProvider
-{
-    public StarcatcherFishingRod()
-    {
+public class StarcatcherFishingRod extends Item implements MenuProvider {
+    public StarcatcherFishingRod() {
         super(new Item.Properties()
                 .rarity(Rarity.EPIC)
                 .stacksTo(1)
@@ -41,13 +39,11 @@ public class StarcatcherFishingRod extends Item implements MenuProvider
         );
     }
 
-    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand)
-    {
+    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
         if (!player.getItemInHand(hand).is(StarcatcherTags.RODS))
             return InteractionResultHolder.pass(player.getItemInHand(hand));
 
-        if (player.isCrouching() && player.getData(ModDataAttachments.FISHING.get()).isEmpty())
-        {
+        if (player.isCrouching() && player.getData(ModDataAttachments.FISHING.get()).isEmpty()) {
             player.openMenu(this);
             return InteractionResultHolder.success(player.getItemInHand(hand));
         }
@@ -55,12 +51,10 @@ public class StarcatcherFishingRod extends Item implements MenuProvider
         if (level.isClientSide) return InteractionResultHolder.success(player.getItemInHand(hand));
 
 
-        if (player.getData(ModDataAttachments.FISHING.get()).isEmpty())
-        {
+        if (player.getData(ModDataAttachments.FISHING.get()).isEmpty()) {
             level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.FISHING_BOBBER_THROW, SoundSource.NEUTRAL, 0.5F, 0.4F / (level.getRandom().nextFloat() * 0.4F + 0.8F));
 
-            if (level instanceof ServerLevel)
-            {
+            if (level instanceof ServerLevel) {
                 //TODO ADD CUSTOM STAT FOR NUMBER OF FISHES CAUGHT TOTAL ON STAT SCREEN
 
                 Entity entity = new FishingBobEntity(level, player, player.getItemInHand(hand));
@@ -68,20 +62,15 @@ public class StarcatcherFishingRod extends Item implements MenuProvider
 
                 player.setData(ModDataAttachments.FISHING.get(), entity.getStringUUID());
                 SingleStackContainer bobberSkin = player.getItemInHand(hand).get(ModDataComponents.BOBBER_SKIN);
-                if(bobberSkin != null) entity.setData(ModDataAttachments.BOBBER_SKIN.get(), bobberSkin);
+                if (bobberSkin != null) entity.setData(ModDataAttachments.BOBBER_SKIN.get(), bobberSkin);
             }
-        }
-        else
-        {
+        } else {
 
             List<Entity> entities = level.getEntities(null, new AABB(-25, -65, -25, 25, 65, 25).move(player.position()));
 
-            for (Entity entity : entities)
-            {
-                if (entity.getUUID().toString().equals(player.getData(ModDataAttachments.FISHING.get())))
-                {
-                    if (entity instanceof FishingBobEntity fbe && !fbe.checkBiting())
-                    {
+            for (Entity entity : entities) {
+                if (entity.getUUID().toString().equals(player.getData(ModDataAttachments.FISHING.get()))) {
+                    if (entity instanceof FishingBobEntity fbe && !fbe.checkBiting()) {
                         fbe.kill();
                         player.setData(ModDataAttachments.FISHING.get(), "");
                     }
@@ -96,26 +85,22 @@ public class StarcatcherFishingRod extends Item implements MenuProvider
 
 
     @Override
-    public boolean hasCraftingRemainingItem(ItemStack stack)
-    {
+    public boolean hasCraftingRemainingItem(ItemStack stack) {
         return true;
     }
 
     @Override
-    public ItemStack getCraftingRemainingItem(ItemStack itemStack)
-    {
+    public ItemStack getCraftingRemainingItem(ItemStack itemStack) {
         return itemStack.copy();
     }
 
     @Override
-    public Component getDisplayName()
-    {
+    public Component getDisplayName() {
         return Component.literal("Starcatcher's rod");
     }
 
     @Override
-    public @Nullable AbstractContainerMenu createMenu(int i, Inventory inventory, Player player)
-    {
+    public @Nullable AbstractContainerMenu createMenu(int i, Inventory inventory, Player player) {
         if (player.getMainHandItem().is(StarcatcherTags.RODS))
             return new FishingRodMenu(i, inventory, player.getMainHandItem());
         else

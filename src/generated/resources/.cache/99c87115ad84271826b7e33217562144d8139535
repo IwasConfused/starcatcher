@@ -1,4 +1,4 @@
-// 1.21.1	2025-12-06T14:43:15.7120706	Item Models: starcatcher
+// 1.21.1	2025-12-07T14:50:07.0908711	Item Models: starcatcher
 190248e04c8aaf81e80cc0d828c1b3f9addf4641 assets/starcatcher/models/item/agave_bream.json
 2acefa5cf3f98fbcb50f2258e2777ac75275271d assets/starcatcher/models/item/almighty_worm.json
 033477fbb520065b97801242f6e7c58288fea05d assets/starcatcher/models/item/amethystback.json
@@ -138,6 +138,7 @@ fae193138ec4619b25eeea36f035ddde469644b8 assets/starcatcher/models/item/sunny_st
 823d63cbbbccf33e7a72a185090a0b5e3d3f3e04 assets/starcatcher/models/item/the_quarrish.json
 19136e6b93fb18168335f453de71640a302b47ec assets/starcatcher/models/item/thunder_bass.json
 8a017292a780c7ecbd58d207c0ee41ecd63ab57e assets/starcatcher/models/item/treasure.json
+44b7c9e07897363d6171b6f1538935ce9fe578a2 assets/starcatcher/models/item/treasure_bait.json
 ae1d6faf022894dbd8acdc2bb974dfa4ee1a7d60 assets/starcatcher/models/item/trophy_bronze.json
 2c6ab99b5125a548e58355714e9b584f946a4d60 assets/starcatcher/models/item/trophy_gold.json
 4bbb418193a946c61d97c75767aeeccaf4ce3697 assets/starcatcher/models/item/trophy_silver.json

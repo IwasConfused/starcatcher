@@ -1608,8 +1608,6 @@ public class FishingGuideScreen extends Screen {
             guiGraphics.drawString(this.font, Component.translatable("gui.guide.fluid").append(comp), uiX + xOffset, uiY + yOffset, 0x635040, false);
 
         }
-
-
     }
 
     private void renderImage(GuiGraphics guiGraphics, ResourceLocation rl) {
@@ -1637,7 +1635,6 @@ public class FishingGuideScreen extends Screen {
             pose.pushPose();
             pose.translate((float) (x + 8), (float) (y + 8), (float) (150));
 
-
             pose.scale(16F * scale, -16F * scale, 16F * scale);
             boolean usesBlockLight = !bakedmodel.usesBlockLight();
             if (usesBlockLight) {
@@ -1659,7 +1656,6 @@ public class FishingGuideScreen extends Screen {
 
             pose.popPose();
         }
-
     }
 
     @Override
@@ -1702,7 +1698,7 @@ public class FishingGuideScreen extends Screen {
         bobbers[2] = new ItemStack(ModItems.CLEAR_BOBBER.get());
 
         cherryBait = new ItemStack(ModItems.CHERRY_BAIT.get());
-        baits = new ItemStack[7];
+        baits = new ItemStack[8];
         baits[0] = cherryBait;
         baits[1] = new ItemStack(ModItems.LUSH_BAIT.get());
         baits[2] = new ItemStack(ModItems.SCULK_BAIT.get());
@@ -1710,6 +1706,7 @@ public class FishingGuideScreen extends Screen {
         baits[4] = new ItemStack(ModItems.MURKWATER_BAIT.get());
         baits[5] = new ItemStack(ModItems.LEGENDARY_BAIT.get());
         baits[6] = new ItemStack(ModItems.METEOROLOGICAL_BAIT.get());
+        baits[7] = new ItemStack(ModItems.TREASURE_BAIT.get());
 
         fishSpotter = new ItemStack(ModItems.FISH_SPOTTER.get());
         trophies = new ItemStack(ModBlocks.TROPHY_GOLD.get());
