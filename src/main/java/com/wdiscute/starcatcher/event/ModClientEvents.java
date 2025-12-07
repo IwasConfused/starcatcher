@@ -40,7 +40,7 @@ import java.util.List;
 public class ModClientEvents {
 
     @SubscribeEvent
-    public static void trophyTooltip(ItemTooltipEvent event) {
+    public static void tooltipEvent(ItemTooltipEvent event) {
         List<Component> comp = event.getToolTip();
         ItemStack stack = event.getItemStack();
 
@@ -53,6 +53,15 @@ public class ModClientEvents {
             String weight = units.getWeightAsString(sw.weightInGrams());
 
             comp.add(1, Component.literal(size + " - " + weight).withColor(0x888888));
+        }
+
+        if (stack.has(ModDataComponents.FISH_PROPERTIES)) {
+            FishProperties fp = stack.get(ModDataComponents.FISH_PROPERTIES);
+
+            String s = fp.rarity().getPre() + comp.get(0).getString(100) + fp.rarity().getPost();
+
+            comp.remove(0);
+            comp.add(0, Tooltips.decodeString(s));
         }
 
         if (stack.has(ModDataComponents.TROPHY)) {

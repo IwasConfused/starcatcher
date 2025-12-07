@@ -20,6 +20,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.chat.Style;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceKey;
@@ -1404,23 +1405,27 @@ public record FishProperties(
 
     public enum Rarity implements StringRepresentable
     {
-        COMMON("common", 4, ChatFormatting.WHITE),
-        UNCOMMON("uncommon", 8, ChatFormatting.GREEN),
-        RARE("rare", 12, ChatFormatting.BLUE),
-        EPIC("epic", 20, ChatFormatting.LIGHT_PURPLE),
-        LEGENDARY("legendary", 35, ChatFormatting.GOLD);
+        COMMON("common", 4, "", "", Style.EMPTY.applyFormat(ChatFormatting.WHITE)),
+        UNCOMMON("uncommon", 8, "<gradient-37>", "</gradient-43>", Style.EMPTY.applyFormat(ChatFormatting.GREEN)),
+        RARE("rare", 12, "<gradient-57>", "</gradient-63>", Style.EMPTY.applyFormat(ChatFormatting.BLUE)),
+        EPIC("epic", 20, "<gradient-80>", "</gradient-90>", Style.EMPTY.applyFormat(ChatFormatting.LIGHT_PURPLE)),
+        LEGENDARY("legendary", 35, "<rgb>", "</rgb>", Style.EMPTY.applyFormat(ChatFormatting.GOLD));
 
         public static final Codec<Rarity> CODEC = StringRepresentable.fromEnum(Rarity::values);
         public static final StreamCodec<FriendlyByteBuf, Rarity> STREAM_CODEC = NeoForgeStreamCodecs.enumCodec(Rarity.class);
         private final String key;
         private final int xp;
-        private final ChatFormatting color;
+        private final String pre;
+        private final String post;
+        private final Style style;
 
-        Rarity(String key, int xp, ChatFormatting color)
+        Rarity(String key, int xp, String pre, String post, Style style)
         {
             this.key = key;
             this.xp = xp;
-            this.color = color;
+            this.pre = pre;
+            this.post = post;
+            this.style = style;
         }
 
         public String getSerializedName()
@@ -1438,9 +1443,19 @@ public record FishProperties(
             return xp;
         }
 
-        public ChatFormatting getColor()
+        public String getPre()
         {
-            return color;
+            return pre;
+        }
+
+        public String getPost()
+        {
+            return post;
+        }
+
+        public Style getStyle()
+        {
+            return style;
         }
     }
 

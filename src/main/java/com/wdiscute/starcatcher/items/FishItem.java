@@ -37,13 +37,4 @@ public class FishItem extends Item
 
         return InteractionResult.PASS;
     }
-
-    @Override
-    public Component getName(ItemStack stack)
-    {
-        FishProperties properties = stack.get(ModDataComponents.FISH_PROPERTIES);
-        if (properties != null)
-            return Component.translatable(this.getDescriptionId(stack)).withStyle(properties.rarity().getColor());
-        return super.getName(stack);
-    }
 }

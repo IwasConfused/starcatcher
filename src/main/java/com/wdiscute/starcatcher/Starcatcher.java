@@ -110,7 +110,7 @@ public class Starcatcher
 
         Minecraft.getInstance().player.displayClientMessage(
                 Component.literal("")
-                        .append(Component.translatable(fp.catchInfo().fish().value().getDescriptionId()).withStyle(fp.rarity().getColor()))
+                        .append(Component.translatable(fp.catchInfo().fish().value().getDescriptionId()))
                         .append(Component.literal(" - " + size + " - " + weight))
                 , true);
 
