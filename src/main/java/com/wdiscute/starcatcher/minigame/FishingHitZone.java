@@ -262,6 +262,12 @@ public class FishingHitZone {
         return this;
     }
 
+    public FishingHitZone setVanishValue(float vanishValue) {
+        this.vanishValue = vanishValue;
+
+        return this;
+    }
+
     public FishingHitZone setVanishing(boolean isVanishing, float vanishingRate, boolean removeOnVanish) {
         this.isVanishing = isVanishing;
         this.vanishingRate = vanishingRate;

@@ -11,6 +11,7 @@ import com.wdiscute.starcatcher.io.ModDataComponents;
 import com.wdiscute.starcatcher.io.network.FishingCompletedPayload;
 import com.wdiscute.starcatcher.items.ColorfulBobber;
 import com.wdiscute.starcatcher.minigame.modifiers.AbstractFishingModifier;
+import com.wdiscute.starcatcher.minigame.modifiers.WDVanishingModifier;
 import com.wdiscute.starcatcher.registry.ModItems;
 import com.wdiscute.starcatcher.registry.ModKeymappings;
 import com.wdiscute.starcatcher.storage.FishProperties;
@@ -177,6 +178,9 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener {
 //        if (bobber.is(ModItems.FROG_BOBBER)){
 //            new FrogModifier(this).addModifier();
 //        }
+
+
+        new WDVanishingModifier(this).addModifier();
 
         FishProperties.Difficulty.Markers markers = difficulty.markers();
 
