@@ -127,6 +127,7 @@
 
 
 
+
   "item.starcatcher.steady_bobber": "Steady Bobber",
   "tooltip.starcatcher.steady_bobber.0": "A stiff heavy bobber.",
   "tooltip.starcatcher.steady_bobber.1": "Whilst equipped in your <gradient-67>Starcatcher's rod</gradient-90>,",
@@ -136,6 +137,8 @@
   "tooltip.starcatcher.clear_bobber.0": "A crystal clear bobber.",
   "tooltip.starcatcher.clear_bobber.1": "Whilst equipped in your <gradient-67>Starcatcher's rod</gradient-90>,",
   "tooltip.starcatcher.clear_bobber.2": "it will make vanishing sweet-spots easier to see.",
+
+
 
 
 
@@ -168,6 +171,25 @@
   "tooltip.starcatcher.legendary_bait.name": "<rgb>Legendary Bait</rgb>",
   "tooltip.starcatcher.legendary_bait.0": "A shiny golden bait which <rgb>legendary</rgb>",
   "tooltip.starcatcher.legendary_bait.1": "fish can't seem to swim past.",
+
+
+
+  "item.starcatcher.kimbe_bobber_smithing_template": "Kimbe Bobber Smithing Template",
+  "tooltip.starcatcher.kimbe_bobber_smithing_template.0": "A template for your rod which may be applied at a",
+  "tooltip.starcatcher.kimbe_bobber_smithing_template.1": "Smithing Table to change your bobber's appearance.",
+
+  "item.starcatcher.pearl_bobber_smithing_template": "Pearl Bobber Smithing Template",
+  "tooltip.starcatcher.pearl_bobber_smithing_template.0": "A template for your rod which may be applied at a",
+  "tooltip.starcatcher.pearl_bobber_smithing_template.1": "Smithing Table to change your bobber's appearance.",
+
+  "item.starcatcher.colorful_bobber_smithing_template": "Colorful Bobber Smithing Template",
+  "tooltip.starcatcher.colorful_bobber_smithing_template.0": "A template for your rod which may be applied at a",
+  "tooltip.starcatcher.colorful_bobber_smithing_template.1": "Smithing Table to change your bobber's appearance.",
+  "tooltip.starcatcher.colorful_bobber_smithing_template.shines": "The Smithing Template shines differently...",
+  "tooltip.starcatcher.colorful_bobber_smithing_template.click_me": "It shines as if saying [click me]",
+
+
+
 
 
 
