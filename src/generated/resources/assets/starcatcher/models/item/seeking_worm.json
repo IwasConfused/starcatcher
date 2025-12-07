@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "starcatcher:item/basic_bait"
+    "layer0": "starcatcher:item/seeking_worm"
   }
 }

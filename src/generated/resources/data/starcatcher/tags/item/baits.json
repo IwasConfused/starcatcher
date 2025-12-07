@@ -1,7 +1,9 @@
 {
   "values": [
     "starcatcher:creeper_bait",
+    "starcatcher:worm",
     "starcatcher:almighty_worm",
+    "starcatcher:seeking_worm",
     "starcatcher:cherry_bait",
     "starcatcher:lush_bait",
     "starcatcher:sculk_bait",
@@ -9,7 +11,6 @@
     "starcatcher:murkwater_bait",
     "starcatcher:legendary_bait",
     "starcatcher:meteorological_bait",
-    "starcatcher:basic_bait",
     "minecraft:bucket",
     {
       "id": "fishofthieves:earthworms",
