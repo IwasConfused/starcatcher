@@ -89,7 +89,7 @@ public record FishCaughtCounter(
 
         for (FishCaughtCounter fcc : listFishCaughtCounter)
         {
-            if (fpCaught.equals(fcc.fp))
+            if (fpCaught.equals(player.level().registryAccess().registryOrThrow(Starcatcher.FISH_REGISTRY).get(fcc.fp)))
             {
                 int fastestToSave = Math.min(fcc.fastestTicks, ticks);
                 float averageToSave = (fcc.averageTicks * fcc.count + ticks) / (fcc.count + 1);

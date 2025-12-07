@@ -234,6 +234,11 @@ public class FishingBobEntity extends Projectile
 
             //add item entity to level
             level().addFreshEntity(itemFished);
+
+            //bait
+            bait.shrink(1);
+            rod.set(ModDataComponents.BAIT, new SingleStackContainer(bait));
+
             this.kill();
             return;
         }
@@ -250,10 +255,8 @@ public class FishingBobEntity extends Projectile
         }
 
         //if no fish is available, reset player fishing data and award nothing
-        if (available.isEmpty())
-        {
-            this.kill();
-        }
+        if (available.isEmpty()) this.kill();
+
 
         //get random fish from available pool
         fpToFish = available.get(random.nextInt(available.size()));
@@ -269,7 +272,7 @@ public class FishingBobEntity extends Projectile
                     if (fp.equals(level().registryAccess().registryOrThrow(Starcatcher.FISH_REGISTRY).get(fcc.fp())))
                         caught = true;
 
-                if (!caught)
+                if (!caught && fp.hasGuideEntry())
                 {
                     fpToFish = fp;
                     break;
