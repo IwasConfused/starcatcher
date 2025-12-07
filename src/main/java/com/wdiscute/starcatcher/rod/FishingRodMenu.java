@@ -160,6 +160,6 @@ public class FishingRodMenu extends AbstractContainerMenu {
 
     @Override
     public boolean stillValid(Player player) {
-        return player.getMainHandItem().is(ModItems.ROD.get());
+        return player.getMainHandItem().is(StarcatcherTags.RODS);
     }
 }
