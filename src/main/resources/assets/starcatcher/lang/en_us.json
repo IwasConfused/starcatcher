@@ -141,6 +141,20 @@
 
 
 
+  "item.starcatcher.seeking_worm": "Seeking Worm",
+  "tooltip.starcatcher.seeking_worm.0": "A very powerful magical worm known for seeking",
+  "tooltip.starcatcher.seeking_worm.1": "fishes which the angler has yet to catch.",
+  "tooltip.starcatcher.seeking_worm.2": "Useful for completionists looking for fill up their collection.",
+
+  "item.starcatcher.almighty_worm": "Almighty Worm",
+  "tooltip.starcatcher.almighty_worm.0": "A strong worm which prevents fishes from being killed",
+  "tooltip.starcatcher.almighty_worm.1": "when being caught! Be careful when using this worm as a",
+  "tooltip.starcatcher.almighty_worm.2": "bait as you might get slapped by a flying cod.",
+
+  "item.starcatcher.worm": "Worm",
+  "tooltip.starcatcher.worm.0": "A basic worm bait which always attract the most basic",
+  "tooltip.starcatcher.worm.1": "[vanilla] of fishes and treasures. Often used by anglers ",
+  "tooltip.starcatcher.worm.2": "who have yet grow appreciation for Starcatcher.",
 
   "item.starcatcher.cherry_bait": "Cherry Bait",
   "tooltip.starcatcher.cherry_bait.0": "A bait made of pink petals which fish",

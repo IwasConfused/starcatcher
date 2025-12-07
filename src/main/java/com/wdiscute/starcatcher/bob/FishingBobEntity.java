@@ -198,7 +198,7 @@ public class FishingBobEntity extends Projectile {
         }
 
         //if the treasure hook is equipped, drop vanilla treasure loot
-        if (bait.is(ModItems.TREASURE_BAIT)) {
+        if (bait.is(ModItems.WORM)) {
             LootParams lootparams = new LootParams.Builder((ServerLevel) this.level())
                     .withParameter(LootContextParams.ORIGIN, this.position())
                     .withParameter(LootContextParams.TOOL, this.rod)
@@ -207,7 +207,7 @@ public class FishingBobEntity extends Projectile {
                     .withLuck(player.getLuck())
                     .create(LootContextParamSets.FISHING);
 
-            LootTable table = level().getServer().reloadableRegistries().getLootTable(BuiltInLootTables.FISHING_TREASURE);
+            LootTable table = level().getServer().reloadableRegistries().getLootTable(BuiltInLootTables.FISHING);
             List<ItemStack> items = table.getRandomItems(lootparams);
 
             Vec3 rPos = player.position().subtract(this.position());
@@ -239,8 +239,35 @@ public class FishingBobEntity extends Projectile {
             this.kill();
         }
 
-        //get random fish from available pool
-        fpToFish = available.get(random.nextInt(available.size()));
+        if(bait.is(ModItems.SEEKING_WORM))
+        {
+            List<FishCaughtCounter> fishesCaught = player.getData(ModDataAttachments.FISHES_CAUGHT);
+            //get uncaught fish if using seeking worm
+            for (FishProperties fp : available)
+            {
+                boolean caught = false;
+                for (FishCaughtCounter fcc : fishesCaught)
+                {
+                    if(fp.equals(level().registryAccess().registryOrThrow(Starcatcher.FISH_REGISTRY).get(fcc.fp())))
+                    {
+                        caught = true;
+                    }
+                }
+                if(!caught)
+                {
+                    fpToFish = fp;
+                    break;
+                }
+            }
+
+            fpToFish = available.get(random.nextInt(available.size()));
+        }
+        else
+        {
+            //get random fish from available pool
+            fpToFish = available.get(random.nextInt(available.size()));
+        }
+
 
         //if skips minigame or server config of minigame enabled = false
         if (fpToFish.skipMinigame() || !Config.ENABLE_MINIGAME.get()) {

@@ -1701,7 +1701,7 @@ public class FishingGuideScreen extends Screen {
         baits[4] = new ItemStack(ModItems.MURKWATER_BAIT.get());
         baits[5] = new ItemStack(ModItems.LEGENDARY_BAIT.get());
         baits[6] = new ItemStack(ModItems.METEOROLOGICAL_BAIT.get());
-        baits[7] = new ItemStack(ModItems.TREASURE_BAIT.get());
+        baits[7] = new ItemStack(ModItems.WORM.get());
 
         fishSpotter = new ItemStack(ModItems.FISH_SPOTTER.get());
         trophies = new ItemStack(ModBlocks.TROPHY_GOLD.get());

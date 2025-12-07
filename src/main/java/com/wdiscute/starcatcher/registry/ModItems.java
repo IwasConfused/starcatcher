@@ -7,13 +7,7 @@ import com.wdiscute.starcatcher.items.cheater.*;
 import com.wdiscute.starcatcher.rod.StarcatcherFishingRod;
 import com.wdiscute.starcatcher.secretnotes.NoteContainer;
 import com.wdiscute.starcatcher.secretnotes.SecretNote;
-import com.wdiscute.starcatcher.storage.FishProperties;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResultHolder;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.material.Fluids;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -62,7 +56,9 @@ public interface ModItems
     //baits
     DeferredItem<Item> CREEPER_BAIT = registerBait("creeper_bait");
 
+    DeferredItem<Item> WORM = registerBait("worm");
     DeferredItem<Item> ALMIGHTY_WORM = registerBait("almighty_worm");
+    DeferredItem<Item> SEEKING_WORM = registerBait("seeking_worm");
     DeferredItem<Item> CHERRY_BAIT = registerBait("cherry_bait");
     DeferredItem<Item> LUSH_BAIT = registerBait("lush_bait");
     DeferredItem<Item> SCULK_BAIT = registerBait("sculk_bait");
@@ -70,7 +66,6 @@ public interface ModItems
     DeferredItem<Item> MURKWATER_BAIT = registerBait("murkwater_bait");
     DeferredItem<Item> LEGENDARY_BAIT = registerBait("legendary_bait");
     DeferredItem<Item> METEOROLOGICAL_BAIT = registerBait("meteorological_bait");
-    DeferredItem<Item> TREASURE_BAIT = registerBait("treasure_bait");
 
 
     //bobber skin templates

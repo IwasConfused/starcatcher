@@ -9,7 +9,7 @@
     "starcatcher:murkwater_bait",
     "starcatcher:legendary_bait",
     "starcatcher:meteorological_bait",
-    "starcatcher:treasure_bait",
+    "starcatcher:basic_bait",
     "minecraft:bucket",
     {
       "id": "fishofthieves:earthworms",
