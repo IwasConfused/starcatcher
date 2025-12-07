@@ -11,6 +11,8 @@ import com.wdiscute.starcatcher.fishspotter.FishTrackerLayer;
 import com.wdiscute.starcatcher.guide.SettingsScreen;
 import com.wdiscute.starcatcher.io.ModDataComponents;
 import com.wdiscute.starcatcher.io.SizeAndWeightInstance;
+import com.wdiscute.starcatcher.items.BucketTooltipRenderer;
+import com.wdiscute.starcatcher.items.StarcaughtBucket;
 import com.wdiscute.starcatcher.particles.FishingBitingLavaParticles;
 import com.wdiscute.starcatcher.particles.FishingBitingParticles;
 import com.wdiscute.starcatcher.particles.FishingNotificationParticles;
@@ -168,4 +170,10 @@ public class ModClientEvents {
     public static void onRegisterKeyMappings(RegisterKeyMappingsEvent event) {
         event.register(ModKeymappings.MINIGAME_HIT);
     }
+
+    @SubscribeEvent
+    public static void onRegisterTooltips(RegisterClientTooltipComponentFactoriesEvent event) {
+        event.register(StarcaughtBucket.BucketTooltip.class, BucketTooltipRenderer::new);
+    }
+
 }

@@ -21,6 +21,8 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.fml.ModList;
@@ -114,7 +116,7 @@ public class U {
 
                     ItemStack is;
                     //create itemStack
-                    if (isBucket) {
+                    if (isBucket && fbe.bait.is(Items.BUCKET)) {
                         is = new ItemStack(fp.catchInfo().bucketedFish());
                     } else {
                         //make fish itemstack
@@ -126,7 +128,7 @@ public class U {
                         //split hook double drops
                         if (perfectCatch && fbe.hook.is(ModItems.SPLIT_HOOK) && !isStarcaughtBucket) is.setCount(2);
 
-                        if (isStarcaughtBucket) {
+                        if (isStarcaughtBucket && fbe.bait.is(Items.BUCKET)) {
                             ItemStack starcaughtBucket = new ItemStack(fp.catchInfo().bucketedFish());
                             starcaughtBucket.set(ModDataComponents.BUCKETED_FISH, new SingleStackContainer(is.copy()));
                             is = starcaughtBucket;
