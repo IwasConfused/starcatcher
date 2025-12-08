@@ -75,6 +75,8 @@ public interface ModItems
     DeferredItem<Item> METEOROLOGICAL_BAIT = BAITS_REGISTRY.register("meteorological_bait", BasicItem::new);
 
 
+
+
     //bobber skin templates
     DeferredItem<Item> COLORFUL_BOBBER_SMITHING_TEMPLATE = TEMPLATES_REGISTRY.register("colorful_bobber_smithing_template", ColorfulBobber::new);
     DeferredItem<Item> PEARL_BOBBER_SMITHING_TEMPLATE = TEMPLATES_REGISTRY.register("pearl_bobber_smithing_template", BasicItem::new);
