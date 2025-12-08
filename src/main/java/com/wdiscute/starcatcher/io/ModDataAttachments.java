@@ -11,6 +11,7 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
 
 import java.util.List;
+import java.util.Map;
 import java.util.function.Supplier;
 
 public class ModDataAttachments
@@ -35,6 +36,23 @@ public class ModDataAttachments
                             .copyOnDeath()
                             .build()
     );
+
+    //todo make trophies catchable several times and display that on guide book (pain)
+    //
+    //    public static final StreamCodec<ByteBuf, Map<ResourceLocation, Integer>> STREAM_CODEC =
+    //            ByteBufCodecs.map(Object2ObjectOpenHashMap::new, ResourceLocation.STREAM_CODEC, ByteBufCodecs.INT);
+    //
+    //    public static final Codec<Map<ResourceLocation, Integer>> CODEC =
+    //            Codec.unboundedMap(ResourceLocation.CODEC, Codec.INT);
+    //
+    //    public static final Supplier<AttachmentType<Map<ResourceLocation, Integer>>> TROPHIES_CAUGHT = ATTACHMENT_TYPES.register(
+    //            "trophies_caught", () ->
+    //                    AttachmentType.builder(() -> ((Map<ResourceLocation, Integer>) new HashMap<ResourceLocation, Integer>()))
+    //                            .serialize(CODEC)
+    //                            .sync(STREAM_CODEC)
+    //                            .copyOnDeath()
+    //                            .build()
+    //    );
 
     public static final Supplier<AttachmentType<List<ResourceLocation>>> TROPHIES_CAUGHT = ATTACHMENT_TYPES.register(
             "trophies_caught", () ->
