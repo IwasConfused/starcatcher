@@ -212,9 +212,9 @@
   "item.starcatcher.unknown_fish": "Unknown Fish",
   "tooltips.starcatcher.unknown_fish.0": "template fish used in the minigame for entries which hide the item being fished",
 
-  "item.starcatcher.fish_spotter": "Fish Spotter",
-  "tooltip.starcatcher.fish_spotter.0": "A handy tool to any angler which",
-  "tooltip.starcatcher.fish_spotter.1": "displays the fishes around the area.",
+  "item.starcatcher.fish_radar": "Fish Spotter",
+  "tooltip.starcatcher.fish_radar.0": "A handy radar which displays the fishes",
+  "tooltip.starcatcher.fish_radar.1": "around the area in a total futuristic way.",
 
   "item.starcatcher.fish_bones" : "Fish Bones",
   "item.starcatcher.fish_bones.0" : "Some fish bones. All that",
