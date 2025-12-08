@@ -1046,6 +1046,7 @@
   "tooltip.starcatcher.bigeye_tuna.name" : "<gradient-37>Bigeye Tuna</gradient-43>",
   "tooltip.starcatcher.bigeye_tuna.0" : "A big heavy fish known for it's big eye.",
   "tooltip.starcatcher.bigeye_tuna.1" : "This species is only found in deep ocean waters.",
+  "tooltip.starcatcher.bigeye_tuna.2" : "It's said to hang around other Kaupen fish.",
 
   "item.starcatcher.conch" : "Conch",
   "tooltip.starcatcher.conch.0" : "The remains of a mollusk with a spiral shell often used as an ornament.",
@@ -1164,6 +1165,7 @@
 
   "item.starcatcher.suneater" : "Suneater",
   "tooltip.starcatcher.suneater.0" : "A rare fish found in the lava lakes of the Overworld.",
+  "tooltip.starcatcher.suneater.1" : "It hunts down sunfishes for food.",
 
   "item.starcatcher.pyrotrout" : "Pyrotrout",
   "tooltip.starcatcher.pyrotrout.0" : "A trout adapted to live in the surface lava of the Overworld.",

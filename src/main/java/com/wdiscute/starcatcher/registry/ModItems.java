@@ -223,7 +223,7 @@ public interface ModItems
     DeferredItem<Item> DUSKTAIL_SNAPPER = FISH_REGISTRY.register("dusktail_snapper", BasicItem::new);
     DeferredItem<Item> JOEL = FISH_REGISTRY.register("joel", BasicItem::new);
     DeferredItem<Item> REDSCALED_TUNA = FISH_REGISTRY.register("redscaled_tuna", BasicItem::new);
-    DeferredItem<Item> BIGEYE_TUNA = FISH_REGISTRY.register("bigeye_tuna", BasicItem::new); //added by Tuna Feesh
+    DeferredItem<Item> BIGEYE_TUNA = FISH_REGISTRY.register("bigeye_tuna", BasicItem::new);
     DeferredItem<Item> SEA_BASS = FISH_REGISTRY.register("sea_bass", BasicItem::new);
     DeferredItem<Item> WATERLOGGED_BOTTLE = TRASH_REGISTRY.register("waterlogged_bottle", BasicItem::new);
 
@@ -269,7 +269,7 @@ public interface ModItems
     DeferredItem<Item> GLOWING_DARK = FISH_REGISTRY.register("glowing_dark", BasicItem::new);
 
     //overworld surface lava
-    DeferredItem<Item> SUNEATER = FISH_REGISTRY.register("suneater", FireResistantBasicItem::new); //description make sure to mention it eats sunfishes
+    DeferredItem<Item> SUNEATER = FISH_REGISTRY.register("suneater", FireResistantBasicItem::new);
     DeferredItem<Item> PYROTROUT = FISH_REGISTRY.register("pyrotrout", FireResistantBasicItem::new);
     DeferredItem<Item> OBSIDIAN_EEL = FISH_REGISTRY.register("obsidian_eel", FireResistantBasicItem::new);
 
