@@ -10,12 +10,15 @@
     },
     "H": {
       "item": "starcatcher:hook"
+    },
+    "B": {
+      "item": "starcatcher:bobber"
     }
   },
   "pattern": [
     "  S",
     " ST",
-    "S H"
+    "SHB"
   ],
   "result": {
     "count": 1,

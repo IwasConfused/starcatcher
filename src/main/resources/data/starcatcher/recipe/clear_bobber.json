@@ -2,23 +2,23 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "S": {
-      "item": "minecraft:stick"
-    },
-    "I": {
-      "item": "minecraft:gold_ingot"
+    "B": {
+      "item": "starcatcher:bobber"
     },
     "G": {
       "item": "minecraft:glass"
+    },
+    "S": {
+      "item": "minecraft:stick"
     }
   },
   "pattern": [
-    " I ",
-    "IGI",
-    "SI "
+    " GS",
+    "GBG",
+    "SG "
   ],
   "result": {
     "count": 1,
-    "id": "starcatcher:fish_spotter"
+    "id": "starcatcher:clear_bobber"
   }
 }
