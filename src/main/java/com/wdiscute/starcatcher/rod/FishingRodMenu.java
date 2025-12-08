@@ -1,5 +1,7 @@
 package com.wdiscute.starcatcher.rod;
 
+import com.mojang.datafixers.util.Pair;
+import com.wdiscute.starcatcher.Starcatcher;
 import com.wdiscute.starcatcher.StarcatcherTags;
 import com.wdiscute.starcatcher.io.ModDataAttachments;
 import com.wdiscute.starcatcher.io.ModDataComponents;
@@ -7,16 +9,23 @@ import com.wdiscute.starcatcher.io.SingleStackContainer;
 import com.wdiscute.starcatcher.registry.ModItems;
 import com.wdiscute.starcatcher.registry.ModMenuTypes;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ClickType;
+import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import net.neoforged.neoforge.items.SlotItemHandler;
+import org.jetbrains.annotations.Nullable;
 
 public class FishingRodMenu extends AbstractContainerMenu {
+    private static final ResourceLocation BACKGROUND_BOBBER = Starcatcher.rl("item/background/bobber");
+    private static final ResourceLocation BACKGROUND_BAIT = Starcatcher.rl("item/background/bait");
+    private static final ResourceLocation BACKGROUND_HOOK = Starcatcher.rl("item/background/hook");
+
     public final ItemStackHandler inventory = new ItemStackHandler(3) {
         @Override
         protected int getStackLimit(int slot, ItemStack stack) {
@@ -57,6 +66,11 @@ public class FishingRodMenu extends AbstractContainerMenu {
             public boolean mayPlace(ItemStack stack) {
                 return stack.is(StarcatcherTags.BOBBERS);
             }
+
+            @Override
+            public @Nullable Pair<ResourceLocation, ResourceLocation> getNoItemIcon() {
+                return Pair.of(InventoryMenu.BLOCK_ATLAS, BACKGROUND_BOBBER);
+            }
         });
 
         //baits second slot
@@ -65,6 +79,11 @@ public class FishingRodMenu extends AbstractContainerMenu {
             public boolean mayPlace(ItemStack stack) {
                 return stack.is(StarcatcherTags.BAITS);
             }
+
+            @Override
+            public @Nullable Pair<ResourceLocation, ResourceLocation> getNoItemIcon() {
+                return Pair.of(InventoryMenu.BLOCK_ATLAS, BACKGROUND_BAIT);
+            }
         });
 
         //hooks third slot
@@ -72,6 +91,11 @@ public class FishingRodMenu extends AbstractContainerMenu {
             @Override
             public boolean mayPlace(ItemStack stack) {
                 return stack.is(StarcatcherTags.HOOKS);
+            }
+
+            @Override
+            public @Nullable Pair<ResourceLocation, ResourceLocation> getNoItemIcon() {
+                return Pair.of(InventoryMenu.BLOCK_ATLAS, BACKGROUND_HOOK);
             }
         });
     }
