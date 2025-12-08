@@ -206,8 +206,8 @@ public class FishingBobEntity extends Projectile
             }
         }
 
-        //if the treasure hook is equipped, drop vanilla treasure loot
-        if (bait.is(ModItems.WORM))
+        //if the VANILLA BOBBER hook is equipped, drop vanilla treasure loot
+        if (bait.is(ModItems.VANILLA_BOBBER))
         {
             LootParams lootparams = new LootParams.Builder((ServerLevel) this.level())
                     .withParameter(LootContextParams.ORIGIN, this.position())

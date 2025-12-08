@@ -31,7 +31,7 @@ public class StarcatcherFishingRod extends Item implements MenuProvider {
         super(new Item.Properties()
                 .rarity(Rarity.EPIC)
                 .stacksTo(1)
-                .component(ModDataComponents.BOBBER.get(), SingleStackContainer.EMPTY)
+                .component(ModDataComponents.BOBBER.get(), new SingleStackContainer(new ItemStack(ModItems.BOBBER.get())))
                 .component(ModDataComponents.BAIT.get(), SingleStackContainer.EMPTY)
                 .component(ModDataComponents.NETHERITE_UPGRADE.get(), false)
                 .component(ModDataComponents.BOBBER_SKIN.get(), SingleStackContainer.EMPTY)

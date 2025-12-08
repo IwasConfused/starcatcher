@@ -7,6 +7,7 @@ import com.mojang.math.Axis;
 import com.wdiscute.libtooltips.Tooltips;
 import com.wdiscute.starcatcher.Config;
 import com.wdiscute.starcatcher.Starcatcher;
+import com.wdiscute.starcatcher.StarcatcherTags;
 import com.wdiscute.starcatcher.io.ModDataComponents;
 import com.wdiscute.starcatcher.io.network.FishingCompletedPayload;
 import com.wdiscute.starcatcher.items.ColorfulBobber;
@@ -198,7 +199,7 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener {
         //HitZoneType.Presets.FREEZE.copy().setRecycling(true).buildAndAdd(this);
         //HitZoneType.Presets.SLIDER.copy().buildAndAdd(this);
 
-        hand = Minecraft.getInstance().player.getMainHandItem().is(ModItems.ROD) ? InteractionHand.MAIN_HAND : InteractionHand.OFF_HAND;
+        hand = Minecraft.getInstance().player.getMainHandItem().is(StarcatcherTags.RODS) ? InteractionHand.MAIN_HAND : InteractionHand.OFF_HAND;
     }
 
     public int getRandomFreePosition() {

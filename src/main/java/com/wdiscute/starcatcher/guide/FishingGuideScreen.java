@@ -39,11 +39,13 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.FastColor;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.neoforged.fml.ModList;
 import net.neoforged.neoforge.network.PacketDistributor;
+import net.neoforged.neoforge.registries.DeferredHolder;
 
 import java.awt.*;
 import java.util.*;
@@ -90,24 +92,24 @@ public class FishingGuideScreen extends Screen
 
     private static final int MAX_HELP_PAGES = 4;
 
-    private final ItemStack basics;
-    private final ItemStack treasures;
+    private final ItemStack basicsIcon;
+    private final ItemStack treasuresIcon;
 
-    private final ItemStack ironHook;
-    private final ItemStack[] hooks;
+    private final ItemStack ironHookIcon;
+    private final List<ItemStack> hooks = new ArrayList<>();
 
-    private final ItemStack bobber;
-    private final ItemStack[] bobbers;
+    private final ItemStack bobberIcon;
+    private final List<ItemStack> bobbers = new ArrayList<>();
 
-    private final ItemStack cherryBait;
-    private final ItemStack[] baits;
+    private final ItemStack cherryBaitIcon;
+    private final List<ItemStack> baits = new ArrayList<>();
 
-    private final ItemStack fishSpotter;
+    private final ItemStack fishSpotterIcon;
 
-    private final ItemStack trophies;
-    private final ItemStack secrets;
+    private final ItemStack trophiesIcon;
+    private final ItemStack secretsIcon;
 
-    private final ItemStack settings;
+    private final ItemStack settingsIcon;
 
     int uiX;
     int uiY;
@@ -146,278 +148,6 @@ public class FishingGuideScreen extends Screen
             FishProperties.Rarity.LEGENDARY, TrophyProperties.RarityProgress.DEFAULT
     ));
 
-    public enum Sort
-    {
-        ALPHABETICAL_UP("gui.guide.sort.alphabetical_up"),
-        ALPHABETICAL_DOWN("gui.guide.sort.alphabetical_down"),
-        MOD_UP("gui.guide.sort.mod_up"),
-        MOD_DOWN("gui.guide.sort.mod_down"),
-        RARITY_UP("gui.guide.sort.rarity_up"),
-        RARITY_DOWN("gui.guide.sort.rarity_down"),
-        CAUGHT_UP("gui.guide.sort.caught_up"),
-        CAUGHT_DOWN("gui.guide.sort.caught_down"),
-        FLUID_UP("gui.guide.sort.fluid_up"),
-        FLUID_DOWN("gui.guide.sort.fluid_down"),
-        SEASON_UP("gui.guide.sort.season_up"),
-        SEASON_DOWN("gui.guide.sort.season_down");
-
-        private static final Sort[] vals = values();
-
-        private final String translationKey;
-
-        String getTranslationKey()
-        {
-            return this.translationKey;
-        }
-
-        Sort(String translationKey)
-        {
-            this.translationKey = translationKey;
-        }
-
-        public Sort previous()
-        {
-            int lenght = vals.length - 2;
-            if (ModList.get().isLoaded("sereneseasons") || ModList.get().isLoaded("eclipticseasons")) lenght += 2;
-
-            if (this.ordinal() == 0) return vals[lenght - 1];
-            return vals[(this.ordinal() - 1) % lenght];
-        }
-
-        public Sort next()
-        {
-            int lenght = vals.length - 2;
-            if (ModList.get().isLoaded("sereneseasons") || ModList.get().isLoaded("eclipticseasons")) lenght += 2;
-
-            return vals[(this.ordinal() + 1) % lenght];
-        }
-    }
-
-    private void sortEntries()
-    {
-        Sort sort = Config.SORT.get();
-
-        //rarity
-        if (sort.equals(Sort.RARITY_DOWN) || sort.equals(Sort.RARITY_UP))
-        {
-            List<FishProperties> entriesSorted = new ArrayList<>();
-
-            entries.forEach(e ->
-            {
-                if (e.rarity().equals(FishProperties.Rarity.COMMON)) entriesSorted.add(e);
-            });
-            entries.forEach(e ->
-            {
-                if (e.rarity().equals(FishProperties.Rarity.UNCOMMON)) entriesSorted.add(e);
-            });
-            entries.forEach(e ->
-            {
-                if (e.rarity().equals(FishProperties.Rarity.RARE)) entriesSorted.add(e);
-            });
-            entries.forEach(e ->
-            {
-                if (e.rarity().equals(FishProperties.Rarity.EPIC)) entriesSorted.add(e);
-            });
-            entries.forEach(e ->
-            {
-                if (e.rarity().equals(FishProperties.Rarity.LEGENDARY)) entriesSorted.add(e);
-            });
-
-            entries = sort.equals(Sort.RARITY_UP) ? entriesSorted : entriesSorted.reversed();
-        }
-
-        //alphabetical
-        if (sort.equals(Sort.ALPHABETICAL_DOWN) || sort.equals(Sort.ALPHABETICAL_UP))
-        {
-            List<FishProperties> entriesSorted = new ArrayList<>();
-            Map<String, FishProperties> map = new HashMap<>();
-            List<String> entriesString = new ArrayList<>();
-
-            for (FishProperties fp : entries)
-            {
-                String path = fp.catchInfo().fish().unwrapKey().get().location().getPath();
-                map.put(path, fp);
-                entriesString.add(path);
-            }
-
-            entriesString = entriesString.stream().sorted().toList();
-
-            for (String s : entriesString) entriesSorted.add(map.get(s));
-
-            entries = sort.equals(Sort.ALPHABETICAL_UP) ? entriesSorted : entriesSorted.reversed();
-        }
-
-        //mod
-        if (sort.equals(Sort.MOD_DOWN) || sort.equals(Sort.MOD_UP))
-        {
-            Config.SORT.set(Sort.ALPHABETICAL_UP);
-            Config.SORT.save();
-            sortEntries();
-            Config.SORT.set(sort);
-            Config.SORT.save();
-
-            List<FishProperties> entriesSorted = new ArrayList<>();
-            List<String> allNamespaces = new ArrayList<>();
-
-            for (FishProperties fp : entries)
-            {
-                String namespace = fp.catchInfo().fish().unwrapKey().get().location().getNamespace();
-                if (!allNamespaces.contains(namespace)) allNamespaces.add(namespace);
-            }
-
-            for (String s : allNamespaces)
-            {
-                for (FishProperties fp : entries)
-                {
-                    String namespace = fp.catchInfo().fish().unwrapKey().get().location().getNamespace();
-                    if (namespace.equals(s)) entriesSorted.add(fp);
-                }
-
-            }
-
-            entries = sort.equals(Sort.MOD_UP) ? entriesSorted : entriesSorted.reversed();
-        }
-
-        //fluid
-        if (sort.equals(Sort.FLUID_DOWN) || sort.equals(Sort.FLUID_UP))
-        {
-            Config.SORT.set(Sort.ALPHABETICAL_UP);
-            Config.SORT.save();
-            sortEntries();
-            Config.SORT.set(sort);
-            Config.SORT.save();
-            List<FishProperties> entriesSorted = new ArrayList<>();
-            List<FishProperties> entriesRemaining = new ArrayList<>(entries);
-
-            while (!entriesRemaining.isEmpty())
-            {
-                ResourceLocation rlBeingSorted = entriesRemaining.getFirst().wr().fluids().getFirst();
-                List<FishProperties> temp = new ArrayList<>(entriesRemaining);
-                temp.forEach(e ->
-                {
-                    if (e.wr().fluids().getFirst().equals(rlBeingSorted))
-                    {
-                        entriesSorted.add(e);
-                        entriesRemaining.remove(e);
-                    }
-                });
-            }
-
-            entries = sort.equals(Sort.FLUID_UP) ? entriesSorted : entriesSorted.reversed();
-        }
-
-        //caught
-        if (sort.equals(Sort.CAUGHT_UP) || sort.equals(Sort.CAUGHT_DOWN))
-        {
-            //sort alphabetical first
-            Config.SORT.set(Sort.ALPHABETICAL_UP);
-            Config.SORT.save();
-            sortEntries();
-            Config.SORT.set(sort);
-            Config.SORT.save();
-            List<FishProperties> entriesSorted = new ArrayList<>();
-
-            List<FishProperties> notCaught = new ArrayList<>(entries);
-
-            //add all fishes caught to start
-            entries.forEach(fp ->
-            {
-                for (FishCaughtCounter fccAll : fishCaughtCounterList)
-                {
-                    if (fccAll.fp().equals(level.registryAccess().registryOrThrow(Starcatcher.FISH_REGISTRY).getKey(fp)))
-                    {
-                        entriesSorted.add(fp);
-                    }
-                }
-            });
-
-            notCaught.removeAll(entriesSorted);
-
-            entriesSorted.addAll(notCaught);
-
-
-            entries = sort.equals(Sort.CAUGHT_UP) ? entriesSorted : entriesSorted.reversed();
-        }
-
-        //SEASONS
-        if (sort.equals(Sort.SEASON_DOWN) || sort.equals(Sort.SEASON_UP))
-        {
-            List<FishProperties> entriesSorted = new ArrayList<>();
-            List<FishProperties> entriesUnsorted = new ArrayList<>(entries);
-
-            for (FishProperties fp : entriesUnsorted)
-                if (fp.wr().seasons().contains(Seasons.ALL)) entriesSorted.add(fp);
-            entriesUnsorted.removeAll(entriesSorted);
-
-            for (FishProperties fp : entriesUnsorted)
-                if (fp.wr().seasons().contains(Seasons.SPRING)) entriesSorted.add(fp);
-            entriesUnsorted.removeAll(entriesSorted);
-
-            for (FishProperties fp : entriesUnsorted)
-                if (fp.wr().seasons().contains(Seasons.EARLY_SPRING)) entriesSorted.add(fp);
-            entriesUnsorted.removeAll(entriesSorted);
-
-            for (FishProperties fp : entriesUnsorted)
-                if (fp.wr().seasons().contains(Seasons.MID_SPRING)) entriesSorted.add(fp);
-            entriesUnsorted.removeAll(entriesSorted);
-
-            for (FishProperties fp : entriesUnsorted)
-                if (fp.wr().seasons().contains(Seasons.LATE_SPRING)) entriesSorted.add(fp);
-            entriesUnsorted.removeAll(entriesSorted);
-
-            for (FishProperties fp : entriesUnsorted)
-                if (fp.wr().seasons().contains(Seasons.SUMMER)) entriesSorted.add(fp);
-            entriesUnsorted.removeAll(entriesSorted);
-
-            for (FishProperties fp : entriesUnsorted)
-                if (fp.wr().seasons().contains(Seasons.EARLY_SUMMER)) entriesSorted.add(fp);
-            entriesUnsorted.removeAll(entriesSorted);
-
-            for (FishProperties fp : entriesUnsorted)
-                if (fp.wr().seasons().contains(Seasons.MID_SUMMER)) entriesSorted.add(fp);
-            entriesUnsorted.removeAll(entriesSorted);
-
-            for (FishProperties fp : entriesUnsorted)
-                if (fp.wr().seasons().contains(Seasons.LATE_SUMMER)) entriesSorted.add(fp);
-            entriesUnsorted.removeAll(entriesSorted);
-
-            for (FishProperties fp : entriesUnsorted)
-                if (fp.wr().seasons().contains(Seasons.AUTUMN)) entriesSorted.add(fp);
-            entriesUnsorted.removeAll(entriesSorted);
-
-            for (FishProperties fp : entriesUnsorted)
-                if (fp.wr().seasons().contains(Seasons.EARLY_AUTUMN)) entriesSorted.add(fp);
-            entriesUnsorted.removeAll(entriesSorted);
-
-            for (FishProperties fp : entriesUnsorted)
-                if (fp.wr().seasons().contains(Seasons.MID_AUTUMN)) entriesSorted.add(fp);
-            entriesUnsorted.removeAll(entriesSorted);
-
-            for (FishProperties fp : entriesUnsorted)
-                if (fp.wr().seasons().contains(Seasons.LATE_AUTUMN)) entriesSorted.add(fp);
-            entriesUnsorted.removeAll(entriesSorted);
-
-            for (FishProperties fp : entriesUnsorted)
-                if (fp.wr().seasons().contains(Seasons.WINTER)) entriesSorted.add(fp);
-            entriesUnsorted.removeAll(entriesSorted);
-
-            for (FishProperties fp : entriesUnsorted)
-                if (fp.wr().seasons().contains(Seasons.EARLY_WINTER)) entriesSorted.add(fp);
-            entriesUnsorted.removeAll(entriesSorted);
-
-            for (FishProperties fp : entriesUnsorted)
-                if (fp.wr().seasons().contains(Seasons.MID_WINTER)) entriesSorted.add(fp);
-            entriesUnsorted.removeAll(entriesSorted);
-
-            for (FishProperties fp : entriesUnsorted)
-                if (fp.wr().seasons().contains(Seasons.LATE_WINTER)) entriesSorted.add(fp);
-            entriesUnsorted.removeAll(entriesSorted);
-
-            entries = sort.equals(Sort.SEASON_UP) ? entriesSorted : entriesSorted.reversed();
-        }
-
-    }
-
     @Override
     protected void init()
     {
@@ -448,7 +178,8 @@ public class FishingGuideScreen extends Screen
         for (TrophyProperties tp : level.registryAccess().registryOrThrow(Starcatcher.TROPHY_REGISTRY))
         {
             if (tp.trophyType() == TrophyProperties.TrophyType.SECRET
-                    && player.getData(ModDataAttachments.TROPHIES_CAUGHT).contains(level.registryAccess().registryOrThrow(Starcatcher.TROPHY_REGISTRY).getKey(tp))) secretsTps.add(tp);
+                    && player.getData(ModDataAttachments.TROPHIES_CAUGHT).contains(level.registryAccess().registryOrThrow(Starcatcher.TROPHY_REGISTRY).getKey(tp)))
+                secretsTps.add(tp);
         }
 
 
@@ -853,13 +584,13 @@ public class FishingGuideScreen extends Screen
             case 0 ->
             {
                 renderImage(guiGraphics, HELP_PAGE_1);
-                renderItem(basics, uiX + 166, uiY + 39, 1);
+                renderItem(basicsIcon, uiX + 166, uiY + 39, 1);
                 guiGraphics.drawString(this.font, Component.translatable("gui.guide.basics"), uiX + 80, uiY + 45, 0xff000000, false);
             }
             case 1 ->
             {
                 renderImage(guiGraphics, HELP_PAGE_2);
-                renderItem(treasures, uiX + 166, uiY + 39, 1);
+                renderItem(treasuresIcon, uiX + 166, uiY + 39, 1);
                 guiGraphics.drawString(this.font, Component.translatable("gui.guide.treasures"), uiX + 80, uiY + 45, 0xff000000, false);
             }
             case 2 ->
@@ -867,59 +598,52 @@ public class FishingGuideScreen extends Screen
                 renderImage(guiGraphics, HELP_PAGE_3);
 
                 //hooks
-                renderItem(ironHook, uiX + 166, uiY + 39, 1);
+                renderItem(ironHookIcon, uiX + 166, uiY + 39, 1);
                 guiGraphics.drawString(this.font, Component.translatable("gui.guide.hooks"), uiX + 80, uiY + 45, 0xff000000, false);
 
                 for (int i = 0; i < 4; i++)
                 {
-                    renderItemWithOutlineAndHover(guiGraphics, hooks[i], 56 + 28 * i, 157, mouseX, mouseY);
+                    renderItemWithOutlineAndHover(guiGraphics, hooks.get(i), 56 + 28 * i, 157, mouseX, mouseY);
                 }
 
                 for (int i = 0; i < 4; i++)
                 {
-                    renderItemWithOutlineAndHover(guiGraphics, hooks[i + 4], 67 + 32 * i, 182, mouseX, mouseY);
+                    renderItemWithOutlineAndHover(guiGraphics, hooks.get(i + 4), 67 + 32 * i, 182, mouseX, mouseY);
                 }
 
                 //bobbers
-                renderItem(bobber, uiX + 321, uiY + 39, 1);
+                renderItem(bobberIcon, uiX + 321, uiY + 39, 1);
                 guiGraphics.drawString(this.font, Component.translatable("gui.guide.bobbers"), uiX + 228, uiY + 45, 0xff000000, false);
 
-                renderItemWithOutlineAndHover(guiGraphics, bobbers[1], 332, 157, mouseX, mouseY);
-                renderItemWithOutlineAndHover(guiGraphics, bobbers[2], 233, 182, mouseX, mouseY);
+                //todo make this dynamic
+                renderItemWithOutlineAndHover(guiGraphics, bobbers.get(1), 332, 157, mouseX, mouseY);
             }
             case 3 ->
             {
                 renderImage(guiGraphics, HELP_PAGE_4);
 
                 //bait
-                renderItem(cherryBait, uiX + 166, uiY + 39, 1);
+                renderItem(cherryBaitIcon, uiX + 166, uiY + 39, 1);
                 guiGraphics.drawString(this.font, Component.translatable("gui.guide.baits"), uiX + 80, uiY + 45, 0xff000000, false);
 
-                for (int i = 0; i < 4; i++)
-                {
-                    renderItemWithOutlineAndHover(guiGraphics, baits[i], 56 + 38 * i, 157, mouseX, mouseY);
-                }
-
-                for (int i = 0; i < 3; i++)
-                {
-                    renderItemWithOutlineAndHover(guiGraphics, baits[i + 4], 76 + 37 * i, 182, mouseX, mouseY);
-                }
+                //todo make this dynamic
+                renderItemWithOutlineAndHover(guiGraphics, baits.get(0), 76, 182, mouseX, mouseY);
 
                 //gadgets
-                renderItem(fishSpotter, uiX + 321, uiY + 39, 1);
+                renderItem(fishSpotterIcon, uiX + 321, uiY + 39, 1);
                 guiGraphics.drawString(this.font, Component.translatable("gui.guide.gadgets"), uiX + 228, uiY + 45, 0xff000000, false);
-                renderItemWithOutlineAndHover(guiGraphics, fishSpotter, 276, 170, mouseX, mouseY);
+                renderItemWithOutlineAndHover(guiGraphics, fishSpotterIcon, 276, 170, mouseX, mouseY);
             }
             case 4 ->
             {
                 renderImage(guiGraphics, HELP_PAGE_5);
 
                 //trophies
-                renderItem(trophies, uiX + 166, uiY + 39, 1);
+                renderItem(trophiesIcon, uiX + 166, uiY + 39, 1);
                 guiGraphics.drawString(this.font, Component.translatable("gui.guide.trophies"), uiX + 80, uiY + 45, 0xff000000, false);
                 renderTrophies(guiGraphics, mouseX, mouseY);
 
-                renderItem(secrets, uiX + 321, uiY + 39, 1);
+                renderItem(secretsIcon, uiX + 321, uiY + 39, 1);
                 guiGraphics.drawString(this.font, Component.translatable("gui.guide.secrets"), uiX + 228, uiY + 45, 0xff000000, false);
                 renderSecrets(guiGraphics, mouseX, mouseY);
             }
@@ -959,31 +683,31 @@ public class FishingGuideScreen extends Screen
 
             //all about fishing
             //The Basics
-            renderTheBasicsIndex(guiGraphics, basics, auxX, y, mouseX, mouseY, "gui.guide.index.basics", 0);
+            renderTheBasicsIndex(guiGraphics, basicsIcon, auxX, y, mouseX, mouseY, "gui.guide.index.basics", 0);
 
             //Hooks
             auxX += 20;
-            renderTheBasicsIndex(guiGraphics, ironHook, auxX, y, mouseX, mouseY, "gui.guide.index.hooks", 2);
+            renderTheBasicsIndex(guiGraphics, ironHookIcon, auxX, y, mouseX, mouseY, "gui.guide.index.hooks", 2);
 
             //Bobbers
             auxX += 20;
-            renderTheBasicsIndex(guiGraphics, bobber, auxX, y, mouseX, mouseY, "gui.guide.index.bobbers", 2);
+            renderTheBasicsIndex(guiGraphics, bobberIcon, auxX, y, mouseX, mouseY, "gui.guide.index.bobbers", 2);
 
             //baits
             auxX += 20;
-            renderTheBasicsIndex(guiGraphics, cherryBait, auxX, y, mouseX, mouseY, "gui.guide.index.baits", 3);
+            renderTheBasicsIndex(guiGraphics, cherryBaitIcon, auxX, y, mouseX, mouseY, "gui.guide.index.baits", 3);
 
             //fish spotter
             auxX += 20;
-            renderTheBasicsIndex(guiGraphics, fishSpotter, auxX, y, mouseX, mouseY, "gui.guide.index.gadgets", 3);
+            renderTheBasicsIndex(guiGraphics, fishSpotterIcon, auxX, y, mouseX, mouseY, "gui.guide.index.gadgets", 3);
 
             //trophies
             auxX += 20;
-            renderTheBasicsIndex(guiGraphics, trophies, auxX, y, mouseX, mouseY, "gui.guide.index.trophies", 4);
+            renderTheBasicsIndex(guiGraphics, trophiesIcon, auxX, y, mouseX, mouseY, "gui.guide.index.trophies", 4);
 
             //settings
             auxX += 20;
-            renderTheBasicsIndex(guiGraphics, settings, auxX, y, mouseX, mouseY, "gui.guide.index.settings", 5);
+            renderTheBasicsIndex(guiGraphics, settingsIcon, auxX, y, mouseX, mouseY, "gui.guide.index.settings", 5);
         }
 
 
@@ -1875,45 +1599,305 @@ public class FishingGuideScreen extends Screen
         return false;
     }
 
+    public enum Sort
+    {
+        ALPHABETICAL_UP("gui.guide.sort.alphabetical_up"),
+        ALPHABETICAL_DOWN("gui.guide.sort.alphabetical_down"),
+        MOD_UP("gui.guide.sort.mod_up"),
+        MOD_DOWN("gui.guide.sort.mod_down"),
+        RARITY_UP("gui.guide.sort.rarity_up"),
+        RARITY_DOWN("gui.guide.sort.rarity_down"),
+        CAUGHT_UP("gui.guide.sort.caught_up"),
+        CAUGHT_DOWN("gui.guide.sort.caught_down"),
+        FLUID_UP("gui.guide.sort.fluid_up"),
+        FLUID_DOWN("gui.guide.sort.fluid_down"),
+        SEASON_UP("gui.guide.sort.season_up"),
+        SEASON_DOWN("gui.guide.sort.season_down");
+
+        private static final Sort[] vals = values();
+
+        private final String translationKey;
+
+        String getTranslationKey()
+        {
+            return this.translationKey;
+        }
+
+        Sort(String translationKey)
+        {
+            this.translationKey = translationKey;
+        }
+
+        public Sort previous()
+        {
+            int lenght = vals.length - 2;
+            if (ModList.get().isLoaded("sereneseasons") || ModList.get().isLoaded("eclipticseasons")) lenght += 2;
+
+            if (this.ordinal() == 0) return vals[lenght - 1];
+            return vals[(this.ordinal() - 1) % lenght];
+        }
+
+        public Sort next()
+        {
+            int lenght = vals.length - 2;
+            if (ModList.get().isLoaded("sereneseasons") || ModList.get().isLoaded("eclipticseasons")) lenght += 2;
+
+            return vals[(this.ordinal() + 1) % lenght];
+        }
+    }
+
+    private void sortEntries()
+    {
+        Sort sort = Config.SORT.get();
+
+        //rarity
+        if (sort.equals(Sort.RARITY_DOWN) || sort.equals(Sort.RARITY_UP))
+        {
+            List<FishProperties> entriesSorted = new ArrayList<>();
+
+            entries.forEach(e ->
+            {
+                if (e.rarity().equals(FishProperties.Rarity.COMMON)) entriesSorted.add(e);
+            });
+            entries.forEach(e ->
+            {
+                if (e.rarity().equals(FishProperties.Rarity.UNCOMMON)) entriesSorted.add(e);
+            });
+            entries.forEach(e ->
+            {
+                if (e.rarity().equals(FishProperties.Rarity.RARE)) entriesSorted.add(e);
+            });
+            entries.forEach(e ->
+            {
+                if (e.rarity().equals(FishProperties.Rarity.EPIC)) entriesSorted.add(e);
+            });
+            entries.forEach(e ->
+            {
+                if (e.rarity().equals(FishProperties.Rarity.LEGENDARY)) entriesSorted.add(e);
+            });
+
+            entries = sort.equals(Sort.RARITY_UP) ? entriesSorted : entriesSorted.reversed();
+        }
+
+        //alphabetical
+        if (sort.equals(Sort.ALPHABETICAL_DOWN) || sort.equals(Sort.ALPHABETICAL_UP))
+        {
+            List<FishProperties> entriesSorted = new ArrayList<>();
+            Map<String, FishProperties> map = new HashMap<>();
+            List<String> entriesString = new ArrayList<>();
+
+            for (FishProperties fp : entries)
+            {
+                String path = fp.catchInfo().fish().unwrapKey().get().location().getPath();
+                map.put(path, fp);
+                entriesString.add(path);
+            }
+
+            entriesString = entriesString.stream().sorted().toList();
+
+            for (String s : entriesString) entriesSorted.add(map.get(s));
+
+            entries = sort.equals(Sort.ALPHABETICAL_UP) ? entriesSorted : entriesSorted.reversed();
+        }
+
+        //mod
+        if (sort.equals(Sort.MOD_DOWN) || sort.equals(Sort.MOD_UP))
+        {
+            Config.SORT.set(Sort.ALPHABETICAL_UP);
+            Config.SORT.save();
+            sortEntries();
+            Config.SORT.set(sort);
+            Config.SORT.save();
+
+            List<FishProperties> entriesSorted = new ArrayList<>();
+            List<String> allNamespaces = new ArrayList<>();
+
+            for (FishProperties fp : entries)
+            {
+                String namespace = fp.catchInfo().fish().unwrapKey().get().location().getNamespace();
+                if (!allNamespaces.contains(namespace)) allNamespaces.add(namespace);
+            }
+
+            for (String s : allNamespaces)
+            {
+                for (FishProperties fp : entries)
+                {
+                    String namespace = fp.catchInfo().fish().unwrapKey().get().location().getNamespace();
+                    if (namespace.equals(s)) entriesSorted.add(fp);
+                }
+
+            }
+
+            entries = sort.equals(Sort.MOD_UP) ? entriesSorted : entriesSorted.reversed();
+        }
+
+        //fluid
+        if (sort.equals(Sort.FLUID_DOWN) || sort.equals(Sort.FLUID_UP))
+        {
+            Config.SORT.set(Sort.ALPHABETICAL_UP);
+            Config.SORT.save();
+            sortEntries();
+            Config.SORT.set(sort);
+            Config.SORT.save();
+            List<FishProperties> entriesSorted = new ArrayList<>();
+            List<FishProperties> entriesRemaining = new ArrayList<>(entries);
+
+            while (!entriesRemaining.isEmpty())
+            {
+                ResourceLocation rlBeingSorted = entriesRemaining.getFirst().wr().fluids().getFirst();
+                List<FishProperties> temp = new ArrayList<>(entriesRemaining);
+                temp.forEach(e ->
+                {
+                    if (e.wr().fluids().getFirst().equals(rlBeingSorted))
+                    {
+                        entriesSorted.add(e);
+                        entriesRemaining.remove(e);
+                    }
+                });
+            }
+
+            entries = sort.equals(Sort.FLUID_UP) ? entriesSorted : entriesSorted.reversed();
+        }
+
+        //caught
+        if (sort.equals(Sort.CAUGHT_UP) || sort.equals(Sort.CAUGHT_DOWN))
+        {
+            //sort alphabetical first
+            Config.SORT.set(Sort.ALPHABETICAL_UP);
+            Config.SORT.save();
+            sortEntries();
+            Config.SORT.set(sort);
+            Config.SORT.save();
+            List<FishProperties> entriesSorted = new ArrayList<>();
+
+            List<FishProperties> notCaught = new ArrayList<>(entries);
+
+            //add all fishes caught to start
+            entries.forEach(fp ->
+            {
+                for (FishCaughtCounter fccAll : fishCaughtCounterList)
+                {
+                    if (fccAll.fp().equals(level.registryAccess().registryOrThrow(Starcatcher.FISH_REGISTRY).getKey(fp)))
+                    {
+                        entriesSorted.add(fp);
+                    }
+                }
+            });
+
+            notCaught.removeAll(entriesSorted);
+
+            entriesSorted.addAll(notCaught);
+
+
+            entries = sort.equals(Sort.CAUGHT_UP) ? entriesSorted : entriesSorted.reversed();
+        }
+
+        //SEASONS
+        if (sort.equals(Sort.SEASON_DOWN) || sort.equals(Sort.SEASON_UP))
+        {
+            List<FishProperties> entriesSorted = new ArrayList<>();
+            List<FishProperties> entriesUnsorted = new ArrayList<>(entries);
+
+            for (FishProperties fp : entriesUnsorted)
+                if (fp.wr().seasons().contains(Seasons.ALL)) entriesSorted.add(fp);
+            entriesUnsorted.removeAll(entriesSorted);
+
+            for (FishProperties fp : entriesUnsorted)
+                if (fp.wr().seasons().contains(Seasons.SPRING)) entriesSorted.add(fp);
+            entriesUnsorted.removeAll(entriesSorted);
+
+            for (FishProperties fp : entriesUnsorted)
+                if (fp.wr().seasons().contains(Seasons.EARLY_SPRING)) entriesSorted.add(fp);
+            entriesUnsorted.removeAll(entriesSorted);
+
+            for (FishProperties fp : entriesUnsorted)
+                if (fp.wr().seasons().contains(Seasons.MID_SPRING)) entriesSorted.add(fp);
+            entriesUnsorted.removeAll(entriesSorted);
+
+            for (FishProperties fp : entriesUnsorted)
+                if (fp.wr().seasons().contains(Seasons.LATE_SPRING)) entriesSorted.add(fp);
+            entriesUnsorted.removeAll(entriesSorted);
+
+            for (FishProperties fp : entriesUnsorted)
+                if (fp.wr().seasons().contains(Seasons.SUMMER)) entriesSorted.add(fp);
+            entriesUnsorted.removeAll(entriesSorted);
+
+            for (FishProperties fp : entriesUnsorted)
+                if (fp.wr().seasons().contains(Seasons.EARLY_SUMMER)) entriesSorted.add(fp);
+            entriesUnsorted.removeAll(entriesSorted);
+
+            for (FishProperties fp : entriesUnsorted)
+                if (fp.wr().seasons().contains(Seasons.MID_SUMMER)) entriesSorted.add(fp);
+            entriesUnsorted.removeAll(entriesSorted);
+
+            for (FishProperties fp : entriesUnsorted)
+                if (fp.wr().seasons().contains(Seasons.LATE_SUMMER)) entriesSorted.add(fp);
+            entriesUnsorted.removeAll(entriesSorted);
+
+            for (FishProperties fp : entriesUnsorted)
+                if (fp.wr().seasons().contains(Seasons.AUTUMN)) entriesSorted.add(fp);
+            entriesUnsorted.removeAll(entriesSorted);
+
+            for (FishProperties fp : entriesUnsorted)
+                if (fp.wr().seasons().contains(Seasons.EARLY_AUTUMN)) entriesSorted.add(fp);
+            entriesUnsorted.removeAll(entriesSorted);
+
+            for (FishProperties fp : entriesUnsorted)
+                if (fp.wr().seasons().contains(Seasons.MID_AUTUMN)) entriesSorted.add(fp);
+            entriesUnsorted.removeAll(entriesSorted);
+
+            for (FishProperties fp : entriesUnsorted)
+                if (fp.wr().seasons().contains(Seasons.LATE_AUTUMN)) entriesSorted.add(fp);
+            entriesUnsorted.removeAll(entriesSorted);
+
+            for (FishProperties fp : entriesUnsorted)
+                if (fp.wr().seasons().contains(Seasons.WINTER)) entriesSorted.add(fp);
+            entriesUnsorted.removeAll(entriesSorted);
+
+            for (FishProperties fp : entriesUnsorted)
+                if (fp.wr().seasons().contains(Seasons.EARLY_WINTER)) entriesSorted.add(fp);
+            entriesUnsorted.removeAll(entriesSorted);
+
+            for (FishProperties fp : entriesUnsorted)
+                if (fp.wr().seasons().contains(Seasons.MID_WINTER)) entriesSorted.add(fp);
+            entriesUnsorted.removeAll(entriesSorted);
+
+            for (FishProperties fp : entriesUnsorted)
+                if (fp.wr().seasons().contains(Seasons.LATE_WINTER)) entriesSorted.add(fp);
+            entriesUnsorted.removeAll(entriesSorted);
+
+            entries = sort.equals(Sort.SEASON_UP) ? entriesSorted : entriesSorted.reversed();
+        }
+
+    }
+
     public FishingGuideScreen()
     {
         super(Component.empty());
 
-        basics = new ItemStack(ModItems.ROD.get());
-        treasures = new ItemStack(ModItems.WATERLOGGED_SATCHEL.get());
+        for (DeferredHolder<Item, ? extends Item> item : ModItems.BOBBERS_REGISTRY.getEntries())
+        {
+            bobbers.add(new ItemStack(item));
+        }
 
-        ironHook = new ItemStack(ModItems.HOOK.get());
-        hooks = new ItemStack[8];
-        hooks[0] = ironHook;
-        hooks[1] = new ItemStack(ModItems.SHINY_HOOK.get());
-        hooks[2] = new ItemStack(ModItems.GOLD_HOOK.get());
-        hooks[3] = new ItemStack(ModItems.MOSSY_HOOK.get());
-        hooks[4] = new ItemStack(ModItems.HEAVY_HOOK.get());
-        hooks[5] = new ItemStack(ModItems.STONE_HOOK.get());
-        hooks[6] = new ItemStack(ModItems.SPLIT_HOOK.get());
-        hooks[7] = new ItemStack(ModItems.STABILIZING_HOOK.get());
+        for (DeferredHolder<Item, ? extends Item> item : ModItems.BAITS_REGISTRY.getEntries())
+        {
+            baits.add(new ItemStack(item));
+        }
 
-        bobber = new ItemStack(ModItems.BOBBER.get());
-        bobbers = new ItemStack[3];
-        bobbers[0] = bobber;
-        bobbers[1] = new ItemStack(ModItems.STEADY_BOBBER.get());
-        bobbers[2] = new ItemStack(ModItems.CLEAR_BOBBER.get());
+        for (DeferredHolder<Item, ? extends Item> item : ModItems.HOOKS_REGISTRY.getEntries())
+        {
+            hooks.add(new ItemStack(item));
+        }
 
-        cherryBait = new ItemStack(ModItems.CHERRY_BAIT.get());
-        baits = new ItemStack[8];
-        baits[0] = cherryBait;
-        baits[1] = new ItemStack(ModItems.LUSH_BAIT.get());
-        baits[2] = new ItemStack(ModItems.SCULK_BAIT.get());
-        baits[3] = new ItemStack(ModItems.DRIPSTONE_BAIT.get());
-        baits[4] = new ItemStack(ModItems.MURKWATER_BAIT.get());
-        baits[5] = new ItemStack(ModItems.LEGENDARY_BAIT.get());
-        baits[6] = new ItemStack(ModItems.METEOROLOGICAL_BAIT.get());
-        baits[7] = new ItemStack(ModItems.WORM.get());
-
-        fishSpotter = new ItemStack(ModItems.FISH_RADAR.get());
-        trophies = new ItemStack(ModBlocks.TROPHY_GOLD.get());
-        secrets = new ItemStack(ModItems.WATERLOGGED_BOTTLE.get());
-
-        settings = new ItemStack(ModItems.SETTINGS.get());
+        basicsIcon = new ItemStack(ModItems.ROD.get());
+        treasuresIcon = new ItemStack(ModItems.WATERLOGGED_SATCHEL.get());
+        cherryBaitIcon = new ItemStack(ModItems.CHERRY_BAIT.get());
+        ironHookIcon = new ItemStack(ModItems.HOOK.get());
+        bobberIcon = new ItemStack(ModItems.BOBBER.get());
+        fishSpotterIcon = new ItemStack(ModItems.FISH_RADAR.get());
+        trophiesIcon = new ItemStack(ModBlocks.TROPHY_GOLD.get());
+        secretsIcon = new ItemStack(ModItems.WATERLOGGED_BOTTLE.get());
+        settingsIcon = new ItemStack(ModItems.SETTINGS.get());
     }
 }
