@@ -15,7 +15,7 @@
     "always_spawn_entity": true,
     "entity_to_spawn": "collectorsreap:chieftain_crab",
     "fish": "collectorsreap:chieftain_crab",
-    "fish_bucket": "starcatcher:missingno",
+    "fish_bucket": "collectorsreap:chieftain_crab_bucket",
     "override_minigame_item": "starcatcher:unknown_fish"
   },
   "daytime": "all",
@@ -42,15 +42,13 @@
       "loot": "starcatcher:waterlogged_satchel"
     }
   },
-  "has_guide_entry": false,
+  "has_guide_entry": true,
   "rarity": "uncommon",
   "size_and_weight": {
     "average_size_cm": 28.0,
     "average_weight_grams": 260.0,
     "deviation_size_cm": 8.0,
-    "deviation_weight_grams": 60.0,
-    "golden_chance_percentage": 10,
-    "golden_state_increase": 20
+    "deviation_weight_grams": 60.0
   },
   "skips_minigame": false,
   "weather": "all",

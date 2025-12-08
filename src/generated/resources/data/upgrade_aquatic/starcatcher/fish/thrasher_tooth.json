@@ -7,13 +7,15 @@
   ],
   "bait_restrictions": {
     "consumes_bait": true,
-    "correct_bait_chance_added": 0,
-    "correct_baits": []
+    "correct_bait_chance_added": 5,
+    "correct_baits": [
+      "starcatcher:almighty_worm"
+    ]
   },
-  "base_chance": 1,
+  "base_chance": 0,
   "catch_info": {
-    "always_spawn_entity": true,
-    "entity_to_spawn": "upgrade_aquatic:thrasher",
+    "always_spawn_entity": false,
+    "entity_to_spawn": "upgrade_aquatic:great_thrasher",
     "fish": "upgrade_aquatic:thrasher_tooth",
     "fish_bucket": "starcatcher:missingno",
     "override_minigame_item": "starcatcher:unknown_fish"
@@ -42,15 +44,13 @@
       "loot": "starcatcher:waterlogged_satchel"
     }
   },
-  "has_guide_entry": false,
-  "rarity": "legendary",
+  "has_guide_entry": true,
+  "rarity": "common",
   "size_and_weight": {
     "average_size_cm": 28.0,
     "average_weight_grams": 260.0,
     "deviation_size_cm": 8.0,
-    "deviation_weight_grams": 60.0,
-    "golden_chance_percentage": 10,
-    "golden_state_increase": 20
+    "deviation_weight_grams": 60.0
   },
   "skips_minigame": false,
   "weather": "all",

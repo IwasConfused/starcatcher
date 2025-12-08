@@ -1,4 +1,4 @@
-// 1.21.1	2025-12-07T17:16:50.7253588	Item Models: starcatcher
+// 1.21.1	2025-12-08T14:33:30.6893868	Item Models: starcatcher
 190248e04c8aaf81e80cc0d828c1b3f9addf4641 assets/starcatcher/models/item/agave_bream.json
 2acefa5cf3f98fbcb50f2258e2777ac75275271d assets/starcatcher/models/item/almighty_worm.json
 033477fbb520065b97801242f6e7c58288fea05d assets/starcatcher/models/item/amethystback.json
@@ -48,7 +48,7 @@ bc4f1cc61050f27858fbba729e0baba3ecef6b2d assets/starcatcher/models/item/dusktail
 d4b9c1338d14e25db1b32321cc1ffc36d2a51863 assets/starcatcher/models/item/embergill.json
 b13c0cc1ac8ef6b72efff35fd4de5bbe793ddfb3 assets/starcatcher/models/item/end_glow.json
 7178137e3dbe1272eda1d5c209e3324463d3b3d5 assets/starcatcher/models/item/fish_bones.json
-f0c38b4cd41f06ceea7b2bfd0055e0222193718b assets/starcatcher/models/item/fish_spotter.json
+ea7cb3b764fcb56465379e525adbff10855b276d assets/starcatcher/models/item/fish_radar.json
 b4badb601775c09e84ff979e9397cccf32f7e7b5 assets/starcatcher/models/item/fossilized_angelfish.json
 a485d704f4434a0b0e10e7f14b8d2f8aa476bf1e assets/starcatcher/models/item/frostgill_chub.json
 d81451127a31e3e14f3db6f481f38a53b910239f assets/starcatcher/models/item/frostjaw_trout.json

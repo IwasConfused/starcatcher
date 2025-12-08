@@ -47,15 +47,13 @@
     "average_size_cm": 160.0,
     "average_weight_grams": 160000.0,
     "deviation_size_cm": 30.0,
-    "deviation_weight_grams": 20000.0,
-    "golden_chance_percentage": 10,
-    "golden_state_increase": 20
+    "deviation_weight_grams": 20000.0
   },
   "skips_minigame": false,
   "weather": "all",
   "world_restrictions": {
     "above_y": 100,
-    "below_y": 100,
+    "below_y": 2147483647,
     "biomes": [],
     "biomes_blacklist": [],
     "biomes_blacklist_tags": [

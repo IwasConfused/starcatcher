@@ -48,26 +48,11 @@ public class UpgradeAquaticFishingProperties extends FishingPropertiesRegistry
 
         register(fish(fromRL("upgrade_aquatic", "thrasher_tooth"))
                 .withBaseChance(0)
-                .withEntityToSpawn(rl("upgrade_aquatic", "thrasher"))
-                .withBaitRestrictions(FishProperties.BaitRestrictions.DEFAULT
-                        .withCorrectBait(ModItems.ALMIGHTY_WORM.getId())
-                        .withCorrectBaitChanceAdded(5))
-                .withSizeAndWeight(FishProperties.sw(28, 8, 260, 60))
-                .withHasGuideEntry(false)
-                .withDifficulty(FishProperties.Difficulty.REALLY_HEAVY_FISH)
-                .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD
-                        .withBiomesTags(rl("upgrade_aquatic", "biome/has_spawn/thrasher")))
-                .withItemToOverrideWith(ModItems.UNKNOWN_FISH)
-        );
-
-        register(fish(fromRL("upgrade_aquatic", "thrasher_tooth"))
-                .withBaseChance(0)
                 .withEntityToSpawn(rl("upgrade_aquatic", "great_thrasher"))
                 .withBaitRestrictions(FishProperties.BaitRestrictions.DEFAULT
                         .withCorrectBait(ModItems.ALMIGHTY_WORM.getId())
                         .withCorrectBaitChanceAdded(5))
                 .withSizeAndWeight(FishProperties.sw(28, 8, 260, 60))
-                .withHasGuideEntry(false)
                 .withDifficulty(FishProperties.Difficulty.REALLY_HEAVY_FISH)
                 .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD
                         .withBiomesTags(rl("upgrade_aquatic", "biome/has_spawn/thrasher")))

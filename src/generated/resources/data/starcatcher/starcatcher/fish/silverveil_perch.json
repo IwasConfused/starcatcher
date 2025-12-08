@@ -41,9 +41,7 @@
     "average_size_cm": 27.0,
     "average_weight_grams": 500.0,
     "deviation_size_cm": 11.0,
-    "deviation_weight_grams": 352.0,
-    "golden_chance_percentage": 5,
-    "golden_state_increase": 36
+    "deviation_weight_grams": 352.0
   },
   "skips_minigame": false,
   "weather": "all",

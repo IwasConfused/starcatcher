@@ -13,9 +13,9 @@
   "base_chance": 5,
   "catch_info": {
     "always_spawn_entity": false,
-    "entity_to_spawn": "starcatcher:missingno",
+    "entity_to_spawn": "tide:angelfish",
     "fish": "tide:angelfish",
-    "fish_bucket": "starcatcher:missingno"
+    "fish_bucket": "tide:angelfish_bucket"
   },
   "daytime": "all",
   "difficulty": {
@@ -47,9 +47,7 @@
     "average_size_cm": 15.0,
     "average_weight_grams": 100.0,
     "deviation_size_cm": 5.0,
-    "deviation_weight_grams": 5.0,
-    "golden_chance_percentage": 10,
-    "golden_state_increase": 20
+    "deviation_weight_grams": 5.0
   },
   "skips_minigame": false,
   "weather": "rain",
