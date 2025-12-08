@@ -127,6 +127,9 @@
 
 
 
+  "item.starcatcher.bobber": "Steady Bobber",
+  "tooltip.starcatcher.bobber.0": "A basic bobber for your fishing rod",
+  "tooltip.starcatcher.bobber.1": "The Iron Hook's best companion.",
 
   "item.starcatcher.steady_bobber": "Steady Bobber",
   "tooltip.starcatcher.steady_bobber.0": "A stiff heavy bobber.",
@@ -138,11 +141,11 @@
   "tooltip.starcatcher.clear_bobber.1": "Whilst equipped in your <gradient-67>Starcatcher's rod</gradient-90>,",
   "tooltip.starcatcher.clear_bobber.2": "it will make vanishing sweet-spots easier to see.",
 
-
   "item.starcatcher.vanilla_bobber": "Vanilla-flavoured Bobber",
   "tooltip.starcatcher.vanilla_bobber.0": "A bobber made of [imaginary] vanilla.",
   "tooltip.starcatcher.vanilla_bobber.1": "Whilst equipped in your <gradient-67>Starcatcher's rod</gradient-90>,",
   "tooltip.starcatcher.vanilla_bobber.2": "it will attract vanilla-flavoured fishes and treasures.",
+
 
 
 

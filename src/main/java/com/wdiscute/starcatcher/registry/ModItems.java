@@ -29,7 +29,7 @@ public interface ModItems
     DeferredRegister.Items TRASH_REGISTRY = DeferredRegister.createItems(Starcatcher.MOD_ID);
 
     DeferredRegister.Items TEMPLATES_REGISTRY = DeferredRegister.createItems(Starcatcher.MOD_ID);
-    DeferredRegister.Items OTHERS_REGISTRY = DeferredRegister.createItems(Starcatcher.MOD_ID);
+    DeferredRegister.Items BLOCKITEMS_REGISTRY = DeferredRegister.createItems(Starcatcher.MOD_ID);
 
     DeferredItem<Item> SETTINGS = ITEMS_REGISTRY.register(
             "settings", () -> new Item(new Item.Properties())

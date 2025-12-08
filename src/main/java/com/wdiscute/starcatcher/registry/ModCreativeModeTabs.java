@@ -48,7 +48,7 @@ public class ModCreativeModeTabs
                                 output.accept(item.get());
 
                         //adds blocks and stuff
-                        for (DeferredHolder<Item, ? extends Item> item : ModItems.OTHERS_REGISTRY.getEntries())
+                        for (DeferredHolder<Item, ? extends Item> item : ModItems.BLOCKITEMS_REGISTRY.getEntries())
                                 output.accept(item.get());
 
                     })

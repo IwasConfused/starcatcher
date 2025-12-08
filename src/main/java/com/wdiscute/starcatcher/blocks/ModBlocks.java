@@ -28,7 +28,7 @@ public interface ModBlocks
     {
         DeferredBlock<T> toReturn = BLOCKS.register(name, block);
 
-        ModItems.OTHERS_REGISTRY.register(name, () -> new StandBlockItem(toReturn.get()));
+        ModItems.BLOCKITEMS_REGISTRY.register(name, () -> new StandBlockItem(toReturn.get()));
         return toReturn;
     }
 
