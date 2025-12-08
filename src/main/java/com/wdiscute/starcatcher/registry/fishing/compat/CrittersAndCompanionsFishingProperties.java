@@ -10,7 +10,6 @@ public class CrittersAndCompanionsFishingProperties extends FishingPropertiesReg
     public static void bootstrap()
     {
 
-        //region Critters and companions
         //
         // ,-----.         ,--.   ,--.     ,--.                                                    ,--.      ,-----.                                              ,--.
         //'  .--./ ,--.--. `--' ,-'  '-. ,-'  '-.  ,---.  ,--.--.  ,---.       ,--,--. ,--,--,   ,-|  |     '  .--./  ,---.  ,--,--,--.  ,---.   ,--,--. ,--,--,  `--'  ,---.  ,--,--,   ,---.
@@ -21,8 +20,6 @@ public class CrittersAndCompanionsFishingProperties extends FishingPropertiesReg
 
 
         register(overworldBeachFish(fromRL("crittersandcompanions", "clam"))  //no mini game
-                .withBaseChance(1)
-                .withHasGuideEntry(false)
                 .withSkipMinigame(true)
                 .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD_RIVER)
         );
@@ -56,8 +53,5 @@ public class CrittersAndCompanionsFishingProperties extends FishingPropertiesReg
                 .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD_RIVER)
         );
 
-        //could add sea bunny and dumbo octopus with entity fishing
-
-        //endregion  Critters and companions
     }
 }
