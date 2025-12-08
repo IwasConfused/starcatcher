@@ -101,6 +101,8 @@ public class Starcatcher
         ModItems.RODS_REGISTRY.register(modEventBus);
         ModItems.TEMPLATES_REGISTRY.register(modEventBus);
 
+        ModItems.DEV_REGISTRY.register(modEventBus);
+
         ModBlocks.register(modEventBus);
         ModBlockEntities.register(modEventBus);
         ModDataComponents.register(modEventBus);

@@ -32,23 +32,48 @@ public class ModCreativeModeTabs
 
                         output.accept(ModItems.ROD);
 
-                        //adds all normal items, skips missingno and settings item
+                        //adds items
                         for (DeferredHolder<Item, ? extends Item> item : ModItems.ITEMS_REGISTRY.getEntries())
-                            if (item != ModItems.MISSINGNO && item != ModItems.SETTINGS)
+                            if(!item.equals(ModItems.ROD))
                                 output.accept(item.get());
+
+                        //adds blocks
+                        for (DeferredHolder<Item, ? extends Item> item : ModItems.BLOCKITEMS_REGISTRY.getEntries())
+                            output.accept(item.get());
+
+                        //adds bobbers
+                        for (DeferredHolder<Item, ? extends Item> item : ModItems.BOBBERS_REGISTRY.getEntries())
+                            output.accept(item.get());
+
+                        //adds hooks
+                        for (DeferredHolder<Item, ? extends Item> item : ModItems.HOOKS_REGISTRY.getEntries())
+                            output.accept(item.get());
 
                         //adds baits
                         for (DeferredHolder<Item, ? extends Item> item : ModItems.BAITS_REGISTRY.getEntries())
                             output.accept(item.get());
 
+                        //adds templates
+                        for (DeferredHolder<Item, ? extends Item> item : ModItems.TEMPLATES_REGISTRY.getEntries())
+                            output.accept(item.get());
 
-                        //adds all rods besides main rod which is first in list
+                        //adds rods besides default
                         for (DeferredHolder<Item, ? extends Item> item : ModItems.RODS_REGISTRY.getEntries())
-                            if (item != ModItems.ROD)
+                            if(!item.equals(ModItems.ROD))
                                 output.accept(item.get());
 
-                        //adds blocks and stuff
-                        for (DeferredHolder<Item, ? extends Item> item : ModItems.BLOCKITEMS_REGISTRY.getEntries())
+                        //adds fish
+                        for (DeferredHolder<Item, ? extends Item> item : ModItems.FISH_REGISTRY.getEntries())
+                            output.accept(item.get());
+
+                        //adds trash
+                        for (DeferredHolder<Item, ? extends Item> item : ModItems.TRASH_REGISTRY.getEntries())
+                            output.accept(item.get());
+
+
+                        //adds cheater items
+                        for (DeferredHolder<Item, ? extends Item> item : ModItems.DEV_REGISTRY.getEntries())
+                            if (!item.equals(ModItems.SETTINGS) && !item.equals(ModItems.UNKNOWN_FISH) && item.equals(ModItems.MISSINGNO))
                                 output.accept(item.get());
 
                     })

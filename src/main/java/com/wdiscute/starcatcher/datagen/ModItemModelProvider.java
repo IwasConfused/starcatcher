@@ -21,7 +21,31 @@ public class ModItemModelProvider extends ItemModelProvider {
             simpleItem((DeferredItem<? extends Item>) item);
         }
 
+        for (DeferredHolder<Item, ? extends Item> item : ModItems.HOOKS_REGISTRY.getEntries()) {
+            simpleItem((DeferredItem<? extends Item>) item);
+        }
+
         for (DeferredHolder<Item, ? extends Item> item : ModItems.BAITS_REGISTRY.getEntries()) {
+            simpleItem((DeferredItem<? extends Item>) item);
+        }
+
+        for (DeferredHolder<Item, ? extends Item> item : ModItems.BOBBERS_REGISTRY.getEntries()) {
+            simpleItem((DeferredItem<? extends Item>) item);
+        }
+
+        for (DeferredHolder<Item, ? extends Item> item : ModItems.TEMPLATES_REGISTRY.getEntries()) {
+            simpleItem((DeferredItem<? extends Item>) item);
+        }
+
+        for (DeferredHolder<Item, ? extends Item> item : ModItems.DEV_REGISTRY.getEntries()) {
+            simpleItem((DeferredItem<? extends Item>) item);
+        }
+
+        for (DeferredHolder<Item, ? extends Item> item : ModItems.FISH_REGISTRY.getEntries()) {
+            simpleItem((DeferredItem<? extends Item>) item);
+        }
+
+        for (DeferredHolder<Item, ? extends Item> item : ModItems.TRASH_REGISTRY.getEntries()) {
             simpleItem((DeferredItem<? extends Item>) item);
         }
     }

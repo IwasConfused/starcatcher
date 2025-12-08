@@ -31,12 +31,17 @@ public interface ModItems
     DeferredRegister.Items TEMPLATES_REGISTRY = DeferredRegister.createItems(Starcatcher.MOD_ID);
     DeferredRegister.Items BLOCKITEMS_REGISTRY = DeferredRegister.createItems(Starcatcher.MOD_ID);
 
-    DeferredItem<Item> SETTINGS = ITEMS_REGISTRY.register(
+    DeferredRegister.Items DEV_REGISTRY = DeferredRegister.createItems(Starcatcher.MOD_ID);
+
+    DeferredItem<Item> SETTINGS = DEV_REGISTRY.register(
             "settings", () -> new Item(new Item.Properties())
             {
                 //dev stuff
 
             });
+
+    DeferredItem<Item> MISSINGNO = DEV_REGISTRY.register("missingno", BasicItem::new);
+    DeferredItem<Item> UNKNOWN_FISH = DEV_REGISTRY.register("unknown_fish", BasicItem::new);
 
     DeferredItem<Item> GUIDE = ITEMS_REGISTRY.register("starcatcher_guide", FishingGuideItem::new);
 
@@ -65,7 +70,7 @@ public interface ModItems
     DeferredItem<Item> ALMIGHTY_WORM = BAITS_REGISTRY.register("almighty_worm", BasicItem::new);
     DeferredItem<Item> SEEKING_WORM = BAITS_REGISTRY.register("seeking_worm", BasicItem::new);
 
-    DeferredItem<Item> CREEPER_BAIT = BAITS_REGISTRY.register("creeper_bait", BasicItem::new);
+    DeferredItem<Item> GUNPOWDER_BAIT = BAITS_REGISTRY.register("gunpowder_bait", BasicItem::new);
     DeferredItem<Item> CHERRY_BAIT = BAITS_REGISTRY.register("cherry_bait", BasicItem::new);
     DeferredItem<Item> LUSH_BAIT = BAITS_REGISTRY.register("lush_bait", BasicItem::new);
     DeferredItem<Item> SCULK_BAIT = BAITS_REGISTRY.register("sculk_bait", BasicItem::new);
@@ -120,17 +125,17 @@ public interface ModItems
 
 
     //cheater items
-    DeferredItem<Item> AWARD_ALL_FISHES = ITEMS_REGISTRY.register("award_all_fishes", AwardAllFishes::new);
-    DeferredItem<Item> AWARD_ONE_FISH = ITEMS_REGISTRY.register("award_one_fish", AwardOneFish::new);
-    DeferredItem<Item> REVOKE_ALL_FISHES = ITEMS_REGISTRY.register("revoke_all_fishes", RevokeAllFishes::new);
+    DeferredItem<Item> AWARD_ALL_FISHES = DEV_REGISTRY.register("award_all_fishes", AwardAllFishes::new);
+    DeferredItem<Item> AWARD_ONE_FISH = DEV_REGISTRY.register("award_one_fish", AwardOneFish::new);
+    DeferredItem<Item> REVOKE_ALL_FISHES = DEV_REGISTRY.register("revoke_all_fishes", RevokeAllFishes::new);
 
-    DeferredItem<Item> AWARD_ALL_TROPHIES = ITEMS_REGISTRY.register("award_all_trophies", AwardAllTrophies::new);
-    DeferredItem<Item> REVOKE_ALL_TROPHIES = ITEMS_REGISTRY.register("revoke_all_trophies", RevokeAllTrophies::new);
+    DeferredItem<Item> AWARD_ALL_TROPHIES = DEV_REGISTRY.register("award_all_trophies", AwardAllTrophies::new);
+    DeferredItem<Item> REVOKE_ALL_TROPHIES = DEV_REGISTRY.register("revoke_all_trophies", RevokeAllTrophies::new);
 
-    DeferredItem<Item> AWARD_ALL_SECRETS = ITEMS_REGISTRY.register("award_all_secrets", AwardAllSecrets::new);
-    DeferredItem<Item> REVOKE_ALL_SECRETS = ITEMS_REGISTRY.register("revoke_all_secrets", RevokeAllSecrets::new);
+    DeferredItem<Item> AWARD_ALL_SECRETS = DEV_REGISTRY.register("award_all_secrets", AwardAllSecrets::new);
+    DeferredItem<Item> REVOKE_ALL_SECRETS = DEV_REGISTRY.register("revoke_all_secrets", RevokeAllSecrets::new);
 
-    DeferredItem<Item> REVOKE_ALL_EXTRAS = ITEMS_REGISTRY.register("revoke_all_extras", RevokeAllExtras::new);
+    DeferredItem<Item> REVOKE_ALL_EXTRAS = DEV_REGISTRY.register("revoke_all_extras", RevokeAllExtras::new);
 
     //treasure
     DeferredItem<Item> WATERLOGGED_SATCHEL = ITEMS_REGISTRY.register("waterlogged_satchel", () -> new FishingTreasure(Starcatcher.rl("treasure/waterlogged_satchel")));
@@ -138,9 +143,6 @@ public interface ModItems
     DeferredItem<Item> SCALDING_TREASURE = ITEMS_REGISTRY.register("scalding_treasure", () -> new FishingTreasure(Starcatcher.rl("treasure/scalding_treasure")));
 
     DeferredItem<Item> FISH_BONES = ITEMS_REGISTRY.register("fish_bones", BasicItem::new);
-
-    DeferredItem<Item> MISSINGNO = ITEMS_REGISTRY.register("missingno", BasicItem::new);
-    DeferredItem<Item> UNKNOWN_FISH = ITEMS_REGISTRY.register("unknown_fish", BasicItem::new);
 
     //
     //  ,---. ,--.         ,--.

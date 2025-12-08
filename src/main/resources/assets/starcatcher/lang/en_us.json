@@ -164,6 +164,10 @@
   "tooltip.starcatcher.almighty_worm.2": "bait as you might get slapped by a flying cod.",
 
 
+  "item.starcatcher.gunpowder_bait": "Gunpowder Bait",
+  "tooltip.starcatcher.gunpowder_bait.0": "An attempt at a bait made from gunpowder.",
+  "tooltip.starcatcher.gunpowder_bait.1": "No angler has attempted to use it before,",
+  "tooltip.starcatcher.gunpowder_bait.2": "probably for a good reason.",
 
   "item.starcatcher.cherry_bait": "Cherry Bait",
   "tooltip.starcatcher.cherry_bait.0": "A bait made of pink petals which fish",

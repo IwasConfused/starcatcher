@@ -15,21 +15,25 @@ import com.wdiscute.starcatcher.tournament.TournamentHandler;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
+import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.neoforged.neoforge.event.tick.ServerTickEvent;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.neoforged.neoforge.network.registration.PayloadRegistrar;
 import net.neoforged.neoforge.registries.DataPackRegistryEvent;
 
 @EventBusSubscriber(modid = Starcatcher.MOD_ID)
-public class ModEvents {
+public class ModEvents
+{
 
     @SubscribeEvent
-    public static void levelTick(ServerTickEvent.Post event) {
+    public static void levelTick(ServerTickEvent.Post event)
+    {
         TournamentHandler.tick(event);
     }
 
     @SubscribeEvent
-    public static void addRegistry(DataPackRegistryEvent.NewRegistry event) {
+    public static void addRegistry(DataPackRegistryEvent.NewRegistry event)
+    {
         event.dataPackRegistry(
                 Starcatcher.FISH_REGISTRY, FishProperties.CODEC, FishProperties.CODEC,
                 builder -> builder.maxId(512));
@@ -40,12 +44,21 @@ public class ModEvents {
     }
 
     @SubscribeEvent
-    public static void registerAttributed(EntityAttributeCreationEvent event) {
+    public static void dropWormsWhenBonemealing(PlayerInteractEvent.RightClickBlock event)
+    {
+        System.out.println(event.getItemStack());
+        System.out.println(event.getLevel().getBlockState(event.getPos()));
+    }
+
+    @SubscribeEvent
+    public static void registerAttributed(EntityAttributeCreationEvent event)
+    {
         event.put(ModEntities.FISH.get(), FishEntity.createAttributes().build());
     }
 
     @SubscribeEvent
-    public static void registerPayloads(final RegisterPayloadHandlersEvent event) {
+    public static void registerPayloads(final RegisterPayloadHandlersEvent event)
+    {
         final PayloadRegistrar registrar = event.registrar("1");
         registrar.playToClient(
                 FishingPayload.TYPE,

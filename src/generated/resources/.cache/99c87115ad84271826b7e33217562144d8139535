@@ -1,4 +1,4 @@
-// 1.21.1	2025-12-08T14:33:30.6893868	Item Models: starcatcher
+// 1.21.1	2025-12-08T17:16:45.6072631	Item Models: starcatcher
 190248e04c8aaf81e80cc0d828c1b3f9addf4641 assets/starcatcher/models/item/agave_bream.json
 2acefa5cf3f98fbcb50f2258e2777ac75275271d assets/starcatcher/models/item/almighty_worm.json
 033477fbb520065b97801242f6e7c58288fea05d assets/starcatcher/models/item/amethystback.json
@@ -28,7 +28,6 @@ ff350c277dd34a5e1f58bef63243dfdc703f052c assets/starcatcher/models/item/bobber.j
 413dc56c829ae02782003df0fd89bc51a45b17da assets/starcatcher/models/item/clear_bobber.json
 5294e8c9ef8bcc499c84aafd80cf4683f1aab44a assets/starcatcher/models/item/colorful_bobber_smithing_template.json
 c21ddccb5dd997a4a4d122dfb83dabfe68c27dd5 assets/starcatcher/models/item/conch.json
-a9fcb53796c650adf44dfec0e0966c7e66afc6b0 assets/starcatcher/models/item/creeper_bait.json
 2539cea75231a8b810564fdabdfb2171b913fc1b assets/starcatcher/models/item/crystalback_boreal.json
 9b01c43443918c6c7f85436a99bc899f988bc332 assets/starcatcher/models/item/crystalback_minnow.json
 2d29747202f3589c48c4684c42dbe12756799071 assets/starcatcher/models/item/crystalback_sturgeon.json
@@ -60,6 +59,7 @@ af52bda323b44617619515667949a62d36bd7443 assets/starcatcher/models/item/glowston
 b36b128fa801cbb9408d2fd22a19205dbba08c4e assets/starcatcher/models/item/glowstone_seeker.json
 0cec096e2ac653e2fc204248ac0b760c09316e2d assets/starcatcher/models/item/gold_fan.json
 ca50f132187554666f3f9ad54003c3999b672b57 assets/starcatcher/models/item/gold_hook.json
+30c783d35cb7dc5ecdb5498914e4f1ec151de446 assets/starcatcher/models/item/gunpowder_bait.json
 933a2bf2227c12a70a336d3b77275e2c41c311e4 assets/starcatcher/models/item/heavy_hook.json
 ae00df136477e53a52813f73d02163bd6dc902ab assets/starcatcher/models/item/hollowbelly_darter.json
 d4ef58b79b88f3995d547d4571fbc502b5a0590f assets/starcatcher/models/item/hook.json
@@ -145,6 +145,7 @@ ae1d6faf022894dbd8acdc2bb974dfa4ee1a7d60 assets/starcatcher/models/item/trophy_b
 6f13c844b940f4cd884b98b5493ffc4d7686a988 assets/starcatcher/models/item/true_blue_bottle.json
 0d146fe6435760833a0678c8ffda95f73a139b12 assets/starcatcher/models/item/twilight_koi.json
 c9e4806b81ff40a7424f42dcc56ee59e8736cabd assets/starcatcher/models/item/unknown_fish.json
+2e39ade97290d6287dc4d3e326be10567302ed1e assets/starcatcher/models/item/vanilla_bobber.json
 8e7e929a1bb8b539880cf10ea60c810b48071a69 assets/starcatcher/models/item/vesani.json
 38d92c7bf5f06561e97a46df04099c8c0354ec7d assets/starcatcher/models/item/vivid_moss.json
 f52bb9144ddc25b53baa049f5ae12af3f707a9bb assets/starcatcher/models/item/voidbiter.json
