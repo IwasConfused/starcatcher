@@ -31,10 +31,10 @@ public enum HitZoneType{
     CUSTOM_10,;
 
     public static class Presets {
-        private static final int SIZE_1 = 5;
-        private static final int SIZE_2 = 7;
-        private static final int SIZE_3 = 12;
-        private static final int SIZE_4 = 17;
+        public static final int SIZE_1 = 5;
+        public static final int SIZE_2 = 7;
+        public static final int SIZE_3 = 12;
+        public static final int SIZE_4 = 17;
 
         public static final int GREEN_COLOR = 0x8bff6b;
         public static final int RED_COLOR = 0xf36770;
@@ -62,7 +62,8 @@ public enum HitZoneType{
                 .setType(HitZoneType.TREASURE)
                 .setOnHitConsumer(zone -> {
                     if (zone.screen.treasureProgress > 100) zone.setRemoved(true).setRecycling(false);
-                });
+                })
+                .setOnInitConsumer(zone -> zone.setTreasure(zone.screen.difficulty.treasure().hitReward()));
 
         //Custom hit zones
         public static final FishingHitZone TNT = new FishingHitZone().setForgiving(SIZE_3)

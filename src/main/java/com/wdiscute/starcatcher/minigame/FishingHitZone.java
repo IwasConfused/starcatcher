@@ -4,6 +4,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import com.wdiscute.starcatcher.registry.ModItems;
+import com.wdiscute.starcatcher.rod.IStarcatcherRodEquipable;
 import com.wdiscute.starcatcher.storage.FishProperties;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
@@ -63,6 +64,7 @@ public class FishingHitZone {
     private boolean isBeingHoveredOver = false;
 
     BiConsumer<GuiGraphics, FishingHitZone> guiGraphicsConsumer;
+    Consumer<FishingHitZone> onInitConsumer;
     Consumer<FishingHitZone> onTickConsumer;
     Consumer<FishingHitZone> onHitConsumer;
     Consumer<FishingHitZone> onMissConsumer;
@@ -70,45 +72,36 @@ public class FishingHitZone {
 
 
     // A builder made to mimic the old system
-    public FishingHitZone setFromProperties(FishProperties properties, FishProperties.Difficulty difficulty, ItemStack hook, ItemStack bobber) {
+    public FishingHitZone setFromProperties(FishingMinigameScreen screen, List<ItemStack> equipables) {
+        this.screen = screen;
+        FishProperties properties = screen.fishProperties;
         FishProperties.Rarity rarity = properties.rarity();
+        FishProperties.Difficulty difficulty = screen.difficulty;
 
         if (difficulty.extras().isMoving()) {
-            if (rarity.getId() < 3) {
-                setMoving(true, 1);
-                if (hook.is(ModItems.MOSSY_HOOK)) setMoving(true, 3);
-            } else {
-                if (rarity.equals(FishProperties.Rarity.EPIC))
-                    setMoving(true, 6);
-                if (rarity.equals(FishProperties.Rarity.LEGENDARY))
-                    setMoving(true, 8);
-                if (hook.is(ModItems.HEAVY_HOOK)) setMoving(true, 3);
+            switch (rarity) {
+                case EPIC -> setMoving(true, 6);
+                case LEGENDARY ->  setMoving(true, 8);
+                default ->  setMoving(true, 1);
             }
         }
 
         if (difficulty.extras().isVanishing()) {
-            float vanishRate = 0.03f;
-
-            if (rarity.equals(FishProperties.Rarity.EPIC)) vanishRate = 0.06f;
-            if (rarity.equals(FishProperties.Rarity.LEGENDARY)) vanishRate = 0.1f;
-
-            if (bobber.is(ModItems.CLEAR_BOBBER)) vanishRate /= 2;
-
-            setVanishing(true, vanishRate, removeOnVanish);
+            switch (rarity) {
+                case EPIC -> setVanishing(true, 0.06f, removeOnVanish);
+                case LEGENDARY ->  setVanishing(true, 0.1f, removeOnVanish);
+                default ->  setVanishing(true, 0.03f, removeOnVanish);
+            }
         }
 
-        if (hook.is(ModItems.STONE_HOOK)) {
-            if (rarity == FishProperties.Rarity.COMMON) gracePeriod = 40;
-            if (rarity == FishProperties.Rarity.UNCOMMON) gracePeriod = 20;
-            if (rarity == FishProperties.Rarity.RARE) gracePeriod = 15;
-            if (rarity == FishProperties.Rarity.EPIC) gracePeriod = 10;
-            if (rarity == FishProperties.Rarity.LEGENDARY) gracePeriod = 5;
-        }
+        if (onInitConsumer != null)
+            onInitConsumer.accept(this);
 
-        // A funny way to check if the TREASURE constant was used
-        if (type == HitZoneType.TREASURE) {
-            setTreasure(difficulty.treasure().hitReward());
-        }
+        equipables.forEach(stack -> {
+            if (stack.getItem() instanceof IStarcatcherRodEquipable equipable){
+                equipable.onHitZoneCreation(stack, this, properties, difficulty);
+            }
+        });
 
         return this;
     }
@@ -379,6 +372,12 @@ public class FishingHitZone {
         return this;
     }
 
+    public FishingHitZone setOnInitConsumer(Consumer<FishingHitZone> consumer) {
+        this.onInitConsumer = consumer;
+        return this;
+    }
+
+
     public FishingHitZone setOnMissConsumer(Consumer<FishingHitZone> onMissConsumer) {
         this.onMissConsumer = onMissConsumer;
         return this;
@@ -428,6 +427,7 @@ public class FishingHitZone {
         copy.onTickConsumer = original.onTickConsumer;
         copy.onHitConsumer = original.onHitConsumer;
         copy.onMissConsumer = original.onMissConsumer;
+        copy.onInitConsumer = original.onInitConsumer;
         copy.preRemoveFunction = original.preRemoveFunction;
 
         return copy;

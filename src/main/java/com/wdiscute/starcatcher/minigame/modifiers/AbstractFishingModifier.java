@@ -6,7 +6,6 @@ import com.wdiscute.starcatcher.minigame.FishingMinigameScreen;
 import net.minecraft.client.gui.GuiGraphics;
 
 import javax.annotation.Nullable;
-import java.util.Optional;
 
 public abstract class AbstractFishingModifier {
     FishingMinigameScreen screen;
@@ -56,6 +55,10 @@ public abstract class AbstractFishingModifier {
 
     protected void onAdd(){
 
+    }
+
+    public boolean onSuccessfulCatch(boolean shouldAwardTreasure){
+        return shouldAwardTreasure;
     }
 
     public @Nullable FishingHitZone preZoneAdd(@Nullable FishingHitZone zone){

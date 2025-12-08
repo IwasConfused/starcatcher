@@ -15,6 +15,7 @@ import com.wdiscute.starcatcher.minigame.modifiers.AbstractFishingModifier;
 import com.wdiscute.starcatcher.minigame.modifiers.WDVanishingModifier;
 import com.wdiscute.starcatcher.registry.ModItems;
 import com.wdiscute.starcatcher.registry.ModKeymappings;
+import com.wdiscute.starcatcher.rod.IStarcatcherRodEquipable;
 import com.wdiscute.starcatcher.storage.FishProperties;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
@@ -51,7 +52,9 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener {
     private static final ResourceLocation CAVE = Starcatcher.rl("textures/gui/minigame/cave.png");
     private static final ResourceLocation SURFACE = Starcatcher.rl("textures/gui/minigame/surface.png");
 
-    public final FishProperties fp;
+    public final FishProperties fishProperties;
+    public FishProperties.Difficulty difficulty;
+
     public final ItemStack itemBeingFished;
     public final ItemStack bobber;
     public final ItemStack bobberSkin;
@@ -59,13 +62,13 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener {
     public final ItemStack hook;
     public final ItemStack treasureIS;
 
-    public final int penalty;
-    public final int decay;
-    public final boolean hasTreasure;
-    public final boolean changeRotation;
-    public final boolean isFlip;
-    public final boolean isVanishing;
-    public final boolean isMoving;
+    public int penalty;
+    public int decay;
+    public boolean hasTreasure;
+    public boolean changeRotation;
+    public boolean isFlip;
+    public boolean isVanishing;
+    public boolean isMoving;
 
     public float lastHitMarkerPos = 0;
     public float missedHitAlpha = 0;
@@ -110,8 +113,9 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener {
     public List<FishingHitZone> zonesToAdd = new ArrayList<>();
 
     public List<AbstractFishingModifier> modifiers = new ArrayList<>();
+    public List<ItemStack> equipables = new ArrayList<>();
 
-    public FishingMinigameScreen(FishProperties fp, ItemStack rod) {
+    public FishingMinigameScreen(FishProperties fishProperties, ItemStack rod) {
         super(Component.empty());
 
         previousGuiScale = Minecraft.getInstance().options.guiScale().get();
@@ -119,13 +123,14 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener {
 
         hitDelay = Config.HIT_DELAY.get().floatValue();
 
-        this.fp = fp;
+        this.fishProperties = fishProperties;
+        this.difficulty = fishProperties.dif();
 
         //if override is not missingno (default) then use the override item set
-        if (!fp.catchInfo().overrideMinigameWith().is(ModItems.MISSINGNO.getKey())) {
-            this.itemBeingFished = new ItemStack(fp.catchInfo().overrideMinigameWith());
+        if (!fishProperties.catchInfo().overrideMinigameWith().is(ModItems.MISSINGNO.getKey())) {
+            this.itemBeingFished = new ItemStack(fishProperties.catchInfo().overrideMinigameWith());
         } else {
-            this.itemBeingFished = new ItemStack(fp.catchInfo().fish());
+            this.itemBeingFished = new ItemStack(fishProperties.catchInfo().fish());
         }
 
         this.bobber = rod.get(ModDataComponents.BOBBER).stack().copy();
@@ -133,7 +138,11 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener {
         this.bait = rod.get(ModDataComponents.BAIT).stack().copy();
         this.hook = rod.get(ModDataComponents.HOOK).stack().copy();
 
-        treasureIS = new ItemStack(BuiltInRegistries.ITEM.get(fp.dif().treasure().loot()));
+        equipables.add(bobber);
+        equipables.add(bait);
+        equipables.add(hook);
+
+        treasureIS = new ItemStack(BuiltInRegistries.ITEM.get(fishProperties.dif().treasure().loot()));
 
         //tank texture change
         ResourceKey<Level> dim = Minecraft.getInstance().level.dimension();
@@ -144,32 +153,17 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener {
         if (dim.equals(Level.NETHER))
             tankTexture = NETHER;
 
-        //assign difficulty, if using mossy_hook it should make common, uncommon and rare into a harder difficulty
-        boolean commonUncommonRareFish = fp.rarity().getId() < 3;
-
-        FishProperties.Difficulty difficulty = hook.is(ModItems.MOSSY_HOOK) &&
-                (commonUncommonRareFish) ? FishProperties.Difficulty.MEDIUM_VANISHING_MOVING : fp.dif();
-
         //base - a lot of these are now hitZone-based
         this.pointerSpeed = difficulty.speed();
         this.penalty = difficulty.penalty();
         this.decay = difficulty.decay();
         this.hasTreasure = difficulty.treasure().hasTreasure();
-        this.changeRotation = difficulty.extras().isFlip() && !hook.is(ModItems.STABILIZING_HOOK);
+        this.changeRotation = difficulty.extras().isFlip();
 
         //extras
         this.isFlip = difficulty.extras().isFlip();
         this.isVanishing = difficulty.extras().isVanishing();
         this.isMoving = difficulty.extras().isMoving();
-
-        FishingHitZone largeZone = HitZoneType.Presets.LARGE;
-        FishingHitZone thinZone = HitZoneType.Presets.THIN;
-
-        //make sweet spots fatter if steady bobber is being used
-        if (bobber.is(ModItems.STEADY_BOBBER)) {
-            largeZone = HitZoneType.Presets.EXTRA_LARGE;
-            thinZone = HitZoneType.Presets.MEDIUM;
-        }
 
         //TODO MODIFIERS
 //        if (bobber.is(ModItems.CREEPER_BOBBER)){
@@ -188,18 +182,24 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener {
         //TODO: This isn't hardcoded anymore, the jsons should reflect that
 
         if (markers.first())
-            largeZone.copy().setFromProperties(fp, difficulty, hook, bobber).setPenaltyAndReward(0, difficulty.reward()).buildAndAdd(this);
+            HitZoneType.Presets.LARGE.copy().setFromProperties(this, equipables).setPenaltyAndReward(0, difficulty.reward()).buildAndAdd(this);
         if (markers.second())
-            largeZone.copy().setFromProperties(fp, difficulty, hook, bobber).setPenaltyAndReward(0, difficulty.reward()).buildAndAdd(this);
+            HitZoneType.Presets.LARGE.copy().setFromProperties(this, equipables).setPenaltyAndReward(0, difficulty.reward()).buildAndAdd(this);
         if (markers.firstThin())
-            thinZone.copy().setFromProperties(fp, difficulty, hook, bobber).setPenaltyAndReward(0, difficulty.rewardThin()).buildAndAdd(this);
+            HitZoneType.Presets.THIN.copy().setFromProperties(this, equipables).setPenaltyAndReward(0, difficulty.rewardThin()).buildAndAdd(this);
         if (markers.secondThin())
-            thinZone.copy().setFromProperties(fp, difficulty, hook, bobber).setPenaltyAndReward(0, difficulty.rewardThin()).buildAndAdd(this);
+            HitZoneType.Presets.THIN.copy().setFromProperties(this, equipables).setPenaltyAndReward(0, difficulty.rewardThin()).buildAndAdd(this);
 
         //HitZoneType.Presets.FREEZE.copy().setRecycling(true).buildAndAdd(this);
         //HitZoneType.Presets.SLIDER.copy().buildAndAdd(this);
 
         hand = Minecraft.getInstance().player.getMainHandItem().is(StarcatcherTags.RODS) ? InteractionHand.MAIN_HAND : InteractionHand.OFF_HAND;
+
+        equipables.forEach(stack -> {
+            if (stack.getItem() instanceof IStarcatcherRodEquipable equipable){
+                equipable.onInitializeMinigame(stack, this, fishingHitZones, modifiers);
+            }
+        });
     }
 
     public int getRandomFreePosition() {
@@ -561,15 +561,8 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener {
         if (isFirstHit) {
             consecutiveHits++;
 
-            if ((hasTreasure && r.nextFloat() < 0.1 && completion < 60 && !treasureActive)
-                    ||
-                    (consecutiveHits == 3 && !treasureActive && hook.is(ModItems.SHINY_HOOK))) {
-                treasureActive = true;
-
-                HitZoneType.Presets.TREASURE.copy().setFromProperties(fp, fp.dif(), hook, bobber).buildAndAdd(this, getRandomFreePosition(), zonesToAdd);
-
-                treasureProgress = 0;
-                treasureProgressSmooth = 0;
+            if ((hasTreasure && r.nextFloat() < 0.1 && completion < 60 && !treasureActive)) {
+                addTreasure();
             }
 
             if (changeRotation && zone.type != HitZoneType.SLIDER) currentRotation *= -1;
@@ -583,6 +576,15 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener {
         gracePeriod += zone.gracePeriod;
         treasureProgress += zone.treasureProgress;
 
+    }
+
+    public void addTreasure() {
+        treasureActive = true;
+
+        HitZoneType.Presets.TREASURE.copy().setFromProperties(this, equipables).buildAndAdd(this, getRandomFreePosition(), zonesToAdd);
+
+        treasureProgress = 0;
+        treasureProgressSmooth = 0;
     }
 
 
@@ -650,7 +652,11 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener {
 
         if (completionSmooth > 75) {
             //if completed treasure minigame, or is a perfect catch with the mossy hook
-            boolean awardTreasure = treasureProgress > 100 || (perfectCatch && hook.is(ModItems.MOSSY_HOOK));
+            boolean awardTreasure = treasureProgress > 100;
+
+            for (AbstractFishingModifier modifier : modifiers) {
+                awardTreasure = modifier.onSuccessfulCatch(awardTreasure);
+            }
 
             PacketDistributor.sendToServer(new FishingCompletedPayload(tickCount, awardTreasure, perfectCatch, consecutiveHits));
             this.onClose();
