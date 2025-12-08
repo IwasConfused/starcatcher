@@ -1,6 +1,7 @@
 package com.wdiscute.starcatcher.rod;
 
 import com.wdiscute.starcatcher.StarcatcherTags;
+import com.wdiscute.starcatcher.io.ModDataAttachments;
 import com.wdiscute.starcatcher.io.ModDataComponents;
 import com.wdiscute.starcatcher.io.SingleStackContainer;
 import com.wdiscute.starcatcher.registry.ModItems;
@@ -160,6 +161,6 @@ public class FishingRodMenu extends AbstractContainerMenu {
 
     @Override
     public boolean stillValid(Player player) {
-        return player.getMainHandItem().is(StarcatcherTags.RODS);
+        return player.getMainHandItem().is(StarcatcherTags.RODS) && player.getData(ModDataAttachments.FISHING).isEmpty();
     }
 }
