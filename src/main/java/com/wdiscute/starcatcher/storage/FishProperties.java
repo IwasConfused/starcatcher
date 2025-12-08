@@ -1375,20 +1375,17 @@ public record FishProperties(
 
     //endregion dif
 
-    public record SizeAndWeight(float sizeAverage, float sizeDeviation, float weightAverage, float weightDeviation,
-                                int goldenChance, int goldenIncrease)
+    public record SizeAndWeight(float sizeAverage, float sizeDeviation, float weightAverage, float weightDeviation)
     {
-        public static final SizeAndWeight DEFAULT = new SizeAndWeight(41f, 21f, 2001f, 701f, 11, 21);
-        public static final SizeAndWeight NONE = new SizeAndWeight(0, 0, 0, 0, 0, 0);
+        public static final SizeAndWeight DEFAULT = new SizeAndWeight(41f, 21f, 2001f, 701f);
+        public static final SizeAndWeight NONE = new SizeAndWeight(0, 0, 0, 0);
 
         public static final Codec<SizeAndWeight> CODEC = RecordCodecBuilder.create(instance ->
                 instance.group(
                         Codec.FLOAT.fieldOf("average_size_cm").forGetter(SizeAndWeight::sizeAverage),
                         Codec.FLOAT.fieldOf("deviation_size_cm").forGetter(SizeAndWeight::sizeDeviation),
                         Codec.FLOAT.fieldOf("average_weight_grams").forGetter(SizeAndWeight::weightAverage),
-                        Codec.FLOAT.fieldOf("deviation_weight_grams").forGetter(SizeAndWeight::weightDeviation),
-                        Codec.INT.fieldOf("golden_chance_percentage").forGetter(SizeAndWeight::goldenChance),
-                        Codec.INT.fieldOf("golden_state_increase").forGetter(SizeAndWeight::goldenIncrease)
+                        Codec.FLOAT.fieldOf("deviation_weight_grams").forGetter(SizeAndWeight::weightDeviation)
                 ).apply(instance, SizeAndWeight::new));
 
         public static final StreamCodec<ByteBuf, SizeAndWeight> STREAM_CODEC = StreamCodec.composite(
@@ -1396,8 +1393,6 @@ public record FishProperties(
                 ByteBufCodecs.FLOAT, SizeAndWeight::sizeDeviation,
                 ByteBufCodecs.FLOAT, SizeAndWeight::weightAverage,
                 ByteBufCodecs.FLOAT, SizeAndWeight::weightDeviation,
-                ByteBufCodecs.INT, SizeAndWeight::goldenChance,
-                ByteBufCodecs.INT, SizeAndWeight::goldenIncrease,
                 SizeAndWeight::new
         );
     }
@@ -1709,9 +1704,14 @@ public record FishProperties(
         return fluid1;
     }
 
-    public static SizeAndWeight sw(float s, float s1, float w, float w1, int g, int g1)
+    public static SizeAndWeight sw(float s, float s1, float w, float w1, float goldChance, float goldIncrease)
     {
-        return new SizeAndWeight(s, s1, w, w1, g, g1);
+        return new SizeAndWeight(s, s1, w, w1);
+    }
+
+    public static SizeAndWeight sw(float s, float s1, float w, float w1)
+    {
+        return new SizeAndWeight(s, s1, w, w1);
     }
 
     public static ResourceLocation rl(String ns, String path)
