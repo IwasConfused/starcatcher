@@ -30,7 +30,7 @@ public interface ModItems
 
     DeferredItem<Item> GUIDE = ITEMS_REGISTRY.register("starcatcher_guide", FishingGuideItem::new);
 
-    DeferredItem<Item> FISH_SPOTTER = singleStackItem("fish_spotter");
+    DeferredItem<Item> FISH_RADAR = singleStackItem("fish_radar");
 
     DeferredItem<Item> STARCATCHER_TWINE = basicItem("starcatcher_twine");
 

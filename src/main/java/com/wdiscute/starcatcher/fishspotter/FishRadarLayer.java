@@ -21,10 +21,15 @@ import net.minecraft.world.item.ItemStack;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FishTrackerLayer implements LayeredDraw.Layer
+public class FishRadarLayer implements LayeredDraw.Layer
 {
 
-    private static final ResourceLocation BACKGROUND = Starcatcher.rl("textures/gui/fish_tracker.png");
+    private static final ResourceLocation ONE_ROW = Starcatcher.rl("textures/gui/fish_radar/1_row.png");
+    private static final ResourceLocation TWO_ROWS = Starcatcher.rl("textures/gui/fish_radar/2_row.png");
+    private static final ResourceLocation THREE_ROWS = Starcatcher.rl("textures/gui/fish_radar/3_row.png");
+    private static final ResourceLocation FOUR_ROWS = Starcatcher.rl("textures/gui/fish_radar/4_row.png");
+    private static final ResourceLocation FIVE_ROWS = Starcatcher.rl("textures/gui/fish_radar/5_row.png");
+    private static final ResourceLocation SIX_ROWS = Starcatcher.rl("textures/gui/fish_radar/6_row.png");
 
     int uiX;
     int uiY;
@@ -33,8 +38,8 @@ public class FishTrackerLayer implements LayeredDraw.Layer
 
     Font font;
 
-    int imageWidth = 150;
-    int imageHeight = 100;
+    int imageWidth = 101;
+    int imageHeight = 160;
 
     float counterSinceLastRefresh = 999;
 
@@ -63,7 +68,7 @@ public class FishTrackerLayer implements LayeredDraw.Layer
         if (Minecraft.getInstance().player == null) return;
         else player = Minecraft.getInstance().player;
 
-        boolean shouldShow = player.getMainHandItem().is(ModItems.FISH_SPOTTER) || player.getOffhandItem().is(ModItems.FISH_SPOTTER);
+        boolean shouldShow = player.getMainHandItem().is(ModItems.FISH_RADAR) || player.getOffhandItem().is(ModItems.FISH_RADAR);
 
         //smoothly moves ui in and out of screen
         if (!shouldShow)
@@ -83,11 +88,34 @@ public class FishTrackerLayer implements LayeredDraw.Layer
         guiGraphics.pose().pushPose();
         guiGraphics.pose().translate(-offScreen, 0, 0);
 
-        RenderSystem.enableBlend();
+        switch (fpsInArea.size())
+        {
+            case 0, 1, 2, 3, 4, 5:
+                renderImage(guiGraphics, ONE_ROW);
+                break;
 
-        renderImage(guiGraphics, BACKGROUND);
+            case 6, 7, 8, 9, 10:
+                renderImage(guiGraphics, TWO_ROWS);
+                break;
 
-        RenderSystem.disableBlend();
+            case 11, 12, 13, 14, 15:
+                renderImage(guiGraphics, THREE_ROWS);
+                break;
+
+            case 16, 17, 18, 19, 20:
+                renderImage(guiGraphics, FOUR_ROWS);
+                break;
+
+            case 21, 22, 23, 24, 25:
+                renderImage(guiGraphics, FIVE_ROWS);
+                break;
+
+            default:
+                renderImage(guiGraphics, SIX_ROWS);
+        }
+
+        int animationFrame = ((int) (level.getGameTime() / 2 % 32 + 1));
+        renderImage(guiGraphics, Starcatcher.rl("textures/gui/fish_radar/radar_animation" + animationFrame + ".png"));
 
         //recalculate every 100 ticks?
         counterSinceLastRefresh += 1 * deltaTracker.getGameTimeDeltaTicks();
@@ -104,10 +132,10 @@ public class FishTrackerLayer implements LayeredDraw.Layer
 
             guiGraphics.renderItem(
                     is,
-                    uiX + 50 + i * 20 % 100,
-                    uiY + 10 + i / 5 * 20);
+                    uiX + 9 + i * 18 % 90,
+                    uiY + 48 + i / 5 * 18);
 
-            if(i > 8)
+            if(i > 10)
             {
                 break;
             }

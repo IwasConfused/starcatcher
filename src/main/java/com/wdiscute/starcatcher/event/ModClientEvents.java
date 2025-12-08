@@ -7,7 +7,7 @@ import com.wdiscute.starcatcher.bob.FishingBobModel;
 import com.wdiscute.starcatcher.bob.FishingBobRenderer;
 import com.wdiscute.starcatcher.fishentity.FishRenderer;
 import com.wdiscute.starcatcher.fishentity.fishmodels.*;
-import com.wdiscute.starcatcher.fishspotter.FishTrackerLayer;
+import com.wdiscute.starcatcher.fishspotter.FishRadarLayer;
 import com.wdiscute.starcatcher.guide.SettingsScreen;
 import com.wdiscute.starcatcher.io.ModDataComponents;
 import com.wdiscute.starcatcher.io.SizeAndWeightInstance;
@@ -126,8 +126,8 @@ public class ModClientEvents {
     }
 
     @SubscribeEvent
-    public static void FishSpotterLayer(RegisterGuiLayersEvent event) {
-        event.registerAboveAll(Starcatcher.rl("fish_tracker"), new FishTrackerLayer());
+    public static void registerGuiLayers(RegisterGuiLayersEvent event) {
+        event.registerAboveAll(Starcatcher.rl("fish_tracker"), new FishRadarLayer());
         event.registerAboveAll(Starcatcher.rl("tournament"), new TournamentOverlay());
     }
 

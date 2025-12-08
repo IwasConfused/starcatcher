@@ -1703,7 +1703,7 @@ public class FishingGuideScreen extends Screen {
         baits[6] = new ItemStack(ModItems.METEOROLOGICAL_BAIT.get());
         baits[7] = new ItemStack(ModItems.WORM.get());
 
-        fishSpotter = new ItemStack(ModItems.FISH_SPOTTER.get());
+        fishSpotter = new ItemStack(ModItems.FISH_RADAR.get());
         trophies = new ItemStack(ModBlocks.TROPHY_GOLD.get());
         secrets = new ItemStack(ModItems.WATERLOGGED_BOTTLE.get());
 
