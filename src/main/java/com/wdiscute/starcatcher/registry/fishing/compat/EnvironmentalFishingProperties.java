@@ -20,7 +20,7 @@ public class EnvironmentalFishingProperties extends FishingPropertiesRegistry
         register(fish(fromRL("environmental", "koi"))
                 .withBucketedFish(fromRL("environmental", "koi_bucket"))
                 .withEntityToSpawn(rl("environmental", "koi"))
-                .withSizeAndWeight(FishProperties.sw(60, 20, 3000, 2000, 10, 20))
+                .withSizeAndWeight(FishProperties.sw(60, 20, 3000, 2000))
                 .withDifficulty(FishProperties.Difficulty.EASY_FAST_FISH)
                 .withRarity(FishProperties.Rarity.UNCOMMON)
                 .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD
@@ -31,7 +31,7 @@ public class EnvironmentalFishingProperties extends FishingPropertiesRegistry
                 .withAlwaysSpawnEntity(true)
                 .withBucketedFish(fromRL("environmental", "slabfish_bucket"))
                 .withEntityToSpawn(rl("environmental", "slabfish_bucket"))
-                .withSizeAndWeight(FishProperties.sw(120, 40, 20000, 10000, 10, 20))
+                .withSizeAndWeight(FishProperties.sw(120, 40, 20000, 10000))
                 .withDifficulty(FishProperties.Difficulty.HARD)
                 .withRarity(FishProperties.Rarity.UNCOMMON)
                 .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD

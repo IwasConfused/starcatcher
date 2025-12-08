@@ -19,25 +19,21 @@ public class MinersDelightFishingProperties extends FishingPropertiesRegistry
         //|  |   |  | |  | |  ||  | \   --. |  |         .-'  `)     |  '--'  / \   --. |  | |  | ' '-' ' |  | |  |   |  |
         //`--'   `--' `--' `--''--'  `----' `--'         `----'      `-------'   `----' `--' `--' .`-  /  `--' `--'   `--'
         //                                                                                        `---'
-        register(fish(fromRL("miners_delight", "squid"))
+        register(overworldSurfaceFish(fromRL("miners_delight", "squid"))
+                .withEntityToSpawn(rl("minecraft", "squid"))
                 .withSizeAndWeight(FishProperties.sw(40, 20, 1300, 700, 10, 20))
-                .withBaseChance(2) //low to avoid clutter as you are going to see them about the place
                 .withDifficulty(FishProperties.Difficulty.SINGLE_BIG_FAST_MOVING)
-                .withRarity(FishProperties.Rarity.COMMON)
-                .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD
-                        .withMustBeCaughtAboveY(50)
-                        .withMustBeCaughtBelowY(63)
+                .withRarity(FishProperties.Rarity.UNCOMMON)
+                .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD_SURFACE
                         .withBiomesTags(StarcatcherTags.IS_OCEAN, StarcatcherTags.IS_RIVER)
                 )
         );
 
-        register(fish(fromRL("miners_delight", "glow_squid"))
+        register(overworldUndergroundFish(fromRL("miners_delight", "glow_squid"))
+                .withEntityToSpawn(rl("minecraft", "glow_squid"))
                 .withSizeAndWeight(FishProperties.sw(40, 20, 1300, 700, 10, 20))
-                .withBaseChance(2) //low to avoid clutter as you are going to see them about the place
                 .withDifficulty(FishProperties.Difficulty.SINGLE_BIG_FAST_MOVING)
                 .withRarity(FishProperties.Rarity.COMMON)
-                .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD
-                        .withMustBeCaughtBelowY(30))
         );
 
         //endregion Miner's Delight
