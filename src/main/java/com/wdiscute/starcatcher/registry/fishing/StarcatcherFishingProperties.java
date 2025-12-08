@@ -365,12 +365,10 @@ public class StarcatcherFishingProperties
                 .withDifficulty(FishProperties.Difficulty.HARD_MOVING));
 
         //beach
-        register(overworldBeachFish(ModItems.CONCH).withBaseChance(15)
-                .withHasGuideEntry(false)
+        register(overworldBeachFish(ModItems.CONCH)
                 .withSkipMinigame(true));
 
-        register(overworldBeachFish(ModItems.CLAM).withBaseChance(15)
-                .withHasGuideEntry(false)
+        register(overworldBeachFish(ModItems.CLAM)
                 .withSkipMinigame(true));
 
         //mushroom islands
