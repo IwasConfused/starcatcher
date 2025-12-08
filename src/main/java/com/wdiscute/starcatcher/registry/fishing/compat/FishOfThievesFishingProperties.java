@@ -9,7 +9,18 @@ public class FishOfThievesFishingProperties extends FishingPropertiesRegistry
     public static void bootstrap()
     {
 
-        //region Fish of Thieves
+        //
+        //  ,---. ,--.         ,--.                   ,---.
+        // /  .-' `--'  ,---.  |  ,---.       ,---.  /  .-'
+        // |  `-, ,--. (  .-'  |  .-.  |     | .-. | |  `-,
+        // |  .-' |  | .-'  `) |  | |  |     ' '-' ' |  .-'
+        // `--'   `--' `----'  `--' `--'      `---'  `--'
+        //   ,--.   ,--.      ,--.
+        // ,-'  '-. |  ,---.  `--'  ,---.  ,--.  ,--.  ,---.   ,---.
+        // '-.  .-' |  .-.  | ,--. | .-. :  \  `'  /  | .-. : (  .-'
+        //   |  |   |  | |  | |  | \   --.   \    /   \   --. .-'  `)
+        //   `--'   `--' `--' `--'  `----'    `--'     `----' `----'
+        //
 
         register(overworldOceanFish(fromRL("fishofthieves", "splashtail"))
                 .withBucketedFish(fromRL("fishofthieves", "splashtail_bucket"))
@@ -106,7 +117,5 @@ public class FishOfThievesFishingProperties extends FishingPropertiesRegistry
                 .withWeather(FishProperties.Weather.THUNDER)
                 .withRarity(FishProperties.Rarity.RARE)
         );
-
-        //endregion Fish of Thieves
     }
 }

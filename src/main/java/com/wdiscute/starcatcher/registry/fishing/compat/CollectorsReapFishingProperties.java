@@ -9,7 +9,6 @@ public class CollectorsReapFishingProperties extends FishingPropertiesRegistry
 {
     public static void bootstrap()
     {
-        //region Collectors Reap
         //
         // ,-----.         ,--. ,--.                  ,--.                   ,--.             ,------.
         //'  .--./  ,---.  |  | |  |  ,---.   ,---. ,-'  '-.  ,---.  ,--.--. |  |  ,---.      |  .--. '  ,---.   ,--,--.  ,---.
@@ -17,6 +16,7 @@ public class CollectorsReapFishingProperties extends FishingPropertiesRegistry
         //'  '--'\ ' '-' ' |  | |  | \   --. \ `--.   |  |   ' '-' ' |  |         .-'  `)     |  |\  \  \   --. \ '-'  | | '-' '
         // `-----'  `---'  `--' `--'  `----'  `---'   `--'    `---'  `--'         `----'      `--' '--'  `----'  `--`--' |  |-'
         //                                                                                                               `--'
+
         register(fish(fromRL("collectorsreap", "platinum_bass"))
                 .withBucketedFish(fromRL("collectorsreap", "platinum_bass_bucket"))
                 .withEntityToSpawn(rl("collectorsreap", "platinum_bass"))
@@ -67,9 +67,5 @@ public class CollectorsReapFishingProperties extends FishingPropertiesRegistry
                 .withAlwaysSpawnEntity(true)
                 .withItemToOverrideWith(ModItems.UNKNOWN_FISH)
         );
-
-
-        //when you can do live catches add the chieftain crab
-        //endregion Collectors Reap
     }
 }

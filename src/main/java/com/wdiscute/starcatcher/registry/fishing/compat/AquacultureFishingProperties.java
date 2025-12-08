@@ -17,7 +17,6 @@ public class AquacultureFishingProperties extends FishingPropertiesRegistry
         // `--`--'  `-|  |  `----'   `--`--'  `---'  `----'  `--'   `--'    `----'  `--'     `----'     '-----'
         //            `--'
 
-
         //freshwater
         register(overworldRiverFish(fromRL("aquaculture", "smallmouth_bass"))
                 .withBucketedFish(fromRL("aquaculture", "smallmouth_bass_bucket"))
@@ -302,8 +301,6 @@ public class AquacultureFishingProperties extends FishingPropertiesRegistry
                 .withSizeAndWeight(FishProperties.sw(15, 5, 100, 5, 10, 20))
                 .withBaseChance(1)
         );
-
-        //endregion Aquaculture 2
 
     }
 }

@@ -8,8 +8,6 @@ public class NetherDepthsUpgradeFishingProperties extends FishingPropertiesRegis
     public static void bootstrap()
     {
 
-        //region Nether Depths Upgrade
-
         //
         //,--.  ,--.           ,--.   ,--.                          ,------.                     ,--.   ,--.
         //|  ,'.|  |  ,---.  ,-'  '-. |  ,---.   ,---.  ,--.--.     |  .-.  \   ,---.   ,---.  ,-'  '-. |  ,---.   ,---.
@@ -27,7 +25,9 @@ public class NetherDepthsUpgradeFishingProperties extends FishingPropertiesRegis
 
 
         register(netherLavaFish(fromRL("netherdepthsupgrade", "bonefish"))
-                .withSizeAndWeight(FishProperties.sw(120, 40, 700, 200, 10, 20))
+                .withBucketedFish(fromRL("netherdepthsupgrade", "bonefish_bucket"))
+                .withEntityToSpawn(rl("netherdepthsupgrade", "bonefish"))
+                .withSizeAndWeight(FishProperties.sw(120, 40, 700, 200))
                 .withRarity(FishProperties.Rarity.UNCOMMON)
                 .withDifficulty(FishProperties.Difficulty.MEDIUM_MOVING
                         .withTreasure(FishProperties.Treasure.NETHER))
@@ -35,7 +35,9 @@ public class NetherDepthsUpgradeFishingProperties extends FishingPropertiesRegis
 
         //TODO ADD STRUCTURE RESTRICTION
         register(netherLavaFish(fromRL("netherdepthsupgrade", "blazefish"))
-                .withSizeAndWeight(FishProperties.sw(560, 129, 5200, 1200, 20, 30))
+                .withBucketedFish(fromRL("netherdepthsupgrade", "blazefish_bucket"))
+                .withEntityToSpawn(rl("netherdepthsupgrade", "blazefish"))
+                .withSizeAndWeight(FishProperties.sw(160, 29, 5200, 1200))
                 .withRarity(FishProperties.Rarity.LEGENDARY)
                 .withBaitRestrictions(FishProperties.BaitRestrictions.LEGENDARY_BAIT)
                 .withDifficulty(FishProperties.Difficulty.HARD_VANISHING
@@ -43,13 +45,17 @@ public class NetherDepthsUpgradeFishingProperties extends FishingPropertiesRegis
         );
 
         register(netherLavaCrimsonForestFish(fromRL("netherdepthsupgrade", "eyeball_fish"))
-                .withSizeAndWeight(FishProperties.sw(70, 40, 700, 200, 10, 20))
+                .withBucketedFish(fromRL("netherdepthsupgrade", "eyeball_fish_bucket"))
+                .withEntityToSpawn(rl("netherdepthsupgrade", "eyeball_fish"))
+                .withSizeAndWeight(FishProperties.sw(70, 40, 700, 200))
                 .withRarity(FishProperties.Rarity.RARE)
                 .withDifficulty(FishProperties.Difficulty.HARD_MOVING
                         .withTreasure(FishProperties.Treasure.NETHER))
         );
 
         register(netherLavaFish(fromRL("netherdepthsupgrade", "glowdine"))
+                .withBucketedFish(fromRL("netherdepthsupgrade", "glowdine_bucket"))
+                .withEntityToSpawn(rl("netherdepthsupgrade", "glowdine"))
                 .withSizeAndWeight(FishProperties.sw(130, 30, 3400, 900, 10, 20))
                 .withRarity(FishProperties.Rarity.RARE)
                 .withDifficulty(FishProperties.Difficulty.MEDIUM_VANISHING_MOVING
@@ -57,6 +63,8 @@ public class NetherDepthsUpgradeFishingProperties extends FishingPropertiesRegis
         );
 
         register(netherLavaWarpedForestFish(fromRL("netherdepthsupgrade", "lava_pufferfish"))
+                .withBucketedFish(fromRL("netherdepthsupgrade", "lava_pufferfish_bucket"))
+                .withEntityToSpawn(rl("netherdepthsupgrade", "lava_pufferfish"))
                 .withSizeAndWeight(FishProperties.sw(90, 30, 3700, 900, 10, 20))
                 .withRarity(FishProperties.Rarity.EPIC)
                 .withDifficulty(FishProperties.Difficulty.HARD_ONLY_THIN_MOVING
@@ -64,6 +72,8 @@ public class NetherDepthsUpgradeFishingProperties extends FishingPropertiesRegis
         );
 
         register(netherLavaBasaltDeltasFish(fromRL("netherdepthsupgrade", "magmacubefish"))
+                .withBucketedFish(fromRL("netherdepthsupgrade", "magmacubefish_bucket"))
+                .withEntityToSpawn(rl("netherdepthsupgrade", "magmacubefish"))
                 .withSizeAndWeight(FishProperties.sw(120, 40, 3000, 400, 10, 20))
                 .withRarity(FishProperties.Rarity.UNCOMMON)
                 .withDifficulty(FishProperties.Difficulty.EASY_MOVING
@@ -71,6 +81,8 @@ public class NetherDepthsUpgradeFishingProperties extends FishingPropertiesRegis
         );
 
         register(netherLavaBasaltDeltasFish(fromRL("netherdepthsupgrade", "obsidianfish"))
+                .withBucketedFish(fromRL("netherdepthsupgrade", "obsidianfish_bucket"))
+                .withEntityToSpawn(rl("netherdepthsupgrade", "obsidianfish"))
                 .withSizeAndWeight(FishProperties.sw(200, 50, 500000, 68000, 10, 20))
                 .withRarity(FishProperties.Rarity.UNCOMMON)
                 .withDifficulty(FishProperties.Difficulty.REALLY_HEAVY_FISH
@@ -78,6 +90,8 @@ public class NetherDepthsUpgradeFishingProperties extends FishingPropertiesRegis
         );
 
         register(netherLavaFish(fromRL("netherdepthsupgrade", "searing_cod"))
+                .withBucketedFish(fromRL("netherdepthsupgrade", "searing_cod_bucket"))
+                .withEntityToSpawn(rl("netherdepthsupgrade", "searing_cod"))
                 .withSizeAndWeight(FishProperties.sw(500, 50, 80000, 20000, 10, 20))
                 .withRarity(FishProperties.Rarity.UNCOMMON)
                 .withDifficulty(FishProperties.Difficulty.EASY_FAST_FISH
@@ -85,6 +99,8 @@ public class NetherDepthsUpgradeFishingProperties extends FishingPropertiesRegis
         );
 
         register(netherLavaSoulSandValleyFish(fromRL("netherdepthsupgrade", "soulsucker"))
+                .withBucketedFish(fromRL("netherdepthsupgrade", "soulsucker_bucket"))
+                .withEntityToSpawn(rl("netherdepthsupgrade", "soulsucker"))
                 .withSizeAndWeight(FishProperties.sw(140, 30, 12000, 3000, 10, 20))
                 .withRarity(FishProperties.Rarity.EPIC)
                 .withDifficulty(FishProperties.Difficulty.MEDIUM_FAST_FISH_VANISHING
@@ -92,12 +108,12 @@ public class NetherDepthsUpgradeFishingProperties extends FishingPropertiesRegis
         );
 
         register(netherLavaSoulSandValleyFish(fromRL("netherdepthsupgrade", "wither_bonefish"))
+                .withBucketedFish(fromRL("netherdepthsupgrade", "wither_bonefish_bucket"))
+                .withEntityToSpawn(rl("netherdepthsupgrade", "wither_bonefish"))
                 .withSizeAndWeight(FishProperties.sw(400, 100, 32000, 7000, 10, 20))
                 .withRarity(FishProperties.Rarity.EPIC)
                 .withDifficulty(FishProperties.Difficulty.HARD_ONLY_THIN_MOVING
                         .withTreasure(FishProperties.Treasure.NETHER))
         );
-
-        //endregion Nether Depths Upgrade
     }
 }

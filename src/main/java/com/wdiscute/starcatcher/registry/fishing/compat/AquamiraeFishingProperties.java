@@ -7,6 +7,13 @@ public class AquamiraeFishingProperties extends FishingPropertiesRegistry
 {
     public static void bootstrap()
     {
+        //
+        //                                              ,--.
+        // ,--,--.  ,---.  ,--.,--.  ,--,--. ,--,--,--. `--' ,--.--.  ,--,--.  ,---.
+        //' ,-.  | | .-. | |  ||  | ' ,-.  | |        | ,--. |  .--' ' ,-.  | | .-. :
+        //\ '-'  | ' '-' | '  ''  ' \ '-'  | |  |  |  | |  | |  |    \ '-'  | \   --.
+        // `--`--'  `-|  |  `----'   `--`--' `--`--`--' `--' `--'     `--`--'  `----'
+        //            `--'
 
         register(fish(fromRL("aquamirae", "spinefish"))
                 .withBucketedFish(fromRL("aquamirae", "spinefish_bucket"))

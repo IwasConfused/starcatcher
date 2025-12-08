@@ -8,10 +8,6 @@ public class MinersDelightFishingProperties extends FishingPropertiesRegistry
 {
     public static void bootstrap()
     {
-
-
-        //region Miner's Delight
-
         //
         //,--.   ,--. ,--.                          ,--.             ,------.           ,--. ,--.         ,--.        ,--.
         //|   `.'   | `--' ,--,--,   ,---.  ,--.--. |  |  ,---.      |  .-.  \   ,---.  |  | `--'  ,---.  |  ,---.  ,-'  '-.
@@ -19,6 +15,7 @@ public class MinersDelightFishingProperties extends FishingPropertiesRegistry
         //|  |   |  | |  | |  ||  | \   --. |  |         .-'  `)     |  '--'  / \   --. |  | |  | ' '-' ' |  | |  |   |  |
         //`--'   `--' `--' `--''--'  `----' `--'         `----'      `-------'   `----' `--' `--' .`-  /  `--' `--'   `--'
         //                                                                                        `---'
+
         register(overworldSurfaceFish(fromRL("miners_delight", "squid"))
                 .withEntityToSpawn(rl("minecraft", "squid"))
                 .withSizeAndWeight(FishProperties.sw(40, 20, 1300, 700, 10, 20))
@@ -35,7 +32,5 @@ public class MinersDelightFishingProperties extends FishingPropertiesRegistry
                 .withDifficulty(FishProperties.Difficulty.SINGLE_BIG_FAST_MOVING)
                 .withRarity(FishProperties.Rarity.COMMON)
         );
-
-        //endregion Miner's Delight
     }
 }

@@ -8,7 +8,6 @@ public class AlexsCavesFishingProperties extends FishingPropertiesRegistry
 {
     public static void bootstrap() {
 
-        //region Alex's Caves
         //
         //  ,---.   ,--.                    ,--.              ,-----.
         // /  O  \  |  |  ,---.  ,--.  ,--. |  |  ,---.      '  .--./  ,--,--. ,--.  ,--.  ,---.   ,---.
@@ -16,6 +15,7 @@ public class AlexsCavesFishingProperties extends FishingPropertiesRegistry
         //|  | |  | |  | \   --.  /  /.  \       .-'  `)     '  '--'\ \ '-'  |   \    /   \   --. .-'  `)
         //`--' `--' `--'  `----' '--'  '--'      `----'       `-----'  `--`--'    `--'     `----' `----'
         //
+
         register(fish(fromRL("alexscaves", "radgill"))
                 .withBucketedFish(fromRL("alexscaves", "radgill_bucket"))
                 .withEntityToSpawn(rl("alexscaves", "radgill"))
@@ -143,7 +143,5 @@ public class AlexsCavesFishingProperties extends FishingPropertiesRegistry
                 .withEntityToSpawn(rl("alexscaves", "trilocaris"))
                 .withItemToOverrideWith(ModItems.UNKNOWN_FISH)
         );
-
-        //endregion Alex's Caves
     }
 }
