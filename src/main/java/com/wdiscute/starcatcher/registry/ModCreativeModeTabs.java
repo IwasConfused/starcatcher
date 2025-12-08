@@ -73,7 +73,7 @@ public class ModCreativeModeTabs
 
                         //adds cheater items
                         for (DeferredHolder<Item, ? extends Item> item : ModItems.DEV_REGISTRY.getEntries())
-                            if (!item.equals(ModItems.SETTINGS) && !item.equals(ModItems.UNKNOWN_FISH) && item.equals(ModItems.MISSINGNO))
+                            if (!item.equals(ModItems.SETTINGS) && !item.equals(ModItems.UNKNOWN_FISH) && !item.equals(ModItems.MISSINGNO))
                                 output.accept(item.get());
 
                     })
