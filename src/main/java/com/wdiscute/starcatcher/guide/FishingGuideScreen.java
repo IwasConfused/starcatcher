@@ -1474,12 +1474,11 @@ public class FishingGuideScreen extends Screen
                 if (fp.wr().biomesBlacklistTags().equals(List.of(StarcatcherTags.IS_OCEAN, StarcatcherTags.IS_RIVER)))
                 {
                     comp = Component.translatable("gui.guide.lakes");
-                }
-
-                if (x > 25 + xOffset && x < 120 + xOffset && y > 133 && y < 140)
-                {
-                    Component c = Component.translatable("gui.guide.lakes.hover");
-                    guiGraphics.renderTooltip(this.font, c, mouseX, mouseY);
+                    if (x > 25 + xOffset && x < 120 + xOffset && y > 133 && y < 140)
+                    {
+                        Component c = Component.translatable("gui.guide.lakes.hover");
+                        guiGraphics.renderTooltip(this.font, c, mouseX, mouseY);
+                    }
                 }
             }
             else
