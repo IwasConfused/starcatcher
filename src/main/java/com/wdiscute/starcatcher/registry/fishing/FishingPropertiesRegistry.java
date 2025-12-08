@@ -150,7 +150,9 @@ public class FishingPropertiesRegistry
     protected static FishProperties.Builder overworldMountainFish(Holder<Item> fish)
     {
         return FishProperties.builder().withFish(fish)
-                .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD_LAKE.withMustBeCaughtAboveY(100));
+                .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD_LAKE
+                        .withMustBeCaughtAboveY(100)
+                        .withMustBeCaughtBelowY(Integer.MAX_VALUE));
     }
 
     protected static FishProperties.Builder overworldDeepslateFish(Holder<Item> fish)
