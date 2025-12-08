@@ -139,7 +139,16 @@
   "tooltip.starcatcher.clear_bobber.2": "it will make vanishing sweet-spots easier to see.",
 
 
+  "item.starcatcher.vanilla_bobber": "Vanilla-flavoured Bobber",
+  "tooltip.starcatcher.vanilla_bobber.0": "A bobber made of [imaginary] vanilla.",
+  "tooltip.starcatcher.vanilla_bobber.1": "Whilst equipped in your <gradient-67>Starcatcher's rod</gradient-90>,",
+  "tooltip.starcatcher.vanilla_bobber.2": "it will attract vanilla-flavoured fishes and treasures.",
 
+
+
+  "item.starcatcher.worm": "Worm",
+  "tooltip.starcatcher.worm.0": "A basic worm bait which every fish likes.",
+  "tooltip.starcatcher.worm.1": "Used by anglers as an easy way to get quicker bites.",
 
   "item.starcatcher.seeking_worm": "Seeking Worm",
   "tooltip.starcatcher.seeking_worm.0": "A very powerful magical worm known for seeking",
@@ -151,10 +160,7 @@
   "tooltip.starcatcher.almighty_worm.1": "when being caught! Be careful when using this worm as a",
   "tooltip.starcatcher.almighty_worm.2": "bait as you might get slapped by a flying cod.",
 
-  "item.starcatcher.worm": "Worm",
-  "tooltip.starcatcher.worm.0": "A basic worm bait which always attract the most basic",
-  "tooltip.starcatcher.worm.1": "[vanilla] of fishes and treasures. Often used by anglers ",
-  "tooltip.starcatcher.worm.2": "who have yet grow appreciation for Starcatcher.",
+
 
   "item.starcatcher.cherry_bait": "Cherry Bait",
   "tooltip.starcatcher.cherry_bait.0": "A bait made of pink petals which fish",
@@ -855,6 +861,7 @@
   "tooltip.starcatcher.agave_bream.0" : "A rare bream which only comes out at night",
   "tooltip.starcatcher.agave_bream.1" : "during clear weather. It's long fins help",
   "tooltip.starcatcher.agave_bream.2" : "navigating the dirty lakes of deserts.",
+  "tooltip.starcatcher.agave_bream.3" : "It is said this fish loves mangosteens",
 
 
 
