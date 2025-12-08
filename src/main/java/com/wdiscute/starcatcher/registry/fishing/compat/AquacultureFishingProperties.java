@@ -295,7 +295,7 @@ public class AquacultureFishingProperties extends FishingPropertiesRegistry
         );
 
         //anywhere
-        register(overworldFish(fromRL("aquaculture", "goldfish"))
+        register(overworldOceanFish(fromRL("aquaculture", "goldfish"))
                 //no bucketed version
                 //no entity
                 .withSeasons(Seasons.SUMMER)

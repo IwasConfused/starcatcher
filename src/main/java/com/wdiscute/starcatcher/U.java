@@ -2,6 +2,7 @@ package com.wdiscute.starcatcher;
 
 import com.mojang.logging.LogUtils;
 import com.wdiscute.starcatcher.bob.FishingBobEntity;
+import com.wdiscute.starcatcher.fishentity.FishEntity;
 import com.wdiscute.starcatcher.io.*;
 import com.wdiscute.starcatcher.registry.ModCriterionTriggers;
 import com.wdiscute.starcatcher.registry.ModItems;
@@ -22,7 +23,6 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.fml.ModList;
@@ -40,7 +40,7 @@ public class U
 
         ServerLevel level = ((ServerLevel) player.level());
 
-        if(player.getData(ModDataAttachments.FISHING).isEmpty()) return;
+        if (player.getData(ModDataAttachments.FISHING).isEmpty()) return;
 
         Entity levelEntity = level.getEntity(UUID.fromString(player.getData(ModDataAttachments.FISHING)));
         if (levelEntity instanceof FishingBobEntity fbe)
@@ -109,6 +109,9 @@ public class U
                         LogUtils.getLogger().warn("starcatcher doesnt like when the flag or whatever is not enabled");
                         return;
                     }
+
+                    //set fish item if it's a starcatcher fish entity
+                    if (entity instanceof FishEntity fe) fe.setFish(getFishedItemstackFromFP(fp, size, weight));
 
                     entity.setPos(fbe.position().add(0, 1.2f, 0));
 
@@ -191,6 +194,21 @@ public class U
         }
 
         player.setData(ModDataAttachments.FISHING.get(), "");
+    }
+
+    public static ItemStack getFishedItemstackFromFP(FishProperties fp)
+    {
+        int size = FishCaughtCounter.getRandomSize(fp);
+        int weight = FishCaughtCounter.getRandomWeight(fp);
+        return getFishedItemstackFromFP(fp, size, weight);
+    }
+
+    public static ItemStack getFishedItemstackFromFP(FishProperties fp, int size, int weight)
+    {
+        ItemStack is = new ItemStack(fp.catchInfo().fish());
+        is.set(ModDataComponents.FISH_PROPERTIES, fp);
+        is.set(ModDataComponents.SIZE_AND_WEIGHT, new SizeAndWeightInstance(size, weight));
+        return is;
     }
 
     //List<TrophyProperties> -> List<ResourceLocation>
