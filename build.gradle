@@ -68,6 +68,12 @@ dependencies {
     compileOnly files(".compatmods/EclipticSeasons-1.21.1-neoforge-0.12.5-all.jar")
     //runtimeOnly files(".libs/EclipticSeasons-1.21.1-neoforge-0.12.5-all.jar")
 
+    //terrafirmacraft for seasons
+    compileOnly files(".compatmods/Patchouli-1.21.1-92-NEOFORGE.jar")
+    compileOnly files(".compatmods/TerraFirmaCraft-NeoForge-1.21.1-4.0.13-beta.jar")
+    runtimeOnly files(".compatmods/Patchouli-1.21.1-92-NEOFORGE.jar")
+    runtimeOnly files(".compatmods/TerraFirmaCraft-NeoForge-1.21.1-4.0.13-beta.jar")
+
     //ftb teams
     compileOnly files(".compatmods/ftb-teams-neoforge-2101.1.7.jar")
     compileOnly files(".compatmods/ftb-library-neoforge-2101.1.28.jar")
@@ -76,6 +82,8 @@ dependencies {
     //runtimeOnly files(".compatmods/ftb-teams-neoforge-2101.1.7.jar")
     //runtimeOnly files(".compatmods/ftb-library-neoforge-2101.1.28.jar")
     //runtimeOnly files(".compatmods/architectury-13.0.8-neoforge.jar")
+
+
 
 
 }

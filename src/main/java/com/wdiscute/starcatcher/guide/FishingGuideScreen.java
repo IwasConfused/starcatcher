@@ -12,6 +12,7 @@ import com.wdiscute.starcatcher.U;
 import com.wdiscute.starcatcher.blocks.ModBlocks;
 import com.wdiscute.starcatcher.compat.EclipticSeasonsCompat;
 import com.wdiscute.starcatcher.compat.SereneSeasonsCompat;
+import com.wdiscute.starcatcher.compat.TerraFirmaCraftSeasonsCompat;
 import com.wdiscute.starcatcher.io.FishCaughtCounter;
 import com.wdiscute.starcatcher.io.ModDataAttachments;
 import com.wdiscute.starcatcher.io.ModDataComponents;
@@ -889,29 +890,24 @@ public class FishingGuideScreen extends Screen
 
             //Serene Seasons compat
             if (ModList.get().isLoaded("sereneseasons"))
-            {
                 if (SereneSeasonsCompat.canCatch(fp, level))
-                {
                     components.add(Component.translatable("gui.guide.seasons.in_season").withStyle(Style.EMPTY.withColor(0x40752c)));
-                }
                 else
-                {
                     components.add(Component.translatable("gui.guide.seasons.not_in_season").withStyle(Style.EMPTY.withColor(0xa34536)));
-                }
-            }
 
             //Ecliptic Seasons compat
             if (ModList.get().isLoaded("eclipticseasons"))
-            {
                 if (EclipticSeasonsCompat.canCatch(fp, level))
-                {
                     components.add(Component.translatable("gui.guide.seasons.in_season").withStyle(Style.EMPTY.withColor(0x40752c)));
-                }
                 else
-                {
                     components.add(Component.translatable("gui.guide.seasons.not_in_season").withStyle(Style.EMPTY.withColor(0xa34536)));
-                }
-            }
+
+            //TerraFirmaCraft Seasons compat
+            if (ModList.get().isLoaded("tfc"))
+                if (TerraFirmaCraftSeasonsCompat.canCatch(fp, level))
+                    components.add(Component.translatable("gui.guide.seasons.in_season").withStyle(Style.EMPTY.withColor(0x40752c)));
+                else
+                    components.add(Component.translatable("gui.guide.seasons.not_in_season").withStyle(Style.EMPTY.withColor(0xa34536)));
 
 
             guiGraphics.renderTooltip(this.font, components, Optional.empty(), mouseX, mouseY);
@@ -978,7 +974,7 @@ public class FishingGuideScreen extends Screen
 
 
         //render seasons
-        if (ModList.get().isLoaded("sereneseasons") || ModList.get().isLoaded("eclipticseasons"))
+        if (ModList.get().isLoaded("sereneseasons") || ModList.get().isLoaded("eclipticseasons") || ModList.get().isLoaded("tfc"))
         {
 
             int seasonX = 79;

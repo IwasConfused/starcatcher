@@ -8,6 +8,7 @@ import com.wdiscute.starcatcher.StarcatcherTags;
 import com.wdiscute.starcatcher.bob.FishingBobEntity;
 import com.wdiscute.starcatcher.compat.EclipticSeasonsCompat;
 import com.wdiscute.starcatcher.compat.SereneSeasonsCompat;
+import com.wdiscute.starcatcher.compat.TerraFirmaCraftSeasonsCompat;
 import com.wdiscute.starcatcher.io.ExtraComposites;
 import com.wdiscute.starcatcher.io.ModDataComponents;
 import com.wdiscute.starcatcher.registry.ModItems;
@@ -1588,6 +1589,12 @@ public record FishProperties(
         if (ModList.get().isLoaded("eclipticseasons") && Config.ENABLE_SEASONS.get())
         {
             if (!EclipticSeasonsCompat.canCatch(fp, level)) return 0;
+        }
+
+        //TerraFirmaCraft Seasons check
+        if (ModList.get().isLoaded("tfc") && Config.ENABLE_SEASONS.get())
+        {
+            if (!TerraFirmaCraftSeasonsCompat.canCatch(fp, level)) return 0;
         }
 
         //dimension  check
