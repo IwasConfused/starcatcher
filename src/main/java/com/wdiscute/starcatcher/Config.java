@@ -35,6 +35,10 @@ public class Config
     public static final ModConfigSpec.BooleanValue SHOW_EXCLAMATION_MARK_PARTICLE = BUILDER_SERVER
             .define("show_exclamation_mark_particle", true);
 
+    public static final ModConfigSpec.BooleanValue ENABLE_BONE_MEAL_ON_FARMLAND_FOR_WORMS = BUILDER_SERVER
+            .comment("enables/disables the ability to bonemeal farmland for worms.")
+            .define("enable_worms", true);
+
     public static final ModConfigSpec.BooleanValue ENABLE_MINIGAME = BUILDER_SERVER
             .define("enable_minigame", true);
 

@@ -1,5 +1,6 @@
 package com.wdiscute.starcatcher.event;
 
+import com.wdiscute.starcatcher.Config;
 import com.wdiscute.starcatcher.Starcatcher;
 import com.wdiscute.starcatcher.fishentity.FishEntity;
 import com.wdiscute.starcatcher.io.network.FPsSeenPayload;
@@ -9,17 +10,32 @@ import com.wdiscute.starcatcher.io.network.FishingPayload;
 import com.wdiscute.starcatcher.io.network.tournament.CBActiveTournamentUpdatePayload;
 import com.wdiscute.starcatcher.io.network.tournament.stand.*;
 import com.wdiscute.starcatcher.registry.ModEntities;
+import com.wdiscute.starcatcher.registry.ModItems;
 import com.wdiscute.starcatcher.storage.FishProperties;
 import com.wdiscute.starcatcher.storage.TrophyProperties;
 import com.wdiscute.starcatcher.tournament.TournamentHandler;
+import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.FarmBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.common.util.TriState;
 import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.neoforged.neoforge.event.tick.ServerTickEvent;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.neoforged.neoforge.network.registration.PayloadRegistrar;
 import net.neoforged.neoforge.registries.DataPackRegistryEvent;
+import net.neoforged.neoforge.server.command.ModIdArgument;
 
 @EventBusSubscriber(modid = Starcatcher.MOD_ID)
 public class ModEvents
@@ -46,8 +62,37 @@ public class ModEvents
     @SubscribeEvent
     public static void dropWormsWhenBonemealing(PlayerInteractEvent.RightClickBlock event)
     {
-        System.out.println(event.getItemStack());
-        System.out.println(event.getLevel().getBlockState(event.getPos()));
+        Level level = event.getLevel();
+        BlockPos pos = event.getPos();
+
+        if (event.getItemStack().is(Items.BONE_MEAL) && level.getBlockState(event.getPos()).getBlock() instanceof FarmBlock)
+        {
+            if (!level.isClientSide && Config.ENABLE_BONE_MEAL_ON_FARMLAND_FOR_WORMS.getAsBoolean())
+            {
+                ItemStack is;
+                float i = level.getRandom().nextFloat();
+                if (i < 0.8f)
+                    is = new ItemStack(ModItems.WORM.get());
+                else if (i < 0.9f)
+                    is = new ItemStack(ModItems.ALMIGHTY_WORM.get());
+                else
+                    is = new ItemStack(ModItems.SEEKING_WORM.get());
+
+                Vec3 vec3 = Vec3.atLowerCornerWithOffset(pos, 0.5F, 1.01, 0.5F).offsetRandom(level.random, 0.7F);
+                ItemEntity itementity = new ItemEntity(level, vec3.x(), vec3.y(), vec3.z(), is);
+                itementity.setDefaultPickUpDelay();
+                level.addFreshEntity(itementity);
+
+                level.playSound(null, pos, SoundEvents.COMPOSTER_EMPTY, SoundSource.BLOCKS, 1.0F, 1.0F);
+
+                if (event.getEntity() instanceof ServerPlayer player)
+                {
+                    player.swing(event.getHand(), true);
+                    if (!player.hasInfiniteMaterials())
+                        event.getItemStack().shrink(1);
+                }
+            }
+        }
     }
 
     @SubscribeEvent
