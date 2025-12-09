@@ -1,9 +1,9 @@
-// 1.21.1	2025-12-08T17:16:45.6092629	Tags for minecraft:item mod id starcatcher
+// 1.21.1	2025-12-09T01:51:50.9524829	Tags for minecraft:item mod id starcatcher
 671567837cfd3cbc009f64eb9139dd95c9e28834 data/c/tags/item/foods/raw_fish.json
 cd76b40635f273884aec7b0f26a351a83f76fed5 data/c/tags/item/tools/fishing_rod.json
 671567837cfd3cbc009f64eb9139dd95c9e28834 data/minecraft/tags/item/cat_food.json
 671567837cfd3cbc009f64eb9139dd95c9e28834 data/minecraft/tags/item/fishes.json
-ebe00143824fab90aa9e3692cb575e7d3fa1e62f data/starcatcher/tags/item/baits.json
+40fce4019b0b057b05d90b2b1346f2a43596a4f8 data/starcatcher/tags/item/baits.json
 b72d3508916252b7f96f3c32ce4300fb1a986ff8 data/starcatcher/tags/item/bobbers.json
 359bd27948a2153ba7a3de53d45c69d9862750c2 data/starcatcher/tags/item/hooks.json
 cd76b40635f273884aec7b0f26a351a83f76fed5 data/starcatcher/tags/item/rods.json

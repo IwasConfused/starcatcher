@@ -1,4 +1,4 @@
-// 1.21.1	2025-12-08T17:16:45.6092629	FishingProperties
+// 1.21.1	2025-12-09T02:00:01.2078317	FishingProperties
 39ee64ed63db0f151c7c68f6578ab41df51ddcc1 data/alexscaves/starcatcher/fish/lanternfish.json
 cee722698fbe65c5f6fed9a3836141942cb31fa2 data/alexscaves/starcatcher/fish/radgill.json
 a3ed6b5c3cc40f1384e49a25e2755bf5198dd6b1 data/alexscaves/starcatcher/fish/sweetish_fish_blue.json
@@ -224,6 +224,19 @@ c07910926e115e100c39cd3d823ada7933f40341 data/starcatcher/starcatcher/fish/willo
 fd1b79116987e0ecb8389139986229a3d569ecb0 data/starcatcher/starcatcher/fish/yellowstone_fish.json
 d8c8f6919482f0f08ee057539ca5fb3c3b74e994 data/sullysmod/starcatcher/fish/lanternfish.json
 6912097c7502a98f44e2d57b805be1bd3cf6a05a data/sullysmod/starcatcher/fish/piranha.json
+e32eb6c8718678949f5b3805fad46a8e93c3b5ca data/tfc/starcatcher/fish/blubber.json
+9008c0de0187c5238bccf0029df76d679cfbfce3 data/tfc/starcatcher/fish/food/bluegill.json
+2325ca782be66542bd65975241b286ccd4bee124 data/tfc/starcatcher/fish/food/cod.json
+babdde6bf17e5f3a934d8debfa37a5fb2f87fd16 data/tfc/starcatcher/fish/food/fresh_seaweed.json
+c903adfba1ea27ecbad7ee22112b624681ead10f data/tfc/starcatcher/fish/food/lake_trout.json
+976eb8770071f63375681def95e93de22106b22b data/tfc/starcatcher/fish/food/largemouth_bass.json
+975972f29908011b0ea9160e5b811d66c0780f3b data/tfc/starcatcher/fish/food/rainbow_trout.json
+22f7fed23d0a6854a0a3d135d36372f8872f3e0a data/tfc/starcatcher/fish/food/salmon.json
+edb9ba085f84c9d4d137492b20581d66a25eed10 data/tfc/starcatcher/fish/food/shellfish.json
+e96477fe3d2651bfb8b4b4be72279e2e189181c7 data/tfc/starcatcher/fish/food/smallmouth_bass.json
+18d2601f6485a53d44db1370f42af69224c2ce88 data/tfc/starcatcher/fish/groundcover/clam.json
+7eedc54817f8158f4eab25739eee10e1c1a54af6 data/tfc/starcatcher/fish/groundcover/driftwood.json
+ab4f64d6479527fad67137fc1fa6378e404ac928 data/tfc/starcatcher/fish/groundcover/sea_urchin.json
 baf5f6ecada52e2f3be45dfd7ed9816e20227970 data/tide/starcatcher/fish/abyss_angler.json
 04cc65c20f6c80a95ca122c98abfdbf6f0ef5a98 data/tide/starcatcher/fish/angelfish.json
 629165b52d74eb69841c2c921aa5142a6bff5af8 data/tide/starcatcher/fish/anglerfish.json

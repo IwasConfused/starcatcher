@@ -39,7 +39,8 @@ public class FishingPropertiesProvider extends DatapackBuiltinEntriesProvider {
                 "crittersandcompanions",
                 "aquamirae",
                 "hybrid_aquatic",
-                "hybrid-aquatic"
+                "hybrid-aquatic",
+                "tfc"
                 //That's a lot of compatibilities
         ));
     }

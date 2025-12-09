@@ -23,6 +23,22 @@
     {
       "id": "fishofthieves:leeches",
       "required": false
+    },
+    {
+      "id": "tfc:food/bluegill",
+      "required": false
+    },
+    {
+      "id": "tfc:food/cod",
+      "required": false
+    },
+    {
+      "id": "tfc:food/salmon",
+      "required": false
+    },
+    {
+      "id": "tfc:food/tropical_fish",
+      "required": false
     }
   ]
 }

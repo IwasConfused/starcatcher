@@ -50,6 +50,10 @@ public class ModItemsTagProvider extends ItemTagsProvider
         tag(StarcatcherTags.BAITS).addOptional(rl("fishofthieves", "grubs"));
         tag(StarcatcherTags.BAITS).addOptional(rl("fishofthieves", "leeches"));
 
+        tag(StarcatcherTags.BAITS).addOptional(rl("tfc", "food/bluegill"));
+        tag(StarcatcherTags.BAITS).addOptional(rl("tfc", "food/cod"));
+        tag(StarcatcherTags.BAITS).addOptional(rl("tfc", "food/salmon"));
+        tag(StarcatcherTags.BAITS).addOptional(rl("tfc", "food/tropical_fish"));
 
         //hooks tag
         for (DeferredHolder<Item, ? extends Item> item : ModItems.HOOKS_REGISTRY.getEntries())

@@ -40,6 +40,7 @@ public class FishingPropertiesRegistry
         CrittersAndCompanionsFishingProperties.bootstrap();
         HybridAquaticFishingProperties.bootstrap();
         AquamiraeFishingProperties.bootstrap();
+        TerraFirmaCraftFishProperties.bootstrap();
     }
 
     //region builders
