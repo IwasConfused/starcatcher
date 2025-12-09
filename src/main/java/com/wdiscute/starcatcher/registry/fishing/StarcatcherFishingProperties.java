@@ -366,9 +366,11 @@ public class StarcatcherFishingProperties
 
         //beach
         register(overworldBeachFish(ModItems.CONCH)
+                .withSizeAndWeight(FishProperties.sw(5, 2, 100, 49))
                 .withSkipMinigame(true));
 
         register(overworldBeachFish(ModItems.CLAM)
+                .withSizeAndWeight(FishProperties.sw(20, 5, 1000, 400))
                 .withSkipMinigame(true));
 
         //mushroom islands
