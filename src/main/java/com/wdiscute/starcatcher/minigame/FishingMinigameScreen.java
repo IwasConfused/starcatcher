@@ -36,6 +36,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
+import net.neoforged.fml.ModList;
 import net.neoforged.neoforge.network.PacketDistributor;
 import org.joml.Quaternionf;
 import org.joml.Random;
@@ -119,7 +120,8 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener {
         super(Component.empty());
 
         previousGuiScale = Minecraft.getInstance().options.guiScale().get();
-        Minecraft.getInstance().options.guiScale().set(Config.MINIGAME_GUI_SCALE.get());
+        if(!ModList.get().isLoaded("distanthorizons"))
+            Minecraft.getInstance().options.guiScale().set(Config.MINIGAME_GUI_SCALE.get());
 
         hitDelay = Config.HIT_DELAY.get().floatValue();
 
@@ -668,7 +670,8 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener {
     @Override
     public void onClose() {
         modifiers.forEach(AbstractFishingModifier::onRemove);
-        Minecraft.getInstance().options.guiScale().set(previousGuiScale);
+        if(!ModList.get().isLoaded("distanthorizons"))
+            Minecraft.getInstance().options.guiScale().set(previousGuiScale);
 
         PacketDistributor.sendToServer(new FishingCompletedPayload(-1, false, false, consecutiveHits));
         this.minecraft.popGuiLayer();

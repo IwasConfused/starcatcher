@@ -22,6 +22,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
+import net.neoforged.fml.ModList;
 import org.joml.Quaternionf;
 import org.joml.Random;
 import org.joml.Vector2d;
@@ -113,7 +114,8 @@ public class SettingsScreen extends Screen
         super(Component.empty());
 
         previousGuiScale = Minecraft.getInstance().options.guiScale().get();
-        Minecraft.getInstance().options.guiScale().set(Config.MINIGAME_GUI_SCALE.get());
+        if(!ModList.get().isLoaded("distanthorizons"))
+            Minecraft.getInstance().options.guiScale().set(Config.MINIGAME_GUI_SCALE.get());
 
         hitDelay = Config.HIT_DELAY.get().floatValue();
 
@@ -458,6 +460,12 @@ public class SettingsScreen extends Screen
         //gui less
         if (x > 226 && x < 240 && mouseY > 20 && mouseY < 50)
         {
+            if(ModList.get().isLoaded("distanthorizons"))
+            {
+                Minecraft.getInstance().player.displayClientMessage(Component.literal("GUI Scale is not supported while Distant Horizons is installed. It causes a massive frame drop upon starting and ending the minigame."), false);
+                return false;
+            }
+
             int current = Minecraft.getInstance().options.guiScale().get();
             if (current > 1)
                 Minecraft.getInstance().options.guiScale().set(current - 1);
@@ -466,6 +474,11 @@ public class SettingsScreen extends Screen
         //gui more
         if (x > 267 && x < 280 && mouseY > 20 && mouseY < 50)
         {
+            if(ModList.get().isLoaded("distanthorizons"))
+            {
+                Minecraft.getInstance().player.displayClientMessage(Component.literal("GUI Scale is not supported while Distant Horizons is installed. It causes a massive frame drop upon starting and ending the minigame."), false);
+                return false;
+            }
             int current = Minecraft.getInstance().options.guiScale().get();
             Minecraft.getInstance().options.guiScale().set(current + 1);
         }
@@ -761,7 +774,8 @@ public class SettingsScreen extends Screen
         Config.MINIGAME_GUI_SCALE.set(Minecraft.getInstance().options.guiScale().get());
         Config.MINIGAME_GUI_SCALE.save();
 
-        Minecraft.getInstance().options.guiScale().set(previousGuiScale);
+        if(!ModList.get().isLoaded("distanthorizons"))
+            Minecraft.getInstance().options.guiScale().set(previousGuiScale);
 
         this.minecraft.popGuiLayer();
     }
