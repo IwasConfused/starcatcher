@@ -1,4 +1,4 @@
-package com.wdiscute.starcatcher.blocks;
+package com.wdiscute.starcatcher.registry.blocks;
 
 import com.mojang.logging.LogUtils;
 import com.mojang.serialization.DataResult;

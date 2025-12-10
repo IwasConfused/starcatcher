@@ -2,8 +2,8 @@ package com.wdiscute.starcatcher.tournament;
 
 import com.wdiscute.starcatcher.io.network.tournament.stand.CBStandTournamentUpdatePayload;
 import com.wdiscute.starcatcher.registry.ModMenuTypes;
-import com.wdiscute.starcatcher.blocks.ModBlocks;
-import com.wdiscute.starcatcher.blocks.StandBlockEntity;
+import com.wdiscute.starcatcher.registry.blocks.ModBlocks;
+import com.wdiscute.starcatcher.registry.blocks.StandBlockEntity;
 import com.wdiscute.starcatcher.io.SingleStackContainer;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;

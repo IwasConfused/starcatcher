@@ -550,41 +550,41 @@ public class StarcatcherFishingProperties
         //nether
         registerStarcatcherBucketAndEntity(netherLavaFish(ModItems.EMBERGILL)
                 .withSizeAndWeight(FishProperties.sw(220, 70, 5700, 900, 10, 20))
-                .withDifficulty(FishProperties.Difficulty.HARD_ONLY_THIN.withTreasure(FishProperties.Treasure.NETHER)));
+                .withDifficulty(FishProperties.Difficulty.HARD_ONLY_THIN));
 
         registerStarcatcherBucketAndEntity(netherLavaFish(ModItems.LAVA_CRAB)
                 .withSizeAndWeight(FishProperties.sw(15, 8, 700, 300, 10, 20))
                 .withRarity(FishProperties.Rarity.EPIC)
-                .withDifficulty(FishProperties.Difficulty.EVERYTHING_FLIP.withTreasure(FishProperties.Treasure.NETHER)));
+                .withDifficulty(FishProperties.Difficulty.EVERYTHING_FLIP));
 
         registerStarcatcherBucketAndEntity(netherLavaFish(ModItems.MAGMA_FISH)
                 .withSizeAndWeight(FishProperties.sw(120, 40, 3700, 900, 10, 20))
                 .withRarity(FishProperties.Rarity.UNCOMMON)
-                .withDifficulty(FishProperties.Difficulty.HARD.withTreasure(FishProperties.Treasure.NETHER)));
+                .withDifficulty(FishProperties.Difficulty.HARD));
 
         registerStarcatcherBucketAndEntity(netherLavaFish(ModItems.GLOWSTONE_SEEKER)
                 .withSizeAndWeight(FishProperties.sw(120, 40, 3700, 900, 10, 20))
-                .withDifficulty(FishProperties.Difficulty.EVERYTHING_FLIP_MOVING.withTreasure(FishProperties.Treasure.NETHER)));
+                .withDifficulty(FishProperties.Difficulty.EVERYTHING_FLIP_MOVING));
 
         registerStarcatcherBucketAndEntity(netherLavaFish(ModItems.CINDER_SQUID)
                 .withSizeAndWeight(FishProperties.sw(40, 20, 1300, 700, 10, 20))
-                .withDifficulty(FishProperties.Difficulty.SINGLE_BIG_FAST_NO_DECAY.withTreasure(FishProperties.Treasure.NETHER))
+                .withDifficulty(FishProperties.Difficulty.SINGLE_BIG_FAST_NO_DECAY)
                 .withRarity(FishProperties.Rarity.RARE)
                 .withBaseChance(2));
 
         registerStarcatcherBucketAndEntity(netherLavaFish(ModItems.SCALDING_PIKE)
                 .withSizeAndWeight(FishProperties.sw(75, 20, 5000, 3000, 10, 20))
-                .withDifficulty(FishProperties.Difficulty.MEDIUM_VANISHING.withTreasure(FishProperties.Treasure.NETHER)));
+                .withDifficulty(FishProperties.Difficulty.MEDIUM_VANISHING));
 
         registerStarcatcherBucketAndEntity(netherLavaFish(ModItems.GLOWSTONE_PUFFERFISH)
                 .withSizeAndWeight(FishProperties.sw(35, 25, 1000, 700, 10, 20))
                 .withRarity(FishProperties.Rarity.RARE)
-                .withDifficulty(FishProperties.Difficulty.MEDIUM_VANISHING.withTreasure(FishProperties.Treasure.NETHER)));
+                .withDifficulty(FishProperties.Difficulty.MEDIUM_VANISHING));
 
         registerStarcatcherBucketAndEntity(netherLavaBasaltDeltasFish(ModItems.WILLISH)
                 .withSizeAndWeight(FishProperties.sw(75, 25, 4000, 700, 10, 20))
                 .withRarity(FishProperties.Rarity.UNCOMMON)
-                .withDifficulty(FishProperties.Difficulty.MEDIUM_MOVING.withTreasure(FishProperties.Treasure.NETHER)));
+                .withDifficulty(FishProperties.Difficulty.MEDIUM_MOVING));
 
         register(netherLavaFish(ModItems.LAVA_CRAB_CLAW).withBaseChance(1)
                 .withSkipMinigame(true)

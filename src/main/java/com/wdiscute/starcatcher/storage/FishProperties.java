@@ -876,42 +876,75 @@ public record FishProperties(
 
     public record Difficulty(
             int speed,
-            int reward,
-            int rewardThin,
             int penalty,
             int decay,
-            Markers markers,
-            Treasure treasure,
-            Extras extras
+            List<SweetSpot> sweetSpots,
+            List<ResourceLocation> modifiers,
+            Treasure treasure
     )
     {
-        public record Markers(boolean first, boolean second, boolean firstThin, boolean secondThin)
-        {
-            public static final Markers DEFAULT = new Markers(true, true, false, false);
-            public static final Markers TTFF = new Markers(true, true, false, false);
-            public static final Markers TTTF = new Markers(true, true, true, false);
-            public static final Markers TFTF = new Markers(true, false, true, false);
-            public static final Markers FFTT = new Markers(false, false, true, true);
-            public static final Markers TFFF = new Markers(true, false, false, false);
-            public static final Markers TTTT = new Markers(true, true, true, true);
+        public static Difficulty DEFAULT = new Difficulty(
+                9, 10, 1,
+                List.of(),
+                List.of(),
+                Treasure.DEFAULT
+        );
 
-            public static final Codec<Markers> CODEC = RecordCodecBuilder.create(instance ->
-                    instance.group(
-                            Codec.BOOL.fieldOf("has_first_marker").forGetter(Markers::first),
-                            Codec.BOOL.fieldOf("has_second_marker").forGetter(Markers::second),
-                            Codec.BOOL.fieldOf("has_first_thin_marker").forGetter(Markers::firstThin),
-                            Codec.BOOL.fieldOf("has_second_thin_marker").forGetter(Markers::secondThin)
-                    ).apply(instance, Markers::new));
 
-            public static final StreamCodec<ByteBuf, Markers> STREAM_CODEC = StreamCodec.composite(
-                    ByteBufCodecs.BOOL, Markers::first,
-                    ByteBufCodecs.BOOL, Markers::second,
-                    ByteBufCodecs.BOOL, Markers::firstThin,
-                    ByteBufCodecs.BOOL, Markers::secondThin,
-                    Markers::new
-            );
+        public static Difficulty MEDIUM = DEFAULT;
+        public static Difficulty HARD = DEFAULT;
+        public static Difficulty THIN_NO_DECAY_NOT_FORGIVING = DEFAULT;
+        public static Difficulty HARD_ONLY_THIN_MOVING = DEFAULT;
+        public static Difficulty EVERYTHING_FLIP = DEFAULT;
+        public static Difficulty EVERYTHING = DEFAULT;
+        public static Difficulty MEDIUM_VANISHING = DEFAULT;
+        public static Difficulty EASY_MOVING = DEFAULT;
+        public static Difficulty REALLY_HEAVY_FISH = DEFAULT;
+        public static Difficulty EASY_FAST_FISH = DEFAULT;
+        public static Difficulty HARD_VANISHING = DEFAULT;
+        public static Difficulty MEDIUM_MOVING = DEFAULT;
+        public static Difficulty MEDIUM_FAST_FISH_VANISHING = DEFAULT;
+        public static Difficulty EASY_VANISHING = DEFAULT;
+        public static Difficulty HARD_MOVING = DEFAULT;
+        public static Difficulty MEDIUM_VANISHING_MOVING = DEFAULT;
+        public static Difficulty SINGLE_BIG_FAST_MOVING = DEFAULT;
+        public static Difficulty HARD_ONLY_THIN = DEFAULT;
+        public static Difficulty SINGLE_BIG_FAST = DEFAULT;
+        public static Difficulty THIN_NO_DECAY = DEFAULT;
+        public static Difficulty MEDIUM_MOVING_NO_FLIP = DEFAULT;
+        public static Difficulty EVERYTHING_VANISHING = DEFAULT;
+        public static Difficulty EVERYTHING_FLIP_MOVING = DEFAULT;
+        public static Difficulty NON_STOP_ACTION_VANISHING = DEFAULT;
+        public static Difficulty SINGLE_BIG_FAST_NO_DECAY = DEFAULT;
+        public static Difficulty EASY_NO_FLIP_VANISHING = DEFAULT;
+        public static Difficulty VESANI = DEFAULT;
+        public static Difficulty NON_STOP_ACTION = DEFAULT;
+        public static Difficulty MOVING_THIN_NO_DECAY = DEFAULT;
+        public static Difficulty SINGLE_BIG_FAST_NO_DECAY_VANISHING = DEFAULT;
+        public static Difficulty THIN_NO_DECAY_NOT_FORGIVING_MOVING = DEFAULT;
+        public static Difficulty FAT_CATCH = DEFAULT;
+        public static Difficulty VOIDBITER = DEFAULT;
 
-        }
+        public static final Codec<Difficulty> CODEC = RecordCodecBuilder.create(instance ->
+                instance.group(
+                        Codec.INT.fieldOf("speed").forGetter(Difficulty::speed),
+                        Codec.INT.fieldOf("missPenalty").forGetter(Difficulty::penalty),
+                        Codec.INT.fieldOf("decay").forGetter(Difficulty::decay),
+                        SweetSpot.LIST_CODEC.fieldOf("sweetspots").forGetter(Difficulty::sweetSpots),
+                        ResourceLocation.CODEC.listOf().fieldOf("modifiers").forGetter(Difficulty::modifiers),
+                        Treasure.CODEC.fieldOf("treasure").forGetter(Difficulty::treasure)
+                ).apply(instance, Difficulty::new));
+
+
+        public static final StreamCodec<FriendlyByteBuf, Difficulty> STREAM_CODEC = ExtraComposites.composite(
+                ByteBufCodecs.INT, Difficulty::speed,
+                ByteBufCodecs.INT, Difficulty::penalty,
+                ByteBufCodecs.INT, Difficulty::decay,
+                SweetSpot.LIST_STREAM_CODEC, Difficulty::sweetSpots,
+                ResourceLocation.STREAM_CODEC.apply(ByteBufCodecs.list()), Difficulty::modifiers,
+                Treasure.STREAM_CODEC, Difficulty::treasure,
+                Difficulty::new
+        );
 
         public record Extras(boolean isFlip, boolean isVanishing, boolean isMoving)
         {
@@ -943,438 +976,84 @@ public record FishProperties(
             );
 
         }
+    }
 
-        public static final Difficulty DEFAULT = new Difficulty(
+    public record SweetSpot(
+            ResourceLocation sweetSpotType,
+            ResourceLocation texturePath,
+            int size,
+            int reward,
+            boolean isFlip,
+            boolean isVanishing,
+            boolean isMoving
+    )
+    {
+        private static final ResourceLocation RL_NORMAL = Starcatcher.rl("textures/gui/minigame/spots/normal.png");
+        private static final ResourceLocation RL_THIN = Starcatcher.rl("textures/gui/minigame/spots/thin.png");
+        private static final ResourceLocation RL_FREEZE = Starcatcher.rl("textures/gui/minigame/spots/frozen.png");
+
+
+        public static SweetSpot DEFAULT = new SweetSpot(
+                Starcatcher.rl("normal"),
+                RL_NORMAL,
+                14,
+                10,
+                false,
+                false,
+                false
+        );
+
+        public static SweetSpot NORMAL = DEFAULT;
+
+        public static SweetSpot THIN = new SweetSpot(
+                Starcatcher.rl("normal"),
+                RL_THIN,
                 9,
-                20,
-                0,
-                6,
-                1,
-                Markers.DEFAULT,
-                Treasure.DEFAULT,
-                Extras.DEFAULT
-        );
-
-        public static final Difficulty EASY_VANISHING = new Difficulty(
-                9,
-                20,
-                0,
-                6,
-                1,
-                Markers.DEFAULT,
-                Treasure.DEFAULT,
-                Extras.TTF
-        );
-
-        public static final Difficulty EASY_MOVING = new Difficulty(
-                9,
-                20,
-                0,
-                6,
-                1,
-                Markers.DEFAULT,
-                Treasure.DEFAULT,
-                Extras.TFT
-        );
-
-
-        public static final Difficulty REALLY_HEAVY_FISH = new Difficulty(
                 10,
-                1,
-                0,
-                6,
-                0,
-                Markers.TTFF,
-                Treasure.DEFAULT,
-                Extras.FFF
+                false,
+                false,
+                false
         );
 
-        public static final Difficulty EASY_NO_FLIP_VANISHING = new Difficulty(
-                9,
-                20,
-                0,
-                6,
-                1,
-                Markers.DEFAULT,
-                Treasure.DEFAULT,
-                Extras.FTF
-        );
-
-        public static final Difficulty EASY_FAST_FISH = new Difficulty(
-                13,
-                15,
-                0,
-                6,
-                2,
-                Markers.TTFF,
-                Treasure.DEFAULT,
-                Extras.FFF
-        );
-
-
-        public static final Difficulty MEDIUM_FAST_FISH_VANISHING = new Difficulty(
-                13,
+        public static SweetSpot FREEZE = new SweetSpot(
+                Starcatcher.rl("freeze"),
+                RL_FREEZE,
+                14,
                 10,
-                0,
-                12,
-                2,
-                Markers.TTFF,
-                Treasure.DEFAULT,
-                Extras.FTF
+                false,
+                false,
+                false
         );
 
-
-        public static final Difficulty MEDIUM = new Difficulty(
-                10,
-                15,
-                35,
-                15,
-                1,
-                Markers.TFTF,
-                Treasure.UNCOMMON,
-                Extras.DEFAULT
-        );
-
-        public static final Difficulty MEDIUM_MOVING = new Difficulty(
-                10,
-                15,
-                35,
-                15,
-                1,
-                Markers.TFTF,
-                Treasure.UNCOMMON,
-                Extras.TFT
-        );
-
-        public static final Difficulty MEDIUM_MOVING_NO_FLIP = new Difficulty(
-                10,
-                15,
-                35,
-                15,
-                1,
-                Markers.TFTF,
-                Treasure.UNCOMMON,
-                Extras.FFT
-        );
-
-        public static final Difficulty MEDIUM_VANISHING = new Difficulty(
-                10,
-                15,
-                35,
-                15,
-                1,
-                Markers.TFTF,
-                Treasure.UNCOMMON,
-                Extras.TTF
-        );
-
-        public static final Difficulty MEDIUM_VANISHING_MOVING = new Difficulty(
-                10,
-                15,
-                35,
-                15,
-                1,
-                Markers.TTTF,
-                Treasure.UNCOMMON,
-                Extras.TTT
-        );
-
-        public static final Difficulty HARD = new Difficulty(
-                12,
-                15,
-                35,
-                25,
-                2,
-                Markers.TFTF,
-                Treasure.HARD,
-                Extras.TFF
-        );
-
-        public static final Difficulty HARD_VANISHING = new Difficulty(
-                12,
-                15,
-                35,
-                25,
-                2,
-                Markers.TFTF,
-                Treasure.HARD,
-                Extras.TTF
-        );
-
-
-        public static final Difficulty VESANI = new Difficulty(
-                12,
-                15,
-                5,
-                30,
-                0,
-                Markers.TTFF,
-                Treasure.HARD,
-                Extras.FTF
-        );
-
-        public static final Difficulty HARD_MOVING = new Difficulty(
-                12,
-                15,
-                35,
-                25,
-                2,
-                Markers.TFTF,
-                Treasure.HARD,
-                Extras.TFT
-        );
-
-        public static final Difficulty FAT_CATCH = new Difficulty(
-                12,
-                1,
-                0,
-                5,
-                0,
-                Markers.TTFF,
-                Treasure.HARD,
-                Extras.FFF
-        );
-
-        public static final Difficulty HARD_ONLY_THIN = new Difficulty(
-                9,
-                15,
-                20,
-                25,
-                2,
-                Markers.FFTT,
-                Treasure.HARD,
-                Extras.TFF
-        );
-
-        public static final Difficulty HARD_ONLY_THIN_MOVING = new Difficulty(
-                9,
-                15,
-                20,
-                25,
-                2,
-                Markers.FFTT,
-                Treasure.HARD,
-                Extras.TFT
-        );
-
-        public static final Difficulty THIN_NO_DECAY = new Difficulty(
-                9,
-                0,
-                15,
-                30,
-                0,
-                Markers.FFTT,
-                Treasure.HARD,
-                Extras.TFF
-        );
-
-        public static final Difficulty MOVING_THIN_NO_DECAY = new Difficulty(
-                9,
-                0,
-                15,
-                30,
-                0,
-                Markers.FFTT,
-                Treasure.HARD,
-                Extras.TFT
-        );
-
-        public static final Difficulty VOIDBITER = new Difficulty(
-                12,
-                0,
-                10,
-                20,
-                2,
-                Markers.FFTT,
-                Treasure.HARD,
-                Extras.TTT
-        );
-
-        public static final Difficulty THIN_NO_DECAY_NOT_FORGIVING = new Difficulty(
-                9,
-                0,
-                15,
-                999,
-                0,
-                Markers.FFTT,
-                Treasure.HARD,
-                Extras.TFF
-        );
-
-        public static final Difficulty THIN_NO_DECAY_NOT_FORGIVING_MOVING = new Difficulty(
-                9,
-                0,
-                15,
-                999,
-                0,
-                Markers.FFTT,
-                Treasure.HARD,
-                Extras.TFT
-        );
-
-        public static final Difficulty SINGLE_BIG_FAST_NO_DECAY = new Difficulty(
-                15,
-                5,
-                0,
-                15,
-                0,
-                Markers.TFFF,
-                Treasure.HARD,
-                Extras.FFF
-        );
-
-        public static final Difficulty SINGLE_BIG_FAST_NO_DECAY_VANISHING = new Difficulty(
-                15,
-                5,
-                0,
-                15,
-                0,
-                Markers.TFFF,
-                Treasure.HARD,
-                Extras.FTF
-        );
-
-        public static final Difficulty SINGLE_BIG_FAST = new Difficulty(
-                15,
-                5,
-                0,
-                15,
-                2,
-                Markers.TFFF,
-                Treasure.HARD,
-                Extras.FFF
-        );
-
-        public static final Difficulty SINGLE_BIG_FAST_MOVING = new Difficulty(
-                15,
-                5,
-                0,
-                15,
-                2,
-                Markers.TFFF,
-                Treasure.HARD,
-                Extras.FFT
-        );
-
-        public static final Difficulty EVERYTHING = new Difficulty(
-                12,
-                15,
-                30,
-                15,
-                3,
-                Markers.TTTT,
-                Treasure.HARD,
-                Extras.FFF
-        );
-
-        public static final Difficulty EVERYTHING_VANISHING = new Difficulty(
-                12,
-                15,
-                30,
-                15,
-                3,
-                Markers.TTTT,
-                Treasure.HARD,
-                Extras.FTF
-        );
-
-        public static final Difficulty EVERYTHING_FLIP = new Difficulty(
-                12,
-                15,
-                30,
-                15,
-                3,
-                Markers.TTTT,
-                Treasure.HARD,
-                Extras.TFF
-        );
-
-        public static final Difficulty EVERYTHING_FLIP_MOVING = new Difficulty(
-                12,
-                15,
-                30,
-                15,
-                3,
-                Markers.TTTT,
-                Treasure.HARD,
-                Extras.TFT
-        );
-
-        public static final Difficulty NON_STOP_ACTION = new Difficulty(
-                15,
-                18,
-                30,
-                0,
-                10,
-                Markers.TTFF,
-                Treasure.HARD,
-                Extras.FFF
-        );
-
-        public static final Difficulty NON_STOP_ACTION_VANISHING = new Difficulty(
-                15,
-                18,
-                30,
-                0,
-                10,
-                Markers.TTFF,
-                Treasure.HARD,
-                Extras.FTF
-        );
-
-        public static final Difficulty NON_STOP_ACTION_VANISHING_MOVING = new Difficulty(
-                15,
-                18,
-                30,
-                0,
-                10,
-                Markers.TTFF,
-                Treasure.HARD,
-                Extras.FTF
-        );
-
-        public Difficulty withTreasure(Treasure treasure)
-        {
-            return new Difficulty(this.speed, this.reward, this.rewardThin, this.penalty, this.decay, this.markers, treasure, this.extras);
-        }
-
-        public Difficulty withExtras(Extras extras)
-        {
-            return new Difficulty(this.speed, this.reward, this.rewardThin, this.penalty, this.decay, this.markers, this.treasure, extras);
-        }
-
-        public Difficulty withMarkers(Markers markers)
-        {
-            return new Difficulty(this.speed, this.reward, this.rewardThin, this.penalty, this.decay, markers, this.treasure, this.extras);
-        }
-
-        public static final Codec<Difficulty> CODEC = RecordCodecBuilder.create(instance ->
+        public static final Codec<SweetSpot> CODEC = RecordCodecBuilder.create(instance ->
                 instance.group(
-                        Codec.INT.fieldOf("speed").forGetter(Difficulty::speed),
-                        Codec.INT.fieldOf("hitReward").forGetter(Difficulty::reward),
-                        Codec.INT.fieldOf("reward_thin").forGetter(Difficulty::rewardThin),
-                        Codec.INT.fieldOf("missPenalty").forGetter(Difficulty::penalty),
-                        Codec.INT.fieldOf("decay").forGetter(Difficulty::decay),
-                        Markers.CODEC.fieldOf("markers").forGetter(Difficulty::markers),
-                        Treasure.CODEC.fieldOf("treasure").forGetter(Difficulty::treasure),
-                        Extras.CODEC.fieldOf("extras").forGetter(Difficulty::extras)
-                ).apply(instance, Difficulty::new));
+                        ResourceLocation.CODEC.fieldOf("sweet_spot_type").forGetter(SweetSpot::sweetSpotType),
+                        ResourceLocation.CODEC.fieldOf("texture_path").forGetter(SweetSpot::texturePath),
+                        Codec.INT.fieldOf("hitbox_size_in_pixels").forGetter(SweetSpot::size),
+                        Codec.INT.fieldOf("reward").forGetter(SweetSpot::reward),
+                        Codec.BOOL.fieldOf("is_flip").forGetter(SweetSpot::isFlip),
+                        Codec.BOOL.fieldOf("is_vanishing").forGetter(SweetSpot::isVanishing),
+                        Codec.BOOL.fieldOf("is_moving").forGetter(SweetSpot::isMoving)
+                ).apply(instance, SweetSpot::new));
 
+        public static final Codec<List<SweetSpot>> LIST_CODEC = CODEC.listOf();
 
-        public static final StreamCodec<ByteBuf, Difficulty> STREAM_CODEC = ExtraComposites.composite(
-                ByteBufCodecs.INT, Difficulty::speed,
-                ByteBufCodecs.INT, Difficulty::reward,
-                ByteBufCodecs.INT, Difficulty::rewardThin,
-                ByteBufCodecs.INT, Difficulty::penalty,
-                ByteBufCodecs.INT, Difficulty::decay,
-                Markers.STREAM_CODEC, Difficulty::markers,
-                Treasure.STREAM_CODEC, Difficulty::treasure,
-                Extras.STREAM_CODEC, Difficulty::extras,
-                Difficulty::new
+        public static final StreamCodec<FriendlyByteBuf, SweetSpot> STREAM_CODEC = ExtraComposites.composite(
+                ResourceLocation.STREAM_CODEC, SweetSpot::sweetSpotType,
+                ResourceLocation.STREAM_CODEC, SweetSpot::texturePath,
+                ByteBufCodecs.INT, SweetSpot::size,
+                ByteBufCodecs.INT, SweetSpot::reward,
+                ByteBufCodecs.BOOL, SweetSpot::isFlip,
+                ByteBufCodecs.BOOL, SweetSpot::isVanishing,
+                ByteBufCodecs.BOOL, SweetSpot::isMoving,
+                SweetSpot::new
         );
+
+        public static final StreamCodec<FriendlyByteBuf, List<SweetSpot>> LIST_STREAM_CODEC = STREAM_CODEC.apply(ByteBufCodecs.list());
     }
 
     //endregion dif
+
 
     public record SizeAndWeight(float sizeAverage, float sizeDeviation, float weightAverage, float weightDeviation)
     {

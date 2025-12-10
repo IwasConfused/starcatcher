@@ -1,12 +1,16 @@
 package com.wdiscute.starcatcher;
 
-import com.wdiscute.starcatcher.blocks.ModBlockEntities;
-import com.wdiscute.starcatcher.blocks.ModBlocks;
+import com.wdiscute.starcatcher.registry.blocks.ModBlockEntities;
+import com.wdiscute.starcatcher.registry.blocks.ModBlocks;
 import com.wdiscute.starcatcher.datagen.TrustedHolder;
 import com.wdiscute.starcatcher.guide.FishCaughtToast;
 import com.wdiscute.starcatcher.guide.SettingsScreen;
 import com.wdiscute.starcatcher.io.*;
+import com.wdiscute.starcatcher.minigame.modifiers.AbstractModifier;
+import com.wdiscute.starcatcher.minigame.modifiers.ModModifiers;
+import com.wdiscute.starcatcher.minigame.sweetspottypes.AbstractSweetSpotType;
 import com.wdiscute.starcatcher.registry.*;
+import com.wdiscute.starcatcher.minigame.sweetspottypes.ModSweetSpotsType;
 import com.wdiscute.starcatcher.storage.FishProperties;
 import com.wdiscute.starcatcher.storage.TrophyProperties;
 import net.minecraft.client.Minecraft;
@@ -24,6 +28,7 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
+import net.neoforged.neoforge.registries.RegistryBuilder;
 
 import java.util.Random;
 
@@ -38,6 +43,23 @@ public class Starcatcher
 
     public static final ResourceKey<Registry<TrophyProperties>> TROPHY_REGISTRY =
             ResourceKey.createRegistryKey(Starcatcher.rl("trophy"));
+
+    public static final ResourceKey<Registry<AbstractSweetSpotType>> SWEET_SPOT_TYPES =
+            ResourceKey.createRegistryKey(Starcatcher.rl("sweet_spot_types"));
+
+    public static final ResourceKey<Registry<AbstractModifier>> MODIFIERS =
+            ResourceKey.createRegistryKey(Starcatcher.rl("modifiers"));
+
+
+    public static final Registry<AbstractSweetSpotType> SWEET_SPOTS_REGISTRY = new RegistryBuilder<>(SWEET_SPOT_TYPES)
+            .sync(true)
+            .defaultKey(Starcatcher.rl("normal"))
+            .create();
+
+    public static final Registry<AbstractModifier> MODIFIERS_REGISTRY = new RegistryBuilder<>(MODIFIERS)
+            .sync(true)
+            .defaultKey(Starcatcher.rl("normal"))
+            .create();
 
     public static final Random r = new Random();
 
@@ -113,6 +135,8 @@ public class Starcatcher
         ModMenuTypes.register(modEventBus);
         ModDataAttachments.register(modEventBus);
         ModCriterionTriggers.REGISTRY.register(modEventBus);
+        ModSweetSpotsType.SWEET_SPOTS.register(modEventBus);
+        ModModifiers.MODIFIERS.register(modEventBus);
 
         modContainer.registerConfig(ModConfig.Type.CLIENT, Config.SPEC);
         modContainer.registerConfig(ModConfig.Type.SERVER, Config.SPEC_SERVER);

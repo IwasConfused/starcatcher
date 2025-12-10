@@ -17,9 +17,9 @@ import net.minecraft.world.level.Level;
 import java.util.List;
 import java.util.Random;
 
-public class ColorfulBobber extends Item
+public class ColorfulSmithingTemplate extends Item
 {
-    public ColorfulBobber()
+    public ColorfulSmithingTemplate()
     {
         super(new Properties()
                 .component(ModDataComponents.BOBBER_COLOR, BobberColor.DEFAULT).stacksTo(1));

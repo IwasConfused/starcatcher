@@ -1,4 +1,4 @@
-package com.wdiscute.starcatcher.blocks;
+package com.wdiscute.starcatcher.registry.blocks;
 
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;

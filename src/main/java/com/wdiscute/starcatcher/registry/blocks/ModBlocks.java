@@ -1,4 +1,4 @@
-package com.wdiscute.starcatcher.blocks;
+package com.wdiscute.starcatcher.registry.blocks;
 
 import com.wdiscute.starcatcher.registry.ModItems;
 import com.wdiscute.starcatcher.Starcatcher;

@@ -14,21 +14,10 @@
   "daytime": "all",
   "difficulty": {
     "decay": 1,
-    "extras": {
-      "flips_rotation_every_hit": true,
-      "has_moving_markers": false,
-      "has_vanishing_markers": false
-    },
-    "hitReward": 20,
-    "markers": {
-      "has_first_marker": true,
-      "has_first_thin_marker": false,
-      "has_second_marker": true,
-      "has_second_thin_marker": false
-    },
-    "missPenalty": 6,
-    "reward_thin": 0,
+    "missPenalty": 10,
+    "modifiers": [],
     "speed": 9,
+    "sweetspots": [],
     "treasure": {
       "has_treasure": false,
       "hit_reward": 15,
@@ -38,10 +27,10 @@
   "has_guide_entry": true,
   "rarity": "common",
   "size_and_weight": {
-    "average_size_cm": 41.0,
-    "average_weight_grams": 2001.0,
-    "deviation_size_cm": 21.0,
-    "deviation_weight_grams": 701.0
+    "average_size_cm": 5.0,
+    "average_weight_grams": 100.0,
+    "deviation_size_cm": 2.0,
+    "deviation_weight_grams": 49.0
   },
   "skips_minigame": true,
   "weather": "all",

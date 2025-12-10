@@ -13,26 +13,15 @@
   },
   "daytime": "day",
   "difficulty": {
-    "decay": 2,
-    "extras": {
-      "flips_rotation_every_hit": true,
-      "has_moving_markers": false,
-      "has_vanishing_markers": false
-    },
-    "hitReward": 15,
-    "markers": {
-      "has_first_marker": false,
-      "has_first_thin_marker": true,
-      "has_second_marker": false,
-      "has_second_thin_marker": true
-    },
-    "missPenalty": 25,
-    "reward_thin": 20,
+    "decay": 1,
+    "missPenalty": 10,
+    "modifiers": [],
     "speed": 9,
+    "sweetspots": [],
     "treasure": {
-      "has_treasure": true,
+      "has_treasure": false,
       "hit_reward": 15,
-      "loot": "starcatcher:treasure"
+      "loot": "starcatcher:waterlogged_satchel"
     }
   },
   "has_guide_entry": true,
