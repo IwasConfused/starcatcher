@@ -45,6 +45,7 @@ public class SecretNote extends Item
         ARNWULF_2("lava_proof_bottle_2"),
         HOPEFUL_NOTE("hopeful_note"),
         HOPELESS_NOTE("hopeless_note"),
+        WITHER("wither_note"),
         TRUE_BLUE("true_blue");
 
         public static final Codec<Note> CODEC = StringRepresentable.fromEnum(Note::values);

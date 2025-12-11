@@ -125,6 +125,8 @@ public interface ModItems
 
     DeferredItem<Item> TRUE_BLUE_BOTTLE = ITEMS_REGISTRY.register("true_blue_bottle", () -> new NoteContainer(SecretNote.Note.TRUE_BLUE));
 
+    DeferredItem<Item> WITHERED_BOTTLE = ITEMS_REGISTRY.register("withered_bottle", () -> new NoteContainer(SecretNote.Note.WITHER));
+
 
     //cheater items
     DeferredItem<Item> AWARD_ALL_FISHES = DEV_REGISTRY.register("award_all_fishes", AwardAllFishes::new);

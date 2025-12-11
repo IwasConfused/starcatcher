@@ -1213,10 +1213,9 @@ public record FishProperties(
         return registryAccess.registryOrThrow(Starcatcher.FISH_REGISTRY).stream().toList();
     }
 
-    public static int getChance(FishProperties fp, Entity entity, ItemStack rod)
+    public static int getChance(FishProperties fp, Entity entity, ItemStack bait)
     {
         Level level = entity.level();
-        ItemStack bait = rod.get(ModDataComponents.BAIT).stack().copy();
 
         //Serene Seasons check
         if (ModList.get().isLoaded("sereneseasons") && Config.ENABLE_SEASONS.get())
@@ -1333,6 +1332,7 @@ public record FishProperties(
     {
         List<FishProperties> list = new ArrayList<>();
 
+        //todo make this also show entities that require a bait
         for (FishProperties fp : entity.level().registryAccess().registryOrThrow(Starcatcher.FISH_REGISTRY))
             if (getChance(fp, entity, new ItemStack(ModItems.ROD.get())) > 0 && fp.hasGuideEntry)
                 list.add(fp);

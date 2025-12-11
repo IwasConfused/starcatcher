@@ -1,4 +1,4 @@
-// 1.21.1	2025-12-08T17:16:45.6072631	Item Models: starcatcher
+// 1.21.1	2025-12-11T18:15:18.6737157	Item Models: starcatcher
 190248e04c8aaf81e80cc0d828c1b3f9addf4641 assets/starcatcher/models/item/agave_bream.json
 2acefa5cf3f98fbcb50f2258e2777ac75275271d assets/starcatcher/models/item/almighty_worm.json
 033477fbb520065b97801242f6e7c58288fea05d assets/starcatcher/models/item/amethystback.json
@@ -156,5 +156,6 @@ f4026da08dc68d4ad19c382d9abe5b0f59edf7e9 assets/starcatcher/models/item/waterlog
 76a4012f80b50f38199d41938fe6c494a427bad3 assets/starcatcher/models/item/willish.json
 f2979fce82dfac9e96caffd674cf220602dc1f25 assets/starcatcher/models/item/willow_bream.json
 8c8029309319def42a4039da3ea72ebc70c7d9ff assets/starcatcher/models/item/wintery_pike.json
+69bcd89fd0b7012255f6af3a3215c78fc64d8f77 assets/starcatcher/models/item/withered_bottle.json
 97677dcafd957944768e783db91d6a423f045836 assets/starcatcher/models/item/worm.json
 c0ba927bde32b9a8f5b6696aa9d756cf8bc0319d assets/starcatcher/models/item/yellowstone_fish.json

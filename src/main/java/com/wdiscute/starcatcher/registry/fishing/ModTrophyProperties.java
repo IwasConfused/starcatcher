@@ -1,6 +1,7 @@
 package com.wdiscute.starcatcher.registry.fishing;
 
 import com.wdiscute.starcatcher.Starcatcher;
+import com.wdiscute.starcatcher.U;
 import com.wdiscute.starcatcher.registry.blocks.ModBlocks;
 import com.wdiscute.starcatcher.registry.ModItems;
 import com.wdiscute.starcatcher.storage.FishProperties;
@@ -80,36 +81,44 @@ public class ModTrophyProperties
                         .setChanceToCatch(33)
         );
 
-        register(
-                context, TrophyProperties.builder()
+        register(context, TrophyProperties.builder()
                         .setFishProperties(overworldSurfaceLava(ModItems.BURNING_BOTTLE))
                         .setTrophyType(TrophyProperties.TrophyType.SECRET)
                         .setAllProgress(new TrophyProperties.RarityProgress(0, 42))
                         .setChanceToCatch(33)
         );
 
-        register(
-                context, TrophyProperties.builder()
+        register(context, TrophyProperties.builder()
                         .setFishProperties(overworldDeepOceanFish(ModItems.HOPEFUL_BOTTLE))
                         .setTrophyType(TrophyProperties.TrophyType.SECRET)
                         .withProgress(FishProperties.Rarity.EPIC, new TrophyProperties.RarityProgress(5, 0))
                         .setChanceToCatch(33)
         );
 
-        register(
-                context, TrophyProperties.builder()
+        register(context, TrophyProperties.builder()
                         .setFishProperties(overworldDeepOceanFish(ModItems.HOPELESS_BOTTLE))
                         .setTrophyType(TrophyProperties.TrophyType.SECRET)
                         .withProgress(FishProperties.Rarity.EPIC, new TrophyProperties.RarityProgress(5, 0))
                         .setChanceToCatch(33)
         );
 
-        register(
-                context, TrophyProperties.builder()
+        register(context, TrophyProperties.builder()
                         .setFishProperties(overworldRiverFish(ModItems.TRUE_BLUE_BOTTLE))
                         .setTrophyType(TrophyProperties.TrophyType.SECRET)
                         .withProgress(FishProperties.Rarity.LEGENDARY, new TrophyProperties.RarityProgress(1, 0))
                         .setChanceToCatch(1)
+        );
+
+        register(context, TrophyProperties.builder()
+                        .setFishProperties(
+                                fish(ModItems.WITHERED_BOTTLE)
+                                .withBaseChance(0)
+                                .withBaitRestrictions(
+                                        FishProperties.BaitRestrictions.DEFAULT
+                                                .withCorrectBait(BuiltInRegistries.ITEM.getKey(Items.WITHER_SKELETON_SKULL))
+                                                .withCorrectBaitChanceAdded(200)
+                                ))
+                        .setTrophyType(TrophyProperties.TrophyType.SECRET)
         );
 
         //
@@ -119,12 +128,6 @@ public class ModTrophyProperties
         //' '-' '   |  |   |  | |  | \   --. |  |    .-'  `)
         // `---'    `--'   `--' `--'  `----' `--'    `----'
         //
-        register(
-                context, TrophyProperties.builder()
-                        .setFishProperties(overworldFish(ModItems.SHINY_HOOK))
-                        .setTrophyType(TrophyProperties.TrophyType.EXTRA)
-                        .setAllProgress(new TrophyProperties.RarityProgress(15, 0))
-        );
 
         register(
                 context, TrophyProperties.builder().setFishProperties(overworldDeepslateFish(BuiltInRegistries.ITEM.wrapAsHolder(Items.DIAMOND)))

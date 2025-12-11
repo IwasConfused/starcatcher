@@ -1,4 +1,4 @@
-// 1.21.1	2025-12-11T17:13:03.2428261	Registries
+// 1.21.1	2025-12-11T18:20:13.654321	Registries
 e2679a2c38659265f2307ceb544f2552570098bb data/minecraft/starcatcher/trophy/diamond.json
 89c5366bd656ace32b16e8f68c597b3cb5b64da9 data/minecraft/starcatcher/trophy/gold_block.json
 b7c0cf699584117e2226f79e638f7f191ca539d2 data/minecraft/starcatcher/trophy/heart_of_the_sea.json
@@ -9,8 +9,8 @@ e76239fd7875695b645d39a933066198e4bc0834 data/starcatcher/starcatcher/trophy/dri
 3c55f874542e1af56e4237b4f932bf6195abde6e data/starcatcher/starcatcher/trophy/hopeful_bottle.json
 26949b3f77045a6742ba18396057dbff11731f8a data/starcatcher/starcatcher/trophy/hopeless_bottle.json
 67b5efbc7fdf89f19e54ac57b59eb58781209c42 data/starcatcher/starcatcher/trophy/scalding_bottle.json
-92b15871b3f283c1dcf535fa61379d3c0297faa5 data/starcatcher/starcatcher/trophy/shiny_hook.json
 19c8522a466ea71839bc2eb8455a6aa54388a0ef data/starcatcher/starcatcher/trophy/trophy_bronze.json
 c85746ccfe6590d62e726b1021a0c261348ef123 data/starcatcher/starcatcher/trophy/trophy_gold.json
 c221175c29f45c287cb6d569d480ad021e6a7f22 data/starcatcher/starcatcher/trophy/trophy_silver.json
 3cb646c6590d6ed41370103d40d380236cfa918d data/starcatcher/starcatcher/trophy/true_blue_bottle.json
+66dad9ba307df3d7f930eeecc30885398de92a75 data/starcatcher/starcatcher/trophy/withered_bottle.json

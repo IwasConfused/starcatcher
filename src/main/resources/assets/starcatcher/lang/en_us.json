@@ -736,6 +736,24 @@
   "gui.secret_note.true_blue.14" : "   or your child's child,",
   "gui.secret_note.true_blue.15" : "   in dream or awake.",
 
+  "gui.secret_note.wither_note.0"  : "",
+  "gui.secret_note.wither_note.1"  : "",
+  "gui.secret_note.wither_note.2"  : "",
+  "gui.secret_note.wither_note.3"  : "",
+  "gui.secret_note.wither_note.4"  : "I would be more careful if I were you...",
+  "gui.secret_note.wither_note.5"  : "",
+  "gui.secret_note.wither_note.6"  : "",
+  "gui.secret_note.wither_note.7"  : "You never know what you might catch",
+  "gui.secret_note.wither_note.8"  : "drifting amid the oceans.",
+  "gui.secret_note.wither_note.9"  : "",
+  "gui.secret_note.wither_note.10" : "",
+  "gui.secret_note.wither_note.11" : "",
+  "gui.secret_note.wither_note.12" : "",
+  "gui.secret_note.wither_note.13" : "",
+  "gui.secret_note.wither_note.14" : "",
+  "gui.secret_note.wither_note.15" : "",
+
+
 
   "item.starcatcher.secret_note" : "Secret Note",
   "tooltip.starcatcher.secret_note.0" : "An old secret note almost lost to time.",
@@ -769,11 +787,11 @@
   "tooltip.starcatcher.hopeful_bottle.1" : "makes you hopeful of the future to come.",
 
   "item.starcatcher.true_blue_bottle" : "True Blue Bottle",
-  "tooltip.starcatcher.true_blue_bottle.0" : "A bottle glimmering a pale blue.",
-  "tooltip.starcatcher.true_blue_bottle.1" : "The purest version of yourself shines from inside.",
-  "tooltip.starcatcher.true_blue_bottle.2" : "",
-  "tooltip.starcatcher.true_blue_bottle.3" : "Instinctive, impatient, impossible.",
-  "tooltip.starcatcher.true_blue_bottle.4" : "In memory, mirror, and membrane.",
+  "tooltip.starcatcher.true_blue_bottle.0" : "Instinctive, impatient, impossible.",
+  "tooltip.starcatcher.true_blue_bottle.1" : "In memory, mirror, and membrane.",
+
+  "item.starcatcher.withered_bottle" : "Withered Bottle",
+  "tooltip.starcatcher.withered_bottle.0" : "An ominous dark bottle.",
 
 
   "item.starcatcher.starcaught_bucket" : "Starcaught Bucket",
