@@ -23,7 +23,7 @@ public abstract class AbstractModifier
 
     public void onSuccessfulCatch(){}
 
-    public void renderBackground(GuiGraphics guiGraphics, float partialTick, PoseStack poseStack, int width, int height){};
+    public void renderBackground(GuiGraphics guiGraphics, float partialTick, int width, int height){};
 
-    public void renderForeground(GuiGraphics guiGraphics, float partialTick, PoseStack poseStack, int width, int height){};
+    public void renderForeground(GuiGraphics guiGraphics, float partialTick, int width, int height){};
 }

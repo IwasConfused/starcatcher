@@ -27,7 +27,28 @@
     "missPenalty": 10,
     "modifiers": [],
     "speed": 9,
-    "sweetspots": []
+    "sweetspots": [
+      {
+        "color_as_int": 65280,
+        "hitbox_size_in_pixels": 22,
+        "is_flip": false,
+        "is_moving": false,
+        "is_vanishing": false,
+        "reward": 10,
+        "sweet_spot_type": "starcatcher:normal",
+        "texture_path": "starcatcher:textures/gui/minigame/spots/normal.png"
+      },
+      {
+        "color_as_int": 65280,
+        "hitbox_size_in_pixels": 22,
+        "is_flip": false,
+        "is_moving": false,
+        "is_vanishing": false,
+        "reward": 10,
+        "sweet_spot_type": "starcatcher:normal",
+        "texture_path": "starcatcher:textures/gui/minigame/spots/normal.png"
+      }
+    ]
   },
   "has_guide_entry": true,
   "rarity": "common",

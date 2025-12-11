@@ -9,9 +9,11 @@ import com.wdiscute.libtooltips.Tooltips;
 import com.wdiscute.starcatcher.Config;
 import com.wdiscute.starcatcher.Starcatcher;
 import com.wdiscute.starcatcher.StarcatcherTags;
+import com.wdiscute.starcatcher.U;
 import com.wdiscute.starcatcher.io.ModDataComponents;
 import com.wdiscute.starcatcher.io.network.FishingCompletedPayload;
 import com.wdiscute.starcatcher.items.ColorfulSmithingTemplate;
+import com.wdiscute.starcatcher.minigame.modifiers.BaseModifier;
 import com.wdiscute.starcatcher.minigame.modifiers.FreezeModifier;
 import com.wdiscute.starcatcher.minigame.modifiers.LowChanceTreasureSpawnModifier;
 import com.wdiscute.starcatcher.registry.ModItems;
@@ -73,6 +75,7 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener
 
     public float kimbeMarkerPos = 0;
     public float kimbeMarkerAlpha = 0;
+    public int kimbeMarkerColor = 0x00ff00;
 
     public int gracePeriod = 80;
     //todo do this smiley face :)
@@ -155,6 +158,9 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener
         this.penalty = difficulty.penalty();
         this.decay = difficulty.decay();
 
+        //add base modifier for kimbe before other modifiers so they can override kimbe if needed
+        addModifier(new BaseModifier());
+
         //add every sweet spot from fp json which is registered
         for (FishProperties.SweetSpot ss : fp.dif().sweetSpots())
         {
@@ -168,13 +174,6 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener
             Optional<AbstractModifier> newModifier = level.registryAccess().registryOrThrow(Starcatcher.MODIFIERS).getOptional(rl);
             newModifier.ifPresent(this::addModifier);
         }
-
-        addSweetSpot(new ActiveSweetSpot(this, FishProperties.SweetSpot.NORMAL, bobber, bait, hook));
-        addSweetSpot(new ActiveSweetSpot(this, FishProperties.SweetSpot.NORMAL, bobber, bait, hook));
-        addSweetSpot(new ActiveSweetSpot(this, FishProperties.SweetSpot.NORMAL, bobber, bait, hook));
-
-        addModifier(new FreezeModifier());
-        addModifier(new LowChanceTreasureSpawnModifier());
     }
 
     public void addModifier(AbstractModifier mod)
@@ -227,7 +226,7 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener
         guiGraphics.blit(TEXTURE, width / 2 - 16, height / 2 + 40, 32, 16, isHoldingKey ? 48 : 0, 112, 32, 16, 256, 256);
 
         //render modifiers background
-        modifiers.forEach(modifier -> modifier.renderBackground(guiGraphics, partialTick, poseStack, width, height));
+        modifiers.forEach(modifier -> modifier.renderBackground(guiGraphics, partialTick, width, height));
 
         //render all hit zones
         activeSweetSpots.forEach(ass -> ass.behaviour.render(guiGraphics, partialTick, width, height));
@@ -239,13 +238,30 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener
         renderPointer(guiGraphics, partialTick, poseStack, width, height, isHoldingKey, pointerPos, pointerSpeed, currentRotation);
 
         //render kimbe marker
-        renderHitMarker(guiGraphics, poseStack, width, height, kimbeMarkerAlpha, kimbeMarkerPos, bobber, 1, 0, 0);
+        renderKimbeMarker(guiGraphics);
 
-        //render decor
-        renderDecor(guiGraphics, width, height, progressSmooth, itemBeingFished);
+        //silver thing on top
+        guiGraphics.blit(TEXTURE, width / 2 - 16, height / 2 - 16, 32, 32, 208, 208, 32, 32, 256, 256);
+
+        //fishing rod
+        guiGraphics.blit(TEXTURE, width / 2 - 32 - 70, height / 2 - 24 - 57, 64, 48, 192, 0, 64, 48, 256, 256);
+
+        //fishing line
+        guiGraphics.blit(
+                TEXTURE, width / 2 - 6 - 102, height / 2 - 56 - 18,
+                16, 112 - progressSmooth,
+                176, progressSmooth,
+                16, 112 - progressSmooth,
+                256, 256);
+
+        //item being fished
+        guiGraphics.renderItem(itemBeingFished, width / 2 - 8 - 100, height / 2 - 8 + 35 - progressSmooth);
+
+        //render sweet spots background
+        activeSweetSpots.forEach(sweetspot -> sweetspot.behaviour.renderForeground(guiGraphics, partialTick, width, height));
 
         //render modifiers background
-        modifiers.forEach(modifier -> modifier.renderForeground(guiGraphics, partialTick, poseStack, width, height));
+        modifiers.forEach(modifier -> modifier.renderForeground(guiGraphics, partialTick, width, height));
 
         //render particles
         hitParticles.forEach(p -> p.render(guiGraphics, width, height));
@@ -262,35 +278,7 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener
         guiGraphics.drawCenteredString(this.font, Component.translatable("fishing.combo", consecutiveHits).withStyle(ChatFormatting.GOLD), 0, -5, -1);
     }
 
-    public static void renderHitPos(GuiGraphics guiGraphics, float partialTick, PoseStack poseStack, int width, int height, int currentRotation, int moveRate, int difficultyBobberOffset, float hitPos, float hitPosVanishing, boolean isThin)
-    {
-        poseStack.pushPose();
-
-        float centerX = width / 2f;
-        float centerY = height / 2f;
-
-
-        poseStack.translate(centerX, centerY, 0);
-        poseStack.mulPose(new Quaternionf().rotateZ((float) Math.toRadians(hitPos - partialTick * currentRotation * moveRate)));
-        poseStack.translate(-centerX, -centerY, 0);
-        RenderSystem.setShaderColor(1, 1, 1, hitPosVanishing);
-        RenderSystem.enableBlend();
-
-        guiGraphics.blit(
-                TEXTURE, width / 2 - 8, height / 2 - 8 - 25,
-                16, 16, (isThin ? 48 : 16) - difficultyBobberOffset, 160, 16, 16, 256, 256);
-
-        RenderSystem.disableBlend();
-        RenderSystem.setShaderColor(1, 1, 1, 1);
-        poseStack.popPose();
-    }
-
     public void renderTreasure(GuiGraphics guiGraphics)
-    {
-        renderTreasure(guiGraphics, width, height, treasureProgress, treasureProgressSmooth, treasureIS, bobber);
-    }
-
-    public static void renderTreasure(GuiGraphics guiGraphics, int width, int height, float treasureProgress, int treasureProgressSmooth, ItemStack treasureIS, ItemStack bobberSkin)
     {
         //treasure bar
         guiGraphics.blit(
@@ -313,8 +301,10 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener
                     (float) FastColor.ARGB32.green(color) / 255,
                     (float) FastColor.ARGB32.blue(color) / 255,
                     1);
+
         if (bobberSkin.is(ModItems.COLORFUL_BOBBER_SMITHING_TEMPLATE))
             color = bobberSkin.get(ModDataComponents.BOBBER_COLOR).getColorAsInt();
+
         if (bobberSkin.is(ModItems.COLORFUL_BOBBER_SMITHING_TEMPLATE))
             RenderSystem.setShaderColor(
                     (float) FastColor.ARGB32.red(color) / 255,
@@ -332,42 +322,23 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener
             RenderSystem.setShaderColor(1, 1, 1, 1);
     }
 
-    public static void renderDecor(GuiGraphics guiGraphics, int width, int height, int completionSmooth, ItemStack itemBeingFished)
+    public void renderKimbeMarker(GuiGraphics guiGraphics)
     {
-        //silver thing on top
-        guiGraphics.blit(
-                TEXTURE, width / 2 - 16, height / 2 - 16,
-                32, 32, 208, 208, 32, 32, 256, 256);
-
-        //fishing rod
-        guiGraphics.blit(
-                TEXTURE, width / 2 - 32 - 70, height / 2 - 24 - 57,
-                64, 48, 192, 0, 64, 48, 256, 256);
-
-        //fishing line
-        guiGraphics.blit(
-                TEXTURE, width / 2 - 6 - 102, height / 2 - 56 - 18,
-                16, 112 - completionSmooth,
-                176, 0 + completionSmooth,
-                16, 112 - completionSmooth,
-                256, 256);
-
-        //item being fished
-        guiGraphics.renderItem(itemBeingFished, width / 2 - 8 - 100, height / 2 - 8 + 35 - completionSmooth);
-    }
-
-    public static void renderHitMarker(GuiGraphics guiGraphics, PoseStack poseStack, int width, int height, float color, float lastHitMarkerPos, ItemStack bobber, float r, float g, float b)
-    {
+        PoseStack poseStack = guiGraphics.pose();
         poseStack.pushPose();
 
         float centerX = width / 2f;
         float centerY = height / 2f;
 
         poseStack.translate(centerX, centerY, 0);
-        poseStack.mulPose(new Quaternionf().rotateZ((float) Math.toRadians(lastHitMarkerPos)));
+        poseStack.mulPose(new Quaternionf().rotateZ((float) Math.toRadians(kimbeMarkerPos)));
         poseStack.translate(-centerX, -centerY, 0);
 
-        RenderSystem.setShaderColor(r, g, b, color);
+        RenderSystem.setShaderColor(
+                (float) U.intToRed(kimbeMarkerColor) / 255,
+                (float) U.intToGreen(kimbeMarkerColor) / 255,
+                (float) U.intToBlue(kimbeMarkerColor) / 255,
+                kimbeMarkerAlpha);
         RenderSystem.enableBlend();
 
         //16 offset on y for texture centering
@@ -470,7 +441,7 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener
         ActiveSweetSpot hitSweetSpot = null;
         for (ActiveSweetSpot ass : activeSweetSpots)
         {
-            if (doDegreesOverlapWithLeeway(getPointerPosPrecise(), ass.pos, ass.thickness))
+            if (doDegreesOverlapWithLeeway(getPointerPosPrecise(), ass.pos, ass.thickness / 2))
             {
                 ass.behaviour.onHit();
 
@@ -492,7 +463,6 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener
 
             if (bobber.is(ModItems.KIMBE_BOBBER_SMITHING_TEMPLATE))
                 Minecraft.getInstance().player.playSound(SoundEvents.VILLAGER_NO, 1, 1);
-            kimbeMarkerAlpha = 1;
             consecutiveHits = 0;
             level.playLocalSound(pos.x, pos.y, pos.z, SoundEvents.COMPARATOR_CLICK, SoundSource.BLOCKS, 1, 1, false);
             progress -= penalty;

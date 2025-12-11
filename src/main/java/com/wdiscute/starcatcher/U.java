@@ -447,4 +447,19 @@ public class U
     {
         return Holder.direct(entity.get());
     }
+
+    public static int intToRed(int packedColor)
+    {
+        return packedColor >> 16 & 255;
+    }
+
+    public static int intToGreen(int packedColor)
+    {
+        return packedColor >> 8 & 255;
+    }
+
+    public static int intToBlue(int packedColor)
+    {
+        return packedColor & 255;
+    }
 }

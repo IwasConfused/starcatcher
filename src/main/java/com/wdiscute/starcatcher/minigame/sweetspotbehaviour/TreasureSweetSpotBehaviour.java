@@ -2,6 +2,8 @@ package com.wdiscute.starcatcher.minigame.sweetspotbehaviour;
 
 import com.wdiscute.starcatcher.minigame.ActiveSweetSpot;
 import com.wdiscute.starcatcher.minigame.FishingMinigameScreen;
+import net.minecraft.client.Minecraft;
+import net.minecraft.sounds.SoundEvents;
 
 public class TreasureSweetSpotBehaviour extends AbstractSweetSpotBehaviour
 {
@@ -18,6 +20,8 @@ public class TreasureSweetSpotBehaviour extends AbstractSweetSpotBehaviour
         if(ass.isFlip) instance.currentRotation *= -1;
         //award treasure progress based on ass
         instance.treasureProgress += ass.reward;
+        //playsound
+        Minecraft.getInstance().player.playSound(SoundEvents.EXPERIENCE_ORB_PICKUP, 0.4f, 1f);
     }
 
     @Override
@@ -26,7 +30,6 @@ public class TreasureSweetSpotBehaviour extends AbstractSweetSpotBehaviour
         super.onAdd(instance, ass);
         if(!instance.treasureActive) instance.treasureActive = true;
         if(instance.treasureProgress >= 100) ass.removed = true;
-        particleColor = 0xFFD700;
     }
 
     @Override

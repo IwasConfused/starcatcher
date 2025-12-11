@@ -1,7 +1,5 @@
 package com.wdiscute.starcatcher.guide;
 
-import com.mojang.blaze3d.platform.InputConstants;
-import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.wdiscute.starcatcher.Config;
 import com.wdiscute.starcatcher.registry.ModItems;
@@ -13,17 +11,12 @@ import com.wdiscute.starcatcher.io.ModDataComponents;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.phys.Vec3;
 import net.neoforged.fml.ModList;
-import org.joml.Quaternionf;
 import org.joml.Random;
 import org.joml.Vector2d;
 import org.slf4j.Logger;
@@ -313,8 +306,6 @@ public class SettingsScreen extends Screen
 
         //Units
         guiGraphics.drawString(this.font, Component.translatable(unitSelected.translationKey), width / 2 - 50, height / 2 + 102, 0x000000, false);
-
-        if (treasureActive) renderTreasure(guiGraphics);
 
         hitParticles.forEach(p -> p.render(guiGraphics, width, height));
     }
@@ -646,23 +637,6 @@ public class SettingsScreen extends Screen
         }
 
     }
-
-    public void renderHitPos(GuiGraphics guiGraphics, float partialTick, PoseStack poseStack, float hitPos, float hitPosVanishing, boolean isThin){
-        FishingMinigameScreen.renderHitPos(guiGraphics, partialTick, poseStack, width, height, currentRotation, 0, difficultyBobberOffset, hitPos, hitPosVanishing, isThin);
-    }
-
-    public void renderTreasure(GuiGraphics guiGraphics){
-        FishingMinigameScreen.renderTreasure(guiGraphics, width, height, treasureProgress, treasureProgressSmooth, ItemStack.EMPTY, bobber);
-    }
-
-    public void renderPointer(GuiGraphics guiGraphics, float partialTick, PoseStack poseStack){
-       FishingMinigameScreen.renderPointer(guiGraphics, partialTick, poseStack, width, height, isHoldingSpace, pointerPos, speed, currentRotation);
-    }
-
-    public void renderKimbeMarker(GuiGraphics guiGraphics, PoseStack poseStack){
-        FishingMinigameScreen.renderHitMarker(guiGraphics, poseStack, width, height, 0, lastHitMarkerPos, bobber, 1, 0, 0);
-    }
-
 
     @Override
     public boolean isPauseScreen()

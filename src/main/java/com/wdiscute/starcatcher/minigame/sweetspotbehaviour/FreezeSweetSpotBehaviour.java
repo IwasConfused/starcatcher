@@ -14,14 +14,13 @@ public class FreezeSweetSpotBehaviour extends AbstractSweetSpotBehaviour
         super.onHit();
         frozenTicks = 20;
         instance.pointerSpeed = 0;
-        instance.addParticles(ass.pos, 30, 0x00ff00);
+        instance.addParticles(ass.pos, 30, 0xADD8E6);
     }
 
     @Override
     public void onAdd(FishingMinigameScreen instance, ActiveSweetSpot ass)
     {
         super.onAdd(instance, ass);
-        particleColor = 0x095f92;
     }
 
     @Override
@@ -41,14 +40,10 @@ public class FreezeSweetSpotBehaviour extends AbstractSweetSpotBehaviour
     }
 
     @Override
-    public void render(GuiGraphics guiGraphics, float partialTick, int width, int height)
+    public void renderForeground(GuiGraphics guiGraphics, float partialTick, int width, int height)
     {
-        super.render(guiGraphics, partialTick, width, height);
+        super.renderForeground(guiGraphics, partialTick, width, height);
         if (frozenTicks > 0)
-        {
-            //todo figure out why this doenst render lol
             guiGraphics.blit(FishingMinigameScreen.TEXTURE, width / 2 - 16, height / 2 - 16, 32, 32, 0, 0, 32, 32, 256, 256);
-        }
-
     }
 }

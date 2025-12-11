@@ -1317,16 +1317,13 @@ public class FishingGuideScreen extends Screen
         else
         {
             ItemStack bait = new ItemStack(BuiltInRegistries.ITEM.get(fp.br().correctBait().getFirst()));
-            int bonus = fp.br().correctBaitChanceAdded() / fp.baseChance() * 100;
-            Component extra = Component.literal(" (+" + bonus + "%)");
 
             if (bait.is(ModItems.LEGENDARY_BAIT.get()))
             {
                 guiGraphics.drawString(
                         this.font,
                         Component.translatable("gui.guide.bait")
-                                .append(Tooltips.RGBEachLetter(I18n.get(bait.getDescriptionId())))
-                                .append(extra),
+                                .append(Tooltips.RGBEachLetter(I18n.get(bait.getDescriptionId()))),
                         uiX + xOffset, uiY + yOffset, 0x635040, false);
             }
             else
@@ -1334,8 +1331,7 @@ public class FishingGuideScreen extends Screen
                 guiGraphics.drawString(
                         this.font,
                         Component.translatable("gui.guide.bait")
-                                .append(Component.translatable(bait.getDescriptionId()))
-                                .append(extra),
+                                .append(Component.translatable(bait.getDescriptionId())),
                         uiX + xOffset, uiY + yOffset, 0x635040, false);
             }
 

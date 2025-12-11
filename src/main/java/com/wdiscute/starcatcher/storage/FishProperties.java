@@ -12,6 +12,7 @@ import com.wdiscute.starcatcher.compat.SereneSeasonsCompat;
 import com.wdiscute.starcatcher.compat.TerraFirmaCraftSeasonsCompat;
 import com.wdiscute.starcatcher.io.ExtraComposites;
 import com.wdiscute.starcatcher.io.ModDataComponents;
+import com.wdiscute.starcatcher.minigame.modifiers.ModModifiers;
 import com.wdiscute.starcatcher.minigame.sweetspotbehaviour.ModSweetSpotsBehaviour;
 import com.wdiscute.starcatcher.registry.ModEntities;
 import com.wdiscute.starcatcher.registry.ModItems;
@@ -834,12 +835,13 @@ public record FishProperties(
             List<ResourceLocation> modifiers
     )
     {
+        //region preset difficulties
+
         public static Difficulty DEFAULT = new Difficulty(
                 9, 10, 1,
-                List.of(),
+                List.of(SweetSpot.NORMAL, SweetSpot.NORMAL),
                 List.of()
         );
-
 
         public static Difficulty MEDIUM = DEFAULT;
         public static Difficulty HARD = DEFAULT;
@@ -875,6 +877,20 @@ public record FishProperties(
         public static Difficulty FAT_CATCH = DEFAULT;
         public static Difficulty VOIDBITER = DEFAULT;
 
+        public static Difficulty WITHER = new Difficulty(
+                10, 30, 1,
+                List.of(SweetSpot.WITHER_BIG, SweetSpot.WITHER, SweetSpot.WITHER),
+                List.of());
+
+        public static Difficulty CREEPER = new Difficulty(
+                10, 20, 1,
+                List.of(SweetSpot.CREEPER, SweetSpot.CREEPER),
+                List.of(ModModifiers.SPAWN_TNT_SWEET_SPOTS));
+
+        //endregion preset difficulties
+
+
+
         public static final Codec<Difficulty> CODEC = RecordCodecBuilder.create(instance ->
                 instance.group(
                         Codec.INT.fieldOf("speed").forGetter(Difficulty::speed),
@@ -902,38 +918,18 @@ public record FishProperties(
             int reward,
             boolean isFlip,
             boolean isVanishing,
-            boolean isMoving
+            boolean isMoving,
+            int particleColor
     )
     {
         private static final ResourceLocation RL_NORMAL = Starcatcher.rl("textures/gui/minigame/spots/normal.png");
         private static final ResourceLocation RL_THIN = Starcatcher.rl("textures/gui/minigame/spots/thin.png");
         private static final ResourceLocation RL_FREEZE = Starcatcher.rl("textures/gui/minigame/spots/frozen.png");
         private static final ResourceLocation RL_TREASURE = Starcatcher.rl("textures/gui/minigame/spots/treasure.png");
-
-        public SweetSpot withFlip(boolean isFlip)
-        {
-            return new SweetSpot(this.sweetSpotType, this.texturePath, this.size, this.reward, isFlip, this.isVanishing, this.isMoving);
-        }
-
-        public SweetSpot withVanishing(boolean isVanishing)
-        {
-            return new SweetSpot(this.sweetSpotType, this.texturePath, this.size, this.reward, this.isFlip, isVanishing, this.isMoving);
-        }
-
-        public SweetSpot withMoving(boolean isMoving)
-        {
-            return new SweetSpot(this.sweetSpotType, this.texturePath, this.size, this.reward, this.isFlip, this.isVanishing, isMoving);
-        }
-
-        public static SweetSpot NORMAL = new SweetSpot(
-                ModSweetSpotsBehaviour.NORMAL,
-                RL_NORMAL,
-                22,
-                10,
-                false,
-                false,
-                false
-        );
+        private static final ResourceLocation RL_WITHER = Starcatcher.rl("textures/gui/minigame/spots/wither.png");
+        private static final ResourceLocation RL_WITHER_BIG = Starcatcher.rl("textures/gui/minigame/spots/wither_big.png");
+        private static final ResourceLocation RL_CREEPER = Starcatcher.rl("textures/gui/minigame/spots/creeper.png");
+        private static final ResourceLocation RL_TNT = Starcatcher.rl("textures/gui/minigame/spots/tnt.png");
 
         public static SweetSpot NORMAL_STEADY = new SweetSpot(
                 ModSweetSpotsBehaviour.NORMAL,
@@ -942,17 +938,19 @@ public record FishProperties(
                 10,
                 false,
                 false,
-                false
+                false,
+                0x00ff00
         );
 
-        public static SweetSpot THIN = new SweetSpot(
+        public static SweetSpot NORMAL = new SweetSpot(
                 ModSweetSpotsBehaviour.NORMAL,
-                RL_THIN,
-                15,
+                RL_NORMAL,
+                22,
                 10,
                 false,
                 false,
-                false
+                false,
+                0x00ff00
         );
 
         public static SweetSpot THIN_STEADY = new SweetSpot(
@@ -962,8 +960,22 @@ public record FishProperties(
                 10,
                 false,
                 false,
-                false
+                false,
+                0x00ff00
         );
+
+        public static SweetSpot THIN = new SweetSpot(
+                ModSweetSpotsBehaviour.NORMAL,
+                RL_THIN,
+                15,
+                10,
+                false,
+                false,
+                false,
+                0x00ff00
+        );
+
+
 
         public static SweetSpot FREEZE = new SweetSpot(
                 ModSweetSpotsBehaviour.FROZEN,
@@ -972,7 +984,8 @@ public record FishProperties(
                 10,
                 false,
                 false,
-                false
+                false,
+                0x095f92
         );
 
         public static SweetSpot TREASURE = new SweetSpot(
@@ -982,7 +995,52 @@ public record FishProperties(
                 10,
                 false,
                 false,
-                false
+                false,
+                0xFFD700
+        );
+
+        public static SweetSpot WITHER = new SweetSpot(
+                ModSweetSpotsBehaviour.NORMAL,
+                RL_WITHER,
+                22,
+                10,
+                false,
+                false,
+                true,
+                0x1f1f1f
+        );
+
+        public static SweetSpot WITHER_BIG = new SweetSpot(
+                ModSweetSpotsBehaviour.NORMAL,
+                RL_WITHER_BIG,
+                33,
+                10,
+                false,
+                false,
+                false,
+                0x1f1f1f
+        );
+
+        public static SweetSpot CREEPER = new SweetSpot(
+                ModSweetSpotsBehaviour.NORMAL,
+                RL_CREEPER,
+                22,
+                10,
+                false,
+                false,
+                false,
+                0x515353
+        );
+
+        public static SweetSpot TNT = new SweetSpot(
+                ModSweetSpotsBehaviour.TNT,
+                RL_TNT,
+                33,
+                30,
+                false,
+                false,
+                false,
+                0xff0000
         );
 
         public static final Codec<SweetSpot> CODEC = RecordCodecBuilder.create(instance ->
@@ -993,7 +1051,8 @@ public record FishProperties(
                         Codec.INT.fieldOf("reward").forGetter(SweetSpot::reward),
                         Codec.BOOL.fieldOf("is_flip").forGetter(SweetSpot::isFlip),
                         Codec.BOOL.fieldOf("is_vanishing").forGetter(SweetSpot::isVanishing),
-                        Codec.BOOL.fieldOf("is_moving").forGetter(SweetSpot::isMoving)
+                        Codec.BOOL.fieldOf("is_moving").forGetter(SweetSpot::isMoving),
+                        Codec.INT.fieldOf("color_as_int").forGetter(SweetSpot::particleColor)
                 ).apply(instance, SweetSpot::new));
 
         public static final Codec<List<SweetSpot>> LIST_CODEC = CODEC.listOf();
@@ -1006,6 +1065,7 @@ public record FishProperties(
                 ByteBufCodecs.BOOL, SweetSpot::isFlip,
                 ByteBufCodecs.BOOL, SweetSpot::isVanishing,
                 ByteBufCodecs.BOOL, SweetSpot::isMoving,
+                ByteBufCodecs.INT, SweetSpot::particleColor,
                 SweetSpot::new
         );
 

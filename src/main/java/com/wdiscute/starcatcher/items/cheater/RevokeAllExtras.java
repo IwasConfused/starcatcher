@@ -28,7 +28,7 @@ public class RevokeAllExtras extends Item
 
         player.getData(ModDataAttachments.TROPHIES_CAUGHT).forEach(tp ->
         {
-            if (U.getTpFromRl(level, tp).trophyType() == TrophyProperties.TrophyType.EXTRA) list.remove(tp);
+            if (U.getTpFromRl(level, tp).trophyType() == TrophyProperties.TrophyType.EXTRA) list.remove(U.getTpFromRl(level, tp));
         });
 
         player.setData(ModDataAttachments.TROPHIES_CAUGHT, U.getRlsFromTps(level, list));

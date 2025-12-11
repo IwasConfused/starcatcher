@@ -1,10 +1,6 @@
 package com.wdiscute.starcatcher.minigame.modifiers;
 
 import com.wdiscute.starcatcher.Starcatcher;
-import com.wdiscute.starcatcher.registry.ModItemProperties;
-import com.wdiscute.starcatcher.registry.ModItems;
-import com.wdiscute.starcatcher.registry.blocks.ModBlocks;
-import net.dries007.tfc.client.overworld.Star;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -17,14 +13,15 @@ public interface ModModifiers
             DeferredRegister.create(Starcatcher.MODIFIERS_REGISTRY, Starcatcher.MOD_ID);
 
     ResourceLocation FREEZE_ON_MISS = registerModifier("freeze_on_miss", FreezeModifier::new);
-    ResourceLocation SPAWN_FROZEN_SWEET_SPOTS = registerModifier("spawn_frozen_sweet_spots", AddFrozenSweetSpotsModifier::new);
+    ResourceLocation SPAWN_FROZEN_SWEET_SPOTS = registerModifier("spawn_frozen_sweet_spots", SpawnFrozenSweetSpotsModifier::new);
     ResourceLocation LOW_CHANCE_TREASURE_SPAWN = registerModifier("low_chance_treasure_spawn", LowChanceTreasureSpawnModifier::new);
+    ResourceLocation SPAWN_TNT_SWEET_SPOTS = registerModifier("spawn_tnt_sweet_spots", SpawnTntSweetSpotsModifier::new);
 
 
     static ResourceLocation registerModifier(String name, Supplier<AbstractModifier> sup)
     {
         REGISTRY.register(name, sup);
-        return Starcatcher.rl("name");
+        return Starcatcher.rl(name);
     }
 
     static void register(IEventBus eventBus)

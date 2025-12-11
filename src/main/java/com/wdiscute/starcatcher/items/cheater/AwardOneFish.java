@@ -43,6 +43,7 @@ public class AwardOneFish extends Item
 
         if(optional.isPresent())
         {
+            if(optional.get().is(U.rl("minecraft", "nether_star"))) return InteractionResultHolder.pass(player.getItemInHand(usedHand));
             FishProperties fp = optional.get().value();
 
             //todo fix this awarding repeated entries. It should check which entries the player doesnt have to award a new one instead

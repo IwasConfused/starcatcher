@@ -18,6 +18,7 @@ public class ActiveSweetSpot
     public final AbstractSweetSpotBehaviour behaviour;
     public final int thickness;
     public final int reward;
+    public final int particleColor;
 
     //from minigame screen/rod
     public final FishingMinigameScreen instance;
@@ -58,6 +59,7 @@ public class ActiveSweetSpot
         this.texture = ss.texturePath();
         this.thickness = ss.size();
         this.reward = ss.reward();
+        this.particleColor = ss.particleColor();
 
         this.bobber = bobber;
         this.bait = bait;

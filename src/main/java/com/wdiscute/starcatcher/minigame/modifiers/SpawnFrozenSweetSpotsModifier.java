@@ -5,7 +5,7 @@ import com.wdiscute.starcatcher.storage.FishProperties;
 
 import java.util.Random;
 
-public class AddFrozenSweetSpotsModifier extends AbstractModifier
+public class SpawnFrozenSweetSpotsModifier extends AbstractModifier
 {
     private final Random r = new Random();
 

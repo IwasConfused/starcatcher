@@ -9,7 +9,6 @@ import org.joml.Quaternionf;
 
 public abstract class AbstractSweetSpotBehaviour
 {
-    public int particleColor = 0x00ff00;
     public int ticksActive;
     protected FishingMinigameScreen instance;
     protected ActiveSweetSpot ass;
@@ -31,6 +30,11 @@ public abstract class AbstractSweetSpotBehaviour
         ass.alpha -= ass.vanishingRate;
 
         if(ass.shouldSudokuOnVanish && ass.alpha <= 0) ass.removed = true;
+    }
+
+    public void renderForeground(GuiGraphics guiGraphics, float partialTick, int width, int height)
+    {
+
     }
 
     public void render(GuiGraphics guiGraphics, float partialTick, int width, int height)

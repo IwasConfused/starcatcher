@@ -4,6 +4,7 @@ import com.wdiscute.starcatcher.Starcatcher;
 import com.wdiscute.starcatcher.U;
 import com.wdiscute.starcatcher.registry.ModItems;
 import com.wdiscute.starcatcher.storage.FishProperties;
+import net.dries007.tfc.client.overworld.Star;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.entity.EntityType;
@@ -31,7 +32,8 @@ public class MinecraftFishingProperties {
                 .withSizeAndWeight(FishProperties.sw(80, 40, 10000, 8000)));
 
 
-        register(fish(BuiltInRegistries.ITEM.wrapAsHolder(Items.WITHER_ROSE))
+        //mobs
+        register(fish(BuiltInRegistries.ITEM.wrapAsHolder(Items.NETHER_STAR))
                 .withAlwaysSpawnEntity(true)
                 .withEntityToSpawn(U.holderEntity("minecraft", "wither"))
                 .withBaseChance(0)
@@ -40,22 +42,24 @@ public class MinecraftFishingProperties {
                                 .withCorrectBait(BuiltInRegistries.ITEM.getKey(Items.WITHER_SKELETON_SKULL))
                                 .withCorrectBaitChanceAdded(200)
                 )
+                .withDifficulty(FishProperties.Difficulty.WITHER)
                 .withItemToOverrideWith(ModItems.UNKNOWN_FISH)
-                .withHasGuideEntry(false)
+                .withRarity(FishProperties.Rarity.LEGENDARY)
         );
 
-
-        register(overworldFish(U.holderItem("minecraft", "creeper_head"))
+        register(fish(BuiltInRegistries.ITEM.wrapAsHolder(Items.CREEPER_HEAD))
                 .withAlwaysSpawnEntity(true)
                 .withEntityToSpawn(U.holderEntity("minecraft", "creeper"))
-                .withSizeAndWeight(FishProperties.SizeAndWeight.NONE)
                 .withBaseChance(0)
                 .withBaitRestrictions(
                         FishProperties.BaitRestrictions.DEFAULT
-                                .withCorrectBait(Starcatcher.rl("creeper_bait"))
-                                .withCorrectBaitChanceAdded(20)
+                                .withCorrectBait(Starcatcher.rl("gunpowder_bait"))
+                                .withCorrectBaitChanceAdded(100)
                 )
-                .withSkipMinigame(true));
+                .withDifficulty(FishProperties.Difficulty.CREEPER)
+                .withItemToOverrideWith(ModItems.UNKNOWN_FISH)
+                .withRarity(FishProperties.Rarity.EPIC)
+        );
 
         register(overworldSurfaceFish(U.holderItem("minecraft", "rotten_flesh"))
                 .withSizeAndWeight(FishProperties.SizeAndWeight.NONE)
