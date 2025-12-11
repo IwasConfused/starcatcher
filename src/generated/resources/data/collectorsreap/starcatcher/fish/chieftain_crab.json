@@ -13,10 +13,11 @@
   "base_chance": 5,
   "catch_info": {
     "always_spawn_entity": true,
-    "entity_to_spawn": "collectorsreap:chieftain_crab",
-    "fish": "collectorsreap:chieftain_crab",
+    "entity": "collectorsreap:chieftain_crab",
     "fish_bucket": "collectorsreap:chieftain_crab_bucket",
-    "override_minigame_item": "starcatcher:unknown_fish"
+    "item": "collectorsreap:chieftain_crab",
+    "override_minigame_item": "starcatcher:unknown_fish",
+    "treasure": "starcatcher:waterlogged_satchel"
   },
   "daytime": "all",
   "difficulty": {
@@ -24,12 +25,7 @@
     "missPenalty": 10,
     "modifiers": [],
     "speed": 9,
-    "sweetspots": [],
-    "treasure": {
-      "has_treasure": false,
-      "hit_reward": 15,
-      "loot": "starcatcher:waterlogged_satchel"
-    }
+    "sweetspots": []
   },
   "has_guide_entry": true,
   "rarity": "uncommon",

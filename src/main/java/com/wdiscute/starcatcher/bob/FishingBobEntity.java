@@ -284,7 +284,7 @@ public class FishingBobEntity extends Projectile
         //if skips minigame or server config of minigame enabled = false
         if (fpToFish.skipMinigame() || !Config.ENABLE_MINIGAME.get())
         {
-            U.spawnFishFromFP(player, 0, false, false, 0);
+            U.spawnFishFromPlayerFishing(((ServerPlayer) player), 0, false, false, 0);
         }
         else
         {

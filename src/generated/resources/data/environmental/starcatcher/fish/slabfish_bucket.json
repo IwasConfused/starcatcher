@@ -13,9 +13,10 @@
   "base_chance": 5,
   "catch_info": {
     "always_spawn_entity": true,
-    "entity_to_spawn": "environmental:slabfish_bucket",
-    "fish": "environmental:slabfish_bucket",
-    "fish_bucket": "environmental:slabfish_bucket"
+    "entity": "environmental:slabfish_bucket",
+    "fish_bucket": "environmental:slabfish_bucket",
+    "item": "environmental:slabfish_bucket",
+    "treasure": "starcatcher:waterlogged_satchel"
   },
   "daytime": "all",
   "difficulty": {
@@ -23,12 +24,7 @@
     "missPenalty": 10,
     "modifiers": [],
     "speed": 9,
-    "sweetspots": [],
-    "treasure": {
-      "has_treasure": false,
-      "hit_reward": 15,
-      "loot": "starcatcher:waterlogged_satchel"
-    }
+    "sweetspots": []
   },
   "has_guide_entry": true,
   "rarity": "uncommon",

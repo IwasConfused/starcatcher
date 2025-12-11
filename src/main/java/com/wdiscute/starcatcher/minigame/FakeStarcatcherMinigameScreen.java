@@ -15,7 +15,7 @@ public class FakeStarcatcherMinigameScreen extends FishingMinigameScreen
     @Override
     public void tick()
     {
-        if (completionSmooth > 75)
+        if (progressSmooth > 75)
         {
             //if completed treasure minigame, or is a perfect catch with the mossy hook
             boolean awardTreasure = treasureProgress > 100 || (perfectCatch && hook.is(ModItems.MOSSY_HOOK));

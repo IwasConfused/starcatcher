@@ -1,5 +1,6 @@
 package com.wdiscute.starcatcher;
 
+import com.wdiscute.starcatcher.minigame.sweetspotbehaviour.ModSweetSpotsBehaviour;
 import com.wdiscute.starcatcher.registry.blocks.ModBlockEntities;
 import com.wdiscute.starcatcher.registry.blocks.ModBlocks;
 import com.wdiscute.starcatcher.datagen.TrustedHolder;
@@ -8,9 +9,8 @@ import com.wdiscute.starcatcher.guide.SettingsScreen;
 import com.wdiscute.starcatcher.io.*;
 import com.wdiscute.starcatcher.minigame.modifiers.AbstractModifier;
 import com.wdiscute.starcatcher.minigame.modifiers.ModModifiers;
-import com.wdiscute.starcatcher.minigame.sweetspottypes.AbstractSweetSpotType;
+import com.wdiscute.starcatcher.minigame.sweetspotbehaviour.AbstractSweetSpotBehaviour;
 import com.wdiscute.starcatcher.registry.*;
-import com.wdiscute.starcatcher.minigame.sweetspottypes.ModSweetSpotsType;
 import com.wdiscute.starcatcher.storage.FishProperties;
 import com.wdiscute.starcatcher.storage.TrophyProperties;
 import net.minecraft.client.Minecraft;
@@ -31,8 +31,8 @@ import net.neoforged.fml.config.ModConfig;
 import net.neoforged.neoforge.registries.RegistryBuilder;
 
 import java.util.Random;
+import java.util.function.Supplier;
 
-// The value here should match an entry in the META-INF/neoforge.mods.toml file
 @Mod(Starcatcher.MOD_ID)
 public class Starcatcher
 {
@@ -44,14 +44,14 @@ public class Starcatcher
     public static final ResourceKey<Registry<TrophyProperties>> TROPHY_REGISTRY =
             ResourceKey.createRegistryKey(Starcatcher.rl("trophy"));
 
-    public static final ResourceKey<Registry<AbstractSweetSpotType>> SWEET_SPOT_TYPES =
+    public static final ResourceKey<Registry<Supplier<? extends AbstractSweetSpotBehaviour>>> SWEET_SPOT_TYPES =
             ResourceKey.createRegistryKey(Starcatcher.rl("sweet_spot_types"));
 
     public static final ResourceKey<Registry<AbstractModifier>> MODIFIERS =
             ResourceKey.createRegistryKey(Starcatcher.rl("modifiers"));
 
 
-    public static final Registry<AbstractSweetSpotType> SWEET_SPOTS_REGISTRY = new RegistryBuilder<>(SWEET_SPOT_TYPES)
+    public static final Registry<Supplier<? extends AbstractSweetSpotBehaviour>> SWEET_SPOTS_REGISTRY = new RegistryBuilder<>(SWEET_SPOT_TYPES)
             .sync(true)
             .defaultKey(Starcatcher.rl("normal"))
             .create();
@@ -102,7 +102,6 @@ public class Starcatcher
                 , true);
 
         Minecraft.getInstance().gui.overlayMessageTime = 180;
-
     }
 
 
@@ -134,9 +133,9 @@ public class Starcatcher
         ModRecipes.register(modEventBus);
         ModMenuTypes.register(modEventBus);
         ModDataAttachments.register(modEventBus);
-        ModCriterionTriggers.REGISTRY.register(modEventBus);
-        ModSweetSpotsType.SWEET_SPOTS.register(modEventBus);
-        ModModifiers.MODIFIERS.register(modEventBus);
+        ModSweetSpotsBehaviour.register(modEventBus);
+        ModModifiers.register(modEventBus);
+        ModCriterionTriggers.register(modEventBus);
 
         modContainer.registerConfig(ModConfig.Type.CLIENT, Config.SPEC);
         modContainer.registerConfig(ModConfig.Type.SERVER, Config.SPEC_SERVER);

@@ -2,7 +2,9 @@ package com.wdiscute.starcatcher.registry.fishing;
 
 import com.mojang.datafixers.util.Pair;
 import com.wdiscute.starcatcher.Starcatcher;
+import com.wdiscute.starcatcher.U;
 import com.wdiscute.starcatcher.datagen.TrustedHolder;
+import com.wdiscute.starcatcher.registry.ModEntities;
 import com.wdiscute.starcatcher.registry.ModItems;
 import com.wdiscute.starcatcher.registry.fishing.compat.*;
 import com.wdiscute.starcatcher.storage.FishProperties;
@@ -281,16 +283,6 @@ public class FishingPropertiesRegistry
 
     //endregion
 
-    protected static ResourceLocation rl(String namespace, String path)
-    {
-        return ResourceLocation.fromNamespaceAndPath(namespace, path);
-    }
-
-    protected static Holder<Item> fromRL(String ns, String path)
-    {
-        return TrustedHolder.createStandAlone(BuiltInRegistries.ITEM.holderOwner(), ResourceKey.create(Registries.ITEM, rl(ns, path)));
-    }
-
     private static final List<Pair<ResourceKey<FishProperties>, FishProperties>> PROPERTIES = new ArrayList<>();
     private static final List<ResourceKey<FishProperties>> COMPAT_KEYS = new ArrayList<>();
 
@@ -304,7 +296,8 @@ public class FishingPropertiesRegistry
     protected static void registerStarcatcherBucketAndEntity(FishProperties.Builder builder)
     {
         builder.withBucketedFish(ModItems.STARCAUGHT_BUCKET);
-        builder.withEntityToSpawn(rl("starcatcher", "fish"));
+        builder.withEntityToSpawn(U.holderEntity("starcatcher", "fish"));
+        builder.build();
         register(builder);
     }
 

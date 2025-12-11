@@ -19,7 +19,7 @@ public class Config
             .defineInRange("hit_delay", 0.0d, -20, 20);
 
     public static final ModConfigSpec.EnumValue<SettingsScreen.Units> UNIT = BUILDER
-            .defineEnum("units", SettingsScreen.Units.IMPERIAL);
+            .defineEnum("units", SettingsScreen.Units.METRIC);
 
     public static final ModConfigSpec.EnumValue<FishingGuideScreen.Sort> SORT = BUILDER
             .defineEnum("sort", FishingGuideScreen.Sort.ALPHABETICAL_DOWN);

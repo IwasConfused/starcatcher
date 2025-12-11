@@ -1,6 +1,7 @@
 package com.wdiscute.starcatcher.registry.fishing.compat;
 
 import com.wdiscute.starcatcher.StarcatcherTags;
+import com.wdiscute.starcatcher.U;
 import com.wdiscute.starcatcher.registry.fishing.FishingPropertiesRegistry;
 import com.wdiscute.starcatcher.storage.FishProperties;
 import com.wdiscute.starcatcher.storage.FishProperties.WorldRestrictions.Seasons;
@@ -18,9 +19,9 @@ public class TideFishingProperties extends FishingPropertiesRegistry
         //  `--'   `--'  `---'   `----'
         //
 
-        register(overworldColdLakeFish(fromRL("tide", "trout"))
-                .withBucketedFish(fromRL("tide", "trout_bucket"))
-                .withEntityToSpawn(rl("tide", "trout"))
+        register(overworldColdLakeFish(U.holderItem("tide", "trout"))
+                .withBucketedFish(U.holderItem("tide", "trout_bucket"))
+                .withEntityToSpawn(U.holderEntity("tide", "trout"))
                 .withSeasons(Seasons.SPRING, Seasons.WINTER)
                 .withSizeAndWeight(FishProperties.sw(50, 20, 2000, 1600, 10, 20))
                 .withDifficulty(FishProperties.Difficulty.EASY_MOVING)
@@ -28,33 +29,33 @@ public class TideFishingProperties extends FishingPropertiesRegistry
                 .withRarity(FishProperties.Rarity.UNCOMMON)
         );
 
-        register(overworldLakeFish(fromRL("tide", "bass"))
-                .withBucketedFish(fromRL("tide", "bass_bucket"))
-                .withEntityToSpawn(rl("tide", "bass"))
+        register(overworldLakeFish(U.holderItem("tide", "bass"))
+                .withBucketedFish(U.holderItem("tide", "bass_bucket"))
+                .withEntityToSpawn(U.holderEntity("tide", "bass"))
                 .withSeasons(Seasons.SPRING, Seasons.WINTER)
                 .withSizeAndWeight(FishProperties.sw(50, 20, 2000, 1600, 10, 20))
                 .withWeather(FishProperties.Weather.CLEAR)
         );
 
-        register(overworldLakeFish(fromRL("tide", "yellow_perch"))
-                .withBucketedFish(fromRL("tide", "yellow_perch_bucket"))
-                .withEntityToSpawn(rl("tide", "yellow_perch"))
+        register(overworldLakeFish(U.holderItem("tide", "yellow_perch"))
+                .withBucketedFish(U.holderItem("tide", "yellow_perch_bucket"))
+                .withEntityToSpawn(U.holderEntity("tide", "yellow_perch"))
                 .withSeasons(Seasons.SPRING, Seasons.SUMMER)
                 .withSizeAndWeight(FishProperties.sw(25, 10, 200, 20, 10, 20))
                 .withDifficulty(FishProperties.Difficulty.EASY_VANISHING)
                 .withWeather(FishProperties.Weather.RAIN)
         );
 
-        register(overworldMountainFish(fromRL("tide", "bluegill"))
-                .withBucketedFish(fromRL("tide", "bluegill_bucket"))
-                .withEntityToSpawn(rl("tide", "bluegill"))
+        register(overworldMountainFish(U.holderItem("tide", "bluegill"))
+                .withBucketedFish(U.holderItem("tide", "bluegill_bucket"))
+                .withEntityToSpawn(U.holderEntity("tide", "bluegill"))
                 .withSeasons(Seasons.SPRING, Seasons.SUMMER)
                 .withSizeAndWeight(FishProperties.sw(15, 5, 200, 20, 10, 20))
         );
 
-        register(overworldWarmMountainFish(fromRL("tide", "mint_carp"))
-                .withBucketedFish(fromRL("tide", "mint_carp_bucket"))
-                .withEntityToSpawn(rl("tide", "mint_carp"))
+        register(overworldWarmMountainFish(U.holderItem("tide", "mint_carp"))
+                .withBucketedFish(U.holderItem("tide", "mint_carp_bucket"))
+                .withEntityToSpawn(U.holderEntity("tide", "mint_carp"))
                 .withSeasons(Seasons.SUMMER, Seasons.AUTUMN)
                 .withSizeAndWeight(FishProperties.sw(80, 40, 10000, 5000, 10, 20))
                 .withDifficulty(FishProperties.Difficulty.EASY_VANISHING)
@@ -62,47 +63,47 @@ public class TideFishingProperties extends FishingPropertiesRegistry
                 .withRarity(FishProperties.Rarity.UNCOMMON)
         );
 
-        register(overworldColdRiverFish(fromRL("tide", "pike"))
-                .withBucketedFish(fromRL("tide", "pike_bucket"))
-                .withEntityToSpawn(rl("tide", "pike"))
+        register(overworldColdRiverFish(U.holderItem("tide", "pike"))
+                .withBucketedFish(U.holderItem("tide", "pike_bucket"))
+                .withEntityToSpawn(U.holderEntity("tide", "pike"))
                 .withSeasons(Seasons.WINTER)
                 .withSizeAndWeight(FishProperties.sw(100, 50, 15000, 5000, 10, 20))
         );
 
-        register(overworldWarmLakeFish(fromRL("tide", "guppy"))
-                .withBucketedFish(fromRL("tide", "guppy_bucket"))
-                .withEntityToSpawn(rl("tide", "guppy"))
+        register(overworldWarmLakeFish(U.holderItem("tide", "guppy"))
+                .withBucketedFish(U.holderItem("tide", "guppy_bucket"))
+                .withEntityToSpawn(U.holderEntity("tide", "guppy"))
                 .withSizeAndWeight(FishProperties.sw(4, 1, 2, 1, 10, 20))
                 .withDifficulty(FishProperties.Difficulty.MEDIUM)
                 .withDaytime(FishProperties.Daytime.NIGHT)
         );
 
-        register(overworldColdLakeFish(fromRL("tide", "catfish"))
-                .withBucketedFish(fromRL("tide", "catfish_bucket"))
-                .withEntityToSpawn(rl("tide", "catfish"))
+        register(overworldColdLakeFish(U.holderItem("tide", "catfish"))
+                .withBucketedFish(U.holderItem("tide", "catfish_bucket"))
+                .withEntityToSpawn(U.holderEntity("tide", "catfish"))
                 .withSizeAndWeight(FishProperties.sw(100, 50, 15000, 5000, 10, 20))
                 .withDifficulty(FishProperties.Difficulty.EASY_VANISHING)
                 .withRarity(FishProperties.Rarity.UNCOMMON)
         );
 
-        register(overworldColdLakeFish(fromRL("tide", "clayfish"))
-                .withBucketedFish(fromRL("tide", "clayfish_bucket"))
-                .withEntityToSpawn(rl("tide", "clayfish"))
+        register(overworldColdLakeFish(U.holderItem("tide", "clayfish"))
+                .withBucketedFish(U.holderItem("tide", "clayfish_bucket"))
+                .withEntityToSpawn(U.holderEntity("tide", "clayfish"))
                 .withSizeAndWeight(FishProperties.sw(15, 5, 200, 100, 10, 20))
                 .withWeather(FishProperties.Weather.RAIN)
         );
 
         //tide saltwater
-        register(overworldOceanFish(fromRL("tide", "tuna"))
-                .withBucketedFish(fromRL("tide", "tuna_bucket"))
-                .withEntityToSpawn(rl("tide", "tuna"))
+        register(overworldOceanFish(U.holderItem("tide", "tuna"))
+                .withBucketedFish(U.holderItem("tide", "tuna_bucket"))
+                .withEntityToSpawn(U.holderEntity("tide", "tuna"))
                 .withSeasons(Seasons.AUTUMN, Seasons.WINTER)
                 .withSizeAndWeight(FishProperties.sw(200, 100, 200000, 150000, 10, 20))
         );
 
-        register(overworldColdOceanFish(fromRL("tide", "ocean_perch"))
-                .withBucketedFish(fromRL("tide", "ocean_perch_bucket"))
-                .withEntityToSpawn(rl("tide", "ocean_perch"))
+        register(overworldColdOceanFish(U.holderItem("tide", "ocean_perch"))
+                .withBucketedFish(U.holderItem("tide", "ocean_perch_bucket"))
+                .withEntityToSpawn(U.holderEntity("tide", "ocean_perch"))
                 .withSeasons(Seasons.AUTUMN, Seasons.WINTER)
                 .withSizeAndWeight(FishProperties.sw(50, 20, 2000, 1600, 10, 20))
                 .withDifficulty(FishProperties.Difficulty.EASY_MOVING)
@@ -110,25 +111,25 @@ public class TideFishingProperties extends FishingPropertiesRegistry
                 .withRarity(FishProperties.Rarity.UNCOMMON)
         );
 
-        register(overworldOceanFish(fromRL("tide", "mackerel"))
-                .withBucketedFish(fromRL("tide", "mackerel_bucket"))
-                .withEntityToSpawn(rl("tide", "mackerel"))
+        register(overworldOceanFish(U.holderItem("tide", "mackerel"))
+                .withBucketedFish(U.holderItem("tide", "mackerel_bucket"))
+                .withEntityToSpawn(U.holderEntity("tide", "mackerel"))
                 .withSeasons(Seasons.AUTUMN)
                 .withSizeAndWeight(FishProperties.sw(35, 15, 500, 400, 10, 20))
                 .withDifficulty(FishProperties.Difficulty.MEDIUM)
         );
 
-        register(overworldWarmOceanFish(fromRL("tide", "angelfish"))
-                .withBucketedFish(fromRL("tide", "angelfish_bucket"))
-                .withEntityToSpawn(rl("tide", "angelfish"))
+        register(overworldWarmOceanFish(U.holderItem("tide", "angelfish"))
+                .withBucketedFish(U.holderItem("tide", "angelfish_bucket"))
+                .withEntityToSpawn(U.holderEntity("tide", "angelfish"))
                 .withSeasons(Seasons.SUMMER)
                 .withSizeAndWeight(FishProperties.sw(15, 5, 100, 5, 10, 20))
                 .withWeather(FishProperties.Weather.RAIN)
         );
 
-        register(overworldOceanFish(fromRL("tide", "barracuda"))
-                .withBucketedFish(fromRL("tide", "barracuda_bucket"))
-                .withEntityToSpawn(rl("tide", "barracuda"))
+        register(overworldOceanFish(U.holderItem("tide", "barracuda"))
+                .withBucketedFish(U.holderItem("tide", "barracuda_bucket"))
+                .withEntityToSpawn(U.holderEntity("tide", "barracuda"))
                 .withSizeAndWeight(FishProperties.sw(150, 50, 30000, 20000, 10, 20))
                 .withRarity(FishProperties.Rarity.RARE)
                 .withDaytime(FishProperties.Daytime.NIGHT)
@@ -136,36 +137,36 @@ public class TideFishingProperties extends FishingPropertiesRegistry
                 .withDifficulty(FishProperties.Difficulty.MEDIUM_MOVING)
         );
 
-        register(overworldWarmOceanFish(fromRL("tide", "sailfish"))
-                .withBucketedFish(fromRL("tide", "sailfish_bucket"))
-                .withEntityToSpawn(rl("tide", "sailfish"))
+        register(overworldWarmOceanFish(U.holderItem("tide", "sailfish"))
+                .withBucketedFish(U.holderItem("tide", "sailfish_bucket"))
+                .withEntityToSpawn(U.holderEntity("tide", "sailfish"))
                 .withSeasons(Seasons.SUMMER)
                 .withSizeAndWeight(FishProperties.sw(250, 50, 100000, 50000, 10, 20))
                 .withWeather(FishProperties.Weather.RAIN)
         );
 
         //tide underground
-        register(overworldCavesFish(fromRL("tide", "cave_eel"))
+        register(overworldCavesFish(U.holderItem("tide", "cave_eel"))
                 //no bucketed version
                 //no entity version
                 .withSizeAndWeight(FishProperties.sw(15, 5, 5, 3, 10, 20))
                 .withDifficulty(FishProperties.Difficulty.EASY_MOVING)
         );
 
-        register(overworldCavesFish(fromRL("tide", "crystal_shrimp"))
+        register(overworldCavesFish(U.holderItem("tide", "crystal_shrimp"))
                 //no bucketed version
                 //no entity version
                 .withSizeAndWeight(FishProperties.sw(10, 5, 2, 1, 10, 20))
         );
 
-        register(overworldCavesFish(fromRL("tide", "iron_tetra"))
+        register(overworldCavesFish(U.holderItem("tide", "iron_tetra"))
                 //no bucketed version
                 //no entity version
                 .withSizeAndWeight(FishProperties.sw(4, 1, 2, 1, 10, 20))
                 .withDifficulty(FishProperties.Difficulty.MEDIUM_VANISHING)
         );
 
-        register(overworldCavesFish(fromRL("tide", "glowfish"))
+        register(overworldCavesFish(U.holderItem("tide", "glowfish"))
                 //no bucketed version
                 //no entity version
                 .withSizeAndWeight(FishProperties.sw(20, 10, 10, 5, 10, 20))
@@ -173,41 +174,41 @@ public class TideFishingProperties extends FishingPropertiesRegistry
                 .withDifficulty(FishProperties.Difficulty.MEDIUM)
         );
 
-        register(overworldCavesFish(fromRL("tide", "anglerfish"))
+        register(overworldCavesFish(U.holderItem("tide", "anglerfish"))
                 //no bucketed version
                 //no entity version
                 .withSizeAndWeight(FishProperties.sw(100, 50, 20000, 15000, 10, 20))
         );
 
-        register(overworldCavesFish(fromRL("tide", "cave_crawler"))
+        register(overworldCavesFish(U.holderItem("tide", "cave_crawler"))
                 //no bucketed version
                 //no entity version
                 .withSizeAndWeight(FishProperties.sw(30, 10, 1000, 500, 10, 20))
                 .withDifficulty(FishProperties.Difficulty.EASY_MOVING)
         );
 
-        register(overworldCavesFish(fromRL("tide", "gilded_minnow"))
+        register(overworldCavesFish(U.holderItem("tide", "gilded_minnow"))
                 //no bucketed version
                 //no entity version
                 .withSizeAndWeight(FishProperties.sw(5, 2, 10, 6, 10, 20))
         );
 
         //tide deepslate
-        register(overworldDeepslateFish(fromRL("tide", "deep_grouper"))
+        register(overworldDeepslateFish(U.holderItem("tide", "deep_grouper"))
                 //no bucketed version
                 //no entity version
                 .withSizeAndWeight(FishProperties.sw(200, 50, 200000, 100000, 10, 20))
                 .withDifficulty(FishProperties.Difficulty.EASY_VANISHING)
         );
 
-        register(overworldDeepslateFish(fromRL("tide", "shadow_snapper"))
+        register(overworldDeepslateFish(U.holderItem("tide", "shadow_snapper"))
                 //no bucketed version
                 //no entity version
                 .withSizeAndWeight(FishProperties.sw(80, 40, 10000, 5000, 10, 20))
                 .withDifficulty(FishProperties.Difficulty.MEDIUM)
         );
 
-        register(overworldDeepslateFish(fromRL("tide", "abyss_angler"))
+        register(overworldDeepslateFish(U.holderItem("tide", "abyss_angler"))
                 //no bucketed version
                 //no entity version
                 .withSizeAndWeight(FishProperties.sw(100, 50, 20000, 15000, 10, 20))
@@ -216,14 +217,14 @@ public class TideFishingProperties extends FishingPropertiesRegistry
                 .withBaseChance(2)
         );
 
-        register(overworldDeepslateFish(fromRL("tide", "lapis_lanternfish"))
+        register(overworldDeepslateFish(U.holderItem("tide", "lapis_lanternfish"))
                 //no bucketed version
                 //no entity version
                 .withSizeAndWeight(FishProperties.sw(20, 10, 100, 5, 10, 20))
                 .withDifficulty(FishProperties.Difficulty.MEDIUM)
         );
 
-        register(overworldDeepslateFish(fromRL("tide", "luminescent_jellyfish"))
+        register(overworldDeepslateFish(U.holderItem("tide", "luminescent_jellyfish"))
                 //no bucketed version
                 //no entity version
                 .withSizeAndWeight(FishProperties.sw(50, 30, 5000, 3000, 10, 20))
@@ -231,7 +232,7 @@ public class TideFishingProperties extends FishingPropertiesRegistry
                 .withDifficulty(FishProperties.Difficulty.EASY_VANISHING)
         );
 
-        register(overworldDeepslateFish(fromRL("tide", "crystalline_carp"))
+        register(overworldDeepslateFish(U.holderItem("tide", "crystalline_carp"))
                 //no bucketed version
                 //no entity version
                 .withSizeAndWeight(FishProperties.sw(80, 30, 10000, 5000, 10, 20))
@@ -239,7 +240,7 @@ public class TideFishingProperties extends FishingPropertiesRegistry
                 .withRarity(FishProperties.Rarity.RARE)
         );
 
-        register(overworldDeepslateFish(fromRL("tide", "bedrock_tetra"))
+        register(overworldDeepslateFish(U.holderItem("tide", "bedrock_tetra"))
                 //no bucketed version
                 //no entity version
                 .withSizeAndWeight(FishProperties.sw(4, 1, 2, 1, 10, 20))
@@ -248,25 +249,25 @@ public class TideFishingProperties extends FishingPropertiesRegistry
         );
 
         //tide biome specific
-        register(fish(fromRL("tide", "prarie_pike"))
+        register(fish(U.holderItem("tide", "prarie_pike"))
                 //no bucketed version
                 //no entity version
                 .withSizeAndWeight(FishProperties.sw(100, 50, 15000, 10000, 10, 20))
-                .withWorldRestrictions(FishProperties.WorldRestrictions.DEFAULT.withBiomes(rl("minecraft", "plains")))
+                .withWorldRestrictions(FishProperties.WorldRestrictions.DEFAULT.withBiomes(U.rl("minecraft", "plains")))
                 .withRarity(FishProperties.Rarity.UNCOMMON)
         );
 
-        register(fish(fromRL("tide", "sandskipper"))
+        register(fish(U.holderItem("tide", "sandskipper"))
                 //no bucketed version
                 //no entity version
                 .withSeasons(Seasons.SUMMER)
                 .withSizeAndWeight(FishProperties.sw(30, 10, 1000, 500, 10, 20))
-                .withWorldRestrictions(FishProperties.WorldRestrictions.DEFAULT.withBiomes(rl("minecraft", "desert")))
+                .withWorldRestrictions(FishProperties.WorldRestrictions.DEFAULT.withBiomes(U.rl("minecraft", "desert")))
                 .withRarity(FishProperties.Rarity.UNCOMMON)
                 .withDifficulty(FishProperties.Difficulty.SINGLE_BIG_FAST)
         );
 
-        register(overworldCherryGroveFish(fromRL("tide", "blossom_bass"))
+        register(overworldCherryGroveFish(U.holderItem("tide", "blossom_bass"))
                 //no bucketed version
                 //no entity version
                 .withSeasons(Seasons.SPRING)
@@ -275,7 +276,7 @@ public class TideFishingProperties extends FishingPropertiesRegistry
                 .withRarity(FishProperties.Rarity.UNCOMMON)
         );
 
-        register(overworldFish(fromRL("tide", "oakfish"))
+        register(overworldFish(U.holderItem("tide", "oakfish"))
                 //no bucketed version
                 //no entity version
                 .withSeasons(Seasons.SPRING, Seasons.AUTUMN)
@@ -284,7 +285,7 @@ public class TideFishingProperties extends FishingPropertiesRegistry
                 .withDifficulty(FishProperties.Difficulty.MEDIUM)
         );
 
-        register(overworldColdLakeFish(fromRL("tide", "frostbite_flounder"))
+        register(overworldColdLakeFish(U.holderItem("tide", "frostbite_flounder"))
                 //no bucketed version
                 //no entity version
                 .withSeasons(Seasons.AUTUMN, Seasons.WINTER)
@@ -292,7 +293,7 @@ public class TideFishingProperties extends FishingPropertiesRegistry
                 .withDifficulty(FishProperties.Difficulty.EASY_VANISHING)
         );
 
-        register(overworldFish(fromRL("tide", "mirage_catfish"))
+        register(overworldFish(U.holderItem("tide", "mirage_catfish"))
                 //no bucketed version
                 //no entity version
                 .withSeasons(Seasons.SUMMER)
@@ -302,7 +303,7 @@ public class TideFishingProperties extends FishingPropertiesRegistry
                 .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD.withBiomesTags(BiomeTags.IS_BADLANDS.location()))
         );
 
-        register(overworldDeepDarkFish(fromRL("tide", "echofin_snapper"))
+        register(overworldDeepDarkFish(U.holderItem("tide", "echofin_snapper"))
                 //no bucketed version
                 //no entity version
                 .withSizeAndWeight(FishProperties.sw(80, 30, 10000, 5000, 10, 20))
@@ -310,7 +311,7 @@ public class TideFishingProperties extends FishingPropertiesRegistry
                 .withDifficulty(FishProperties.Difficulty.HARD_VANISHING)
         );
 
-        register(overworldFish(fromRL("tide", "sunspike_goby"))
+        register(overworldFish(U.holderItem("tide", "sunspike_goby"))
                 //no bucketed version
                 //no entity version
                 .withSizeAndWeight(FishProperties.sw(15, 5, 100, 5, 10, 20))
@@ -319,7 +320,7 @@ public class TideFishingProperties extends FishingPropertiesRegistry
                 .withDifficulty(FishProperties.Difficulty.HARD)
         );
 
-        register(overworldFish(fromRL("tide", "birch_trout"))
+        register(overworldFish(U.holderItem("tide", "birch_trout"))
                 //no bucketed version
                 //no entity version
                 .withSizeAndWeight(FishProperties.sw(50, 20, 2000, 1700, 10, 20))
@@ -327,14 +328,14 @@ public class TideFishingProperties extends FishingPropertiesRegistry
                 .withDifficulty(FishProperties.Difficulty.MEDIUM)
         );
 
-        register(overworldMountainFish(fromRL("tide", "stonefish"))
+        register(overworldMountainFish(U.holderItem("tide", "stonefish"))
                 //no bucketed version
                 //no entity version
                 .withSizeAndWeight(FishProperties.sw(40, 20, 2000, 1700, 10, 20))
                 .withDifficulty(FishProperties.Difficulty.MEDIUM)
         );
 
-        register(overworldDripstoneCavesFish(fromRL("tide", "dripstone_darter"))
+        register(overworldDripstoneCavesFish(U.holderItem("tide", "dripstone_darter"))
                 //no bucketed version
                 //no entity version
                 .withSizeAndWeight(FishProperties.sw(5, 2, 5, 1, 10, 20))
@@ -342,7 +343,7 @@ public class TideFishingProperties extends FishingPropertiesRegistry
                 .withDifficulty(FishProperties.Difficulty.HARD)
         );
 
-        register(overworldSwampFish(fromRL("tide", "slimefin_snapper"))
+        register(overworldSwampFish(U.holderItem("tide", "slimefin_snapper"))
                 //no bucketed version
                 //no entity version
                 .withSizeAndWeight(FishProperties.sw(80, 40, 10000, 10000, 10, 20))
@@ -350,7 +351,7 @@ public class TideFishingProperties extends FishingPropertiesRegistry
                 .withDifficulty(FishProperties.Difficulty.SINGLE_BIG_FAST)
         );
 
-        register(overworldMushroomFieldsFish(fromRL("tide", "sporestalker"))
+        register(overworldMushroomFieldsFish(U.holderItem("tide", "sporestalker"))
                 //no bucketed version
                 //no entity version
                 .withSizeAndWeight(FishProperties.sw(50, 20, 5000, 3000, 10, 20))
@@ -358,7 +359,7 @@ public class TideFishingProperties extends FishingPropertiesRegistry
                 .withDifficulty(FishProperties.Difficulty.THIN_NO_DECAY)
         );
 
-        register(overworldJungleFish(fromRL("tide", "leafback"))
+        register(overworldJungleFish(U.holderItem("tide", "leafback"))
                 //no bucketed version
                 //no entity version
                 .withSeasons(Seasons.SPRING, Seasons.AUTUMN)
@@ -367,7 +368,7 @@ public class TideFishingProperties extends FishingPropertiesRegistry
                 .withDifficulty(FishProperties.Difficulty.EVERYTHING)
         );
 
-        register(overworldLushCavesFish(fromRL("tide", "fluttergill"))
+        register(overworldLushCavesFish(U.holderItem("tide", "fluttergill"))
                 //no bucketed version
                 //no entity version
                 .withSizeAndWeight(FishProperties.sw(30, 10, 1000, 500, 10, 20))
@@ -375,7 +376,7 @@ public class TideFishingProperties extends FishingPropertiesRegistry
                 .withDifficulty(FishProperties.Difficulty.MEDIUM)
         );
 
-        register(overworldTaigaFish(fromRL("tide", "pine_perch"))
+        register(overworldTaigaFish(U.holderItem("tide", "pine_perch"))
                 //no bucketed version
                 //no entity version
                 .withSeasons(Seasons.SPRING, Seasons.AUTUMN)
@@ -386,7 +387,7 @@ public class TideFishingProperties extends FishingPropertiesRegistry
         //missing structure restriction support to add windbass and aquathorn from tide mod
 
         //tide overworld lava
-        register(overworldSurfaceLava(fromRL("tide", "ember_koi"))
+        register(overworldSurfaceLava(U.holderItem("tide", "ember_koi"))
                 //no bucketed version
                 //no entity version
                 .withSizeAndWeight(FishProperties.sw(40, 20, 3000, 2000, 10, 20))
@@ -394,7 +395,7 @@ public class TideFishingProperties extends FishingPropertiesRegistry
                 .withRarity(FishProperties.Rarity.EPIC)
         );
 
-        register(overworldSurfaceLava(fromRL("tide", "inferno_guppy"))
+        register(overworldSurfaceLava(U.holderItem("tide", "inferno_guppy"))
                 //no bucketed version
                 //no entity version
                 .withSizeAndWeight(FishProperties.sw(4, 1, 20, 2, 10, 20))
@@ -402,7 +403,7 @@ public class TideFishingProperties extends FishingPropertiesRegistry
                 .withRarity(FishProperties.Rarity.RARE)
         );
 
-        register(overworldSurfaceLava(fromRL("tide", "obsidian_pike"))
+        register(overworldSurfaceLava(U.holderItem("tide", "obsidian_pike"))
                 //no bucketed version
                 //no entity version
                 .withSeasons(Seasons.SUMMER)
@@ -411,7 +412,7 @@ public class TideFishingProperties extends FishingPropertiesRegistry
                 .withDifficulty(FishProperties.Difficulty.HARD)
         );
 
-        register(overworldSurfaceLava(fromRL("tide", "volcano_tuna"))
+        register(overworldSurfaceLava(U.holderItem("tide", "volcano_tuna"))
                 //no bucketed version
                 //no entity version
                 .withSizeAndWeight(FishProperties.sw(200, 100, 150000, 50000, 10, 20))
@@ -420,21 +421,21 @@ public class TideFishingProperties extends FishingPropertiesRegistry
         );
 
         //tide nether
-        register(netherLavaFish(fromRL("tide", "magma_mackerel"))
+        register(netherLavaFish(U.holderItem("tide", "magma_mackerel"))
                 //no bucketed version
                 //no entity version
                 .withSizeAndWeight(FishProperties.sw(35, 15, 500, 300, 10, 20))
                 .withDifficulty(FishProperties.Difficulty.HARD)
         );
 
-        register(netherLavaBasaltDeltasFish(fromRL("tide", "ashen_perch"))
+        register(netherLavaBasaltDeltasFish(U.holderItem("tide", "ashen_perch"))
                 //no bucketed version
                 //no entity version
                 .withSizeAndWeight(FishProperties.sw(25, 10, 200, 100, 10, 20))
                 .withDifficulty(FishProperties.Difficulty.MEDIUM)
         );
 
-        register(netherLavaSoulSandValleyFish(fromRL("tide", "soulscaler"))
+        register(netherLavaSoulSandValleyFish(U.holderItem("tide", "soulscaler"))
                 //no bucketed version
                 //no entity version
                 .withSizeAndWeight(FishProperties.sw(80, 30, 10000, 5000, 10, 20))
@@ -442,14 +443,14 @@ public class TideFishingProperties extends FishingPropertiesRegistry
                 .withDifficulty(FishProperties.Difficulty.MEDIUM_VANISHING_MOVING)
         );
 
-        register(netherLavaWarpedForestFish(fromRL("tide", "warped_guppy"))
+        register(netherLavaWarpedForestFish(U.holderItem("tide", "warped_guppy"))
                 //no bucketed version
                 //no entity version
                 .withSizeAndWeight(FishProperties.sw(4, 1, 4, 1, 10, 20))
                 .withDifficulty(FishProperties.Difficulty.HARD_ONLY_THIN)
         );
 
-        register(netherLavaCrimsonForestFish(fromRL("tide", "crimson_fangjaw"))
+        register(netherLavaCrimsonForestFish(U.holderItem("tide", "crimson_fangjaw"))
                 //no bucketed version
                 //no entity version
                 .withSizeAndWeight(FishProperties.sw(100, 50, 15000, 10000, 10, 20))
@@ -457,7 +458,7 @@ public class TideFishingProperties extends FishingPropertiesRegistry
                 .withRarity(FishProperties.Rarity.UNCOMMON)
         );
 
-        register(netherLavaSoulSandValleyFish(fromRL("tide", "witherfin"))
+        register(netherLavaSoulSandValleyFish(U.holderItem("tide", "witherfin"))
                 //no bucketed version
                 //no entity version
                 .withSizeAndWeight(FishProperties.sw(100, 50, 15000, 10000, 10, 20))
@@ -465,7 +466,7 @@ public class TideFishingProperties extends FishingPropertiesRegistry
                 .withDifficulty(FishProperties.Difficulty.HARD_ONLY_THIN)
         );
 
-        register(netherLavaFish(fromRL("tide", "blazing_swordfish"))
+        register(netherLavaFish(U.holderItem("tide", "blazing_swordfish"))
                 //no bucketed version
                 //no entity version
                 .withSizeAndWeight(FishProperties.sw(200, 100, 100000, 50000, 10, 20))
@@ -474,13 +475,13 @@ public class TideFishingProperties extends FishingPropertiesRegistry
         );
 
         //tide end
-        register(endFish(fromRL("tide", "endstone_perch"))
+        register(endFish(U.holderItem("tide", "endstone_perch"))
                 //no bucketed version
                 //no entity version
                 .withSizeAndWeight(FishProperties.sw(25, 10, 500, 300, 10, 20)).withDifficulty(FishProperties.Difficulty.MEDIUM_MOVING_NO_FLIP)
         );
 
-        register(endFish(fromRL("tide", "enderfin"))
+        register(endFish(U.holderItem("tide", "enderfin"))
                 //no bucketed version
                 //no entity version
                 .withSizeAndWeight(FishProperties.sw(50, 20, 5000, 3000, 10, 20))
@@ -488,7 +489,7 @@ public class TideFishingProperties extends FishingPropertiesRegistry
                 .withDifficulty(FishProperties.Difficulty.MEDIUM)
         );
 
-        register(endFish(fromRL("tide", "endergazer"))
+        register(endFish(U.holderItem("tide", "endergazer"))
                 //no bucketed version
                 //no entity version
                 .withSizeAndWeight(FishProperties.sw(60, 30, 6000, 4000, 10, 20))
@@ -496,7 +497,7 @@ public class TideFishingProperties extends FishingPropertiesRegistry
                 .withRarity(FishProperties.Rarity.EPIC)
         );
 
-        register(endOuterIslandsFish(fromRL("tide", "purpur_pike"))
+        register(endOuterIslandsFish(U.holderItem("tide", "purpur_pike"))
                 //no bucketed version
                 //no entity version
                 .withSizeAndWeight(FishProperties.sw(100, 50, 15000, 10000, 10, 20))
@@ -504,7 +505,7 @@ public class TideFishingProperties extends FishingPropertiesRegistry
                 .withDifficulty(FishProperties.Difficulty.MEDIUM_VANISHING)
         );
 
-        register(endOuterIslandsFish(fromRL("tide", "chorus_cod"))
+        register(endOuterIslandsFish(U.holderItem("tide", "chorus_cod"))
                 //no bucketed version
                 //no entity version
                 .withSizeAndWeight(FishProperties.sw(100, 50, 15000, 10000, 10, 20))
@@ -512,7 +513,7 @@ public class TideFishingProperties extends FishingPropertiesRegistry
                 .withRarity(FishProperties.Rarity.EPIC)
         );
 
-        register(endFish(fromRL("tide", "elytrout"))
+        register(endFish(U.holderItem("tide", "elytrout"))
                 //no bucketed version
                 //no entity version
                 .withSizeAndWeight(FishProperties.sw(50, 20, 5000, 3000, 10, 20))
@@ -520,7 +521,7 @@ public class TideFishingProperties extends FishingPropertiesRegistry
                 .withDifficulty(FishProperties.Difficulty.HARD)
         );
 
-        register(endFish(fromRL("tide", "voidseeker"))
+        register(endFish(U.holderItem("tide", "voidseeker"))
                 //no bucketed version
                 //no entity version
                 .withSizeAndWeight(FishProperties.sw(100, 50, 15000, 10000, 10, 20))
@@ -531,9 +532,9 @@ public class TideFishingProperties extends FishingPropertiesRegistry
 
 
         //TODO put into corresponding category
-        register(overworldLakeFish(fromRL("tide", "midas_fish"))
+        register(overworldLakeFish(U.holderItem("tide", "midas_fish"))
                 //no bucketed version
-                .withEntityToSpawn(rl("tide", "midas_fish"))
+                .withEntityToSpawn(U.holderEntity("tide", "midas_fish"))
                 .withSizeAndWeight(FishProperties.sw(800, 50, 310000, 120000, 10, 20))
                 .withWeather(FishProperties.Weather.THUNDER)
                 .withBaitRestrictions(FishProperties.BaitRestrictions.LEGENDARY_BAIT)
@@ -541,9 +542,9 @@ public class TideFishingProperties extends FishingPropertiesRegistry
                 .withDifficulty(FishProperties.Difficulty.EVERYTHING_FLIP_MOVING)
         );
 
-        register(overworldOceanFish(fromRL("tide", "shooting_starfish"))
-                .withBucketedFish(fromRL("tide", "shooting_starfish_bucket"))
-                .withEntityToSpawn(rl("tide", "shooting_starfish"))
+        register(overworldOceanFish(U.holderItem("tide", "shooting_starfish"))
+                .withBucketedFish(U.holderItem("tide", "shooting_starfish_bucket"))
+                .withEntityToSpawn(U.holderEntity("tide", "shooting_starfish"))
                 .withSizeAndWeight(FishProperties.sw(30, 10, 1000, 500, 10, 20))
                 .withBaitRestrictions(FishProperties.BaitRestrictions.LEGENDARY_BAIT)
                 .withRarity(FishProperties.Rarity.LEGENDARY)

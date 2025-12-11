@@ -314,12 +314,9 @@ public class SettingsScreen extends Screen
         //Units
         guiGraphics.drawString(this.font, Component.translatable(unitSelected.translationKey), width / 2 - 50, height / 2 + 102, 0x000000, false);
 
-        if (treasureActive)
-            renderTreasure(guiGraphics);
-        for (HitFakeParticle instance : hitParticles)
-        {
-            FishingMinigameScreen.renderParticle(guiGraphics, instance, poseStack, width, height);
-        }
+        if (treasureActive) renderTreasure(guiGraphics);
+
+        hitParticles.forEach(p -> p.render(guiGraphics, width, height));
     }
 
     @Override

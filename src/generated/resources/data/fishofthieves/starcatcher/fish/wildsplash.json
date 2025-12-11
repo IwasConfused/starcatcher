@@ -17,9 +17,10 @@
   "base_chance": 5,
   "catch_info": {
     "always_spawn_entity": false,
-    "entity_to_spawn": "fishofthieves:wildsplash",
-    "fish": "fishofthieves:wildsplash",
-    "fish_bucket": "fishofthieves:wildsplash_bucket"
+    "entity": "fishofthieves:wildsplash",
+    "fish_bucket": "fishofthieves:wildsplash_bucket",
+    "item": "fishofthieves:wildsplash",
+    "treasure": "starcatcher:waterlogged_satchel"
   },
   "daytime": "all",
   "difficulty": {
@@ -27,12 +28,7 @@
     "missPenalty": 10,
     "modifiers": [],
     "speed": 9,
-    "sweetspots": [],
-    "treasure": {
-      "has_treasure": false,
-      "hit_reward": 15,
-      "loot": "starcatcher:waterlogged_satchel"
-    }
+    "sweetspots": []
   },
   "has_guide_entry": true,
   "rarity": "uncommon",

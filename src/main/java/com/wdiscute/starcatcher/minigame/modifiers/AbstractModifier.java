@@ -7,13 +7,21 @@ import net.minecraft.client.gui.GuiGraphics;
 
 public abstract class AbstractModifier
 {
-    public abstract void onHit(FishingMinigameScreen instance, ActiveSweetSpot ass);
+    public boolean removed = false;
+    protected FishingMinigameScreen instance;
 
-    public abstract void onMiss(FishingMinigameScreen instance);
+    public void onAdd(FishingMinigameScreen instance)
+    {
+        this.instance = instance;
+    }
 
-    public abstract void tick(FishingMinigameScreen instance);
+    public void onHit(ActiveSweetSpot ass){};
 
-    public abstract void onSuccessfulCatch(FishingMinigameScreen instance);
+    public void onMiss(){}
 
-    public abstract void render(FishingMinigameScreen instance, GuiGraphics guiGraphics, float partialTick, PoseStack poseStack, int width, int height);
+    public void tick(){}
+
+    public void onSuccessfulCatch(){}
+
+    public void render(GuiGraphics guiGraphics, float partialTick, PoseStack poseStack, int width, int height){};
 }

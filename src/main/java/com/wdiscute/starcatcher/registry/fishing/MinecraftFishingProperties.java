@@ -1,6 +1,7 @@
 package com.wdiscute.starcatcher.registry.fishing;
 
 import com.wdiscute.starcatcher.Starcatcher;
+import com.wdiscute.starcatcher.U;
 import com.wdiscute.starcatcher.registry.ModItems;
 import com.wdiscute.starcatcher.storage.FishProperties;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -30,9 +31,9 @@ public class MinecraftFishingProperties {
 
 
 
-        register(overworldFish(fromRL("minecraft", "creeper_head"))
+        register(overworldFish(U.holderItem("minecraft", "creeper_head"))
                 .withAlwaysSpawnEntity(true)
-                .withEntityToSpawn(rl("minecraft", "creeper"))
+                .withEntityToSpawn(U.holderEntity("minecraft", "creeper"))
                 .withSizeAndWeight(FishProperties.SizeAndWeight.NONE)
                 .withBaseChance(0)
                 .withBaitRestrictions(
@@ -43,14 +44,14 @@ public class MinecraftFishingProperties {
                 .withItemToOverrideWith(ModItems.UNKNOWN_FISH)
                 .withSkipMinigame(true));
 
-        register(overworldSurfaceFish(fromRL("minecraft", "rotten_flesh"))
+        register(overworldSurfaceFish(U.holderItem("minecraft", "rotten_flesh"))
                 .withSizeAndWeight(FishProperties.SizeAndWeight.NONE)
                 .withBaseChance(1)
                 .withDaytime(FishProperties.Daytime.NIGHT)
                 .withWeather(FishProperties.Weather.RAIN)
                 .withHasGuideEntry(false)
                 .withAlwaysSpawnEntity(true)
-                .withEntityToSpawn(rl("minecraft", "drowned"))
+                .withEntityToSpawn(U.holderEntity("minecraft", "drowned"))
                 .withItemToOverrideWith(ModItems.UNKNOWN_FISH)
                 .withSkipMinigame(true));
     }

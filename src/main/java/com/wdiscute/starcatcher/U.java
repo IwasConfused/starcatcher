@@ -2,16 +2,21 @@ package com.wdiscute.starcatcher;
 
 import com.mojang.logging.LogUtils;
 import com.wdiscute.starcatcher.bob.FishingBobEntity;
+import com.wdiscute.starcatcher.datagen.TrustedHolder;
 import com.wdiscute.starcatcher.fishentity.FishEntity;
 import com.wdiscute.starcatcher.io.*;
 import com.wdiscute.starcatcher.registry.ModCriterionTriggers;
+import com.wdiscute.starcatcher.registry.ModEntities;
 import com.wdiscute.starcatcher.registry.ModItems;
 import com.wdiscute.starcatcher.storage.FishProperties;
 import com.wdiscute.starcatcher.storage.TrophyProperties;
 import com.wdiscute.starcatcher.tournament.TournamentHandler;
+import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -21,23 +26,24 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.fml.ModList;
+import net.neoforged.neoforge.registries.DeferredItem;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
+import java.util.function.Supplier;
 
 public class U
 {
 
-    public static void spawnFishFromFP(Player player, int time, boolean completedTreasure, boolean perfectCatch, int hits)
+    public static void spawnFishFromPlayerFishing(ServerPlayer player, int time, boolean completedTreasure, boolean perfectCatch, int hits)
     {
-
         ServerLevel level = ((ServerLevel) player.level());
 
         if (player.getData(ModDataAttachments.FISHING).isEmpty()) return;
@@ -52,8 +58,8 @@ public class U
                 ModCriterionTriggers.MINIGAME_COMPLETED.get().trigger((ServerPlayer) player, hits, perfectCatch, completedTreasure, time, fp.catchInfo().fish());
 
                 //pick size and weight
-                int size = FishCaughtCounter.getRandomSize(fp);
-                int weight = FishCaughtCounter.getRandomWeight(fp);
+                int size = getRandomSize(fp);
+                int weight = getRandomWeight(fp);
 
                 //award fish counter
                 FishCaughtCounter.awardFishCaughtCounter(fp, player, time, size, weight, perfectCatch, true);
@@ -76,16 +82,8 @@ public class U
                     exp *= (int) ((double) hits / 3) + 1; //extra exp if gold hook is used
                 player.giveExperiencePoints(exp);
 
-                //SPAWN ENTITY
-                Optional<EntityType<?>> optional = BuiltInRegistries.ENTITY_TYPE.getOptional(fp.catchInfo().entityToSpawn());
-                if (
-                        (
-                                fp.catchInfo().alwaysSpawnEntity()
-                                        || ModList.get().isLoaded("fishingreal")
-                                        || fbe.bait.is(ModItems.ALMIGHTY_WORM)
-                        )
-                                && optional.isPresent()
-                )
+                //SPAWN ENTITY if ⏬⏬⏬
+                if (fp.catchInfo().alwaysSpawnEntity() || ModList.get().isLoaded("fishingreal") || fbe.bait.is(ModItems.ALMIGHTY_WORM))
                 {
 
                     Vec3 objPos = player.position().subtract(fbe.position());
@@ -102,7 +100,7 @@ public class U
                     y *= 2;
                     z *= 2.5;
 
-                    Entity entity = optional.get().create(level);
+                    Entity entity = fp.catchInfo().entityToSpawn().value().create(level);
 
                     if (entity == null)
                     {
@@ -172,7 +170,7 @@ public class U
                 //spawn treasure item
                 if (completedTreasure)
                 {
-                    ItemStack treasure = new ItemStack(BuiltInRegistries.ITEM.get(fp.dif().treasure().loot()));
+                    ItemStack treasure = new ItemStack(fp.catchInfo().treasure());
                     ItemEntity treasureFished = new ItemEntity(level, fbe.position().x, fbe.position().y + 1.2f, fbe.position().z, treasure);
                     double x = Math.clamp((player.position().x - fbe.position().x) / 25, -1, 1);
                     double y = Math.clamp((player.position().y - fbe.position().y) / 20, -1, 1);
@@ -198,9 +196,22 @@ public class U
 
     public static ItemStack getFishedItemstackFromFP(FishProperties fp)
     {
-        int size = FishCaughtCounter.getRandomSize(fp);
-        int weight = FishCaughtCounter.getRandomWeight(fp);
+        int size = getRandomSize(fp);
+        int weight = getRandomWeight(fp);
         return getFishedItemstackFromFP(fp, size, weight);
+    }
+
+
+    public static int getRandomSize(FishProperties fp)
+    {
+        return ((int) Starcatcher.truncatedNormal(fp.sw().sizeAverage(), fp.sw().sizeDeviation()));
+
+    }
+
+    public static int getRandomWeight(FishProperties fp)
+    {
+        return ((int) Starcatcher.truncatedNormal(fp.sw().weightAverage(), fp.sw().weightDeviation()));
+
     }
 
     public static ItemStack getFishedItemstackFromFP(FishProperties fp, int size, int weight)
@@ -402,4 +413,28 @@ public class U
         return !containsAny(list, contains);
     }
 
+    public static ResourceLocation rl(String ns, String path)
+    {
+        return ResourceLocation.fromNamespaceAndPath(ns, path);
+    }
+
+    public static Holder<Item> holderItem(String ns, String path)
+    {
+        return TrustedHolder.createStandAlone(BuiltInRegistries.ITEM.holderOwner(), ResourceKey.create(Registries.ITEM, rl(ns, path)));
+    }
+
+    public static Holder<Item> holderItem(DeferredItem<Item> item)
+    {
+        return Holder.direct(item.get());
+    }
+
+    public static Holder<EntityType<?>> holderEntity(String ns, String path)
+    {
+        return TrustedHolder.createStandAlone(BuiltInRegistries.ENTITY_TYPE.holderOwner(), ResourceKey.create(Registries.ENTITY_TYPE, rl(ns, path)));
+    }
+
+    public static Holder<EntityType<?>> holderEntity(Supplier<EntityType<FishEntity>> entity)
+    {
+        return Holder.direct(entity.get());
+    }
 }

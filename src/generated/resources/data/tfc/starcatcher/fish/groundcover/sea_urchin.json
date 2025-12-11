@@ -13,9 +13,10 @@
   "base_chance": 1,
   "catch_info": {
     "always_spawn_entity": false,
-    "entity_to_spawn": "starcatcher:missingno",
-    "fish": "tfc:groundcover/sea_urchin",
-    "fish_bucket": "starcatcher:missingno"
+    "entity": "starcatcher:fish",
+    "fish_bucket": "starcatcher:missingno",
+    "item": "tfc:groundcover/sea_urchin",
+    "treasure": "starcatcher:waterlogged_satchel"
   },
   "daytime": "all",
   "difficulty": {
@@ -23,12 +24,7 @@
     "missPenalty": 10,
     "modifiers": [],
     "speed": 9,
-    "sweetspots": [],
-    "treasure": {
-      "has_treasure": false,
-      "hit_reward": 15,
-      "loot": "starcatcher:waterlogged_satchel"
-    }
+    "sweetspots": []
   },
   "has_guide_entry": false,
   "rarity": "common",

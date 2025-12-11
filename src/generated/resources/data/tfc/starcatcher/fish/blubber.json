@@ -18,9 +18,10 @@
   "base_chance": 0,
   "catch_info": {
     "always_spawn_entity": true,
-    "entity_to_spawn": "tfc:dolphin",
-    "fish": "tfc:blubber",
-    "fish_bucket": "starcatcher:missingno"
+    "entity": "tfc:dolphin",
+    "fish_bucket": "starcatcher:missingno",
+    "item": "tfc:blubber",
+    "treasure": "starcatcher:waterlogged_satchel"
   },
   "daytime": "all",
   "difficulty": {
@@ -28,12 +29,7 @@
     "missPenalty": 10,
     "modifiers": [],
     "speed": 9,
-    "sweetspots": [],
-    "treasure": {
-      "has_treasure": false,
-      "hit_reward": 15,
-      "loot": "starcatcher:waterlogged_satchel"
-    }
+    "sweetspots": []
   },
   "has_guide_entry": false,
   "rarity": "uncommon",

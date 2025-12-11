@@ -3,6 +3,7 @@ package com.wdiscute.starcatcher.minigame;
 import com.mojang.blaze3d.platform.InputConstants;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.logging.LogUtils;
 import com.mojang.math.Axis;
 import com.wdiscute.libtooltips.Tooltips;
 import com.wdiscute.starcatcher.Config;
@@ -11,8 +12,9 @@ import com.wdiscute.starcatcher.StarcatcherTags;
 import com.wdiscute.starcatcher.io.ModDataComponents;
 import com.wdiscute.starcatcher.io.network.FishingCompletedPayload;
 import com.wdiscute.starcatcher.items.ColorfulSmithingTemplate;
+import com.wdiscute.starcatcher.minigame.modifiers.AddFrozenSweetSpotsModifier;
 import com.wdiscute.starcatcher.minigame.modifiers.FreezeModifier;
-import com.wdiscute.starcatcher.minigame.modifiers.FrozenSweetSpotModifier;
+import com.wdiscute.starcatcher.minigame.modifiers.LowChanceTreasureSpawnModifier;
 import com.wdiscute.starcatcher.registry.ModItems;
 import com.wdiscute.starcatcher.registry.ModKeymappings;
 import com.wdiscute.starcatcher.minigame.modifiers.AbstractModifier;
@@ -44,6 +46,7 @@ import org.joml.Vector2d;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class FishingMinigameScreen extends Screen implements GuiEventListener
 {
@@ -65,18 +68,17 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener
     public final ItemStack hook;
     public final ItemStack treasureIS;
 
-    public final InteractionHand hand;
+    public final InteractionHand handToSwing;
 
     public int penalty;
     public int decay;
-
-    public boolean changeRotation;
 
     public float lastHitMarkerPos = 0;
     public float missedHitAlpha = 0;
     private float landedHitAlpha = 0;
 
     public int gracePeriod = 80;
+    //todo do this smiley face :)
     public boolean minigameStarted;
 
     public float pointerSpeed;
@@ -88,8 +90,8 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener
     public float partial;
     public float hitDelay;
 
-    public int completion = 20;
-    public int completionSmooth = 20;
+    public int progress = 20;
+    public int progressSmooth = 20;
 
     public boolean perfectCatch = true;
     public int consecutiveHits = 0;
@@ -109,12 +111,14 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener
     private boolean isHoldingKey = false;
     private boolean isHoldingMouse = false;
 
-    public List<ActiveSweetSpot> activeSweetSpots = new ArrayList<>();
-    public List<AbstractModifier> modifiers = new ArrayList<>();
+    private final List<ActiveSweetSpot> activeSweetSpots = new ArrayList<>();
+    private final List<AbstractModifier> modifiers = new ArrayList<>();
 
     public FishingMinigameScreen(FishProperties fp, ItemStack rod)
     {
         super(Component.empty());
+
+        handToSwing = Minecraft.getInstance().player.getMainHandItem().is(StarcatcherTags.RODS) ? InteractionHand.MAIN_HAND : InteractionHand.OFF_HAND;
 
         previousGuiScale = Minecraft.getInstance().options.guiScale().get();
         if (!ModList.get().isLoaded("distanthorizons"))
@@ -136,7 +140,7 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener
         this.bait = rod.get(ModDataComponents.BAIT).stack().copy();
         this.hook = rod.get(ModDataComponents.HOOK).stack().copy();
 
-        treasureIS = new ItemStack(BuiltInRegistries.ITEM.get(fp.dif().treasure().loot()));
+        this.treasureIS = new ItemStack(fp.catchInfo().treasure());
 
         //tank texture change
         ClientLevel level = Minecraft.getInstance().level;
@@ -154,47 +158,57 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener
         this.penalty = difficulty.penalty();
         this.decay = difficulty.decay();
 
-        //add sweet spots from fp
+        //add every sweet spot from fp json which is registered
         for (FishProperties.SweetSpot ss : fp.dif().sweetSpots())
         {
-            activeSweetSpots.add(new ActiveSweetSpot(ss, bobber, bait, hook, this));
+            var newSweetSpot = new ActiveSweetSpot(this, ss, bobber, bait, hook);
+            addSweetSpot(newSweetSpot);
         }
 
-        //add modifiers from fp
+        //add every modifier from fp json which is registered
         for (ResourceLocation rl : fp.dif().modifiers())
         {
-            modifiers.add(level.registryAccess().registryOrThrow(Starcatcher.MODIFIERS).get(rl));
+            Optional<AbstractModifier> newModifier = level.registryAccess().registryOrThrow(Starcatcher.MODIFIERS).getOptional(rl);
+            newModifier.ifPresent(this::addModifier);
         }
 
+        addSweetSpot(new ActiveSweetSpot(this, FishProperties.SweetSpot.NORMAL, bobber, bait, hook));
+        addSweetSpot(new ActiveSweetSpot(this, FishProperties.SweetSpot.NORMAL, bobber, bait, hook));
+        addSweetSpot(new ActiveSweetSpot(this, FishProperties.SweetSpot.NORMAL, bobber, bait, hook));
 
-        activeSweetSpots.add(new ActiveSweetSpot(FishProperties.SweetSpot.NORMAL, bobber, bait, hook, this));
-        activeSweetSpots.add(new ActiveSweetSpot(FishProperties.SweetSpot.THIN, bobber, bait, hook, this));
-
-        modifiers.add(new FrozenSweetSpotModifier());
-
-
-        hand = Minecraft.getInstance().player.getMainHandItem().is(StarcatcherTags.RODS) ? InteractionHand.MAIN_HAND : InteractionHand.OFF_HAND;
+        addModifier(new FreezeModifier());
+        addModifier(new LowChanceTreasureSpawnModifier());
     }
 
-    public int getRandomFreePosition()
+    public void addModifier(AbstractModifier mod)
+    {
+        mod.onAdd(this);
+        if (!mod.removed) this.modifiers.add(mod);
+    }
+
+    public void addSweetSpot(ActiveSweetSpot ass)
+    {
+        ass.behaviour.onAdd(this, ass);
+        if (!ass.removed) this.activeSweetSpots.add(ass);
+    }
+
+    public int getRandomFreePosition(int sizeOfTheSweetspotToPlace)
     {
         for (int i = 0; i < 100; i++)
         {
             int posBeingChecked = r.nextInt(360);
 
-            //change 50 and 310 to be based on sweet spot size
-            if (activeSweetSpots.stream().anyMatch(zone -> (Math.abs(zone.pos - posBeingChecked) < 50 || Math.abs(zone.pos - posBeingChecked) > 310)))
+            if(activeSweetSpots.stream().noneMatch(s ->
+                    doDegreesOverlapWithLeeway(posBeingChecked, s.pos, (s.thickness + sizeOfTheSweetspotToPlace) /2)
+            ))
             {
-                continue;
+                return posBeingChecked;
             }
-
-            return posBeingChecked;
         }
 
+        LogUtils.getLogger().warn("Starcatcher's minigame couldn't find a non-overlapping free position! Consider not having so many active sweet spots");
         return r.nextInt(360);
     }
-
-    //region render
 
     @Override
     public void renderBackground(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick)
@@ -209,79 +223,40 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener
         renderMainElements(guiGraphics, width, height, isHoldingKey, tankTexture);
 
         //render all hit zones
-        activeSweetSpots.forEach(zone -> zone.render(this, guiGraphics, partialTick, width, height));
-        activeSweetSpots.forEach(zone -> zone.sweetSpotType.render(this, guiGraphics, partialTick, width, height));
+        activeSweetSpots.forEach(ass -> ass.behaviour.render(guiGraphics, partialTick, width, height));
 
-        //wheel second layer
+        //render wheel second layer
         guiGraphics.blit(
                 TEXTURE, width / 2 - 32, height / 2 - 32,
                 64, 64, 64, 192, 64, 64, 256, 256);
 
-        //POINTER
+        //render pointer
         renderPointer(guiGraphics, partialTick, poseStack);
 
-        //KIMBE MARKER
+        //render kimbe marker
         renderHitMarker(guiGraphics, poseStack, width, height, missedHitAlpha, lastHitMarkerPos, bobber, 1, 0, 0);
         renderHitMarker(guiGraphics, poseStack, width, height, landedHitAlpha, lastHitMarkerPos, bobber, 0, 1, 0);
 
-        renderDecor(guiGraphics, width, height, completionSmooth, itemBeingFished);
-
-        if (consecutiveHits >= 3)
-        {
-            //todo render combo
-            //renderCombo(guiGraphics, consecutiveHits, partialTick + tickCount);
-        }
+        //render decor
+        renderDecor(guiGraphics, width, height, progressSmooth, itemBeingFished);
 
         //render modifiers
-        modifiers.forEach(modifier -> modifier.render(this, guiGraphics, partialTick, poseStack, width, height));
+        modifiers.forEach(modifier -> modifier.render(guiGraphics, partialTick, poseStack, width, height));
 
         //render particles
-        for (HitFakeParticle instance : hitParticles)
-        {
-            renderParticle(guiGraphics, instance, poseStack, width, height);
-        }
+        hitParticles.forEach(p -> p.render(guiGraphics, width, height));
+
     }
 
     private void renderCombo(GuiGraphics guiGraphics, int consecutiveHits, float delta)
     {
+        //todo make this into a modifier
         PoseStack pose = guiGraphics.pose();
         pose.translate(width / 2f + 20, height / 2f - 40, 0);
         pose.mulPose(Axis.ZP.rotationDegrees(30));
         float f = 1.8F - Mth.abs(Mth.sin(delta % 20) * ((float) Math.PI * 2F) * 0.01F);
         pose.scale(f, f, 1);
         guiGraphics.drawCenteredString(this.font, Component.translatable("fishing.combo", consecutiveHits).withStyle(ChatFormatting.GOLD), 0, -5, -1);
-    }
-
-    public static void renderParticle(GuiGraphics guiGraphics, HitFakeParticle instance, PoseStack poseStack, int width, int height)
-    {
-        poseStack.pushPose();
-        poseStack.translate(instance.pos.x, instance.pos.y, 0);
-        RenderSystem.setShaderColor(instance.r, instance.g, instance.b, instance.a);
-
-        guiGraphics.blit(
-                TEXTURE, width / 2 - 8, height / 2 - 8,
-                16, 16, 80, 160, 16, 16, 256, 256);
-
-        RenderSystem.setShaderColor(1, 1, 1, 1);
-        poseStack.popPose();
-    }
-
-    public static void renderPosTreasure(GuiGraphics guiGraphics, PoseStack poseStack, int width, int height, int posTreasure)
-    {
-        poseStack.pushPose();
-
-        float centerX = width / 2f;
-        float centerY = height / 2f;
-
-        poseStack.translate(centerX, centerY, 0);
-        poseStack.mulPose(new Quaternionf().rotateZ((float) Math.toRadians(posTreasure)));
-        poseStack.translate(-centerX, -centerY, 0);
-
-        guiGraphics.blit(
-                TEXTURE, width / 2 - 8, height / 2 - 8 - 25,
-                16, 16, 64, 160, 16, 16, 256, 256);
-
-        poseStack.popPose();
     }
 
     public static void renderHitPos(GuiGraphics guiGraphics, float partialTick, PoseStack poseStack, int width, int height, int currentRotation, int moveRate, int difficultyBobberOffset, float hitPos, float hitPosVanishing, boolean isThin)
@@ -394,9 +369,7 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener
                 16, 112 - completionSmooth,
                 256, 256);
 
-        //Twitch chat didn't force me to write this comment
-        //Lies, kuko010 force me to write said comment
-        //FISH
+        //item being fished
         guiGraphics.renderItem(itemBeingFished, width / 2 - 8 - 100, height / 2 - 8 + 35 - completionSmooth);
     }
 
@@ -435,9 +408,6 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener
 
     public static void renderPointer(GuiGraphics guiGraphics, float partialTick, PoseStack poseStack, int width, int height, boolean isHoldingSpace, int pointerPos, float speed, int currentRotation)
     {
-        //TODO make it not use the partial ticks from rendering thread of whatever honestly its just nerd stuff that no one will care about
-        //What other partial ticks would it use??
-
         poseStack.pushPose();
 
         float centerX = width / 2f;
@@ -449,7 +419,6 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener
         poseStack.mulPose(new Quaternionf().rotateZ((float) Math.toRadians(pointerPos + ((speed * partialTick) * currentRotation))));
         poseStack.translate(-centerX, -centerY, 0);
 
-
         //16 offset on y for texture centering
         guiGraphics.blit(
                 TEXTURE, width / 2 - 32, height / 2 - 32 - 16,
@@ -457,8 +426,6 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener
 
         poseStack.popPose();
     }
-
-    //endregion
 
     @Override
     public boolean keyReleased(int keyCode, int scanCode, int modifiers)
@@ -513,7 +480,7 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener
     {
         if (gracePeriod > 0) gracePeriod = 0;
 
-        Minecraft.getInstance().player.swing(hand, true);
+        Minecraft.getInstance().player.swing(handToSwing, true);
 
         boolean hitSomething = false;
 
@@ -522,35 +489,36 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener
 
         lastHitMarkerPos = getPointerPosPrecise();
 
+        ActiveSweetSpot hitSweetSpot = null;
         for (ActiveSweetSpot ass : activeSweetSpots)
         {
-            if (isHitSuccessful(ass.pos, ass.size))
+            if (doDegreesOverlapWithLeeway(getPointerPosPrecise(), ass.pos, ass.thickness))
             {
-                modifiers.forEach(modifier -> modifier.onHit(this, ass));
-
-                ass.sweetSpotType.onHit(this, ass);
-
-                if (changeRotation && ass.isFlip) currentRotation *= -1;
-                if (changeRotation && ass.isFlip) ass.currentRotation *= -1;
-
-                completion += ass.reward;
-                treasureProgress += ass.reward;
-                hitSomething = true;
-                ass.pos = getRandomFreePosition();
+                ass.behaviour.onHit();
                 landedHitAlpha = 1;
+
+                hitSweetSpot = ass;
+                hitSomething = true;
+                break;
             }
         }
 
-        if (!hitSomething)
+
+        if (hitSomething)
         {
-            this.modifiers.forEach(modifier -> modifier.onMiss(this));
+            ActiveSweetSpot finalHitSweetSpot = hitSweetSpot;
+            modifiers.forEach(modifier -> modifier.onHit(finalHitSweetSpot));
+        }
+        else
+        {
+            this.modifiers.forEach(modifier -> modifier.onMiss());
 
             if (bobber.is(ModItems.KIMBE_BOBBER_SMITHING_TEMPLATE))
                 Minecraft.getInstance().player.playSound(SoundEvents.VILLAGER_NO, 1, 1);
             missedHitAlpha = 1;
             consecutiveHits = 0;
             level.playLocalSound(pos.x, pos.y, pos.z, SoundEvents.COMPARATOR_CLICK, SoundSource.BLOCKS, 1, 1, false);
-            completion -= penalty;
+            progress -= penalty;
             perfectCatch = false;
         }
     }
@@ -563,21 +531,11 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener
         return pointerPosPrecise;
     }
 
-    public void addTreasure()
+    public static boolean doDegreesOverlapWithLeeway(float degrees1, float degrees2, int leeway)
     {
-        treasureActive = true;
-        treasureProgress = 0;
-        treasureProgressSmooth = 0;
-    }
-
-    public boolean isHitSuccessful(float hitPos, int forgiving)
-    {
-        return isHitSuccessful(getPointerPosPrecise(), hitPos, forgiving);
-    }
-
-    public static boolean isHitSuccessful(float pointerPrecise, float hitPos, int forgiving)
-    {
-        return Math.abs(hitPos - pointerPrecise) < forgiving || Math.abs(hitPos - pointerPrecise) > 360 - forgiving;
+        boolean b = Math.abs(degrees2 - degrees1) < (float) leeway;
+        boolean b2 = Math.abs(degrees2 - degrees1) > 360 - ((float) leeway);
+        return b || b2;
     }
 
     @Override
@@ -590,16 +548,19 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener
         }
 
         //tick modifiers
-        modifiers.forEach(m -> m.tick(this));
-        //tick sweetSpotType
-        activeSweetSpots.forEach(s -> s.sweetSpotType.tick(this));
-        //tick activeSweetSpots
-        activeSweetSpots.forEach(s -> s.tick(this));
+        modifiers.forEach(AbstractModifier::tick);
+        //tick behaviour
+        activeSweetSpots.forEach(s -> s.behaviour.tick());
+
         //remove activeSweetSpots marked for removal
         activeSweetSpots.removeIf(s -> s.removed);
+        //remove modifiers marked for removal
+        modifiers.removeIf(m -> m.removed);
 
+        //move pointer
         pointerPos += (int) (pointerSpeed * currentRotation);
 
+        //decrease kimbe markers alpha
         missedHitAlpha -= 0.1f;
         landedHitAlpha -= 0.1f;
 
@@ -610,22 +571,22 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener
 
         tickCount++;
 
-        completionSmooth += (int) Math.signum(completion - completionSmooth);
-        completionSmooth += (int) Math.signum(completion - completionSmooth);
+        progressSmooth += (int) Math.signum(progress - progressSmooth);
+        progressSmooth += (int) Math.signum(progress - progressSmooth);
 
         treasureProgressSmooth += (int) Math.signum(treasureProgress - treasureProgressSmooth);
 
         if (tickCount % 5 == 0 && gracePeriod < 0)
         {
-            completion -= decay;
+            progress -= decay;
         }
 
-        if (completionSmooth < 0)
+        if (progressSmooth < 0)
         {
             this.onClose();
         }
 
-        if (completionSmooth > 75)
+        if (progressSmooth > 75)
         {
             //if completed treasure minigame, or is a perfect catch with the mossy hook
             boolean awardTreasure = treasureProgress > 100;
@@ -647,7 +608,7 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener
         this.minecraft.popGuiLayer();
     }
 
-    public void addParticles(float posInDegrees, int count)
+    public void addParticles(float posInDegrees, int count, int color)
     {
         int xPos = (int) (30 * Math.cos(Math.toRadians(posInDegrees - 90)));
         int yPos = (int) (30 * Math.sin(Math.toRadians(posInDegrees - 90)));
@@ -668,46 +629,33 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener
 
             if (bobber.is(ModItems.COLORFUL_BOBBER_SMITHING_TEMPLATE))
             {
-                ColorfulSmithingTemplate.BobberColor color = bobber.get(ModDataComponents.BOBBER_COLOR);
+                ColorfulSmithingTemplate.BobberColor bobberColor = bobber.get(ModDataComponents.BOBBER_COLOR);
                 hitParticles.add(new HitFakeParticle(
                         xPos, yPos, new Vector2d(r.nextFloat() * 2 - 1, r.nextFloat() * 2 - 1),
-                        color.r(),
-                        color.g(),
-                        color.b(),
+                        bobberColor.r(),
+                        bobberColor.g(),
+                        bobberColor.b(),
                         1
                 ));
                 continue;
             }
 
-            //todo if(treasure)
-            if (false)
-            {
-                //red particles if treasure sweet spot was hit
-                hitParticles.add(new HitFakeParticle(
-                        xPos, yPos, new Vector2d(r.nextFloat() * 2 - 1, r.nextFloat() * 2 - 1),
-                        0.7f + r.nextFloat() / 3, 0.5f, 0.5f, 1
-                ));
-            }
-            else
-            {
-                hitParticles.add(new HitFakeParticle(xPos, yPos, new Vector2d(r.nextFloat() * 2 - 1, r.nextFloat() * 2 - 1)));
-            }
-
+            hitParticles.add(
+                    new HitFakeParticle(
+                            xPos,
+                            yPos,
+                            new Vector2d(r.nextFloat() * 2 - 1, r.nextFloat() * 2 - 1),
+                            FastColor.ARGB32.red(color),
+                            FastColor.ARGB32.green(color),
+                            FastColor.ARGB32.blue(color),
+                            FastColor.ARGB32.alpha(color)
+                    ));
         }
     }
 
     public boolean isHoldingInput()
     {
         return isHoldingMouse || isHoldingKey;
-    }
-
-    public static int normalizePos(int pos)
-    {
-        int ret = pos % 360;
-
-        if (ret < 0) ret += 360;
-
-        return ret;
     }
 
     @Override

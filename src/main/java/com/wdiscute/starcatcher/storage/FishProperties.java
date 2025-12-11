@@ -5,12 +5,15 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.wdiscute.starcatcher.Config;
 import com.wdiscute.starcatcher.Starcatcher;
 import com.wdiscute.starcatcher.StarcatcherTags;
+import com.wdiscute.starcatcher.U;
 import com.wdiscute.starcatcher.bob.FishingBobEntity;
 import com.wdiscute.starcatcher.compat.EclipticSeasonsCompat;
 import com.wdiscute.starcatcher.compat.SereneSeasonsCompat;
 import com.wdiscute.starcatcher.compat.TerraFirmaCraftSeasonsCompat;
 import com.wdiscute.starcatcher.io.ExtraComposites;
 import com.wdiscute.starcatcher.io.ModDataComponents;
+import com.wdiscute.starcatcher.minigame.sweetspotbehaviour.ModSweetSpotsBehaviour;
+import com.wdiscute.starcatcher.registry.ModEntities;
 import com.wdiscute.starcatcher.registry.ModItems;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.ChatFormatting;
@@ -30,6 +33,7 @@ import net.minecraft.tags.BiomeTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -135,15 +139,15 @@ public record FishProperties(
         private boolean skipMinigame = false;
         private boolean hasGuideEntry = true;
 
-        public Builder withFish(Holder<Item> fish)
-        {
-            this.catchInfo.withFish(fish);
-            return this;
-        }
-
         public Builder withCatchInfo(CatchInfo.Builder builder)
         {
             this.catchInfo = builder;
+            return this;
+        }
+
+        public Builder withFish(Holder<Item> fish)
+        {
+            this.catchInfo.withFish(fish);
             return this;
         }
 
@@ -153,9 +157,9 @@ public record FishProperties(
             return this;
         }
 
-        public Builder withEntityToSpawn(ResourceLocation location)
+        public Builder withEntityToSpawn(Holder<EntityType<?>> entity)
         {
-            this.catchInfo.withEntityToSpawn(location);
+            this.catchInfo.withEntityToSpawn(entity);
             return this;
         }
 
@@ -167,7 +171,7 @@ public record FishProperties(
 
         public Builder withItemToOverrideWith(Holder<Item> itemToOverrideWith)
         {
-            this.catchInfo.withItemToOverrideWith(itemToOverrideWith);
+            this.catchInfo.withOverrideMinigameWith(itemToOverrideWith);
             return this;
         }
 
@@ -259,51 +263,55 @@ public record FishProperties(
     public record CatchInfo(
             Holder<Item> fish,
             Holder<Item> bucketedFish,
-            ResourceLocation entityToSpawn,
+            Holder<EntityType<?>> entityToSpawn,
             boolean alwaysSpawnEntity,
-            Holder<Item> overrideMinigameWith
+            Holder<Item> overrideMinigameWith,
+            Holder<Item> treasure
     )
     {
         public static final Codec<CatchInfo> CODEC = RecordCodecBuilder.create(instance ->
                 instance.group(
-                        BuiltInRegistries.ITEM.holderByNameCodec().fieldOf("fish").forGetter(CatchInfo::fish),
+                        BuiltInRegistries.ITEM.holderByNameCodec().fieldOf("item").forGetter(CatchInfo::fish),
                         BuiltInRegistries.ITEM.holderByNameCodec().fieldOf("fish_bucket").forGetter(CatchInfo::bucketedFish),
-                        ResourceLocation.CODEC.fieldOf("entity_to_spawn").forGetter(CatchInfo::entityToSpawn),
+                        BuiltInRegistries.ENTITY_TYPE.holderByNameCodec().fieldOf("entity").forGetter(CatchInfo::entityToSpawn),
                         Codec.BOOL.fieldOf("always_spawn_entity").forGetter(CatchInfo::alwaysSpawnEntity),
-                        BuiltInRegistries.ITEM.holderByNameCodec().optionalFieldOf("override_minigame_item", ModItems.MISSINGNO).forGetter(CatchInfo::overrideMinigameWith)
+                        BuiltInRegistries.ITEM.holderByNameCodec().optionalFieldOf("override_minigame_item", ModItems.MISSINGNO).forGetter(CatchInfo::overrideMinigameWith),
+                        BuiltInRegistries.ITEM.holderByNameCodec().optionalFieldOf("treasure", ModItems.MISSINGNO).forGetter(CatchInfo::treasure)
                 ).apply(instance, CatchInfo::new));
-
 
         public static final StreamCodec<RegistryFriendlyByteBuf, CatchInfo> STREAM_CODEC = StreamCodec.composite(
                 ByteBufCodecs.holderRegistry(Registries.ITEM), CatchInfo::fish,
                 ByteBufCodecs.holderRegistry(Registries.ITEM), CatchInfo::bucketedFish,
-                ByteBufCodecs.fromCodec(ResourceLocation.CODEC), CatchInfo::entityToSpawn,
+                ByteBufCodecs.holderRegistry(Registries.ENTITY_TYPE), CatchInfo::entityToSpawn,
                 ByteBufCodecs.BOOL, CatchInfo::alwaysSpawnEntity,
                 ByteBufCodecs.holderRegistry(Registries.ITEM), CatchInfo::overrideMinigameWith,
+                ByteBufCodecs.holderRegistry(Registries.ITEM), CatchInfo::treasure,
                 CatchInfo::new
         );
 
         public static final CatchInfo DEFAULT = new CatchInfo(
                 ModItems.MISSINGNO,
                 ModItems.MISSINGNO,
-                Starcatcher.rl("missingno"),
+                //cant use entity reference as its not registered for the psf
+                U.holderEntity("starcatcher", "fish"),
                 false,
-                ModItems.MISSINGNO
+                ModItems.MISSINGNO,
+                ModItems.WATERLOGGED_SATCHEL
         );
 
         public CatchInfo withItemToOverrideWith(Holder<Item> itemToOverrideWith)
         {
-            return new CatchInfo(this.fish, this.bucketedFish, this.entityToSpawn, alwaysSpawnEntity, itemToOverrideWith);
+            return new CatchInfo(this.fish, this.bucketedFish, this.entityToSpawn, alwaysSpawnEntity, itemToOverrideWith, this.treasure);
         }
 
         public static class Builder
         {
             private Holder<Item> fish = ModItems.MISSINGNO;
             private Holder<Item> bucketedFish = ModItems.MISSINGNO;
-            private ResourceLocation entityToSpawn = Starcatcher.rl("missingno");
+            private Holder<EntityType<?>> entityToSpawn = U.holderEntity("starcatcher", "fish");
             private boolean alwaysSpawnEntity = false;
-            private boolean overrideMinigameItem = false;
             private Holder<Item> itemToOverrideWith = ModItems.MISSINGNO;
+            private Holder<Item> treasure = ModItems.WATERLOGGED_SATCHEL;
 
             public Builder withFish(Holder<Item> fish)
             {
@@ -317,7 +325,7 @@ public record FishProperties(
                 return this;
             }
 
-            public Builder withEntityToSpawn(ResourceLocation entityToSpawn)
+            public Builder withEntityToSpawn(Holder<EntityType<?>> entityToSpawn)
             {
                 this.entityToSpawn = entityToSpawn;
                 return this;
@@ -329,21 +337,21 @@ public record FishProperties(
                 return this;
             }
 
-            public Builder withOverrideMinigameItem(boolean overrideMinigameItem)
-            {
-                this.overrideMinigameItem = overrideMinigameItem;
-                return this;
-            }
-
-            public Builder withItemToOverrideWith(Holder<Item> itemToOverrideWith)
+            public Builder withOverrideMinigameWith(Holder<Item> itemToOverrideWith)
             {
                 this.itemToOverrideWith = itemToOverrideWith;
                 return this;
             }
 
+            public Builder withTreasure(Holder<Item> treasure)
+            {
+                this.treasure = treasure;
+                return this;
+            }
+
             public CatchInfo build()
             {
-                return new CatchInfo(fish, bucketedFish, entityToSpawn, alwaysSpawnEntity, itemToOverrideWith);
+                return new CatchInfo(fish, bucketedFish, entityToSpawn, alwaysSpawnEntity, itemToOverrideWith, treasure);
             }
         }
     }
@@ -816,62 +824,6 @@ public record FishProperties(
 
     }
 
-    //endregion world
-
-
-    //region treasure
-
-    public record Treasure(
-            boolean hasTreasure,
-            ResourceLocation loot,
-            int hitReward
-    )
-    {
-
-        public static final Codec<Treasure> CODEC = RecordCodecBuilder.create(instance ->
-                instance.group(
-                        Codec.BOOL.fieldOf("has_treasure").forGetter(Treasure::hasTreasure),
-                        ResourceLocation.CODEC.fieldOf("loot").forGetter(Treasure::loot),
-                        Codec.INT.fieldOf("hit_reward").forGetter(Treasure::hitReward)
-                ).apply(instance, Treasure::new));
-
-        public static final StreamCodec<ByteBuf, Treasure> STREAM_CODEC = StreamCodec.composite(
-                ByteBufCodecs.BOOL, Treasure::hasTreasure,
-                ResourceLocation.STREAM_CODEC, Treasure::loot,
-                ByteBufCodecs.INT, Treasure::hitReward,
-                Treasure::new
-        );
-
-        public static final Treasure DEFAULT = new Treasure(
-                false,
-                Starcatcher.rl("waterlogged_satchel"),
-                15
-        );
-
-        public static final Treasure UNCOMMON = new Treasure(
-                true,
-                Starcatcher.rl("waterlogged_satchel"),
-                15
-        );
-
-        public static final Treasure HARD = new Treasure(
-                true,
-                Starcatcher.rl("treasure"),
-                15
-        );
-
-
-        public static final Treasure NETHER = new Treasure(
-                true,
-                Starcatcher.rl("scalding_treasure"),
-                28
-        );
-
-    }
-
-    //endregion treasure
-
-
     //region dif
 
     public record Difficulty(
@@ -879,15 +831,13 @@ public record FishProperties(
             int penalty,
             int decay,
             List<SweetSpot> sweetSpots,
-            List<ResourceLocation> modifiers,
-            Treasure treasure
+            List<ResourceLocation> modifiers
     )
     {
         public static Difficulty DEFAULT = new Difficulty(
                 9, 10, 1,
                 List.of(),
-                List.of(),
-                Treasure.DEFAULT
+                List.of()
         );
 
 
@@ -931,51 +881,18 @@ public record FishProperties(
                         Codec.INT.fieldOf("missPenalty").forGetter(Difficulty::penalty),
                         Codec.INT.fieldOf("decay").forGetter(Difficulty::decay),
                         SweetSpot.LIST_CODEC.fieldOf("sweetspots").forGetter(Difficulty::sweetSpots),
-                        ResourceLocation.CODEC.listOf().fieldOf("modifiers").forGetter(Difficulty::modifiers),
-                        Treasure.CODEC.fieldOf("treasure").forGetter(Difficulty::treasure)
+                        ResourceLocation.CODEC.listOf().fieldOf("modifiers").forGetter(Difficulty::modifiers)
                 ).apply(instance, Difficulty::new));
 
 
-        public static final StreamCodec<FriendlyByteBuf, Difficulty> STREAM_CODEC = ExtraComposites.composite(
+        public static final StreamCodec<FriendlyByteBuf, Difficulty> STREAM_CODEC = StreamCodec.composite(
                 ByteBufCodecs.INT, Difficulty::speed,
                 ByteBufCodecs.INT, Difficulty::penalty,
                 ByteBufCodecs.INT, Difficulty::decay,
                 SweetSpot.LIST_STREAM_CODEC, Difficulty::sweetSpots,
                 ResourceLocation.STREAM_CODEC.apply(ByteBufCodecs.list()), Difficulty::modifiers,
-                Treasure.STREAM_CODEC, Difficulty::treasure,
                 Difficulty::new
         );
-
-        public record Extras(boolean isFlip, boolean isVanishing, boolean isMoving)
-        {
-
-            public static final Extras FFF = new Extras(false, false, false);
-            public static final Extras FFT = new Extras(false, false, true);
-            public static final Extras FTF = new Extras(false, true, false);
-            public static final Extras FTT = new Extras(false, true, true);
-            public static final Extras TFF = new Extras(true, false, false);
-            public static final Extras TFT = new Extras(true, false, true);
-            public static final Extras TTF = new Extras(true, true, false);
-            public static final Extras TTT = new Extras(true, true, true);
-
-
-            public static final Extras DEFAULT = TFF;
-
-            public static final Codec<Extras> CODEC = RecordCodecBuilder.create(instance ->
-                    instance.group(
-                            Codec.BOOL.fieldOf("flips_rotation_every_hit").forGetter(Extras::isFlip),
-                            Codec.BOOL.fieldOf("has_vanishing_markers").forGetter(Extras::isVanishing),
-                            Codec.BOOL.fieldOf("has_moving_markers").forGetter(Extras::isMoving)
-                    ).apply(instance, Extras::new));
-
-            public static final StreamCodec<ByteBuf, Extras> STREAM_CODEC = StreamCodec.composite(
-                    ByteBufCodecs.BOOL, Extras::isFlip,
-                    ByteBufCodecs.BOOL, Extras::isVanishing,
-                    ByteBufCodecs.BOOL, Extras::isMoving,
-                    Extras::new
-            );
-
-        }
     }
 
     public record SweetSpot(
@@ -991,24 +908,57 @@ public record FishProperties(
         private static final ResourceLocation RL_NORMAL = Starcatcher.rl("textures/gui/minigame/spots/normal.png");
         private static final ResourceLocation RL_THIN = Starcatcher.rl("textures/gui/minigame/spots/thin.png");
         private static final ResourceLocation RL_FREEZE = Starcatcher.rl("textures/gui/minigame/spots/frozen.png");
+        private static final ResourceLocation RL_TREASURE = Starcatcher.rl("textures/gui/minigame/spots/treasure.png");
 
+        public SweetSpot withFlip(boolean isFlip)
+        {
+            return new SweetSpot(this.sweetSpotType, this.texturePath, this.size, this.reward, isFlip, this.isVanishing, this.isMoving);
+        }
 
-        public static SweetSpot DEFAULT = new SweetSpot(
-                Starcatcher.rl("normal"),
+        public SweetSpot withVanishing(boolean isVanishing)
+        {
+            return new SweetSpot(this.sweetSpotType, this.texturePath, this.size, this.reward, this.isFlip, isVanishing, this.isMoving);
+        }
+
+        public SweetSpot withMoving(boolean isMoving)
+        {
+            return new SweetSpot(this.sweetSpotType, this.texturePath, this.size, this.reward, this.isFlip, this.isVanishing, isMoving);
+        }
+
+        public static SweetSpot NORMAL = new SweetSpot(
+                ModSweetSpotsBehaviour.NORMAL,
                 RL_NORMAL,
-                14,
+                22,
                 10,
                 false,
                 false,
                 false
         );
 
-        public static SweetSpot NORMAL = DEFAULT;
+        public static SweetSpot NORMAL_STEADY = new SweetSpot(
+                ModSweetSpotsBehaviour.NORMAL,
+                RL_NORMAL,
+                33,
+                10,
+                false,
+                false,
+                false
+        );
 
         public static SweetSpot THIN = new SweetSpot(
-                Starcatcher.rl("normal"),
+                ModSweetSpotsBehaviour.NORMAL,
                 RL_THIN,
-                9,
+                15,
+                10,
+                false,
+                false,
+                false
+        );
+
+        public static SweetSpot THIN_STEADY = new SweetSpot(
+                ModSweetSpotsBehaviour.NORMAL,
+                RL_THIN,
+                20,
                 10,
                 false,
                 false,
@@ -1016,9 +966,19 @@ public record FishProperties(
         );
 
         public static SweetSpot FREEZE = new SweetSpot(
-                Starcatcher.rl("freeze"),
+                ModSweetSpotsBehaviour.FROZEN,
                 RL_FREEZE,
-                14,
+                33,
+                10,
+                false,
+                false,
+                false
+        );
+
+        public static SweetSpot TREASURE = new SweetSpot(
+                ModSweetSpotsBehaviour.TREASURE,
+                RL_TREASURE,
+                20,
                 10,
                 false,
                 false,

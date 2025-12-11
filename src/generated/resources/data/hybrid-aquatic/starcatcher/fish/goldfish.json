@@ -15,9 +15,10 @@
   "base_chance": 5,
   "catch_info": {
     "always_spawn_entity": false,
-    "entity_to_spawn": "hybrid-aquatic:goldfish",
-    "fish": "hybrid-aquatic:goldfish",
-    "fish_bucket": "starcatcher:missingno"
+    "entity": "hybrid-aquatic:goldfish",
+    "fish_bucket": "starcatcher:missingno",
+    "item": "hybrid-aquatic:goldfish",
+    "treasure": "starcatcher:waterlogged_satchel"
   },
   "daytime": "all",
   "difficulty": {
@@ -25,12 +26,7 @@
     "missPenalty": 10,
     "modifiers": [],
     "speed": 9,
-    "sweetspots": [],
-    "treasure": {
-      "has_treasure": false,
-      "hit_reward": 15,
-      "loot": "starcatcher:waterlogged_satchel"
-    }
+    "sweetspots": []
   },
   "has_guide_entry": true,
   "rarity": "uncommon",
