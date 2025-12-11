@@ -60,7 +60,7 @@ public class CollectorsReapFishingProperties extends FishingPropertiesRegistry
         register(fish(U.holderItem("collectorsreap", "chieftain_crab"))
                 .withBucketedFish(U.holderItem("collectorsreap", "chieftain_crab_bucket"))
                 .withEntityToSpawn(U.holderEntity("collectorsreap", "chieftain_crab"))
-                .withSizeAndWeight(FishProperties.sw(28, 8, 260, 60, 10, 20))
+                .withSizeAndWeight(FishProperties.sw(28, 8, 260, 60))
                 .withDifficulty(FishProperties.Difficulty.REALLY_HEAVY_FISH)
                 .withRarity(FishProperties.Rarity.UNCOMMON)
                 .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD

@@ -26,6 +26,7 @@ public class FishingPropertiesProvider extends DatapackBuiltinEntriesProvider {
     public FishingPropertiesProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
         super(output, registries, REGISTRY, FishingPropertiesProvider::addConditions, Set.of(
                 Starcatcher.MOD_ID,
+                "minecraft",
                 "tide",
                 "aquaculture",
                 "fishofthieves",

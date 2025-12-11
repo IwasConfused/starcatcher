@@ -46,6 +46,8 @@ public class ModItemsTagProvider extends ItemTagsProvider
 
         //extra baits
         tag(StarcatcherTags.BAITS).add(Items.BUCKET);
+        tag(StarcatcherTags.BAITS).add(Items.WITHER_SKELETON_SKULL);
+
         tag(StarcatcherTags.BAITS).addOptional(rl("fishofthieves", "earthworms"));
         tag(StarcatcherTags.BAITS).addOptional(rl("fishofthieves", "grubs"));
         tag(StarcatcherTags.BAITS).addOptional(rl("fishofthieves", "leeches"));

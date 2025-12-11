@@ -20,7 +20,7 @@ public class UpgradeAquaticFishingProperties extends FishingPropertiesRegistry
         register(fish(U.holderItem("upgrade_aquatic", "pike"))
                 .withBucketedFish(U.holderItem("upgrade_aquatic", "pike_bucket"))
                 .withEntityToSpawn(U.holderEntity("upgrade_aquatic", "pike"))
-                .withSizeAndWeight(FishProperties.sw(75, 20, 5000, 3000, 10, 20))
+                .withSizeAndWeight(FishProperties.sw(75, 20, 5000, 3000))
                 .withDifficulty(FishProperties.Difficulty.EASY_MOVING)
                 .withRarity(FishProperties.Rarity.COMMON)
                 .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD
@@ -30,7 +30,7 @@ public class UpgradeAquaticFishingProperties extends FishingPropertiesRegistry
         register(fish(U.holderItem("upgrade_aquatic", "perch"))
                 .withBucketedFish(U.holderItem("upgrade_aquatic", "perch_bucket"))
                 .withEntityToSpawn(U.holderEntity("upgrade_aquatic", "perch"))
-                .withSizeAndWeight(FishProperties.sw(27.0f, 11, 500, 352, 5, 36))
+                .withSizeAndWeight(FishProperties.sw(27.0f, 11, 500, 352))
                 .withDifficulty(FishProperties.Difficulty.EASY_MOVING)
                 .withRarity(FishProperties.Rarity.COMMON)
                 .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD
@@ -40,7 +40,7 @@ public class UpgradeAquaticFishingProperties extends FishingPropertiesRegistry
         register(fish(U.holderItem("upgrade_aquatic", "lionfish"))
                 .withBucketedFish(U.holderItem("upgrade_aquatic", "lionfish_bucket"))
                 .withEntityToSpawn(U.holderEntity("upgrade_aquatic", "lionfish"))
-                .withSizeAndWeight(FishProperties.sw(27.0f, 11, 500, 352, 5, 36))
+                .withSizeAndWeight(FishProperties.sw(27.0f, 11, 500, 352))
                 .withDifficulty(FishProperties.Difficulty.EVERYTHING_VANISHING)
                 .withRarity(FishProperties.Rarity.UNCOMMON)
                 .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD

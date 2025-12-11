@@ -21,15 +21,21 @@ public class FreezeModifier extends AbstractModifier
     }
 
     @Override
-    public void render(GuiGraphics guiGraphics, float partialTick, PoseStack poseStack, int width, int height)
+    public void renderBackground(GuiGraphics guiGraphics, float partialTick, PoseStack poseStack, int width, int height)
     {
-        super.render(guiGraphics, partialTick, poseStack, width, height);
-        if (frozenTicks > 0)
-            guiGraphics.blit(TEXTURE, width / 2 - 16, height / 2 - 16, 32, 32, 0, 0, 32, 32, 256, 256);
-
+        super.renderBackground(guiGraphics, partialTick, poseStack, width, height);
         guiGraphics.blit(
                 OVERLAY, width / 2 - 48, height / 2 - 48,
                 96, 96, 0, 0, 96, 96, 96, 96);
+    }
+
+    @Override
+    public void renderForeground(GuiGraphics guiGraphics, float partialTick, PoseStack poseStack, int width, int height)
+    {
+        super.renderForeground(guiGraphics, partialTick, poseStack, width, height);
+        if (frozenTicks > 0)
+            guiGraphics.blit(TEXTURE, width / 2 - 16, height / 2 - 16, 32, 32, 0, 0, 32, 32, 256, 256);
+
     }
 
     @Override

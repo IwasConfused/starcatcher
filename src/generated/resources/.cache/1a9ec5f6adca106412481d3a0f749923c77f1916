@@ -1,9 +1,9 @@
-// 1.21.1	2025-12-11T17:13:03.244449	FishingProperties
+// 1.21.1	2025-12-11T17:52:47.6575828	FishingProperties
 2acbf93ad521b5beff80733e2b450680d0537edf data/alexscaves/starcatcher/fish/lanternfish.json
 467dcc1c88862a97779cffdf0d13ac9702d39623 data/alexscaves/starcatcher/fish/radgill.json
 d9acc83f498818f7eb7e7c5774bf75ddb0ab2c70 data/alexscaves/starcatcher/fish/sweetish_fish_blue.json
 36e18834fb10a5b1a2612ea397a928fef85799de data/alexscaves/starcatcher/fish/sweetish_fish_green.json
-9fa743fc98a8faa5b0c40be311879fdfbb91978a data/alexscaves/starcatcher/fish/sweetish_fish_pink.json
+e07446bfb7e990979167f80dc860382ec6097afd data/alexscaves/starcatcher/fish/sweetish_fish_pink.json
 3d0d8ddd30a3d328f3fc6b545d2902872cfa8b51 data/alexscaves/starcatcher/fish/sweetish_fish_red.json
 ecf2d5ab9dd79d29ee895e429a54268b0ec8d1bc data/alexscaves/starcatcher/fish/sweetish_fish_yellow.json
 c3397cd45b3ab49e9cc77e383a00a2a23d49e410 data/alexscaves/starcatcher/fish/trilocaris_tail.json
@@ -108,6 +108,12 @@ f5985f5070db6bf58d00579f5239a9a0e1c3fed9 data/hybrid-aquatic/starcatcher/fish/se
 3dcab980467b214f45b995838ba5c716171b78d2 data/hybrid-aquatic/starcatcher/fish/tiger_barb.json
 6db65846dfdec0700dfdd034cd0f39a4063a2959 data/hybrid-aquatic/starcatcher/fish/triggerfish.json
 95b71569712a297bb59c0760a220915948a9185a data/hybrid-aquatic/starcatcher/fish/tuna.json
+a6208ad1c2b061e64346999d9b6a0c745fe9b3fe data/minecraft/starcatcher/fish/cod.json
+f2586b9c617f05defa14e2f6112499189675e92c data/minecraft/starcatcher/fish/creeper_head.json
+d4f9fc6a19fced4d29f8796f96c592126cbe46e7 data/minecraft/starcatcher/fish/pufferfish.json
+72d291974a92547072ca815bf02cca2ad958ea6c data/minecraft/starcatcher/fish/rotten_flesh.json
+7dd2e41a5025f1a6239ffeea789353b9d889aa95 data/minecraft/starcatcher/fish/salmon.json
+a034f0d56a796b5ee6d7203777830b8d8d0a6d62 data/minecraft/starcatcher/fish/wither_rose.json
 2fd805415e17d527b093cdf206bad3840ed9e20b data/miners_delight/starcatcher/fish/glow_squid.json
 f5a5efe76fd8c2aa22263407f9cea747e5574ddd data/miners_delight/starcatcher/fish/squid.json
 641d2352ff19851a7f4de4736a8c42c7a80fb903 data/netherdepthsupgrade/starcatcher/fish/blazefish.json

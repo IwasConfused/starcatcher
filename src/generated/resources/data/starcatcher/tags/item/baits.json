@@ -12,6 +12,7 @@
     "starcatcher:legendary_bait",
     "starcatcher:meteorological_bait",
     "minecraft:bucket",
+    "minecraft:wither_skeleton_skull",
     {
       "id": "fishofthieves:earthworms",
       "required": false

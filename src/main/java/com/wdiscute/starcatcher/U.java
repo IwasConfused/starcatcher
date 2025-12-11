@@ -428,6 +428,16 @@ public class U
         return Holder.direct(item.get());
     }
 
+    public static Holder<Item> holderItem(Item item)
+    {
+        return Holder.direct(item);
+    }
+
+    public static Holder<EntityType<?>> holderEntity(EntityType<?> entityType)
+    {
+        return Holder.direct(entityType);
+    }
+
     public static Holder<EntityType<?>> holderEntity(String ns, String path)
     {
         return TrustedHolder.createStandAlone(BuiltInRegistries.ENTITY_TYPE.holderOwner(), ResourceKey.create(Registries.ENTITY_TYPE, rl(ns, path)));

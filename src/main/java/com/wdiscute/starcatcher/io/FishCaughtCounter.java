@@ -64,7 +64,7 @@ public record FishCaughtCounter(
     public static void awardFishCaughtCounter(FishProperties fpCaught, Player player, int ticks, int size, int weight, boolean perfectCatch, boolean awardToTeam)
     {
         //ftb teams compat to share fishes caught to team, does not share size and weight
-        if(ModList.get().isLoaded("ftbteams") && awardToTeam && Config.ENABLE_FTB_TEAM_SHARING.get())
+        if (ModList.get().isLoaded("ftbteams") && awardToTeam && Config.ENABLE_FTB_TEAM_SHARING.get())
         {
             FTBTeamsCompat.awardToTeam(player, fpCaught);
         }
@@ -111,8 +111,9 @@ public record FishCaughtCounter(
         if (newFish)
             newlist.add(new FishCaughtCounter(player.level().registryAccess().registryOrThrow(Starcatcher.FISH_REGISTRY).getKey(fpCaught), 1, ticks, ticks, size, weight, false, perfectCatch));
 
-        //display message above exp bar
-        PacketDistributor.sendToPlayer(((ServerPlayer) player), new FishCaughtPayload(fpCaught, newFish, size, weight));
+        //send packet to client to display message above exp bar and fish caught toast, unless it alwaysSpawnEntity() (where sw and caught doesnt make sense)
+        if (!fpCaught.catchInfo().alwaysSpawnEntity())
+            PacketDistributor.sendToPlayer(((ServerPlayer) player), new FishCaughtPayload(fpCaught, newFish, size, weight));
 
         player.setData(ModDataAttachments.FISHES_CAUGHT, newlist);
     }

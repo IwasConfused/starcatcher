@@ -1350,11 +1350,6 @@ public record FishProperties(
         return fluid1;
     }
 
-    public static SizeAndWeight sw(float s, float s1, float w, float w1, float goldChance, float goldIncrease)
-    {
-        return new SizeAndWeight(s, s1, w, w1);
-    }
-
     public static SizeAndWeight sw(float s, float s1, float w, float w1)
     {
         return new SizeAndWeight(s, s1, w, w1);

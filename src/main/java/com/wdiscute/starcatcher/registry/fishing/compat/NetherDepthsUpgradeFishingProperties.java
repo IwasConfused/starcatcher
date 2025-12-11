@@ -54,7 +54,7 @@ public class NetherDepthsUpgradeFishingProperties extends FishingPropertiesRegis
         register(netherLavaFish(U.holderItem("netherdepthsupgrade", "glowdine"))
                 .withBucketedFish(U.holderItem("netherdepthsupgrade", "glowdine_bucket"))
                 .withEntityToSpawn(U.holderEntity("netherdepthsupgrade", "glowdine"))
-                .withSizeAndWeight(FishProperties.sw(130, 30, 3400, 900, 10, 20))
+                .withSizeAndWeight(FishProperties.sw(130, 30, 3400, 900))
                 .withRarity(FishProperties.Rarity.RARE)
                 .withDifficulty(FishProperties.Difficulty.MEDIUM_VANISHING_MOVING)
         );
@@ -62,7 +62,7 @@ public class NetherDepthsUpgradeFishingProperties extends FishingPropertiesRegis
         register(netherLavaWarpedForestFish(U.holderItem("netherdepthsupgrade", "lava_pufferfish"))
                 .withBucketedFish(U.holderItem("netherdepthsupgrade", "lava_pufferfish_bucket"))
                 .withEntityToSpawn(U.holderEntity("netherdepthsupgrade", "lava_pufferfish"))
-                .withSizeAndWeight(FishProperties.sw(90, 30, 3700, 900, 10, 20))
+                .withSizeAndWeight(FishProperties.sw(90, 30, 3700, 900))
                 .withRarity(FishProperties.Rarity.EPIC)
                 .withDifficulty(FishProperties.Difficulty.HARD_ONLY_THIN_MOVING)
         );
@@ -70,7 +70,7 @@ public class NetherDepthsUpgradeFishingProperties extends FishingPropertiesRegis
         register(netherLavaBasaltDeltasFish(U.holderItem("netherdepthsupgrade", "magmacubefish"))
                 .withBucketedFish(U.holderItem("netherdepthsupgrade", "magmacubefish_bucket"))
                 .withEntityToSpawn(U.holderEntity("netherdepthsupgrade", "magmacubefish"))
-                .withSizeAndWeight(FishProperties.sw(120, 40, 3000, 400, 10, 20))
+                .withSizeAndWeight(FishProperties.sw(120, 40, 3000, 400))
                 .withRarity(FishProperties.Rarity.UNCOMMON)
                 .withDifficulty(FishProperties.Difficulty.EASY_MOVING)
         );
@@ -78,7 +78,7 @@ public class NetherDepthsUpgradeFishingProperties extends FishingPropertiesRegis
         register(netherLavaBasaltDeltasFish(U.holderItem("netherdepthsupgrade", "obsidianfish"))
                 .withBucketedFish(U.holderItem("netherdepthsupgrade", "obsidianfish_bucket"))
                 .withEntityToSpawn(U.holderEntity("netherdepthsupgrade", "obsidianfish"))
-                .withSizeAndWeight(FishProperties.sw(200, 50, 500000, 68000, 10, 20))
+                .withSizeAndWeight(FishProperties.sw(200, 50, 500000, 68000))
                 .withRarity(FishProperties.Rarity.UNCOMMON)
                 .withDifficulty(FishProperties.Difficulty.REALLY_HEAVY_FISH)
         );
@@ -86,7 +86,7 @@ public class NetherDepthsUpgradeFishingProperties extends FishingPropertiesRegis
         register(netherLavaFish(U.holderItem("netherdepthsupgrade", "searing_cod"))
                 .withBucketedFish(U.holderItem("netherdepthsupgrade", "searing_cod_bucket"))
                 .withEntityToSpawn(U.holderEntity("netherdepthsupgrade", "searing_cod"))
-                .withSizeAndWeight(FishProperties.sw(500, 50, 80000, 20000, 10, 20))
+                .withSizeAndWeight(FishProperties.sw(500, 50, 80000, 20000))
                 .withRarity(FishProperties.Rarity.UNCOMMON)
                 .withDifficulty(FishProperties.Difficulty.EASY_FAST_FISH)
         );
@@ -94,7 +94,7 @@ public class NetherDepthsUpgradeFishingProperties extends FishingPropertiesRegis
         register(netherLavaSoulSandValleyFish(U.holderItem("netherdepthsupgrade", "soulsucker"))
                 .withBucketedFish(U.holderItem("netherdepthsupgrade", "soulsucker_bucket"))
                 .withEntityToSpawn(U.holderEntity("netherdepthsupgrade", "soulsucker"))
-                .withSizeAndWeight(FishProperties.sw(140, 30, 12000, 3000, 10, 20))
+                .withSizeAndWeight(FishProperties.sw(140, 30, 12000, 3000))
                 .withRarity(FishProperties.Rarity.EPIC)
                 .withDifficulty(FishProperties.Difficulty.MEDIUM_FAST_FISH_VANISHING)
         );
@@ -102,7 +102,7 @@ public class NetherDepthsUpgradeFishingProperties extends FishingPropertiesRegis
         register(netherLavaSoulSandValleyFish(U.holderItem("netherdepthsupgrade", "wither_bonefish"))
                 .withBucketedFish(U.holderItem("netherdepthsupgrade", "wither_bonefish_bucket"))
                 .withEntityToSpawn(U.holderEntity("netherdepthsupgrade", "wither_bonefish"))
-                .withSizeAndWeight(FishProperties.sw(400, 100, 32000, 7000, 10, 20))
+                .withSizeAndWeight(FishProperties.sw(400, 100, 32000, 7000))
                 .withRarity(FishProperties.Rarity.EPIC)
                 .withDifficulty(FishProperties.Difficulty.HARD_ONLY_THIN_MOVING)
         );
