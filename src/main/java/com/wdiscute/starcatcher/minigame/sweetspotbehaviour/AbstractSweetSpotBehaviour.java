@@ -2,6 +2,7 @@ package com.wdiscute.starcatcher.minigame.sweetspotbehaviour;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Axis;
 import com.wdiscute.starcatcher.minigame.ActiveSweetSpot;
 import com.wdiscute.starcatcher.minigame.FishingMinigameScreen;
 import net.minecraft.client.gui.GuiGraphics;
@@ -32,10 +33,11 @@ public abstract class AbstractSweetSpotBehaviour
         if(ass.shouldSudokuOnVanish && ass.alpha <= 0) ass.removed = true;
     }
 
-    public void renderForeground(GuiGraphics guiGraphics, float partialTick, int width, int height)
-    {
+    public void onHit(){}
 
-    }
+    public void onRemove(){}
+
+    public void renderForeground(GuiGraphics guiGraphics, float partialTick, int width, int height) {}
 
     public void render(GuiGraphics guiGraphics, float partialTick, int width, int height)
     {
@@ -44,18 +46,22 @@ public abstract class AbstractSweetSpotBehaviour
 
         PoseStack poseStack = guiGraphics.pose();
         poseStack.pushPose();
+
         poseStack.translate(centerX, centerY, 0);
 
-        poseStack.mulPose(new Quaternionf().rotateZ((float) Math.toRadians(ass.pos + ((ass.movingRate * partialTick) * ass.currentRotation))));
-        poseStack.translate(-centerX, -centerY, 0);
+        // DO NOT REPLACE THIS WITH THE OLD ONE!!! THIS IS TO FIX IT BEING ROTATED WRONG (+ its way simpler)
+        poseStack.rotateAround(Axis.ZP.rotationDegrees(ass.pos - partialTick * ass.movingRate), 0, 0, 0);
 
         RenderSystem.setShaderColor(1, 1, 1, ass.alpha);
 
         RenderSystem.enableBlend();
 
+        final int spriteSize = 96;
+
+        // Renders the sprite centered to the top-left corner of the screen, to be moved with poseStack
         guiGraphics.blit(
-                ass.texture, width / 2 - 48, height / 2 - 48,
-                96, 96, 0, 0, 96, 96, 96, 96);
+                ass.texture, -spriteSize / 2, -spriteSize / 2,
+                spriteSize, spriteSize, 0, 0, spriteSize, spriteSize, spriteSize, spriteSize);
 
         RenderSystem.disableBlend();
 
@@ -63,6 +69,4 @@ public abstract class AbstractSweetSpotBehaviour
 
         poseStack.popPose();
     }
-
-    public void onHit(){}
 }

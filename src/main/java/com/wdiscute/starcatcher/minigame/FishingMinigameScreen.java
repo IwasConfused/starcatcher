@@ -161,6 +161,8 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener
         //add base modifier for kimbe before other modifiers so they can override kimbe if needed
         addModifier(new BaseModifier());
 
+        // addSweetSpot(new ActiveSweetSpot(this, FishProperties.SweetSpot.FREEZE));
+
         //add every sweet spot from fp json which is registered
         for (FishProperties.SweetSpot ss : fp.dif().sweetSpots())
         {
@@ -185,6 +187,11 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener
     public void addSweetSpot(ActiveSweetSpot ass)
     {
         ass.behaviour.onAdd(this, ass);
+
+        for (AbstractModifier modifier : modifiers) {
+            ass = modifier.onSpotAdded(ass);
+        }
+
         if (!ass.removed) this.activeSweetSpots.add(ass);
     }
 
@@ -194,8 +201,7 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener
         {
             int posBeingChecked = r.nextInt(360);
 
-            if(activeSweetSpots.stream().noneMatch(s ->
-                    doDegreesOverlapWithLeeway(posBeingChecked, s.pos, (s.thickness + sizeOfTheSweetspotToPlace) /2)
+            if(activeSweetSpots.stream().noneMatch(s -> doDegreesOverlapWithLeeway(posBeingChecked, s.pos, (s.thickness + sizeOfTheSweetspotToPlace) /2)
             ))
             {
                 return posBeingChecked;
@@ -257,10 +263,10 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener
         //item being fished
         guiGraphics.renderItem(itemBeingFished, width / 2 - 8 - 100, height / 2 - 8 + 35 - progressSmooth);
 
-        //render sweet spots background
+        //render sweet spots foreground
         activeSweetSpots.forEach(sweetspot -> sweetspot.behaviour.renderForeground(guiGraphics, partialTick, width, height));
 
-        //render modifiers background
+        //render modifiers foreground
         modifiers.forEach(modifier -> modifier.renderForeground(guiGraphics, partialTick, width, height));
 
         //render particles
@@ -500,9 +506,16 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener
         activeSweetSpots.forEach(s -> s.behaviour.tick());
 
         //remove activeSweetSpots marked for removal
-        activeSweetSpots.removeIf(s -> s.removed);
+        activeSweetSpots.removeIf(s -> {
+            if (s.removed) s.behaviour.onRemove();
+            return s.removed;
+        });
+
         //remove modifiers marked for removal
-        modifiers.removeIf(m -> m.removed);
+        modifiers.removeIf(m -> {
+            if (m.removed) m.onRemove();
+            return m.removed;
+        });
 
         //move pointer
         pointerPos += (int) (pointerSpeed * currentRotation);
@@ -547,6 +560,8 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener
     @Override
     public void onClose()
     {
+        modifiers.forEach(AbstractModifier::onRemove);
+
         if (!ModList.get().isLoaded("distanthorizons"))
             Minecraft.getInstance().options.guiScale().set(previousGuiScale);
 

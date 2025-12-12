@@ -80,4 +80,9 @@ public class ActiveSweetSpot
     {
         this(instance, ss, ItemStack.EMPTY, ItemStack.EMPTY, ItemStack.EMPTY);
     }
+
+    public boolean isHoveredOver(){
+        return FishingMinigameScreen.doDegreesOverlapWithLeeway(instance.getPointerPosPrecise(), this.pos, thickness);
+    }
+
 }
