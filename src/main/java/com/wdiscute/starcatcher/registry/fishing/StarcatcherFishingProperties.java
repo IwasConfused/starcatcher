@@ -176,7 +176,7 @@ public class StarcatcherFishingProperties
                 .withSeasons(Seasons.EARLY_SPRING, Seasons.LATE_AUTUMN, Seasons.WINTER)
                 .withDaytime(FishProperties.Daytime.MIDNIGHT)
                 .withRarity(FishProperties.Rarity.RARE)
-                .withDifficulty(FishProperties.Difficulty.ONE_AQUA_ONE_BIG_ONE_SMALL));
+                .withDifficulty(FishProperties.Difficulty.THREE_AQUA_ONE_BIG_ONE_SMALL));
 
         registerStarcatcherBucketAndEntity(overworldDarkForestFish(ModItems.PINFISH)
                 .withSizeAndWeight(FishProperties.sw(15, 5, 150, 100))
@@ -195,7 +195,7 @@ public class StarcatcherFishingProperties
                 .withSeasons(Seasons.SPRING, Seasons.EARLY_SUMMER)
                 .withSizeAndWeight(FishProperties.sw(10, 3, 67, 0))
                 .withRarity(FishProperties.Rarity.LEGENDARY)
-                .withDifficulty(FishProperties.Difficulty.ONE_AQUA_ONE_BIG_ONE_SMALL_VANISHING));
+                .withDifficulty(FishProperties.Difficulty.THREE_AQUA_ONE_BIG_ONE_SMALL_VANISHING));
 
         registerStarcatcherBucketAndEntity(overworldCherryGroveFish(ModItems.BLOSSOMFISH)
                 .withSeasons(Seasons.SPRING)
@@ -338,7 +338,7 @@ public class StarcatcherFishingProperties
         registerStarcatcherBucketAndEntity(overworldOceanFish(ModItems.JOEL)
                 .withSeasons(Seasons.SUMMER)
                 .withSizeAndWeight(FishProperties.sw(69, 0, 2000, 600))
-                .withDifficulty(FishProperties.Difficulty.TWO_AQUA)
+                .withDifficulty(FishProperties.Difficulty.JOEL)
                 .withBaseChance(1)
                 .withBaitRestrictions(FishProperties.BaitRestrictions.LEGENDARY_BAIT)
                 .withRarity(FishProperties.Rarity.LEGENDARY));

@@ -17,9 +17,9 @@
   "daytime": "all",
   "difficulty": {
     "decay": 1.0,
-    "missPenalty": 20,
+    "missPenalty": 5,
     "modifiers": [],
-    "speed": 10,
+    "speed": 14,
     "sweetspots": [
       {
         "color_as_int": 3701122,
@@ -27,9 +27,9 @@
         "is_flip": false,
         "is_moving": false,
         "is_vanishing": false,
-        "reward": 15,
+        "reward": 1,
         "sweet_spot_type": "starcatcher:aqua",
-        "texture_path": "starcatcher:textures/gui/minigame/spots/normal.png"
+        "texture_path": "starcatcher:textures/gui/minigame/spots/aqua.png"
       },
       {
         "color_as_int": 3701122,
@@ -37,9 +37,9 @@
         "is_flip": false,
         "is_moving": false,
         "is_vanishing": false,
-        "reward": 15,
+        "reward": 1,
         "sweet_spot_type": "starcatcher:aqua",
-        "texture_path": "starcatcher:textures/gui/minigame/spots/normal.png"
+        "texture_path": "starcatcher:textures/gui/minigame/spots/aqua.png"
       }
     ]
   },

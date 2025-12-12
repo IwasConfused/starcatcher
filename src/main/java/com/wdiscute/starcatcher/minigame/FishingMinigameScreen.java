@@ -632,4 +632,8 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener
         return false;
     }
 
+    public void refreshSweetSpotsAlphas()
+    {
+        activeSweetSpots.forEach(s -> s.alpha = 1);
+    }
 }

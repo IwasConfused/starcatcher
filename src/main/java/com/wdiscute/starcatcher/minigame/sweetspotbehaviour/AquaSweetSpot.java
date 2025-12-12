@@ -3,13 +3,14 @@ package com.wdiscute.starcatcher.minigame.sweetspotbehaviour;
 import com.wdiscute.starcatcher.minigame.ActiveSweetSpot;
 import com.wdiscute.starcatcher.minigame.FishingMinigameScreen;
 
-public class AquaSweetSpot extends AbstractSweetSpotBehaviour
+public class AquaSweetSpot extends NormalSweetSpotBehaviour
 {
     @Override
     public void onAdd(FishingMinigameScreen instance, ActiveSweetSpot ass)
     {
         super.onAdd(instance, ass);
         ass.shouldSudokuOnVanish = true;
+        ass.vanishingRate = 0.01f;
     }
 
     @Override

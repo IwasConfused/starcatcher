@@ -531,7 +531,6 @@ public class TideFishingProperties extends FishingPropertiesRegistry
                 .withDifficulty(FishProperties.Difficulty.THIN_NO_DECAY_NOT_FORGIVING)
         );
 
-
         //TODO put into corresponding category
         register(overworldLakeFish(U.holderItem("tide", "midas_fish"))
                 //no bucketed version

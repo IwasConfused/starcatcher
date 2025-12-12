@@ -923,12 +923,12 @@ public record FishProperties(
                 SweetSpot.AQUA_1, SweetSpot.AQUA_1, SweetSpot.AQUA_1, SweetSpot.AQUA_1, SweetSpot.AQUA_1, SweetSpot.AQUA_1, SweetSpot.AQUA_1, SweetSpot.AQUA_1
         ).moving();
 
-        public static Difficulty ONE_AQUA_ONE_BIG_ONE_SMALL = new Difficulty(
+        public static Difficulty THREE_AQUA_ONE_BIG_ONE_SMALL = new Difficulty(
                 9, 20, 0,
                 List.of(),
                 SweetSpot.AQUA, SweetSpot.AQUA, SweetSpot.THIN
         );
-        public static Difficulty ONE_AQUA_ONE_BIG_ONE_SMALL_VANISHING = ONE_AQUA_ONE_BIG_ONE_SMALL.vanishing();
+        public static Difficulty THREE_AQUA_ONE_BIG_ONE_SMALL_VANISHING = THREE_AQUA_ONE_BIG_ONE_SMALL.vanishing();
 
         public static Difficulty EIGHT_THIN = new Difficulty(
                 9, 20, 0,
@@ -1042,6 +1042,12 @@ public record FishProperties(
                 List.of(),
                 SweetSpot.AQUA, SweetSpot.THIN, SweetSpot.THIN);
 
+        public static Difficulty JOEL = new Difficulty(
+                14, 5, 1,
+                List.of(),
+                SweetSpot.AQUA_1, SweetSpot.AQUA_1
+        );
+
         //endregion preset difficulties
 
 
@@ -1076,6 +1082,12 @@ public record FishProperties(
             int particleColor
     )
     {
+        public SweetSpot(ResourceLocation sweetSpotType, ResourceLocation texturePath, int size, int reward, int particleColor)
+        {
+            this(sweetSpotType, texturePath, size, reward, false, false, false, particleColor);
+        }
+
+
         private static final ResourceLocation RL_NORMAL = Starcatcher.rl("textures/gui/minigame/spots/normal.png");
         private static final ResourceLocation RL_THIN = Starcatcher.rl("textures/gui/minigame/spots/thin.png");
         private static final ResourceLocation RL_FREEZE = Starcatcher.rl("textures/gui/minigame/spots/frozen.png");
@@ -1085,6 +1097,7 @@ public record FishProperties(
         private static final ResourceLocation RL_CREEPER = Starcatcher.rl("textures/gui/minigame/spots/creeper.png");
         private static final ResourceLocation RL_TNT = Starcatcher.rl("textures/gui/minigame/spots/tnt.png");
         private static final ResourceLocation RL_STONE = Starcatcher.rl("textures/gui/minigame/spots/stone.png");
+        private static final ResourceLocation RL_AQUA = Starcatcher.rl("textures/gui/minigame/spots/aqua.png");
 
         private static final ResourceLocation RL_NETHER_CRAB_CLAW = Starcatcher.rl("textures/gui/minigame/spots/nether_crab_claw.png");
         private static final ResourceLocation RL_NETHER_CRAB_LEG = Starcatcher.rl("textures/gui/minigame/spots/nether_crab_leg.png");
@@ -1097,7 +1110,6 @@ public record FishProperties(
 
         private static final ResourceLocation RL_OBSIDIAN_CRAB_LEG = Starcatcher.rl("textures/gui/minigame/spots/obsidian_crab_leg.png");
         private static final ResourceLocation RL_OBSIDIAN_CRAB_CLAW = Starcatcher.rl("textures/gui/minigame/spots/obsidian_crab_claw.png");
-
 
         public SweetSpot flip()
         {
@@ -1119,9 +1131,6 @@ public record FishProperties(
                 RL_NORMAL,
                 33,
                 15,
-                false,
-                false,
-                false,
                 0x00ff00
         );
 
@@ -1130,9 +1139,6 @@ public record FishProperties(
                 RL_NORMAL,
                 22,
                 15,
-                false,
-                false,
-                false,
                 0x00ff00
         );
 
@@ -1141,9 +1147,6 @@ public record FishProperties(
                 RL_THIN,
                 20,
                 20,
-                false,
-                false,
-                false,
                 0x00ff00
         );
 
@@ -1152,9 +1155,6 @@ public record FishProperties(
                 RL_THIN,
                 15,
                 20,
-                false,
-                false,
-                false,
                 0x00ff00
         );
 
@@ -1163,9 +1163,6 @@ public record FishProperties(
                 RL_FREEZE,
                 33,
                 15,
-                false,
-                false,
-                false,
                 0x095f92
         );
 
@@ -1174,9 +1171,6 @@ public record FishProperties(
                 RL_NORMAL,
                 22,
                 1,
-                false,
-                false,
-                false,
                 0x00ff00
         );
 
@@ -1185,9 +1179,6 @@ public record FishProperties(
                 RL_TREASURE,
                 20,
                 15,
-                false,
-                false,
-                false,
                 0xFFD700
         );
 
@@ -1207,9 +1198,6 @@ public record FishProperties(
                 RL_WITHER_BIG,
                 33,
                 15,
-                false,
-                false,
-                false,
                 0x1f1f1f
         );
 
@@ -1218,9 +1206,6 @@ public record FishProperties(
                 RL_CREEPER,
                 22,
                 15,
-                false,
-                false,
-                false,
                 0x515353
         );
 
@@ -1229,9 +1214,6 @@ public record FishProperties(
                 RL_TNT,
                 33,
                 30,
-                false,
-                false,
-                false,
                 0xff0000
         );
 
@@ -1240,77 +1222,65 @@ public record FishProperties(
                 RL_STONE,
                 33,
                 1,
-                false,
-                false,
-                false,
                 0x494949
         );
 
         public static SweetSpot AQUA = new SweetSpot(
                 ModSweetSpotsBehaviour.AQUA,
-                RL_NORMAL,
+                RL_AQUA,
                 22,
                 15,
-                false,
-                false,
-                false,
                 0x387982
         );
 
         public static SweetSpot AQUA_1 = new SweetSpot(
                 ModSweetSpotsBehaviour.AQUA,
-                RL_NORMAL,
-                22,
-                1,
-                false,
-                false,
-                false,
-                0x387982
+                RL_AQUA, 22, 1, 0x387982
         );
 
         public static SweetSpot AQUA_10 = new SweetSpot(
                 ModSweetSpotsBehaviour.AQUA,
-                RL_NORMAL, 22, 10, false, false, false, 0x387982
+                RL_AQUA, 22, 10, 0x387982
         );
 
         public static SweetSpot DEEPSLATE_CRAB_CLAW = new SweetSpot(
                 ModSweetSpotsBehaviour.NORMAL,
-                RL_DEEPSLATE_CRAB_CLAW, 24, 10, false, false, false, 0x387982
+                RL_DEEPSLATE_CRAB_CLAW, 24, 10, 0x387982
         );
 
         public static SweetSpot DEEPSLATE_CRAB_LEG = new SweetSpot(
                 ModSweetSpotsBehaviour.NORMAL,
-                RL_DEEPSLATE_CRAB_LEG, 15, 1, false, false, false, 0x387982
+                RL_DEEPSLATE_CRAB_LEG, 15, 1, 0x387982
         );
 
         public static SweetSpot OBSIDIAN_CRAB_CLAW = new SweetSpot(
                 ModSweetSpotsBehaviour.NORMAL,
-                RL_OBSIDIAN_CRAB_CLAW, 24, 10, false, false, false, 0x387982
+                RL_OBSIDIAN_CRAB_CLAW, 24, 10, 0x387982
         );
 
         public static SweetSpot OBSIDIAN_CRAB_LEG = new SweetSpot(
                 ModSweetSpotsBehaviour.NORMAL,
-                RL_OBSIDIAN_CRAB_LEG, 15, 1, false, false, false, 0x387982
+                RL_OBSIDIAN_CRAB_LEG, 15, 1, 0x387982
         );
 
         public static SweetSpot NETHER_CRAB_CLAW = new SweetSpot(
                 ModSweetSpotsBehaviour.NORMAL,
-                RL_NETHER_CRAB_CLAW, 24, 10, false, false, false, 0x387982
+                RL_NETHER_CRAB_CLAW, 24, 10, 0x387982
         );
 
         public static SweetSpot NETHER_CRAB_LEG = new SweetSpot(
                 ModSweetSpotsBehaviour.NORMAL,
-                RL_NETHER_CRAB_LEG, 15, 1, false, false, false, 0x387982
+                RL_NETHER_CRAB_LEG, 15, 1, 0x387982
         );
 
         public static SweetSpot END_CRAB_CLAW = new SweetSpot(
                 ModSweetSpotsBehaviour.NORMAL,
-                RL_END_CRAB_CLAW, 24, 10, false, false, false, 0x387982
+                RL_END_CRAB_CLAW, 24, 10, 0x387982
         );
 
         public static SweetSpot END_CRAB_LEG = new SweetSpot(
                 ModSweetSpotsBehaviour.NORMAL,
-                RL_END_CRAB_LEG, 15, 1, false, false, false, 0x387982
+                RL_END_CRAB_LEG, 15, 1, 0x387982
         );
 
 

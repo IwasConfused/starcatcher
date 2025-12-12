@@ -14,5 +14,6 @@ public class NormalSweetSpotBehaviour extends AbstractSweetSpotBehaviour
         if(ass.isFlip) instance.currentRotation *= -1;
         ass.pos = instance.getRandomFreePosition(ass.thickness);
         Minecraft.getInstance().player.playSound(SoundEvents.EXPERIENCE_ORB_PICKUP, 0.3f, 1f);
+        ass.alpha = 1;
     }
 }

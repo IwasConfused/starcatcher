@@ -27,7 +27,7 @@
         "is_vanishing": false,
         "reward": 15,
         "sweet_spot_type": "starcatcher:aqua",
-        "texture_path": "starcatcher:textures/gui/minigame/spots/normal.png"
+        "texture_path": "starcatcher:textures/gui/minigame/spots/aqua.png"
       },
       {
         "color_as_int": 3701122,
@@ -37,7 +37,7 @@
         "is_vanishing": false,
         "reward": 15,
         "sweet_spot_type": "starcatcher:aqua",
-        "texture_path": "starcatcher:textures/gui/minigame/spots/normal.png"
+        "texture_path": "starcatcher:textures/gui/minigame/spots/aqua.png"
       }
     ]
   },

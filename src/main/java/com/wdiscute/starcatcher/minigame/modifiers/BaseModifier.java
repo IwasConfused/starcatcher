@@ -8,9 +8,14 @@ public class BaseModifier extends AbstractModifier
     public void onMiss()
     {
         super.onMiss();
+        //kimbe marker
         instance.kimbeMarkerAlpha = 1;
         instance.kimbeMarkerColor = 0xff6767;
         instance.kimbeMarkerPos = instance.getPointerPosPrecise();
+
+        //refresh all vanishes
+        instance.refreshSweetSpotsAlphas();
+
     }
 
     @Override
