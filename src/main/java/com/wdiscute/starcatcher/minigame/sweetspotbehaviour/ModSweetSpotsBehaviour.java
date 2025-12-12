@@ -16,6 +16,7 @@ public interface ModSweetSpotsBehaviour
     ResourceLocation FROZEN = registerSweetspot("freeze", () -> FreezeSweetSpotBehaviour::new);
     ResourceLocation TREASURE = registerSweetspot("treasure", () -> TreasureSweetSpotBehaviour::new);
     ResourceLocation TNT = registerSweetspot("tnt", () -> TntSweetSpotBehaviour::new);
+    ResourceLocation AQUA = registerSweetspot("aqua", () -> AquaSweetSpot::new);
 
 
     static ResourceLocation registerSweetspot(String name, Supplier<Supplier<? extends AbstractSweetSpotBehaviour>> supplier)

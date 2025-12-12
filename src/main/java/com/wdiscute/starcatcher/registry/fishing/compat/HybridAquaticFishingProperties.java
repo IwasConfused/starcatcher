@@ -186,7 +186,7 @@ public class HybridAquaticFishingProperties extends FishingPropertiesRegistry
                 overworldDeepOceanFish(U.holderItem("hybrid-aquatic", "oarfish"))
                         .withEntityToSpawn(U.holderEntity("hybrid-aquatic", "oarfish"))
                         .withSizeAndWeight(FishProperties.sw(800, 300, 250000, 22000))
-                        .withDifficulty(FishProperties.Difficulty.HARD_ONLY_THIN_MOVING)
+                        .withDifficulty(FishProperties.Difficulty.HARD_VANISHING)
                         .withRarity(FishProperties.Rarity.RARE)
                         .withWeather(FishProperties.Weather.THUNDER));
 
@@ -319,7 +319,7 @@ public class HybridAquaticFishingProperties extends FishingPropertiesRegistry
                 overworldJungleFish(U.holderItem("hybrid-aquatic", "golden_dorado"))
                         .withEntityToSpawn(U.holderEntity("hybrid-aquatic", "golden_dorado"))
                         .withSizeAndWeight(FishProperties.sw(90, 10, 4300, 2500))
-                        .withDifficulty(FishProperties.Difficulty.HARD_ONLY_THIN_MOVING)
+                        .withDifficulty(FishProperties.Difficulty.HARD)
                         .withRarity(FishProperties.Rarity.RARE));
 
         register(

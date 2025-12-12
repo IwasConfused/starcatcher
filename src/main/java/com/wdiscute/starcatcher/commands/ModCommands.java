@@ -60,20 +60,20 @@ public class ModCommands
         if (left.isPresent())
         {
             ResourceLocation location = left.get().location();
-            Optional<FishProperties> rl = level.registryAccess().registryOrThrow(Starcatcher.FISH_REGISTRY).getOptional(location);
+            Optional<FishProperties> optionalFP = level.registryAccess().registryOrThrow(Starcatcher.FISH_REGISTRY).getOptional(location);
 
-            if (rl.isPresent())
+            if (optionalFP.isPresent())
             {
                 PacketDistributor.sendToPlayer(
                         player,
-                        new FishingStartedPayload(rl.get(), player.getMainHandItem()));
+                        new FishingStartedPayload(optionalFP.get(), player.getMainHandItem()));
                 return 1;
             }
             else
             {
-                throw ERROR_FISH_ENTRY_INVALID.create(rl);
+                throw ERROR_FISH_ENTRY_INVALID.create(location);
             }
         }
-        throw ERROR_FISH_ENTRY_INVALID.create(unwrap.right());
+        throw ERROR_FISH_ENTRY_INVALID.create(unwrap.left());
     }
 }

@@ -54,7 +54,7 @@ public class UpgradeAquaticFishingProperties extends FishingPropertiesRegistry
                         .withCorrectBait(ModItems.ALMIGHTY_WORM.getId())
                         .withCorrectBaitChanceAdded(5))
                 .withSizeAndWeight(FishProperties.sw(28, 8, 260, 60))
-                .withDifficulty(FishProperties.Difficulty.REALLY_HEAVY_FISH)
+                .withDifficulty(FishProperties.Difficulty.FOUR_STONE_SPOTS)
                 .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD
                         .withBiomesTags(U.rl("upgrade_aquatic", "biome/has_spawn/thrasher")))
                 .withItemToOverrideWith(ModItems.UNKNOWN_FISH)

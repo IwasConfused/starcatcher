@@ -105,7 +105,7 @@ public class FishOfThievesFishingProperties extends FishingPropertiesRegistry
                 .withSeasons(Seasons.SPRING, Seasons.AUTUMN)
                 .withSizeAndWeight(FishProperties.sw(100, 10, 19000, 4200))
                 .withBaitRestrictions(FishProperties.BaitRestrictions.FISH_OF_THIEVES)
-                .withDifficulty(FishProperties.Difficulty.MEDIUM_FAST_FISH_VANISHING)
+                .withDifficulty(FishProperties.Difficulty.MEDIUM_VANISHING)
                 .withRarity(FishProperties.Rarity.EPIC)
         );
 
@@ -114,7 +114,7 @@ public class FishOfThievesFishingProperties extends FishingPropertiesRegistry
                 .withEntityToSpawn(U.holderEntity("fishofthieves", "stormfish"))
                 .withSeasons(Seasons.SUMMER, Seasons.AUTUMN, Seasons.WINTER)
                 .withSizeAndWeight(FishProperties.sw(150, 30, 14000, 2000))
-                .withDifficulty(FishProperties.Difficulty.MEDIUM_FAST_FISH_VANISHING)
+                .withDifficulty(FishProperties.Difficulty.MEDIUM_VANISHING)
                 .withWeather(FishProperties.Weather.THUNDER)
                 .withRarity(FishProperties.Rarity.RARE)
         );

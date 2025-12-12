@@ -64,7 +64,7 @@ public class NetherDepthsUpgradeFishingProperties extends FishingPropertiesRegis
                 .withEntityToSpawn(U.holderEntity("netherdepthsupgrade", "lava_pufferfish"))
                 .withSizeAndWeight(FishProperties.sw(90, 30, 3700, 900))
                 .withRarity(FishProperties.Rarity.EPIC)
-                .withDifficulty(FishProperties.Difficulty.HARD_ONLY_THIN_MOVING)
+                .withDifficulty(FishProperties.Difficulty.HARD_MOVING)
         );
 
         register(netherLavaBasaltDeltasFish(U.holderItem("netherdepthsupgrade", "magmacubefish"))
@@ -80,7 +80,7 @@ public class NetherDepthsUpgradeFishingProperties extends FishingPropertiesRegis
                 .withEntityToSpawn(U.holderEntity("netherdepthsupgrade", "obsidianfish"))
                 .withSizeAndWeight(FishProperties.sw(200, 50, 500000, 68000))
                 .withRarity(FishProperties.Rarity.UNCOMMON)
-                .withDifficulty(FishProperties.Difficulty.REALLY_HEAVY_FISH)
+                .withDifficulty(FishProperties.Difficulty.FOUR_STONE_SPOTS)
         );
 
         register(netherLavaFish(U.holderItem("netherdepthsupgrade", "searing_cod"))
@@ -96,7 +96,7 @@ public class NetherDepthsUpgradeFishingProperties extends FishingPropertiesRegis
                 .withEntityToSpawn(U.holderEntity("netherdepthsupgrade", "soulsucker"))
                 .withSizeAndWeight(FishProperties.sw(140, 30, 12000, 3000))
                 .withRarity(FishProperties.Rarity.EPIC)
-                .withDifficulty(FishProperties.Difficulty.MEDIUM_FAST_FISH_VANISHING)
+                .withDifficulty(FishProperties.Difficulty.MEDIUM_VANISHING)
         );
 
         register(netherLavaSoulSandValleyFish(U.holderItem("netherdepthsupgrade", "wither_bonefish"))
@@ -104,7 +104,7 @@ public class NetherDepthsUpgradeFishingProperties extends FishingPropertiesRegis
                 .withEntityToSpawn(U.holderEntity("netherdepthsupgrade", "wither_bonefish"))
                 .withSizeAndWeight(FishProperties.sw(400, 100, 32000, 7000))
                 .withRarity(FishProperties.Rarity.EPIC)
-                .withDifficulty(FishProperties.Difficulty.HARD_ONLY_THIN_MOVING)
+                .withDifficulty(FishProperties.Difficulty.HARD_MOVING)
         );
     }
 }

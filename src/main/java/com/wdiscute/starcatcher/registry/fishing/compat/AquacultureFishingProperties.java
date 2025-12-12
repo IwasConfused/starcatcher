@@ -124,7 +124,7 @@ public class AquacultureFishingProperties extends FishingPropertiesRegistry
                 .withBucketedFish(U.holderItem("aquaculture", "synodontis_bucket"))
                 .withEntityToSpawn(U.holderEntity("aquaculture", "synodontis"))
                 .withSizeAndWeight(FishProperties.sw(35, 15, 1000, 300))
-                .withDifficulty(FishProperties.Difficulty.HARD_ONLY_THIN_MOVING)
+                .withDifficulty(FishProperties.Difficulty.HARD_MOVING)
                 .withRarity(FishProperties.Rarity.EPIC)
         );
 
@@ -166,7 +166,7 @@ public class AquacultureFishingProperties extends FishingPropertiesRegistry
                 .withEntityToSpawn(U.holderEntity("aquaculture", "atlantic_herring"))
                 .withSeasons(Seasons.WINTER, Seasons.SPRING)
                 .withSizeAndWeight(FishProperties.sw(25, 5, 200, 100))
-                .withDifficulty(FishProperties.Difficulty.HARD_ONLY_THIN_MOVING)
+                .withDifficulty(FishProperties.Difficulty.HARD_MOVING)
                 .withRarity(FishProperties.Rarity.RARE)
                 .withDaytime(FishProperties.Daytime.DAY)
         );
@@ -246,7 +246,7 @@ public class AquacultureFishingProperties extends FishingPropertiesRegistry
                 .withSizeAndWeight(FishProperties.sw(30, 10, 500, 300))
                 .withBaitRestrictions(FishProperties.BaitRestrictions.LEGENDARY_BAIT)
                 .withRarity(FishProperties.Rarity.LEGENDARY)
-                .withDifficulty(FishProperties.Difficulty.EVERYTHING_FLIP)
+                .withDifficulty(FishProperties.Difficulty.FOUR_BIG)
                 .withDaytime(FishProperties.Daytime.NOON)
         );
 
@@ -283,7 +283,7 @@ public class AquacultureFishingProperties extends FishingPropertiesRegistry
                 .withEntityToSpawn(U.holderEntity("aquaculture", "brown_shrooma"))
                 .withSizeAndWeight(FishProperties.sw(100, 20, 3000, 500))
                 .withRarity(FishProperties.Rarity.EPIC)
-                .withDifficulty(FishProperties.Difficulty.EVERYTHING)
+                .withDifficulty(FishProperties.Difficulty.FOUR_BIG)
         );
 
         register(overworldMushroomFieldsFish(U.holderItem("aquaculture", "red_shrooma"))
@@ -291,7 +291,7 @@ public class AquacultureFishingProperties extends FishingPropertiesRegistry
                 .withEntityToSpawn(U.holderEntity("aquaculture", "brown_shrooma"))
                 .withSizeAndWeight(FishProperties.sw(100, 20, 3000, 500))
                 .withRarity(FishProperties.Rarity.EPIC)
-                .withDifficulty(FishProperties.Difficulty.EVERYTHING_FLIP)
+                .withDifficulty(FishProperties.Difficulty.FOUR_BIG)
         );
 
         //anywhere

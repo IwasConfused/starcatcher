@@ -14,8 +14,7 @@ import com.wdiscute.starcatcher.io.ModDataComponents;
 import com.wdiscute.starcatcher.io.network.FishingCompletedPayload;
 import com.wdiscute.starcatcher.items.ColorfulSmithingTemplate;
 import com.wdiscute.starcatcher.minigame.modifiers.BaseModifier;
-import com.wdiscute.starcatcher.minigame.modifiers.FreezeModifier;
-import com.wdiscute.starcatcher.minigame.modifiers.LowChanceTreasureSpawnModifier;
+import com.wdiscute.starcatcher.minigame.modifiers.SpawnFrozenSweetSpotsModifier;
 import com.wdiscute.starcatcher.registry.ModItems;
 import com.wdiscute.starcatcher.registry.ModKeymappings;
 import com.wdiscute.starcatcher.minigame.modifiers.AbstractModifier;
@@ -176,6 +175,8 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener
             Optional<AbstractModifier> newModifier = level.registryAccess().registryOrThrow(Starcatcher.MODIFIERS).getOptional(rl);
             newModifier.ifPresent(this::addModifier);
         }
+
+        addModifier(new SpawnFrozenSweetSpotsModifier());
     }
 
     public void addModifier(AbstractModifier mod)

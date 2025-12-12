@@ -11,10 +11,8 @@ import com.wdiscute.starcatcher.compat.EclipticSeasonsCompat;
 import com.wdiscute.starcatcher.compat.SereneSeasonsCompat;
 import com.wdiscute.starcatcher.compat.TerraFirmaCraftSeasonsCompat;
 import com.wdiscute.starcatcher.io.ExtraComposites;
-import com.wdiscute.starcatcher.io.ModDataComponents;
 import com.wdiscute.starcatcher.minigame.modifiers.ModModifiers;
 import com.wdiscute.starcatcher.minigame.sweetspotbehaviour.ModSweetSpotsBehaviour;
-import com.wdiscute.starcatcher.registry.ModEntities;
 import com.wdiscute.starcatcher.registry.ModItems;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.ChatFormatting;
@@ -113,7 +111,7 @@ public record FishProperties(
             Rarity.COMMON,
             WorldRestrictions.DEFAULT,
             BaitRestrictions.DEFAULT,
-            Difficulty.DEFAULT,
+            Difficulty.EASY,
             Daytime.ALL,
             Weather.ALL,
             false,
@@ -134,7 +132,7 @@ public record FishProperties(
         private Rarity rarity = Rarity.COMMON;
         private WorldRestrictions wr = WorldRestrictions.DEFAULT;
         private BaitRestrictions br = BaitRestrictions.DEFAULT;
-        private Difficulty dif = Difficulty.DEFAULT;
+        private Difficulty dif = Difficulty.EASY;
         private Daytime daytime = Daytime.ALL;
         private Weather weather = Weather.ALL;
         private boolean skipMinigame = false;
@@ -831,64 +829,175 @@ public record FishProperties(
             int speed,
             int penalty,
             float decay,
-            List<SweetSpot> sweetSpots,
-            List<ResourceLocation> modifiers
+            List<ResourceLocation> modifiers,
+            List<SweetSpot> sweetSpots
     )
     {
+
+        public Difficulty(int speed, int penalty, float decay, List<ResourceLocation> modifiers, SweetSpot... sweetSpots)
+        {
+            this(speed, penalty, decay, modifiers, Arrays.stream(sweetSpots).toList());
+        }
+
+        public Difficulty withModifiers(List<ResourceLocation> modifiers)
+        {
+            return new Difficulty(this.speed, this.penalty, this.decay, modifiers, this.sweetSpots);
+        }
+
+        public Difficulty vanishing()
+        {
+            List<SweetSpot> sss = new ArrayList<>();
+            sweetSpots.forEach(s -> sss.add(s.vanishing()));
+            return new Difficulty(speed, penalty, decay, modifiers, sss);
+        }
+
+        public Difficulty moving()
+        {
+            List<SweetSpot> sss = new ArrayList<>();
+            sweetSpots.forEach(s -> sss.add(s.moving()));
+            return new Difficulty(speed, penalty, decay, modifiers, sss);
+        }
+
+        public Difficulty flip()
+        {
+            List<SweetSpot> sss = new ArrayList<>();
+            sweetSpots.forEach(s -> sss.add(s.flip()));
+            return new Difficulty(speed, penalty, decay, modifiers, sss);
+        }
+
+
         //region preset difficulties
 
-        public static Difficulty DEFAULT = new Difficulty(
-                9, 10, 1,
-                List.of(SweetSpot.NORMAL, SweetSpot.NORMAL),
-                List.of()
+        public static Difficulty EASY = new Difficulty(
+                9, 5, 1,
+                List.of(),
+                SweetSpot.NORMAL, SweetSpot.NORMAL
+        );
+        public static Difficulty EASY_VANISHING = EASY.vanishing();
+        public static Difficulty EASY_MOVING = EASY.moving();
+
+        public static Difficulty MEDIUM = new Difficulty(
+                10, 10, 1,
+                List.of(),
+                SweetSpot.NORMAL, SweetSpot.NORMAL, SweetSpot.THIN
+        );
+        public static Difficulty MEDIUM_VANISHING = MEDIUM.vanishing();
+        public static Difficulty MEDIUM_MOVING = MEDIUM.moving();
+        public static Difficulty MEDIUM_VANISHING_MOVING = MEDIUM.moving().vanishing();
+
+        public static Difficulty HARD = new Difficulty(
+                11, 10, 1,
+                List.of(),
+                SweetSpot.THIN, SweetSpot.THIN);
+        public static Difficulty HARD_VANISHING = HARD.vanishing();
+        public static Difficulty HARD_MOVING = HARD.moving();
+
+        public static Difficulty THIN_NO_DECAY_NOT_FORGIVING = new Difficulty(
+                11, 40, 0,
+                List.of(),
+                SweetSpot.THIN, SweetSpot.THIN
         );
 
-        public static Difficulty MEDIUM = DEFAULT;
-        public static Difficulty HARD = DEFAULT;
-        public static Difficulty THIN_NO_DECAY_NOT_FORGIVING = DEFAULT;
-        public static Difficulty HARD_ONLY_THIN_MOVING = DEFAULT;
-        public static Difficulty EVERYTHING_FLIP = DEFAULT;
-        public static Difficulty EVERYTHING = DEFAULT;
-        public static Difficulty MEDIUM_VANISHING = DEFAULT;
-        public static Difficulty EASY_MOVING = DEFAULT;
-        public static Difficulty REALLY_HEAVY_FISH = DEFAULT;
-        public static Difficulty EASY_FAST_FISH = DEFAULT;
-        public static Difficulty HARD_VANISHING = DEFAULT;
-        public static Difficulty MEDIUM_MOVING = DEFAULT;
-        public static Difficulty MEDIUM_FAST_FISH_VANISHING = DEFAULT;
-        public static Difficulty EASY_VANISHING = DEFAULT;
-        public static Difficulty HARD_MOVING = DEFAULT;
-        public static Difficulty MEDIUM_VANISHING_MOVING = DEFAULT;
-        public static Difficulty SINGLE_BIG_FAST_MOVING = DEFAULT;
-        public static Difficulty HARD_ONLY_THIN = DEFAULT;
-        public static Difficulty SINGLE_BIG_FAST = DEFAULT;
-        public static Difficulty THIN_NO_DECAY = DEFAULT;
-        public static Difficulty MEDIUM_MOVING_NO_FLIP = DEFAULT;
-        public static Difficulty EVERYTHING_VANISHING = DEFAULT;
-        public static Difficulty EVERYTHING_FLIP_MOVING = DEFAULT;
-        public static Difficulty NON_STOP_ACTION_VANISHING = DEFAULT;
-        public static Difficulty SINGLE_BIG_FAST_NO_DECAY = DEFAULT;
-        public static Difficulty EASY_NO_FLIP_VANISHING = DEFAULT;
-        public static Difficulty VESANI = DEFAULT;
-        public static Difficulty NON_STOP_ACTION = DEFAULT;
-        public static Difficulty MOVING_THIN_NO_DECAY = DEFAULT;
-        public static Difficulty SINGLE_BIG_FAST_NO_DECAY_VANISHING = DEFAULT;
-        public static Difficulty THIN_NO_DECAY_NOT_FORGIVING_MOVING = DEFAULT;
-        public static Difficulty FAT_CATCH = DEFAULT;
-        public static Difficulty VOIDBITER = DEFAULT;
+        public static Difficulty FOUR_BIG = new Difficulty(
+                11, 20, 0,
+                List.of(),
+                SweetSpot.NORMAL, SweetSpot.NORMAL, SweetSpot.NORMAL, SweetSpot.NORMAL
+        );
+
+        public static Difficulty FOUR_BIG_VANISHING = new Difficulty(
+                11, 20, 0,
+                List.of(),
+                SweetSpot.NORMAL, SweetSpot.NORMAL, SweetSpot.NORMAL, SweetSpot.NORMAL
+        );
+
+        public static Difficulty FOUR_BIG_MOVING = new Difficulty(
+                11, 20, 0,
+                List.of(),
+                SweetSpot.NORMAL, SweetSpot.NORMAL, SweetSpot.NORMAL, SweetSpot.NORMAL
+        );
+
+        public static Difficulty EIGHT_THIN = new Difficulty(
+                9, 20, 0,
+                List.of(),
+                SweetSpot.THIN, SweetSpot.THIN, SweetSpot.THIN, SweetSpot.THIN, SweetSpot.THIN, SweetSpot.THIN, SweetSpot.THIN, SweetSpot.THIN
+        );
+
+        public static Difficulty EIGHT_THIN_VANISHING = new Difficulty(
+                9, 20, 0,
+                List.of(),
+                SweetSpot.THIN, SweetSpot.THIN, SweetSpot.THIN, SweetSpot.THIN, SweetSpot.THIN, SweetSpot.THIN, SweetSpot.THIN, SweetSpot.THIN
+        ).vanishing();
+
+        public static Difficulty THREE_BIG_TWO_THIN_VANISHING = new Difficulty(
+                9, 20, 0,
+                List.of(),
+                SweetSpot.THIN, SweetSpot.THIN, SweetSpot.THIN, SweetSpot.THIN, SweetSpot.THIN, SweetSpot.THIN, SweetSpot.THIN, SweetSpot.THIN
+        ).vanishing();
+
+        public static Difficulty FOUR_STONE_SPOTS = new Difficulty(
+                9, 20, 0,
+                List.of(),
+                SweetSpot.STONE, SweetSpot.STONE, SweetSpot.STONE, SweetSpot.STONE
+        );
+
+        public static Difficulty EASY_FAST_FISH = new Difficulty(
+                15, 20, 0,
+                List.of(),
+                SweetSpot.NORMAL_STEADY, SweetSpot.NORMAL_STEADY
+                );
+
+        public static Difficulty SINGLE_BIG_FAST = new Difficulty(
+                13, 30, 0,
+                List.of(),
+                SweetSpot.NORMAL_STEADY
+        );
+
+        public static Difficulty SINGLE_BIG_FAST_MOVING = new Difficulty(
+                13, 30, 0,
+                List.of(),
+                SweetSpot.NORMAL_STEADY
+        ).moving();
+
+        public static Difficulty TWO_AQUA = new Difficulty(
+                10, 20, 0,
+                List.of(),
+                SweetSpot.AQUA, SweetSpot.AQUA
+        ).moving();
+
+        public static Difficulty FOUR_AQUA = new Difficulty(
+                10, 20, 0,
+                List.of(),
+                SweetSpot.AQUA, SweetSpot.AQUA
+        ).moving();
+
+        public static Difficulty THIN_NO_DECAY = EASY;
+        public static Difficulty MEDIUM_MOVING_NO_FLIP = EASY;
+        public static Difficulty EVERYTHING_VANISHING = EASY;
+        public static Difficulty EVERYTHING_FLIP_MOVING = EASY;
+        public static Difficulty NON_STOP_ACTION_VANISHING = EASY;
+        public static Difficulty SINGLE_BIG_FAST_NO_DECAY = EASY;
+        public static Difficulty EASY_NO_FLIP_VANISHING = EASY;
+        public static Difficulty VESANI = EASY;
+        public static Difficulty NON_STOP_ACTION = EASY;
+        public static Difficulty MOVING_THIN_NO_DECAY = EASY;
+        public static Difficulty SINGLE_BIG_FAST_NO_DECAY_VANISHING = EASY;
+        public static Difficulty THIN_NO_DECAY_NOT_FORGIVING_MOVING = EASY;
+        public static Difficulty FAT_CATCH = EASY;
+        public static Difficulty VOIDBITER = EASY;
 
         public static Difficulty WITHER = new Difficulty(
                 10, 30, 1,
-                List.of(SweetSpot.WITHER_BIG, SweetSpot.WITHER, SweetSpot.WITHER),
-                List.of());
+                List.of(),
+                SweetSpot.WITHER_BIG, SweetSpot.WITHER, SweetSpot.WITHER
+        );
 
         public static Difficulty CREEPER = new Difficulty(
                 10, 20, 1,
-                List.of(SweetSpot.CREEPER, SweetSpot.CREEPER),
-                List.of(ModModifiers.SPAWN_TNT_SWEET_SPOTS));
+                List.of(ModModifiers.SPAWN_TNT_SWEET_SPOTS),
+                SweetSpot.CREEPER, SweetSpot.CREEPER
+        );
 
         //endregion preset difficulties
-
 
 
         public static final Codec<Difficulty> CODEC = RecordCodecBuilder.create(instance ->
@@ -896,8 +1005,8 @@ public record FishProperties(
                         Codec.INT.fieldOf("speed").forGetter(Difficulty::speed),
                         Codec.INT.fieldOf("missPenalty").forGetter(Difficulty::penalty),
                         Codec.FLOAT.fieldOf("decay").forGetter(Difficulty::decay),
-                        SweetSpot.LIST_CODEC.fieldOf("sweetspots").forGetter(Difficulty::sweetSpots),
-                        ResourceLocation.CODEC.listOf().fieldOf("modifiers").forGetter(Difficulty::modifiers)
+                        ResourceLocation.CODEC.listOf().fieldOf("modifiers").forGetter(Difficulty::modifiers),
+                        SweetSpot.LIST_CODEC.fieldOf("sweetspots").forGetter(Difficulty::sweetSpots)
                 ).apply(instance, Difficulty::new));
 
 
@@ -905,8 +1014,8 @@ public record FishProperties(
                 ByteBufCodecs.INT, Difficulty::speed,
                 ByteBufCodecs.INT, Difficulty::penalty,
                 ByteBufCodecs.FLOAT, Difficulty::decay,
-                SweetSpot.LIST_STREAM_CODEC, Difficulty::sweetSpots,
                 ResourceLocation.STREAM_CODEC.apply(ByteBufCodecs.list()), Difficulty::modifiers,
+                SweetSpot.LIST_STREAM_CODEC, Difficulty::sweetSpots,
                 Difficulty::new
         );
     }
@@ -930,12 +1039,29 @@ public record FishProperties(
         private static final ResourceLocation RL_WITHER_BIG = Starcatcher.rl("textures/gui/minigame/spots/wither_big.png");
         private static final ResourceLocation RL_CREEPER = Starcatcher.rl("textures/gui/minigame/spots/creeper.png");
         private static final ResourceLocation RL_TNT = Starcatcher.rl("textures/gui/minigame/spots/tnt.png");
+        private static final ResourceLocation RL_STONE = Starcatcher.rl("textures/gui/minigame/spots/stone.png");
+
+
+        public SweetSpot flip()
+        {
+            return new SweetSpot(this.sweetSpotType, this.texturePath, this.size, this.reward, true, this.isVanishing, this.isMoving, this.particleColor);
+        }
+
+        public SweetSpot vanishing()
+        {
+            return new SweetSpot(this.sweetSpotType, this.texturePath, this.size, this.reward, this.isFlip, true, this.isMoving, this.particleColor);
+        }
+
+        public SweetSpot moving()
+        {
+            return new SweetSpot(this.sweetSpotType, this.texturePath, this.size, this.reward, this.isFlip, this.isVanishing, true, this.particleColor);
+        }
 
         public static SweetSpot NORMAL_STEADY = new SweetSpot(
                 ModSweetSpotsBehaviour.NORMAL,
                 RL_NORMAL,
                 33,
-                10,
+                15,
                 false,
                 false,
                 false,
@@ -946,7 +1072,7 @@ public record FishProperties(
                 ModSweetSpotsBehaviour.NORMAL,
                 RL_NORMAL,
                 22,
-                10,
+                15,
                 false,
                 false,
                 false,
@@ -957,7 +1083,7 @@ public record FishProperties(
                 ModSweetSpotsBehaviour.NORMAL,
                 RL_THIN,
                 20,
-                10,
+                20,
                 false,
                 false,
                 false,
@@ -968,20 +1094,18 @@ public record FishProperties(
                 ModSweetSpotsBehaviour.NORMAL,
                 RL_THIN,
                 15,
-                10,
+                20,
                 false,
                 false,
                 false,
                 0x00ff00
         );
 
-
-
         public static SweetSpot FREEZE = new SweetSpot(
                 ModSweetSpotsBehaviour.FROZEN,
                 RL_FREEZE,
                 33,
-                10,
+                15,
                 false,
                 false,
                 false,
@@ -992,7 +1116,7 @@ public record FishProperties(
                 ModSweetSpotsBehaviour.TREASURE,
                 RL_TREASURE,
                 20,
-                10,
+                15,
                 false,
                 false,
                 false,
@@ -1003,7 +1127,7 @@ public record FishProperties(
                 ModSweetSpotsBehaviour.NORMAL,
                 RL_WITHER,
                 22,
-                10,
+                15,
                 false,
                 false,
                 true,
@@ -1014,7 +1138,7 @@ public record FishProperties(
                 ModSweetSpotsBehaviour.NORMAL,
                 RL_WITHER_BIG,
                 33,
-                10,
+                15,
                 false,
                 false,
                 false,
@@ -1025,7 +1149,7 @@ public record FishProperties(
                 ModSweetSpotsBehaviour.NORMAL,
                 RL_CREEPER,
                 22,
-                10,
+                15,
                 false,
                 false,
                 false,
@@ -1042,6 +1166,29 @@ public record FishProperties(
                 false,
                 0xff0000
         );
+
+        public static SweetSpot STONE = new SweetSpot(
+                ModSweetSpotsBehaviour.NORMAL,
+                RL_STONE,
+                33,
+                1,
+                false,
+                false,
+                false,
+                0x494949
+        );
+
+        public static SweetSpot AQUA = new SweetSpot(
+                ModSweetSpotsBehaviour.AQUA,
+                RL_NORMAL,
+                22,
+                15,
+                false,
+                false,
+                false,
+                0x387982
+        );
+
 
         public static final Codec<SweetSpot> CODEC = RecordCodecBuilder.create(instance ->
                 instance.group(

@@ -8,10 +8,12 @@ import com.wdiscute.starcatcher.storage.FishProperties;
 import com.wdiscute.starcatcher.storage.TrophyProperties;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceLocation;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
+import java.util.List;
 import java.util.function.UnaryOperator;
 
 public class ModDataComponents
@@ -67,6 +69,10 @@ public class ModDataComponents
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<SizeAndWeightInstance>> SIZE_AND_WEIGHT = register(
             "size_and_weight",
             builder -> builder.persistent(SizeAndWeightInstance.CODEC));
+
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<List<ResourceLocation>>> MODIFIERS = register(
+            "modifiers",
+            builder -> builder.persistent(ResourceLocation.CODEC.listOf()));
 
     private static <T> DeferredHolder<DataComponentType<?>, DataComponentType<T>> register(String name,
                                                                                            UnaryOperator<DataComponentType.Builder<T>> builderOperator)

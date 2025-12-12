@@ -4,7 +4,7 @@ import com.wdiscute.starcatcher.Starcatcher;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.resources.ResourceLocation;
 
-public class FreezeModifier extends AbstractModifier
+public class FreezeOnMissModifier extends AbstractModifier
 {
     public static final ResourceLocation OVERLAY = Starcatcher.rl("textures/gui/minigame/modifiers/freeze.png");
 
@@ -13,7 +13,7 @@ public class FreezeModifier extends AbstractModifier
     {
         super.onMiss();
 
-        instance.addModifier(new FrozenPointerModifier(20));
+        instance.addModifier(new FrozenPointerWhileActiveModifier(40, 10));
     }
 
     @Override

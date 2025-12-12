@@ -3,9 +3,7 @@ package com.wdiscute.starcatcher.registry.fishing;
 import com.wdiscute.starcatcher.registry.ModItems;
 import com.wdiscute.starcatcher.storage.FishProperties;
 import com.wdiscute.starcatcher.storage.FishProperties.WorldRestrictions.Seasons;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.tags.BiomeTags;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.biome.Biomes;
 
 import static com.wdiscute.starcatcher.registry.fishing.FishingPropertiesRegistry.*;
@@ -47,14 +45,14 @@ public class StarcatcherFishingProperties
                 .withDaytime(FishProperties.Daytime.MIDNIGHT)
                 .withRarity(FishProperties.Rarity.EPIC)
                 .withWeather(FishProperties.Weather.RAIN)
-                .withDifficulty(FishProperties.Difficulty.HARD_ONLY_THIN_MOVING));
+                .withDifficulty(FishProperties.Difficulty.HARD_MOVING));
 
         registerStarcatcherBucketAndEntity(overworldLakeFish(ModItems.THUNDER_BASS)
                 .withSizeAndWeight(FishProperties.sw(40, 12, 1200, 800))
                 .withSeasons(Seasons.SUMMER, Seasons.AUTUMN)
                 .withRarity(FishProperties.Rarity.RARE)
                 .withWeather(FishProperties.Weather.THUNDER)
-                .withDifficulty(FishProperties.Difficulty.HARD_ONLY_THIN_MOVING));
+                .withDifficulty(FishProperties.Difficulty.HARD));
 
         registerStarcatcherBucketAndEntity(overworldLakeFish(ModItems.LIGHTNING_BASS)
                 .withSizeAndWeight(FishProperties.sw(40, 12, 1300, 620))
@@ -126,7 +124,7 @@ public class StarcatcherFishingProperties
         registerStarcatcherBucketAndEntity(overworldMountainFish(ModItems.SUNNY_STURGEON)
                 .withSizeAndWeight(FishProperties.sw(400, 200, 100000, 50000))
                 .withSeasons(Seasons.SPRING, Seasons.SUMMER)
-                .withDifficulty(FishProperties.Difficulty.HARD_ONLY_THIN)
+                .withDifficulty(FishProperties.Difficulty.HARD_MOVING)
                 .withRarity(FishProperties.Rarity.RARE)
                 .withDaytime(FishProperties.Daytime.DAY)
                 .withBaseChance(2));
@@ -340,7 +338,7 @@ public class StarcatcherFishingProperties
         registerStarcatcherBucketAndEntity(overworldOceanFish(ModItems.JOEL)
                 .withSeasons(Seasons.SUMMER)
                 .withSizeAndWeight(FishProperties.sw(69, 0, 2000, 600))
-                .withDifficulty(FishProperties.Difficulty.EVERYTHING)
+                .withDifficulty(FishProperties.Difficulty.TWO_AQUA)
                 .withBaseChance(1)
                 .withBaitRestrictions(FishProperties.BaitRestrictions.LEGENDARY_BAIT)
                 .withRarity(FishProperties.Rarity.LEGENDARY));
@@ -476,7 +474,7 @@ public class StarcatcherFishingProperties
 
         registerStarcatcherBucketAndEntity(overworldDeepslateFish(ModItems.BRIGHT_AMETHYST_SNAPPER)
                 .withSizeAndWeight(FishProperties.sw(60, 20, 7000, 2000))
-                .withDifficulty(FishProperties.Difficulty.HARD_ONLY_THIN)
+                .withDifficulty(FishProperties.Difficulty.HARD)
                 .withRarity(FishProperties.Rarity.EPIC)
                 .withBaseChance(2));
 
@@ -539,7 +537,7 @@ public class StarcatcherFishingProperties
         registerStarcatcherBucketAndEntity(overworldDeepslateLava(ModItems.SCORCHED_BLOODSUCKER)
                 .withSizeAndWeight(FishProperties.sw(60, 30, 1700, 300))
                 .withRarity(FishProperties.Rarity.EPIC)
-                .withDifficulty(FishProperties.Difficulty.HARD_ONLY_THIN));
+                .withDifficulty(FishProperties.Difficulty.HARD));
 
         registerStarcatcherBucketAndEntity(overworldDeepslateLava(ModItems.MOLTEN_DEEPSLATE_CRAB)
                 .withSizeAndWeight(FishProperties.sw(15, 8, 700, 300))
@@ -550,12 +548,12 @@ public class StarcatcherFishingProperties
         //nether
         registerStarcatcherBucketAndEntity(netherLavaFish(ModItems.EMBERGILL)
                 .withSizeAndWeight(FishProperties.sw(220, 70, 5700, 900))
-                .withDifficulty(FishProperties.Difficulty.HARD_ONLY_THIN));
+                .withDifficulty(FishProperties.Difficulty.HARD));
 
         registerStarcatcherBucketAndEntity(netherLavaFish(ModItems.LAVA_CRAB)
                 .withSizeAndWeight(FishProperties.sw(15, 8, 700, 300))
                 .withRarity(FishProperties.Rarity.EPIC)
-                .withDifficulty(FishProperties.Difficulty.EVERYTHING_FLIP));
+                .withDifficulty(FishProperties.Difficulty.FOUR_BIG));
 
         registerStarcatcherBucketAndEntity(netherLavaFish(ModItems.MAGMA_FISH)
                 .withSizeAndWeight(FishProperties.sw(120, 40, 3700, 900))

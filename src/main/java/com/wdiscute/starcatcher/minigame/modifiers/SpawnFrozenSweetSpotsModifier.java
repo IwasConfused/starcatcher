@@ -13,7 +13,7 @@ public class SpawnFrozenSweetSpotsModifier extends AbstractModifier
     public void tick()
     {
         super.tick();
-        if (r.nextFloat() > 0.99f)
+        if (r.nextFloat() > 0.9f)
         {
             ActiveSweetSpot activeSweetSpot = new ActiveSweetSpot(instance, FishProperties.SweetSpot.FREEZE);
             activeSweetSpot.shouldSudokuOnVanish = true;

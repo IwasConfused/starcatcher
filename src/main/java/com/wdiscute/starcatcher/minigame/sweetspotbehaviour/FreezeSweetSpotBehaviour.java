@@ -1,9 +1,6 @@
 package com.wdiscute.starcatcher.minigame.sweetspotbehaviour;
 
-import com.wdiscute.starcatcher.minigame.ActiveSweetSpot;
-import com.wdiscute.starcatcher.minigame.FishingMinigameScreen;
-import com.wdiscute.starcatcher.minigame.modifiers.FrozenPointerModifier;
-import net.minecraft.client.gui.GuiGraphics;
+import com.wdiscute.starcatcher.minigame.modifiers.FrozenPointerWhileActiveModifier;
 
 public class FreezeSweetSpotBehaviour extends AbstractSweetSpotBehaviour
 {
@@ -13,6 +10,6 @@ public class FreezeSweetSpotBehaviour extends AbstractSweetSpotBehaviour
         super.onHit();
         instance.addParticles(ass.pos, 30, 0xADD8E6);
 
-        instance.addModifier(new FrozenPointerModifier(20));
+        instance.addModifier(new FrozenPointerWhileActiveModifier(40, 10));
     }
 }

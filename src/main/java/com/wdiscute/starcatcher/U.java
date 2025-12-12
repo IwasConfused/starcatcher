@@ -462,4 +462,9 @@ public class U
     {
         return packedColor & 255;
     }
+
+    public static int sign(float x)
+    {
+        return x >= 0 ? 1 : -1;
+    }
 }

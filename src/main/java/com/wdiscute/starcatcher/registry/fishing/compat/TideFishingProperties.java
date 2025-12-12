@@ -236,7 +236,7 @@ public class TideFishingProperties extends FishingPropertiesRegistry
                 //no bucketed version
                 //no entity version
                 .withSizeAndWeight(FishProperties.sw(80, 30, 10000, 5000))
-                .withDifficulty(FishProperties.Difficulty.HARD_ONLY_THIN)
+                .withDifficulty(FishProperties.Difficulty.HARD)
                 .withRarity(FishProperties.Rarity.RARE)
         );
 
@@ -245,7 +245,7 @@ public class TideFishingProperties extends FishingPropertiesRegistry
                 //no entity version
                 .withSizeAndWeight(FishProperties.sw(4, 1, 2, 1))
                 .withRarity(FishProperties.Rarity.EPIC)
-                .withDifficulty(FishProperties.Difficulty.HARD_ONLY_THIN)
+                .withDifficulty(FishProperties.Difficulty.HARD)
         );
 
         //tide biome specific
@@ -264,7 +264,7 @@ public class TideFishingProperties extends FishingPropertiesRegistry
                 .withSizeAndWeight(FishProperties.sw(30, 10, 1000, 500))
                 .withWorldRestrictions(FishProperties.WorldRestrictions.DEFAULT.withBiomes(U.rl("minecraft", "desert")))
                 .withRarity(FishProperties.Rarity.UNCOMMON)
-                .withDifficulty(FishProperties.Difficulty.SINGLE_BIG_FAST)
+                .withDifficulty(FishProperties.Difficulty.SINGLE_BIG_FAST_MOVING)
         );
 
         register(overworldCherryGroveFish(U.holderItem("tide", "blossom_bass"))
@@ -299,7 +299,7 @@ public class TideFishingProperties extends FishingPropertiesRegistry
                 .withSeasons(Seasons.SUMMER)
                 .withSizeAndWeight(FishProperties.sw(100, 50, 15000, 10000))
                 .withRarity(FishProperties.Rarity.EPIC)
-                .withDifficulty(FishProperties.Difficulty.EVERYTHING_FLIP)
+                .withDifficulty(FishProperties.Difficulty.FOUR_BIG)
                 .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD.withBiomesTags(BiomeTags.IS_BADLANDS.location()))
         );
 
@@ -365,7 +365,7 @@ public class TideFishingProperties extends FishingPropertiesRegistry
                 .withSeasons(Seasons.SPRING, Seasons.AUTUMN)
                 .withSizeAndWeight(FishProperties.sw(40, 20, 3000, 2000))
                 .withRarity(FishProperties.Rarity.EPIC)
-                .withDifficulty(FishProperties.Difficulty.EVERYTHING)
+                .withDifficulty(FishProperties.Difficulty.FOUR_BIG_MOVING)
         );
 
         register(overworldLushCavesFish(U.holderItem("tide", "fluttergill"))
@@ -391,7 +391,7 @@ public class TideFishingProperties extends FishingPropertiesRegistry
                 //no bucketed version
                 //no entity version
                 .withSizeAndWeight(FishProperties.sw(40, 20, 3000, 2000))
-                .withDifficulty(FishProperties.Difficulty.EVERYTHING)
+                .withDifficulty(FishProperties.Difficulty.FOUR_BIG)
                 .withRarity(FishProperties.Rarity.EPIC)
         );
 
@@ -447,7 +447,7 @@ public class TideFishingProperties extends FishingPropertiesRegistry
                 //no bucketed version
                 //no entity version
                 .withSizeAndWeight(FishProperties.sw(4, 1, 4, 1))
-                .withDifficulty(FishProperties.Difficulty.HARD_ONLY_THIN)
+                .withDifficulty(FishProperties.Difficulty.HARD_MOVING)
         );
 
         register(netherLavaCrimsonForestFish(U.holderItem("tide", "crimson_fangjaw"))
@@ -463,7 +463,7 @@ public class TideFishingProperties extends FishingPropertiesRegistry
                 //no entity version
                 .withSizeAndWeight(FishProperties.sw(100, 50, 15000, 10000))
                 .withRarity(FishProperties.Rarity.EPIC)
-                .withDifficulty(FishProperties.Difficulty.HARD_ONLY_THIN)
+                .withDifficulty(FishProperties.Difficulty.HARD_VANISHING)
         );
 
         register(netherLavaFish(U.holderItem("tide", "blazing_swordfish"))
@@ -471,14 +471,15 @@ public class TideFishingProperties extends FishingPropertiesRegistry
                 //no entity version
                 .withSizeAndWeight(FishProperties.sw(200, 100, 100000, 50000))
                 .withRarity(FishProperties.Rarity.EPIC)
-                .withDifficulty(FishProperties.Difficulty.EVERYTHING)
+                .withDifficulty(FishProperties.Difficulty.FOUR_BIG)
         );
 
         //tide end
         register(endFish(U.holderItem("tide", "endstone_perch"))
                 //no bucketed version
                 //no entity version
-                .withSizeAndWeight(FishProperties.sw(25, 10, 500, 300)).withDifficulty(FishProperties.Difficulty.MEDIUM_MOVING_NO_FLIP)
+                .withSizeAndWeight(FishProperties.sw(25, 10, 500, 300))
+                .withDifficulty(FishProperties.Difficulty.MEDIUM_MOVING_NO_FLIP)
         );
 
         register(endFish(U.holderItem("tide", "enderfin"))
@@ -509,7 +510,7 @@ public class TideFishingProperties extends FishingPropertiesRegistry
                 //no bucketed version
                 //no entity version
                 .withSizeAndWeight(FishProperties.sw(100, 50, 15000, 10000))
-                .withDifficulty(FishProperties.Difficulty.MEDIUM_FAST_FISH_VANISHING)
+                .withDifficulty(FishProperties.Difficulty.MEDIUM_VANISHING_MOVING)
                 .withRarity(FishProperties.Rarity.EPIC)
         );
 
@@ -549,7 +550,7 @@ public class TideFishingProperties extends FishingPropertiesRegistry
                 .withBaitRestrictions(FishProperties.BaitRestrictions.LEGENDARY_BAIT)
                 .withRarity(FishProperties.Rarity.LEGENDARY)
                 .withDaytime(FishProperties.Daytime.MIDNIGHT)
-                .withDifficulty(FishProperties.Difficulty.HARD_ONLY_THIN)
+                .withDifficulty(FishProperties.Difficulty.HARD)
         );
     }
 }
