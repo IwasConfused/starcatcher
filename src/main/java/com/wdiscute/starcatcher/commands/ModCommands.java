@@ -21,7 +21,7 @@ import net.neoforged.neoforge.network.PacketDistributor;
 
 import java.util.Optional;
 
-public class MinigameCommand
+public class ModCommands
 {
     private static final DynamicCommandExceptionType ERROR_ROD = new DynamicCommandExceptionType(
             component -> Component.translatableEscape("commands.starcatcher.rod_not_found", component)

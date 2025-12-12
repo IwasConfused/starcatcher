@@ -2,7 +2,7 @@ package com.wdiscute.starcatcher.event;
 
 import com.wdiscute.starcatcher.Config;
 import com.wdiscute.starcatcher.Starcatcher;
-import com.wdiscute.starcatcher.commands.MinigameCommand;
+import com.wdiscute.starcatcher.commands.ModCommands;
 import com.wdiscute.starcatcher.fishentity.FishEntity;
 import com.wdiscute.starcatcher.io.network.FPsSeenPayload;
 import com.wdiscute.starcatcher.io.network.FishCaughtPayload;
@@ -50,7 +50,7 @@ public class ModEvents
     public static void addCommand(RegisterCommandsEvent event)
     {
         event.getDispatcher().register(
-                MinigameCommand.COMMAND
+                ModCommands.COMMAND
         );
     }
 
