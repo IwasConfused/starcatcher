@@ -41,7 +41,7 @@ public class UpgradeAquaticFishingProperties extends FishingPropertiesRegistry
                 .withBucketedFish(U.holderItem("upgrade_aquatic", "lionfish_bucket"))
                 .withEntityToSpawn(U.holderEntity("upgrade_aquatic", "lionfish"))
                 .withSizeAndWeight(FishProperties.sw(27.0f, 11, 500, 352))
-                .withDifficulty(FishProperties.Difficulty.EVERYTHING_VANISHING)
+                .withDifficulty(FishProperties.Difficulty.FOUR_BIG_VANISHING)
                 .withRarity(FishProperties.Rarity.UNCOMMON)
                 .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD
                         .withBiomesTags(U.rl("upgrade_aquatic", "biome/has_spawn/lionfish")))

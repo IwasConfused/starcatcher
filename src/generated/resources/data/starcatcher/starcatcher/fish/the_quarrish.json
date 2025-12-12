@@ -16,10 +16,10 @@
   },
   "daytime": "all",
   "difficulty": {
-    "decay": 1,
-    "missPenalty": 10,
+    "decay": 0.0,
+    "missPenalty": 40,
     "modifiers": [],
-    "speed": 9,
+    "speed": 5,
     "sweetspots": [
       {
         "color_as_int": 65280,
@@ -27,7 +27,7 @@
         "is_flip": false,
         "is_moving": false,
         "is_vanishing": false,
-        "reward": 10,
+        "reward": 1,
         "sweet_spot_type": "starcatcher:normal",
         "texture_path": "starcatcher:textures/gui/minigame/spots/normal.png"
       },
@@ -37,7 +37,37 @@
         "is_flip": false,
         "is_moving": false,
         "is_vanishing": false,
-        "reward": 10,
+        "reward": 1,
+        "sweet_spot_type": "starcatcher:normal",
+        "texture_path": "starcatcher:textures/gui/minigame/spots/normal.png"
+      },
+      {
+        "color_as_int": 65280,
+        "hitbox_size_in_pixels": 22,
+        "is_flip": false,
+        "is_moving": false,
+        "is_vanishing": false,
+        "reward": 1,
+        "sweet_spot_type": "starcatcher:normal",
+        "texture_path": "starcatcher:textures/gui/minigame/spots/normal.png"
+      },
+      {
+        "color_as_int": 65280,
+        "hitbox_size_in_pixels": 22,
+        "is_flip": false,
+        "is_moving": false,
+        "is_vanishing": false,
+        "reward": 1,
+        "sweet_spot_type": "starcatcher:normal",
+        "texture_path": "starcatcher:textures/gui/minigame/spots/normal.png"
+      },
+      {
+        "color_as_int": 65280,
+        "hitbox_size_in_pixels": 22,
+        "is_flip": false,
+        "is_moving": false,
+        "is_vanishing": false,
+        "reward": 1,
         "sweet_spot_type": "starcatcher:normal",
         "texture_path": "starcatcher:textures/gui/minigame/spots/normal.png"
       }

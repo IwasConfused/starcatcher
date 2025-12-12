@@ -10,6 +10,6 @@ public class FreezeSweetSpotBehaviour extends AbstractSweetSpotBehaviour
         super.onHit();
         instance.addParticles(ass.pos, 30, 0xADD8E6);
 
-        instance.addModifier(new FrozenPointerWhileActiveModifier(40, 10));
+        instance.addUniqueModifier(new FrozenPointerWhileActiveModifier(40, 10));
     }
 }

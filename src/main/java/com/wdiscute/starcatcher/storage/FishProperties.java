@@ -824,7 +824,6 @@ public record FishProperties(
     }
 
     //region dif
-
     public record Difficulty(
             int speed,
             int penalty,
@@ -898,41 +897,54 @@ public record FishProperties(
                 SweetSpot.THIN, SweetSpot.THIN
         );
 
+        public static Difficulty HEAVY_FIVE_NORMAL = new Difficulty(
+                5, 40, 0,
+                List.of(),
+                SweetSpot.NORMAL_HEAVY, SweetSpot.NORMAL_HEAVY, SweetSpot.NORMAL_HEAVY, SweetSpot.NORMAL_HEAVY, SweetSpot.NORMAL_HEAVY
+        );
+
         public static Difficulty FOUR_BIG = new Difficulty(
-                11, 20, 0,
+                9, 20, 0,
                 List.of(),
                 SweetSpot.NORMAL, SweetSpot.NORMAL, SweetSpot.NORMAL, SweetSpot.NORMAL
+        );
+        public static Difficulty FOUR_BIG_VANISHING = FOUR_BIG.vanishing();
+        public static Difficulty FOUR_BIG_MOVING = FOUR_BIG.moving();
+
+        public static Difficulty HEAVY_EIGHT_AQUA = new Difficulty(
+                12, 20, 0,
+                List.of(),
+                SweetSpot.AQUA_1, SweetSpot.AQUA_1, SweetSpot.AQUA_1, SweetSpot.AQUA_1, SweetSpot.AQUA_1, SweetSpot.AQUA_1, SweetSpot.AQUA_1, SweetSpot.AQUA_1
         );
 
-        public static Difficulty FOUR_BIG_VANISHING = new Difficulty(
-                11, 20, 0,
+        public static Difficulty HEAVY_EIGHT_AQUA_MOVING = new Difficulty(
+                12, 20, 0,
                 List.of(),
-                SweetSpot.NORMAL, SweetSpot.NORMAL, SweetSpot.NORMAL, SweetSpot.NORMAL
-        );
+                SweetSpot.AQUA_1, SweetSpot.AQUA_1, SweetSpot.AQUA_1, SweetSpot.AQUA_1, SweetSpot.AQUA_1, SweetSpot.AQUA_1, SweetSpot.AQUA_1, SweetSpot.AQUA_1
+        ).moving();
 
-        public static Difficulty FOUR_BIG_MOVING = new Difficulty(
-                11, 20, 0,
+        public static Difficulty ONE_AQUA_ONE_BIG_ONE_SMALL = new Difficulty(
+                9, 20, 0,
                 List.of(),
-                SweetSpot.NORMAL, SweetSpot.NORMAL, SweetSpot.NORMAL, SweetSpot.NORMAL
+                SweetSpot.AQUA, SweetSpot.AQUA, SweetSpot.THIN
         );
+        public static Difficulty ONE_AQUA_ONE_BIG_ONE_SMALL_VANISHING = ONE_AQUA_ONE_BIG_ONE_SMALL.vanishing();
 
         public static Difficulty EIGHT_THIN = new Difficulty(
                 9, 20, 0,
                 List.of(),
                 SweetSpot.THIN, SweetSpot.THIN, SweetSpot.THIN, SweetSpot.THIN, SweetSpot.THIN, SweetSpot.THIN, SweetSpot.THIN, SweetSpot.THIN
         );
+        public static Difficulty EIGHT_THIN_VANISHING = EIGHT_THIN.vanishing();
+        public static Difficulty EIGHT_THIN_MOVING = EIGHT_THIN.moving();
+        public static Difficulty EIGHT_THIN_MOVING_VANISHING = EIGHT_THIN.vanishing();
 
-        public static Difficulty EIGHT_THIN_VANISHING = new Difficulty(
+        public static Difficulty THREE_BIG_TWO_THIN = new Difficulty(
                 9, 20, 0,
                 List.of(),
                 SweetSpot.THIN, SweetSpot.THIN, SweetSpot.THIN, SweetSpot.THIN, SweetSpot.THIN, SweetSpot.THIN, SweetSpot.THIN, SweetSpot.THIN
         ).vanishing();
-
-        public static Difficulty THREE_BIG_TWO_THIN_VANISHING = new Difficulty(
-                9, 20, 0,
-                List.of(),
-                SweetSpot.THIN, SweetSpot.THIN, SweetSpot.THIN, SweetSpot.THIN, SweetSpot.THIN, SweetSpot.THIN, SweetSpot.THIN, SweetSpot.THIN
-        ).vanishing();
+        public static Difficulty THREE_BIG_TWO_THIN_VANISHING = THREE_BIG_TWO_THIN.vanishing();
 
         public static Difficulty FOUR_STONE_SPOTS = new Difficulty(
                 9, 20, 0,
@@ -941,49 +953,48 @@ public record FishProperties(
         );
 
         public static Difficulty EASY_FAST_FISH = new Difficulty(
-                15, 20, 0,
+                15, 20, 1,
                 List.of(),
                 SweetSpot.NORMAL_STEADY, SweetSpot.NORMAL_STEADY
-                );
+        );
 
         public static Difficulty SINGLE_BIG_FAST = new Difficulty(
-                13, 30, 0,
+                13, 30, 1,
                 List.of(),
                 SweetSpot.NORMAL_STEADY
         );
-
-        public static Difficulty SINGLE_BIG_FAST_MOVING = new Difficulty(
-                13, 30, 0,
-                List.of(),
-                SweetSpot.NORMAL_STEADY
-        ).moving();
+        public static Difficulty SINGLE_BIG_FAST_MOVING = SINGLE_BIG_FAST.moving();
+        public static Difficulty SINGLE_BIG_FAST_VANISHING = SINGLE_BIG_FAST.vanishing();
 
         public static Difficulty TWO_AQUA = new Difficulty(
-                10, 20, 0,
+                10, 20, 1,
                 List.of(),
                 SweetSpot.AQUA, SweetSpot.AQUA
-        ).moving();
+        );
 
         public static Difficulty FOUR_AQUA = new Difficulty(
-                10, 20, 0,
+                10, 20, 1,
                 List.of(),
                 SweetSpot.AQUA, SweetSpot.AQUA
-        ).moving();
+        );
 
-        public static Difficulty THIN_NO_DECAY = EASY;
-        public static Difficulty MEDIUM_MOVING_NO_FLIP = EASY;
-        public static Difficulty EVERYTHING_VANISHING = EASY;
-        public static Difficulty EVERYTHING_FLIP_MOVING = EASY;
-        public static Difficulty NON_STOP_ACTION_VANISHING = EASY;
-        public static Difficulty SINGLE_BIG_FAST_NO_DECAY = EASY;
-        public static Difficulty EASY_NO_FLIP_VANISHING = EASY;
-        public static Difficulty VESANI = EASY;
-        public static Difficulty NON_STOP_ACTION = EASY;
-        public static Difficulty MOVING_THIN_NO_DECAY = EASY;
-        public static Difficulty SINGLE_BIG_FAST_NO_DECAY_VANISHING = EASY;
-        public static Difficulty THIN_NO_DECAY_NOT_FORGIVING_MOVING = EASY;
-        public static Difficulty FAT_CATCH = EASY;
-        public static Difficulty VOIDBITER = EASY;
+        public static Difficulty THIN_NO_DECAY = new Difficulty(
+                10, 20, 0,
+                List.of(),
+                SweetSpot.THIN, SweetSpot.THIN
+        );
+
+        public static Difficulty NON_STOP_ACTION_THREE_BIG = new Difficulty(
+                14, 20, 0,
+                List.of(),
+                SweetSpot.NORMAL, SweetSpot.NORMAL, SweetSpot.NORMAL
+        );
+
+        public static Difficulty NON_STOP_ACTION_AQUA = new Difficulty(
+                14, 20, 0,
+                List.of(),
+                SweetSpot.AQUA_10, SweetSpot.AQUA_10, SweetSpot.AQUA_10, SweetSpot.AQUA_10
+        );
 
         public static Difficulty WITHER = new Difficulty(
                 10, 30, 1,
@@ -996,6 +1007,40 @@ public record FishProperties(
                 List.of(ModModifiers.SPAWN_TNT_SWEET_SPOTS),
                 SweetSpot.CREEPER, SweetSpot.CREEPER
         );
+
+
+        public static Difficulty DEEPSLATE_CRAB = new Difficulty(
+                14, 10, 1,
+                List.of(),
+                SweetSpot.DEEPSLATE_CRAB_CLAW, SweetSpot.DEEPSLATE_CRAB_CLAW,
+                SweetSpot.DEEPSLATE_CRAB_LEG, SweetSpot.DEEPSLATE_CRAB_LEG, SweetSpot.DEEPSLATE_CRAB_LEG,
+                SweetSpot.DEEPSLATE_CRAB_LEG, SweetSpot.DEEPSLATE_CRAB_LEG, SweetSpot.DEEPSLATE_CRAB_LEG);
+
+        public static Difficulty OBSIDIAN_CRAB = new Difficulty(
+                14, 10, 1,
+                List.of(),
+                SweetSpot.OBSIDIAN_CRAB_CLAW, SweetSpot.OBSIDIAN_CRAB_CLAW,
+                SweetSpot.OBSIDIAN_CRAB_LEG, SweetSpot.OBSIDIAN_CRAB_LEG, SweetSpot.OBSIDIAN_CRAB_LEG,
+                SweetSpot.OBSIDIAN_CRAB_LEG, SweetSpot.OBSIDIAN_CRAB_LEG, SweetSpot.OBSIDIAN_CRAB_LEG);
+
+        public static Difficulty NETHER_CRAB = new Difficulty(
+                14, 10, 1,
+                List.of(),
+                SweetSpot.NETHER_CRAB_CLAW, SweetSpot.NETHER_CRAB_CLAW,
+                SweetSpot.NETHER_CRAB_LEG, SweetSpot.NETHER_CRAB_LEG, SweetSpot.NETHER_CRAB_LEG,
+                SweetSpot.NETHER_CRAB_LEG, SweetSpot.NETHER_CRAB_LEG, SweetSpot.NETHER_CRAB_LEG);
+
+        public static Difficulty END_CRAB = new Difficulty(
+                14, 10, 1,
+                List.of(),
+                SweetSpot.END_CRAB_CLAW, SweetSpot.END_CRAB_CLAW,
+                SweetSpot.END_CRAB_LEG, SweetSpot.END_CRAB_LEG, SweetSpot.END_CRAB_LEG,
+                SweetSpot.END_CRAB_LEG, SweetSpot.END_CRAB_LEG, SweetSpot.END_CRAB_LEG);
+
+        public static Difficulty VOIDBITER = new Difficulty(
+                14, 10, 1,
+                List.of(),
+                SweetSpot.AQUA, SweetSpot.THIN, SweetSpot.THIN);
 
         //endregion preset difficulties
 
@@ -1040,6 +1085,18 @@ public record FishProperties(
         private static final ResourceLocation RL_CREEPER = Starcatcher.rl("textures/gui/minigame/spots/creeper.png");
         private static final ResourceLocation RL_TNT = Starcatcher.rl("textures/gui/minigame/spots/tnt.png");
         private static final ResourceLocation RL_STONE = Starcatcher.rl("textures/gui/minigame/spots/stone.png");
+
+        private static final ResourceLocation RL_NETHER_CRAB_CLAW = Starcatcher.rl("textures/gui/minigame/spots/nether_crab_claw.png");
+        private static final ResourceLocation RL_NETHER_CRAB_LEG = Starcatcher.rl("textures/gui/minigame/spots/nether_crab_leg.png");
+
+        private static final ResourceLocation RL_END_CRAB_LEG = Starcatcher.rl("textures/gui/minigame/spots/end_crab_leg.png");
+        private static final ResourceLocation RL_END_CRAB_CLAW = Starcatcher.rl("textures/gui/minigame/spots/end_crab_claw.png");
+
+        private static final ResourceLocation RL_DEEPSLATE_CRAB_LEG = Starcatcher.rl("textures/gui/minigame/spots/deepslate_crab_leg.png");
+        private static final ResourceLocation RL_DEEPSLATE_CRAB_CLAW = Starcatcher.rl("textures/gui/minigame/spots/deepslate_crab_claw.png");
+
+        private static final ResourceLocation RL_OBSIDIAN_CRAB_LEG = Starcatcher.rl("textures/gui/minigame/spots/obsidian_crab_leg.png");
+        private static final ResourceLocation RL_OBSIDIAN_CRAB_CLAW = Starcatcher.rl("textures/gui/minigame/spots/obsidian_crab_claw.png");
 
 
         public SweetSpot flip()
@@ -1110,6 +1167,17 @@ public record FishProperties(
                 false,
                 false,
                 0x095f92
+        );
+
+        public static SweetSpot NORMAL_HEAVY = new SweetSpot(
+                ModSweetSpotsBehaviour.NORMAL,
+                RL_NORMAL,
+                22,
+                1,
+                false,
+                false,
+                false,
+                0x00ff00
         );
 
         public static SweetSpot TREASURE = new SweetSpot(
@@ -1187,6 +1255,62 @@ public record FishProperties(
                 false,
                 false,
                 0x387982
+        );
+
+        public static SweetSpot AQUA_1 = new SweetSpot(
+                ModSweetSpotsBehaviour.AQUA,
+                RL_NORMAL,
+                22,
+                1,
+                false,
+                false,
+                false,
+                0x387982
+        );
+
+        public static SweetSpot AQUA_10 = new SweetSpot(
+                ModSweetSpotsBehaviour.AQUA,
+                RL_NORMAL, 22, 10, false, false, false, 0x387982
+        );
+
+        public static SweetSpot DEEPSLATE_CRAB_CLAW = new SweetSpot(
+                ModSweetSpotsBehaviour.NORMAL,
+                RL_DEEPSLATE_CRAB_CLAW, 24, 10, false, false, false, 0x387982
+        );
+
+        public static SweetSpot DEEPSLATE_CRAB_LEG = new SweetSpot(
+                ModSweetSpotsBehaviour.NORMAL,
+                RL_DEEPSLATE_CRAB_LEG, 15, 1, false, false, false, 0x387982
+        );
+
+        public static SweetSpot OBSIDIAN_CRAB_CLAW = new SweetSpot(
+                ModSweetSpotsBehaviour.NORMAL,
+                RL_OBSIDIAN_CRAB_CLAW, 24, 10, false, false, false, 0x387982
+        );
+
+        public static SweetSpot OBSIDIAN_CRAB_LEG = new SweetSpot(
+                ModSweetSpotsBehaviour.NORMAL,
+                RL_OBSIDIAN_CRAB_LEG, 15, 1, false, false, false, 0x387982
+        );
+
+        public static SweetSpot NETHER_CRAB_CLAW = new SweetSpot(
+                ModSweetSpotsBehaviour.NORMAL,
+                RL_NETHER_CRAB_CLAW, 24, 10, false, false, false, 0x387982
+        );
+
+        public static SweetSpot NETHER_CRAB_LEG = new SweetSpot(
+                ModSweetSpotsBehaviour.NORMAL,
+                RL_NETHER_CRAB_LEG, 15, 1, false, false, false, 0x387982
+        );
+
+        public static SweetSpot END_CRAB_CLAW = new SweetSpot(
+                ModSweetSpotsBehaviour.NORMAL,
+                RL_END_CRAB_CLAW, 24, 10, false, false, false, 0x387982
+        );
+
+        public static SweetSpot END_CRAB_LEG = new SweetSpot(
+                ModSweetSpotsBehaviour.NORMAL,
+                RL_END_CRAB_LEG, 15, 1, false, false, false, 0x387982
         );
 
 

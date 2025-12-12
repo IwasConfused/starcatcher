@@ -14,29 +14,29 @@
   },
   "daytime": "all",
   "difficulty": {
-    "decay": 1,
-    "missPenalty": 10,
+    "decay": 1.0,
+    "missPenalty": 20,
     "modifiers": [],
-    "speed": 9,
+    "speed": 10,
     "sweetspots": [
       {
-        "color_as_int": 65280,
+        "color_as_int": 3701122,
         "hitbox_size_in_pixels": 22,
         "is_flip": false,
         "is_moving": false,
         "is_vanishing": false,
-        "reward": 10,
-        "sweet_spot_type": "starcatcher:normal",
+        "reward": 15,
+        "sweet_spot_type": "starcatcher:aqua",
         "texture_path": "starcatcher:textures/gui/minigame/spots/normal.png"
       },
       {
-        "color_as_int": 65280,
+        "color_as_int": 3701122,
         "hitbox_size_in_pixels": 22,
         "is_flip": false,
         "is_moving": false,
         "is_vanishing": false,
-        "reward": 10,
-        "sweet_spot_type": "starcatcher:normal",
+        "reward": 15,
+        "sweet_spot_type": "starcatcher:aqua",
         "texture_path": "starcatcher:textures/gui/minigame/spots/normal.png"
       }
     ]

@@ -61,7 +61,7 @@ public class CollectorsReapFishingProperties extends FishingPropertiesRegistry
                 .withBucketedFish(U.holderItem("collectorsreap", "chieftain_crab_bucket"))
                 .withEntityToSpawn(U.holderEntity("collectorsreap", "chieftain_crab"))
                 .withSizeAndWeight(FishProperties.sw(28, 8, 260, 60))
-                .withDifficulty(FishProperties.Difficulty.FOUR_STONE_SPOTS)
+                .withDifficulty(FishProperties.Difficulty.NETHER_CRAB)
                 .withRarity(FishProperties.Rarity.UNCOMMON)
                 .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD
                         .withBiomesTags(U.rl("collectorsreap", "biome/has_spawn/chieftain_crab")))

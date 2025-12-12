@@ -9,7 +9,7 @@ public class BaseModifier extends AbstractModifier
     {
         super.onMiss();
         instance.kimbeMarkerAlpha = 1;
-        instance.kimbeMarkerColor = 0xe53838;
+        instance.kimbeMarkerColor = 0xff6767;
         instance.kimbeMarkerPos = instance.getPointerPosPrecise();
     }
 
@@ -18,7 +18,7 @@ public class BaseModifier extends AbstractModifier
     {
         super.onHit(ass);
         instance.kimbeMarkerAlpha = 1;
-        instance.kimbeMarkerColor = 0x2a972a;
+        instance.kimbeMarkerColor = 0x2ce17d;
         instance.kimbeMarkerPos = instance.getPointerPosPrecise();
     }
 }

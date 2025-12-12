@@ -23,7 +23,7 @@ public class MinecraftFishingProperties {
 
         register(overworldOceanFish(BuiltInRegistries.ITEM.wrapAsHolder(Items.PUFFERFISH))
                 .withSizeAndWeight(FishProperties.sw(70, 20, 10000, 3000))
-                .withDifficulty(FishProperties.Difficulty.EVERYTHING_VANISHING)
+                .withDifficulty(FishProperties.Difficulty.MEDIUM_VANISHING)
                 .withRarity(FishProperties.Rarity.UNCOMMON)
                 .withBaseChance(4));
 

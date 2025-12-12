@@ -49,8 +49,6 @@ import java.util.Optional;
 
 public class FishingMinigameScreen extends Screen implements GuiEventListener
 {
-    public static final Random r = new Random();
-
     public static final ResourceLocation TEXTURE = Starcatcher.rl("textures/gui/minigame/minigame.png");
     private static final ResourceLocation NETHER = Starcatcher.rl("textures/gui/minigame/nether.png");
     private static final ResourceLocation CAVE = Starcatcher.rl("textures/gui/minigame/cave.png");
@@ -175,14 +173,22 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener
             Optional<AbstractModifier> newModifier = level.registryAccess().registryOrThrow(Starcatcher.MODIFIERS).getOptional(rl);
             newModifier.ifPresent(this::addModifier);
         }
-
-        addModifier(new SpawnFrozenSweetSpotsModifier());
     }
 
     public void addModifier(AbstractModifier mod)
     {
         mod.onAdd(this);
         if (!mod.removed) this.modifiers.add(mod);
+    }
+
+    public void addUniqueModifier(AbstractModifier mod)
+    {
+        //only adds if theres not a modifier of the same class already present
+        if(modifiers.stream().noneMatch(m -> m.getClass() == mod.getClass()))
+        {
+            mod.onAdd(this);
+            if (!mod.removed) this.modifiers.add(mod);
+        }
     }
 
     public void addSweetSpot(ActiveSweetSpot ass)
@@ -200,7 +206,7 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener
     {
         for (int i = 0; i < 100; i++)
         {
-            int posBeingChecked = r.nextInt(360);
+            int posBeingChecked = U.r.nextInt(360);
 
             if(activeSweetSpots.stream().noneMatch(s -> doDegreesOverlapWithLeeway(posBeingChecked, s.pos, (s.thickness + sizeOfTheSweetspotToPlace) /2)
             ))
@@ -210,7 +216,7 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener
         }
 
         LogUtils.getLogger().warn("Starcatcher's minigame couldn't find a non-overlapping free position! Consider not having so many active sweet spots");
-        return r.nextInt(360);
+        return U.r.nextInt(360);
     }
 
     @Override
@@ -580,10 +586,10 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener
             if (bobber.is(ModItems.PEARL_BOBBER_SMITHING_TEMPLATE))
             {
                 hitParticles.add(new HitFakeParticle(
-                        xPos, yPos, new Vector2d(r.nextFloat() * 2 - 1, r.nextFloat() * 2 - 1),
-                        r.nextFloat(),
-                        r.nextFloat(),
-                        r.nextFloat(),
+                        xPos, yPos, new Vector2d(U.r.nextFloat() * 2 - 1, U.r.nextFloat() * 2 - 1),
+                        U.r.nextFloat(),
+                        U.r.nextFloat(),
+                        U.r.nextFloat(),
                         1
                 ));
                 continue;
@@ -593,7 +599,7 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener
             {
                 ColorfulSmithingTemplate.BobberColor bobberColor = bobber.get(ModDataComponents.BOBBER_COLOR);
                 hitParticles.add(new HitFakeParticle(
-                        xPos, yPos, new Vector2d(r.nextFloat() * 2 - 1, r.nextFloat() * 2 - 1),
+                        xPos, yPos, new Vector2d(U.r.nextFloat() * 2 - 1, U.r.nextFloat() * 2 - 1),
                         bobberColor.r(),
                         bobberColor.g(),
                         bobberColor.b(),
@@ -606,7 +612,7 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener
                     new HitFakeParticle(
                             xPos,
                             yPos,
-                            new Vector2d(r.nextFloat() * 2 - 1, r.nextFloat() * 2 - 1),
+                            new Vector2d(U.r.nextFloat() * 2 - 1, U.r.nextFloat() * 2 - 1),
                             FastColor.ARGB32.red(color),
                             FastColor.ARGB32.green(color),
                             FastColor.ARGB32.blue(color),

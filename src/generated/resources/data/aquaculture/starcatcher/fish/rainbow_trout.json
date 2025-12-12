@@ -20,8 +20,8 @@
   },
   "daytime": "day",
   "difficulty": {
-    "decay": 1,
-    "missPenalty": 10,
+    "decay": 1.0,
+    "missPenalty": 5,
     "modifiers": [],
     "speed": 9,
     "sweetspots": [
@@ -31,7 +31,7 @@
         "is_flip": false,
         "is_moving": false,
         "is_vanishing": false,
-        "reward": 10,
+        "reward": 15,
         "sweet_spot_type": "starcatcher:normal",
         "texture_path": "starcatcher:textures/gui/minigame/spots/normal.png"
       },
@@ -41,7 +41,7 @@
         "is_flip": false,
         "is_moving": false,
         "is_vanishing": false,
-        "reward": 10,
+        "reward": 15,
         "sweet_spot_type": "starcatcher:normal",
         "texture_path": "starcatcher:textures/gui/minigame/spots/normal.png"
       }

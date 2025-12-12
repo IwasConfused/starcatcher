@@ -479,7 +479,7 @@ public class TideFishingProperties extends FishingPropertiesRegistry
                 //no bucketed version
                 //no entity version
                 .withSizeAndWeight(FishProperties.sw(25, 10, 500, 300))
-                .withDifficulty(FishProperties.Difficulty.MEDIUM_MOVING_NO_FLIP)
+                .withDifficulty(FishProperties.Difficulty.MEDIUM_MOVING)
         );
 
         register(endFish(U.holderItem("tide", "enderfin"))
@@ -540,7 +540,7 @@ public class TideFishingProperties extends FishingPropertiesRegistry
                 .withWeather(FishProperties.Weather.THUNDER)
                 .withBaitRestrictions(FishProperties.BaitRestrictions.LEGENDARY_BAIT)
                 .withRarity(FishProperties.Rarity.LEGENDARY)
-                .withDifficulty(FishProperties.Difficulty.EVERYTHING_FLIP_MOVING)
+                .withDifficulty(FishProperties.Difficulty.THREE_BIG_TWO_THIN_VANISHING)
         );
 
         register(overworldOceanFish(U.holderItem("tide", "shooting_starfish"))

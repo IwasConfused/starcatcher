@@ -13,7 +13,7 @@ public class FreezeOnMissModifier extends AbstractModifier
     {
         super.onMiss();
 
-        instance.addModifier(new FrozenPointerWhileActiveModifier(40, 10));
+        instance.addUniqueModifier(new FrozenPointerWhileActiveModifier(40, 10));
     }
 
     @Override
