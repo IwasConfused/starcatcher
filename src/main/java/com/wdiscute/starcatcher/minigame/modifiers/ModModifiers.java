@@ -1,6 +1,7 @@
 package com.wdiscute.starcatcher.minigame.modifiers;
 
 import com.wdiscute.starcatcher.Starcatcher;
+import com.wdiscute.starcatcher.minigame.FishingMinigameScreen;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredRegister;

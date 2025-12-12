@@ -830,7 +830,7 @@ public record FishProperties(
     public record Difficulty(
             int speed,
             int penalty,
-            int decay,
+            float decay,
             List<SweetSpot> sweetSpots,
             List<ResourceLocation> modifiers
     )
@@ -895,7 +895,7 @@ public record FishProperties(
                 instance.group(
                         Codec.INT.fieldOf("speed").forGetter(Difficulty::speed),
                         Codec.INT.fieldOf("missPenalty").forGetter(Difficulty::penalty),
-                        Codec.INT.fieldOf("decay").forGetter(Difficulty::decay),
+                        Codec.FLOAT.fieldOf("decay").forGetter(Difficulty::decay),
                         SweetSpot.LIST_CODEC.fieldOf("sweetspots").forGetter(Difficulty::sweetSpots),
                         ResourceLocation.CODEC.listOf().fieldOf("modifiers").forGetter(Difficulty::modifiers)
                 ).apply(instance, Difficulty::new));
@@ -904,7 +904,7 @@ public record FishProperties(
         public static final StreamCodec<FriendlyByteBuf, Difficulty> STREAM_CODEC = StreamCodec.composite(
                 ByteBufCodecs.INT, Difficulty::speed,
                 ByteBufCodecs.INT, Difficulty::penalty,
-                ByteBufCodecs.INT, Difficulty::decay,
+                ByteBufCodecs.FLOAT, Difficulty::decay,
                 SweetSpot.LIST_STREAM_CODEC, Difficulty::sweetSpots,
                 ResourceLocation.STREAM_CODEC.apply(ByteBufCodecs.list()), Difficulty::modifiers,
                 Difficulty::new

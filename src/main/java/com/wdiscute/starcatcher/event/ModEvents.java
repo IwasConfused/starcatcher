@@ -2,11 +2,12 @@ package com.wdiscute.starcatcher.event;
 
 import com.wdiscute.starcatcher.Config;
 import com.wdiscute.starcatcher.Starcatcher;
+import com.wdiscute.starcatcher.commands.MinigameCommand;
 import com.wdiscute.starcatcher.fishentity.FishEntity;
 import com.wdiscute.starcatcher.io.network.FPsSeenPayload;
 import com.wdiscute.starcatcher.io.network.FishCaughtPayload;
 import com.wdiscute.starcatcher.io.network.FishingCompletedPayload;
-import com.wdiscute.starcatcher.io.network.FishingPayload;
+import com.wdiscute.starcatcher.io.network.FishingStartedPayload;
 import com.wdiscute.starcatcher.io.network.tournament.CBActiveTournamentUpdatePayload;
 import com.wdiscute.starcatcher.io.network.tournament.stand.*;
 import com.wdiscute.starcatcher.registry.ModEntities;
@@ -26,6 +27,7 @@ import net.minecraft.world.level.block.FarmBlock;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.event.RegisterCommandsEvent;
 import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.neoforged.neoforge.event.tick.ServerTickEvent;
@@ -42,6 +44,14 @@ public class ModEvents
     public static void levelTick(ServerTickEvent.Post event)
     {
         TournamentHandler.tick(event);
+    }
+
+    @SubscribeEvent
+    public static void addCommand(RegisterCommandsEvent event)
+    {
+        event.getDispatcher().register(
+                MinigameCommand.COMMAND
+        );
     }
 
     @SubscribeEvent
@@ -110,9 +120,9 @@ public class ModEvents
     {
         final PayloadRegistrar registrar = event.registrar("1");
         registrar.playToClient(
-                FishingPayload.TYPE,
-                FishingPayload.STREAM_CODEC,
-                FishingPayload::handle
+                FishingStartedPayload.TYPE,
+                FishingStartedPayload.STREAM_CODEC,
+                FishingStartedPayload::handle
         );
 
         registrar.playToServer(

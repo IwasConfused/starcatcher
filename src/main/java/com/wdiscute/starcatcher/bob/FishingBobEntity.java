@@ -8,7 +8,7 @@ import com.wdiscute.starcatcher.io.FishCaughtCounter;
 import com.wdiscute.starcatcher.io.ModDataAttachments;
 import com.wdiscute.starcatcher.io.ModDataComponents;
 import com.wdiscute.starcatcher.io.SingleStackContainer;
-import com.wdiscute.starcatcher.io.network.FishingPayload;
+import com.wdiscute.starcatcher.io.network.FishingStartedPayload;
 import com.wdiscute.starcatcher.registry.ModEntities;
 import com.wdiscute.starcatcher.registry.ModItems;
 import com.wdiscute.starcatcher.registry.ModParticles;
@@ -291,7 +291,7 @@ public class FishingBobEntity extends Projectile
             //otherwise send fishing minigame payload to client
             PacketDistributor.sendToPlayer(
                     ((ServerPlayer) player),
-                    new FishingPayload(fpToFish, rod)
+                    new FishingStartedPayload(fpToFish, rod)
             );
         }
 

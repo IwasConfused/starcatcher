@@ -13,16 +13,16 @@ import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 
-public record FishingPayload(FishProperties fp, ItemStack rod) implements CustomPacketPayload {
+public record FishingStartedPayload(FishProperties fp, ItemStack rod) implements CustomPacketPayload {
 
-    public static final Type<FishingPayload> TYPE = new Type<>(Starcatcher.rl("fishing"));
+    public static final Type<FishingStartedPayload> TYPE = new Type<>(Starcatcher.rl("fishing_started"));
 
-    public static final StreamCodec<ByteBuf, FishingPayload> STREAM_CODEC = StreamCodec.composite(
+    public static final StreamCodec<ByteBuf, FishingStartedPayload> STREAM_CODEC = StreamCodec.composite(
             ByteBufCodecs.fromCodec(FishProperties.CODEC),
-            FishingPayload::fp,
+            FishingStartedPayload::fp,
             ByteBufCodecs.fromCodec(ItemStack.CODEC),
-            FishingPayload::rod,
-            FishingPayload::new
+            FishingStartedPayload::rod,
+            FishingStartedPayload::new
     );
 
     @Override
@@ -36,7 +36,7 @@ public record FishingPayload(FishProperties fp, ItemStack rod) implements Custom
     }
 
     @OnlyIn(Dist.CLIENT)
-    public static void client(FishingPayload data, IPayloadContext context) {
+    public static void client(FishingStartedPayload data, IPayloadContext context) {
         Minecraft.getInstance().setScreen(new FishingMinigameScreen(data.fp(), data.rod()));
     }
 }

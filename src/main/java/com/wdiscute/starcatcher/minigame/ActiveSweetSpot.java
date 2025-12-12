@@ -17,8 +17,8 @@ public class ActiveSweetSpot
     public final ResourceLocation texture;
     public final AbstractSweetSpotBehaviour behaviour;
     public final int thickness;
-    public final int reward;
-    public final int particleColor;
+    public int reward;
+    public int particleColor;
 
     //from minigame screen/rod
     public final FishingMinigameScreen instance;
