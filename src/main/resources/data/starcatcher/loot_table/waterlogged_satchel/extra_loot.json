@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "starcatcher:fish_spotter"
+          "name": "starcatcher:fish_radar"
         },
         {
           "type": "minecraft:item",
@@ -128,5 +128,5 @@
       "rolls": 1
     }
   ],
-  "random_sequence": "starcatcher:treasure"
+  "random_sequence": "starcatcher:extra_loot"
 }

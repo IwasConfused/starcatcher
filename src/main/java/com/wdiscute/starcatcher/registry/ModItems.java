@@ -142,7 +142,7 @@ public interface ModItems
     DeferredItem<Item> REVOKE_ALL_EXTRAS = DEV_REGISTRY.register("revoke_all_extras", RevokeAllExtras::new);
 
     //treasure
-    DeferredItem<Item> WATERLOGGED_SATCHEL = ITEMS_REGISTRY.register("waterlogged_satchel", () -> new FishingTreasure(Starcatcher.rl("treasure/waterlogged_satchel")));
+    DeferredItem<Item> WATERLOGGED_SATCHEL = ITEMS_REGISTRY.register("waterlogged_satchel", WaterloggedSatchel::new);
 
     DeferredItem<Item> FISH_BONES = ITEMS_REGISTRY.register("fish_bones", BasicItem::new);
 

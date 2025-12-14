@@ -1,5 +1,6 @@
 package com.wdiscute.starcatcher.items;
 
+import com.wdiscute.starcatcher.Starcatcher;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
@@ -15,23 +16,18 @@ import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 
-public class FishingTreasure extends Item
+public class WaterloggedSatchel extends Item
 {
-    private final ResourceLocation lootTable;
-
-    public FishingTreasure(ResourceLocation rl)
+    public WaterloggedSatchel()
     {
-        super(new Properties().stacksTo(1));
-        this.lootTable = rl;
+        super(new Properties().stacksTo(1).fireResistant());
     }
-
-
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand usedHand)
     {
         if (level.isClientSide) return InteractionResultHolder.success(player.getItemInHand(usedHand));
 
-        ResourceKey<LootTable> lootTable = ResourceKey.create(Registries.LOOT_TABLE, this.lootTable);
+        ResourceKey<LootTable> lootTable = ResourceKey.create(Registries.LOOT_TABLE, Starcatcher.rl("waterlogged_satchel/waterlogged_satchel"));
         LootParams params = new LootParams.Builder((ServerLevel) level).create(LootContextParamSets.EMPTY);
         ObjectArrayList<ItemStack> arrayOfItemStacks = level.getServer().reloadableRegistries().getLootTable(lootTable).getRandomItems(params);
         player.setItemInHand(usedHand, arrayOfItemStacks.get(level.random.nextIntBetweenInclusive(0, arrayOfItemStacks.size() - 1)));
