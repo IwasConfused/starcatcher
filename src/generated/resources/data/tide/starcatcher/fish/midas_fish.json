@@ -15,7 +15,7 @@
   "base_chance": 5,
   "catch_info": {
     "always_spawn_entity": false,
-    "entity": "tide:midas_fish",
+    "entity": "starcatcher:fish",
     "fish_bucket": "starcatcher:missingno",
     "item": "tide:midas_fish",
     "treasure": "starcatcher:waterlogged_satchel"
