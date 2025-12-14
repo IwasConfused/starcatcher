@@ -24,14 +24,14 @@ public class RevokeAllTrophies extends Item
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand usedHand)
     {
         //revoke all trophies
-        List<TrophyProperties> list = new ArrayList<>(U.getTpsFromRls(level, player.getData(ModDataAttachments.TROPHIES_CAUGHT)));
+        List<TrophyProperties> list = new ArrayList<>(U.getTpsFromRls(level, ModDataAttachments.get(player, ModDataAttachments.TROPHIES_CAUGHT)));
 
-        player.getData(ModDataAttachments.TROPHIES_CAUGHT).forEach(tp ->
+        ModDataAttachments.get(player, ModDataAttachments.TROPHIES_CAUGHT).forEach(tp ->
         {
             if(U.getTpFromRl(level, tp).trophyType() == TrophyProperties.TrophyType.TROPHY) list.remove(U.getTpFromRl(level, tp));
         });
 
-        player.setData(ModDataAttachments.TROPHIES_CAUGHT, U.getRlsFromTps(level, list));
+        ModDataAttachments.set(player, ModDataAttachments.TROPHIES_CAUGHT, U.getRlsFromTps(level, list));
         return InteractionResultHolder.success(player.getItemInHand(usedHand));
     }
 

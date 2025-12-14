@@ -20,7 +20,7 @@ public class ModItemProperties
                     (stack, level, entity, seed) ->
                     {
                         if(entity == null) return 0.0f;
-                        return  !entity.getData(ModDataAttachments.FISHING).isEmpty() && (entity.getMainHandItem() == stack || (entity.getOffhandItem() == stack)) ? 1.0f : 0.0f;
+                        return  !ModDataAttachments.get(entity, ModDataAttachments.FISHING).isEmpty() && (entity.getMainHandItem() == stack || (entity.getOffhandItem() == stack)) ? 1.0f : 0.0f;
                     }
             );
         }

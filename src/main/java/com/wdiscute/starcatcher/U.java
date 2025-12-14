@@ -7,12 +7,10 @@ import com.wdiscute.starcatcher.fishentity.FishEntity;
 import com.wdiscute.starcatcher.io.*;
 import com.wdiscute.starcatcher.minigame.modifiers.ModModifiers;
 import com.wdiscute.starcatcher.registry.ModCriterionTriggers;
-import com.wdiscute.starcatcher.registry.ModEntities;
 import com.wdiscute.starcatcher.registry.ModItems;
 import com.wdiscute.starcatcher.storage.FishProperties;
 import com.wdiscute.starcatcher.storage.TrophyProperties;
 import com.wdiscute.starcatcher.tournament.TournamentHandler;
-import net.dries007.tfc.client.overworld.Star;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.RegistryAccess;
@@ -27,7 +25,6 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.item.ItemEntity;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -50,9 +47,9 @@ public class U
     {
         ServerLevel level = ((ServerLevel) player.level());
 
-        if (player.getData(ModDataAttachments.FISHING).isEmpty()) return;
+        if (ModDataAttachments.get(player, ModDataAttachments.FISHING).isEmpty()) return;
 
-        Entity levelEntity = level.getEntity(UUID.fromString(player.getData(ModDataAttachments.FISHING)));
+        Entity levelEntity = level.getEntity(UUID.fromString(ModDataAttachments.get(player, ModDataAttachments.FISHING)));
         if (levelEntity instanceof FishingBobEntity fbe)
         {
             if (time != -1)
@@ -76,9 +73,9 @@ public class U
                 level.playSound(null, p.x, p.y, p.z, SoundEvents.VILLAGER_CELEBRATE, SoundSource.AMBIENT);
 
                 //award fish counter
-                List<FishProperties> list = new ArrayList<>(U.getFpsFromRls(level, player.getData(ModDataAttachments.FISHES_NOTIFICATION)));
+                List<FishProperties> list = new ArrayList<>(U.getFpsFromRls(level, ModDataAttachments.get(player, ModDataAttachments.FISHES_NOTIFICATION)));
                 list.add(fbe.fpToFish);
-                player.setData(ModDataAttachments.FISHES_NOTIFICATION, U.getRlsFromFps(level, list));
+                ModDataAttachments.set(player, ModDataAttachments.FISHES_NOTIFICATION, U.getRlsFromFps(level, list));
 
                 //award exp
                 int exp = fp.rarity().getXp();
@@ -197,7 +194,7 @@ public class U
             fbe.kill();
         }
 
-        player.setData(ModDataAttachments.FISHING.get(), "");
+        ModDataAttachments.set(player, ModDataAttachments.FISHING.get(), "");
     }
 
     public static ItemStack getFishedItemstackFromFP(FishProperties fp)

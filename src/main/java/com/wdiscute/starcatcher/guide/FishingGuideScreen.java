@@ -140,7 +140,7 @@ public class FishingGuideScreen extends Screen
     List<FishProperties> fishInArea = new ArrayList<>();
     List<FishCaughtCounter> fishCaughtCounterList = new ArrayList<>();
 
-    TrophyProperties.RarityProgress all = new TrophyProperties.RarityProgress(0, Minecraft.getInstance().player.getData(ModDataAttachments.FISHES_CAUGHT).size() - 1); //-1 to remove the default
+    TrophyProperties.RarityProgress all = new TrophyProperties.RarityProgress(0, ModDataAttachments.get(Minecraft.getInstance().player, ModDataAttachments.FISHES_CAUGHT).size() - 1); //-1 to remove the default
     private final Map<FishProperties.Rarity, TrophyProperties.RarityProgress> progressMap = new EnumMap<FishProperties.Rarity, TrophyProperties.RarityProgress>(Map.of(
             FishProperties.Rarity.COMMON, new TrophyProperties.RarityProgress(0, -1),
             FishProperties.Rarity.UNCOMMON, TrophyProperties.RarityProgress.DEFAULT,
@@ -168,7 +168,7 @@ public class FishingGuideScreen extends Screen
         player = Minecraft.getInstance().player;
 
         fishInArea = FishProperties.getFpsWithGuideEntryForArea(player);
-        fishCaughtCounterList = player.getData(ModDataAttachments.FISHES_CAUGHT);
+        fishCaughtCounterList = ModDataAttachments.get(player, ModDataAttachments.FISHES_CAUGHT);
 
         for (FishProperties fp : FishProperties.getFPs(level)) if (fp.hasGuideEntry()) entries.add(fp);
         sortEntries();
@@ -179,15 +179,15 @@ public class FishingGuideScreen extends Screen
         for (TrophyProperties tp : level.registryAccess().registryOrThrow(Starcatcher.TROPHY_REGISTRY))
         {
             if (tp.trophyType() == TrophyProperties.TrophyType.SECRET
-                    && player.getData(ModDataAttachments.TROPHIES_CAUGHT).contains(level.registryAccess().registryOrThrow(Starcatcher.TROPHY_REGISTRY).getKey(tp)))
+                    && ModDataAttachments.get(player, ModDataAttachments.TROPHIES_CAUGHT).contains(level.registryAccess().registryOrThrow(Starcatcher.TROPHY_REGISTRY).getKey(tp)))
                 secretsTps.add(tp);
         }
 
 
         //-1 on the common to account for the default "fish" unfortunately, there's probably a way to fix this
-        all = new TrophyProperties.RarityProgress(0, player.getData(ModDataAttachments.FISHES_CAUGHT).size() - 1); //-1 to remove the default
+        all = new TrophyProperties.RarityProgress(0, ModDataAttachments.get(player, ModDataAttachments.FISHES_CAUGHT).size() - 1); //-1 to remove the default
 
-        for (FishCaughtCounter fcc : player.getData(ModDataAttachments.FISHES_CAUGHT))
+        for (FishCaughtCounter fcc : ModDataAttachments.get(player, ModDataAttachments.FISHES_CAUGHT))
         {
             all = new TrophyProperties.RarityProgress(all.total() + fcc.count(), all.unique());
 
@@ -532,7 +532,7 @@ public class FishingGuideScreen extends Screen
             boolean isMouseOnTop = mouseX > xrender - 10 && mouseX < xrender + 10 && mouseY > y - 2 && mouseY < y + 18;
 
             //if caught
-            if (player.getData(ModDataAttachments.TROPHIES_CAUGHT).contains(level.registryAccess().registryOrThrow(Starcatcher.TROPHY_REGISTRY).getKey(tp)))
+            if (ModDataAttachments.get(player, ModDataAttachments.TROPHIES_CAUGHT).contains(level.registryAccess().registryOrThrow(Starcatcher.TROPHY_REGISTRY).getKey(tp)))
             {
                 is = new ItemStack(tp.fish());
                 is.set(ModDataComponents.TROPHY, tp);
@@ -806,7 +806,7 @@ public class FishingGuideScreen extends Screen
 
     private void renderFishIndex(GuiGraphics guiGraphics, int xOffset, int yOffset, int mouseX, int mouseY, FishProperties fp, int backgroundFillColor)
     {
-        List<FishCaughtCounter> fishCounterList = player.getData(ModDataAttachments.FISHES_CAUGHT);
+        List<FishCaughtCounter> fishCounterList = ModDataAttachments.get(player, ModDataAttachments.FISHES_CAUGHT);
         ItemStack is = new ItemStack(fp.catchInfo().fish());
 
         //calculate caught counter
@@ -863,7 +863,7 @@ public class FishingGuideScreen extends Screen
             renderItem(new ItemStack(ModItems.MISSINGNO.get()), xOffset, yOffset, 1);
 
         //render fish notification icon
-        for (FishProperties fpNotif : U.getFpsFromRls(level, player.getData(ModDataAttachments.FISHES_NOTIFICATION)))
+        for (FishProperties fpNotif : U.getFpsFromRls(level, ModDataAttachments.get(player, ModDataAttachments.FISHES_NOTIFICATION)))
         {
             if (fp.equals(fpNotif))
                 guiGraphics.blit(STAR, xOffset + 10, yOffset + 7, 0, 0, 10, 10, 10, 10);
@@ -1071,7 +1071,7 @@ public class FishingGuideScreen extends Screen
         guiGraphics.setColor(1, 1, 1, 1);
 
         //render new fish icon
-        if (player.getData(ModDataAttachments.FISHES_NOTIFICATION).contains(fp))
+        if (ModDataAttachments.get(player, ModDataAttachments.FISHES_NOTIFICATION).contains(fp))
             renderImage(guiGraphics, NEW_FISH, xOffset - 52, 0);
 
         //render fish tooltip

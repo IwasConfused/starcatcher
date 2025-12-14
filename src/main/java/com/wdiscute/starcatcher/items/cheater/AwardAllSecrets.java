@@ -25,7 +25,7 @@ public class AwardAllSecrets extends Item
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand usedHand)
     {
         //awards all secrets
-        List<TrophyProperties> trophies = new ArrayList<>(U.getTpsFromRls(level, player.getData(ModDataAttachments.TROPHIES_CAUGHT)));
+        List<TrophyProperties> trophies = new ArrayList<>(U.getTpsFromRls(level, ModDataAttachments.get(player, ModDataAttachments.TROPHIES_CAUGHT)));
 
         level.registryAccess().registryOrThrow(Starcatcher.TROPHY_REGISTRY).forEach(
                 tp ->
@@ -34,7 +34,7 @@ public class AwardAllSecrets extends Item
                         trophies.add(tp);
                 });
 
-        player.setData(ModDataAttachments.TROPHIES_CAUGHT, U.getRlsFromTps(level, trophies));
+        ModDataAttachments.set(player, ModDataAttachments.TROPHIES_CAUGHT, U.getRlsFromTps(level, trophies));
         return InteractionResultHolder.success(player.getItemInHand(usedHand));
     }
 

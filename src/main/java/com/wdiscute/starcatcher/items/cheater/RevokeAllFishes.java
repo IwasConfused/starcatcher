@@ -19,8 +19,8 @@ public class RevokeAllFishes extends Item
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand usedHand)
     {
         //reset fishes caught
-        player.removeData(ModDataAttachments.FISHES_CAUGHT);
-        player.removeData(ModDataAttachments.FISHES_NOTIFICATION);
+        ModDataAttachments.remove(player, ModDataAttachments.FISHES_CAUGHT);
+        ModDataAttachments.remove(player, ModDataAttachments.FISHES_NOTIFICATION);
         return InteractionResultHolder.success(player.getItemInHand(usedHand));
     }
 

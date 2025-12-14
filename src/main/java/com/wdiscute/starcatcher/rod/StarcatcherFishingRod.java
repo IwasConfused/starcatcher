@@ -43,7 +43,7 @@ public class StarcatcherFishingRod extends Item implements MenuProvider {
         if (!player.getItemInHand(hand).is(StarcatcherTags.RODS))
             return InteractionResultHolder.pass(player.getItemInHand(hand));
 
-        if (player.isCrouching() && player.getData(ModDataAttachments.FISHING.get()).isEmpty()) {
+        if (player.isCrouching() && ModDataAttachments.get(player, ModDataAttachments.FISHING.get()).isEmpty()) {
             player.openMenu(this);
             return InteractionResultHolder.success(player.getItemInHand(hand));
         }
@@ -51,7 +51,7 @@ public class StarcatcherFishingRod extends Item implements MenuProvider {
         if (level.isClientSide) return InteractionResultHolder.success(player.getItemInHand(hand));
 
 
-        if (player.getData(ModDataAttachments.FISHING.get()).isEmpty()) {
+        if (ModDataAttachments.get(player, ModDataAttachments.FISHING.get()).isEmpty()) {
             level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.FISHING_BOBBER_THROW, SoundSource.NEUTRAL, 0.5F, 0.4F / (level.getRandom().nextFloat() * 0.4F + 0.8F));
 
             if (level instanceof ServerLevel) {
@@ -60,19 +60,19 @@ public class StarcatcherFishingRod extends Item implements MenuProvider {
                 Entity entity = new FishingBobEntity(level, player, player.getItemInHand(hand));
                 level.addFreshEntity(entity);
 
-                player.setData(ModDataAttachments.FISHING.get(), entity.getStringUUID());
+                ModDataAttachments.set(player, ModDataAttachments.FISHING.get(), entity.getStringUUID());
                 SingleStackContainer bobberSkin = player.getItemInHand(hand).get(ModDataComponents.BOBBER_SKIN);
-                if (bobberSkin != null) entity.setData(ModDataAttachments.BOBBER_SKIN.get(), bobberSkin);
+                if (bobberSkin != null) ModDataAttachments.set(entity ,ModDataAttachments.BOBBER_SKIN.get(), bobberSkin);
             }
         } else {
 
             List<Entity> entities = level.getEntities(null, new AABB(-25, -65, -25, 25, 65, 25).move(player.position()));
 
             for (Entity entity : entities) {
-                if (entity.getUUID().toString().equals(player.getData(ModDataAttachments.FISHING.get()))) {
+                if (entity.getUUID().toString().equals(ModDataAttachments.get(player, ModDataAttachments.FISHING.get()))) {
                     if (entity instanceof FishingBobEntity fbe && !fbe.checkBiting()) {
                         fbe.kill();
-                        player.setData(ModDataAttachments.FISHING.get(), "");
+                        ModDataAttachments.set(player, ModDataAttachments.FISHING.get(), "");
                     }
                 }
             }

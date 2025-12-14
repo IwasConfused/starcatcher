@@ -39,14 +39,14 @@ public class AwardAllFishes extends Item
         }
 
 
-        player.setData(ModDataAttachments.FISHES_CAUGHT, fishCounter);
+        ModDataAttachments.set(player, ModDataAttachments.FISHES_CAUGHT, fishCounter);
 
         for (FishProperties fp : level.registryAccess().registryOrThrow(Starcatcher.FISH_REGISTRY))
         {
             fishes.add(fp);
         }
 
-        player.setData(ModDataAttachments.FISHES_NOTIFICATION, U.getRlsFromFps(level, fishes));
+        ModDataAttachments.set(player, ModDataAttachments.FISHES_NOTIFICATION, U.getRlsFromFps(level, fishes));
 
         return InteractionResultHolder.success(player.getItemInHand(usedHand));
     }

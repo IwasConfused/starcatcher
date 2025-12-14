@@ -69,7 +69,7 @@ public record FishCaughtCounter(
             FTBTeamsCompat.awardToTeam(player, fpCaught);
         }
 
-        List<FishCaughtCounter> listFishCaughtCounter = player.getData(ModDataAttachments.FISHES_CAUGHT);
+        List<FishCaughtCounter> listFishCaughtCounter = ModDataAttachments.get(player, ModDataAttachments.FISHES_CAUGHT);
         List<FishCaughtCounter> newlist = new ArrayList<>();
 
         boolean newFish = true;
@@ -115,7 +115,7 @@ public record FishCaughtCounter(
         if (!fpCaught.catchInfo().alwaysSpawnEntity())
             PacketDistributor.sendToPlayer(((ServerPlayer) player), new FishCaughtPayload(fpCaught, newFish, size, weight));
 
-        player.setData(ModDataAttachments.FISHES_CAUGHT, newlist);
+        ModDataAttachments.set(player, ModDataAttachments.FISHES_CAUGHT, newlist);
     }
 
 }

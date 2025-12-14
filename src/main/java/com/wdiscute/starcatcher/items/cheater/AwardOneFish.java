@@ -1,6 +1,5 @@
 package com.wdiscute.starcatcher.items.cheater;
 
-import com.sun.jna.platform.win32.COM.util.ComEventCallbackCookie;
 import com.wdiscute.starcatcher.Starcatcher;
 import com.wdiscute.starcatcher.U;
 import com.wdiscute.starcatcher.io.FishCaughtCounter;
@@ -8,7 +7,6 @@ import com.wdiscute.starcatcher.storage.FishProperties;
 import com.wdiscute.starcatcher.io.ModDataAttachments;
 import com.wdiscute.starcatcher.io.network.FishCaughtPayload;
 import net.minecraft.core.Holder;
-import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -35,9 +33,9 @@ public class AwardOneFish extends Item
         if(!player.isCreative())
             return InteractionResultHolder.pass(player.getItemInHand(usedHand));List<FishCaughtCounter> fishCounter;
 
-        List<FishProperties> fishes = new ArrayList<>(U.getFpsFromRls(level, player.getData(ModDataAttachments.FISHES_NOTIFICATION)));
+        List<FishProperties> fishes = new ArrayList<>(U.getFpsFromRls(level, ModDataAttachments.get(player, ModDataAttachments.FISHES_NOTIFICATION)));
 
-        fishCounter = new ArrayList<>(player.getData(ModDataAttachments.FISHES_CAUGHT));
+        fishCounter = new ArrayList<>(ModDataAttachments.get(player, ModDataAttachments.FISHES_CAUGHT));
 
         Optional<Holder.Reference<FishProperties>> optional = level.registryAccess().registryOrThrow(Starcatcher.FISH_REGISTRY).getRandom(level.random);
 
@@ -56,8 +54,8 @@ public class AwardOneFish extends Item
             }
         }
 
-        player.setData(ModDataAttachments.FISHES_CAUGHT, fishCounter);
-        player.setData(ModDataAttachments.FISHES_NOTIFICATION, U.getRlsFromFps(level, fishes));
+        ModDataAttachments.set(player, ModDataAttachments.FISHES_CAUGHT, fishCounter);
+        ModDataAttachments.set(player, ModDataAttachments.FISHES_NOTIFICATION, U.getRlsFromFps(level, fishes));
 
         return InteractionResultHolder.success(player.getItemInHand(usedHand));
     }

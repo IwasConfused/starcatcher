@@ -29,7 +29,7 @@ public record FPsSeenPayload(List<FishProperties> fps) implements CustomPacketPa
     }
 
     public void handle(IPayloadContext context) {
-        List<FishProperties> list = U.getFpsFromRls(context.player().level(), context.player().getData(ModDataAttachments.FISHES_NOTIFICATION));
+        List<FishProperties> list = U.getFpsFromRls(context.player().level(), ModDataAttachments.get(context.player(), ModDataAttachments.FISHES_NOTIFICATION));
         List<FishProperties> newList = new ArrayList<>();
 
         for (FishProperties fp : list) {
@@ -37,6 +37,6 @@ public record FPsSeenPayload(List<FishProperties> fps) implements CustomPacketPa
                 newList.add(fp);
         }
 
-        context.player().setData(ModDataAttachments.FISHES_NOTIFICATION, U.getRlsFromFps(context.player().level(), newList));
+        ModDataAttachments.set(context.player(), ModDataAttachments.FISHES_NOTIFICATION, U.getRlsFromFps(context.player().level(), newList));
     }
 }

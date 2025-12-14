@@ -53,7 +53,7 @@ public class FishRadarLayer implements LayeredDraw.Layer
     {
         fpsInArea = FishProperties.getFpsWithGuideEntryForArea(player);
         fishesCaught = new ArrayList<>();
-        for (FishCaughtCounter fishes : player.getData(ModDataAttachments.FISHES_CAUGHT)) fishesCaught.add(U.getFpFromRl(level, fishes.fp()));
+        for (FishCaughtCounter fishes : ModDataAttachments.get(player, ModDataAttachments.FISHES_CAUGHT)) fishesCaught.add(U.getFpFromRl(level, fishes.fp()));
     }
 
     @Override
