@@ -10,6 +10,7 @@ public class BaseModifier extends AbstractModifier
         super.onMiss();
         //kimbe marker
         instance.kimbeMarkerAlpha = 1;
+        //You have to make the actual texture white before trying to recolor like this, dummy
         instance.kimbeMarkerColor = 0xff6767;
         instance.kimbeMarkerPos = instance.getPointerPosPrecise();
 
