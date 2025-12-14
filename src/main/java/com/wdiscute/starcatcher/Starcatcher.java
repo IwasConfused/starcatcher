@@ -47,7 +47,7 @@ public class Starcatcher
     public static final ResourceKey<Registry<Supplier<? extends AbstractSweetSpotBehaviour>>> SWEET_SPOT_TYPES =
             ResourceKey.createRegistryKey(Starcatcher.rl("sweet_spot_types"));
 
-    public static final ResourceKey<Registry<AbstractModifier>> MODIFIERS =
+    public static final ResourceKey<Registry<Supplier<AbstractModifier>>> MODIFIERS =
             ResourceKey.createRegistryKey(Starcatcher.rl("modifiers"));
 
 
@@ -56,7 +56,7 @@ public class Starcatcher
             .defaultKey(Starcatcher.rl("normal"))
             .create();
 
-    public static final Registry<AbstractModifier> MODIFIERS_REGISTRY = new RegistryBuilder<>(MODIFIERS)
+    public static final Registry<Supplier<AbstractModifier>> MODIFIERS_REGISTRY = new RegistryBuilder<>(MODIFIERS)
             .sync(true)
             .defaultKey(Starcatcher.rl("normal"))
             .create();

@@ -12,7 +12,7 @@ import java.util.function.Supplier;
 
 public interface ModModifiers
 {
-    DeferredRegister<AbstractModifier> REGISTRY =
+    DeferredRegister<Supplier<AbstractModifier>> REGISTRY =
             DeferredRegister.create(Starcatcher.MODIFIERS_REGISTRY, Starcatcher.MOD_ID);
 
     //ice fishes
@@ -74,7 +74,7 @@ public interface ModModifiers
 
     static ResourceLocation registerModifier(String name, Supplier<AbstractModifier> sup)
     {
-        REGISTRY.register(name, sup);
+        REGISTRY.register(name, () -> sup);
         return Starcatcher.rl(name);
     }
 

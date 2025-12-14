@@ -43,7 +43,9 @@ import org.joml.Vector2d;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
+import java.util.function.Supplier;
 
 public class FishingMinigameScreen extends Screen implements GuiEventListener
 {
@@ -159,8 +161,8 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener
         //add every modifier from fp json which is registered
         for (ResourceLocation rl : fp.dif().modifiers())
         {
-            Optional<AbstractModifier> newModifier = level.registryAccess().registryOrThrow(Starcatcher.MODIFIERS).getOptional(rl);
-            newModifier.ifPresent(this::addModifier);
+            Optional<Supplier<AbstractModifier>> newModifier = level.registryAccess().registryOrThrow(Starcatcher.MODIFIERS).getOptional(rl);
+            newModifier.ifPresent(mod -> addModifier(mod.get()));
         }
 
         //cycle through all the items to check for modifiers
@@ -168,10 +170,10 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener
         List<ItemStack> allItems = List.of(bobber, rod, bait, hook);
         for (ItemStack is : allItems)
             if (is.has(ModDataComponents.MODIFIERS))
-                for (ResourceLocation rl : is.get(ModDataComponents.MODIFIERS))
+                for (ResourceLocation rl : Objects.requireNonNull(is.get(ModDataComponents.MODIFIERS)))
                 {
-                    Optional<AbstractModifier> newModifier = level.registryAccess().registryOrThrow(Starcatcher.MODIFIERS).getOptional(rl);
-                    newModifier.ifPresent(this::addModifier);
+                    Optional<Supplier<AbstractModifier>> newModifier = level.registryAccess().registryOrThrow(Starcatcher.MODIFIERS).getOptional(rl);
+                    newModifier.ifPresent(mod -> addModifier(mod.get()));
                 }
 
 
