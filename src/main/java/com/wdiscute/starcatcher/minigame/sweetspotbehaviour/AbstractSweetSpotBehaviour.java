@@ -41,6 +41,7 @@ public abstract class AbstractSweetSpotBehaviour
 
     public void render(GuiGraphics guiGraphics, float partialTick, int width, int height)
     {
+        if(ass.removed) return;
         float centerX = width / 2f;
         float centerY = height / 2f;
 
