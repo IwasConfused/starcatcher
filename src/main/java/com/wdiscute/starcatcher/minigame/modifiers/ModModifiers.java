@@ -16,6 +16,12 @@ public interface ModModifiers
     ResourceLocation SPAWN_FROZEN_SWEET_SPOTS = registerModifier("spawn_frozen_sweet_spots", SpawnFrozenSweetSpotsModifier::new);
     ResourceLocation LOW_CHANCE_TREASURE_SPAWN = registerModifier("low_chance_treasure_spawn", LowChanceTreasureSpawnModifier::new);
     ResourceLocation SPAWN_TNT_SWEET_SPOTS = registerModifier("spawn_tnt_sweet_spots", SpawnTntSweetSpotsModifier::new);
+    ResourceLocation SHINY_HOOK = registerModifier("shiny_hook", ShinyHookModifier::new);
+    ResourceLocation HEAVY_HOOK = registerModifier("heavy_hook", HeavyHookModifier::new);
+    ResourceLocation STONE_HOOK = registerModifier("stone_hook", StoneHookModifier::new);
+    ResourceLocation STEADY_BOBBER = registerModifier("steady_bobber", SteadyBobberModifier::new);
+    ResourceLocation CLEAR_BOBBER = registerModifier("clear_bobber", ClearBobberModifier::new);
+    ResourceLocation AQUA_BOBBER = registerModifier("aqua_bobber", AquaBobberModifier::new);
 
 
     static ResourceLocation registerModifier(String name, Supplier<AbstractModifier> sup)

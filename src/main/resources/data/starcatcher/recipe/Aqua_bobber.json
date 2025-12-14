@@ -1,0 +1,28 @@
+{
+  "type": "starcatcher:modifier_shaped_recipe",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "starcatcher:bobber"
+    },
+    "G": {
+      "item": "minecraft:heart_of_the_sea"
+    },
+    "D": {
+      "item": "minecraft:diamond"
+    },
+    "S": {
+      "item": "minecraft:stick"
+    }
+  },
+  "pattern": [
+    " HS",
+    "GBG",
+    "SG "
+  ],
+  "result": {
+    "count": 1,
+    "id": "starcatcher:clear_bobber"
+  },
+  "modifiers" : ["starcatcher:aqua_bobber"]
+}

@@ -26,31 +26,31 @@
         "color_as_int": 2039583,
         "hitbox_size_in_pixels": 33,
         "is_flip": false,
-        "is_moving": false,
-        "is_vanishing": false,
+        "moving_rate": 0.0,
         "reward": 15,
         "sweet_spot_type": "starcatcher:normal",
-        "texture_path": "starcatcher:textures/gui/minigame/spots/wither_big.png"
+        "texture_path": "starcatcher:textures/gui/minigame/spots/wither_big.png",
+        "vanishing_rate": 0.0
       },
       {
         "color_as_int": 2039583,
         "hitbox_size_in_pixels": 22,
         "is_flip": false,
-        "is_moving": true,
-        "is_vanishing": false,
+        "moving_rate": 3.0,
         "reward": 15,
         "sweet_spot_type": "starcatcher:normal",
-        "texture_path": "starcatcher:textures/gui/minigame/spots/wither.png"
+        "texture_path": "starcatcher:textures/gui/minigame/spots/wither.png",
+        "vanishing_rate": 0.0
       },
       {
         "color_as_int": 2039583,
         "hitbox_size_in_pixels": 22,
         "is_flip": false,
-        "is_moving": true,
-        "is_vanishing": false,
+        "moving_rate": 3.0,
         "reward": 15,
         "sweet_spot_type": "starcatcher:normal",
-        "texture_path": "starcatcher:textures/gui/minigame/spots/wither.png"
+        "texture_path": "starcatcher:textures/gui/minigame/spots/wither.png",
+        "vanishing_rate": 0.0
       }
     ]
   },

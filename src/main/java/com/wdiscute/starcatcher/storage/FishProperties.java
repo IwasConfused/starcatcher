@@ -843,17 +843,31 @@ public record FishProperties(
             return new Difficulty(this.speed, this.penalty, this.decay, modifiers, this.sweetSpots);
         }
 
+        public Difficulty vanishing(float vanishingRate)
+        {
+            List<SweetSpot> sss = new ArrayList<>();
+            sweetSpots.forEach(s -> sss.add(s.vanishing(vanishingRate)));
+            return new Difficulty(speed, penalty, decay, modifiers, sss);
+        }
+
         public Difficulty vanishing()
         {
             List<SweetSpot> sss = new ArrayList<>();
-            sweetSpots.forEach(s -> sss.add(s.vanishing()));
+            sweetSpots.forEach(s -> sss.add(s.vanishing(0.1f)));
+            return new Difficulty(speed, penalty, decay, modifiers, sss);
+        }
+
+        public Difficulty moving(float movingRate)
+        {
+            List<SweetSpot> sss = new ArrayList<>();
+            sweetSpots.forEach(s -> sss.add(s.moving(movingRate)));
             return new Difficulty(speed, penalty, decay, modifiers, sss);
         }
 
         public Difficulty moving()
         {
             List<SweetSpot> sss = new ArrayList<>();
-            sweetSpots.forEach(s -> sss.add(s.moving()));
+            sweetSpots.forEach(s -> sss.add(s.moving(1)));
             return new Difficulty(speed, penalty, decay, modifiers, sss);
         }
 
@@ -1077,16 +1091,15 @@ public record FishProperties(
             int size,
             int reward,
             boolean isFlip,
-            boolean isVanishing,
-            boolean isMoving,
+            float vanishingRate,
+            float movingRate,
             int particleColor
     )
     {
         public SweetSpot(ResourceLocation sweetSpotType, ResourceLocation texturePath, int size, int reward, int particleColor)
         {
-            this(sweetSpotType, texturePath, size, reward, false, false, false, particleColor);
+            this(sweetSpotType, texturePath, size, reward, false, 0, 0, particleColor);
         }
-
 
         private static final ResourceLocation RL_NORMAL = Starcatcher.rl("textures/gui/minigame/spots/normal.png");
         private static final ResourceLocation RL_THIN = Starcatcher.rl("textures/gui/minigame/spots/thin.png");
@@ -1113,17 +1126,17 @@ public record FishProperties(
 
         public SweetSpot flip()
         {
-            return new SweetSpot(this.sweetSpotType, this.texturePath, this.size, this.reward, true, this.isVanishing, this.isMoving, this.particleColor);
+            return new SweetSpot(this.sweetSpotType, this.texturePath, this.size, this.reward, true, this.vanishingRate, this.movingRate, this.particleColor);
         }
 
-        public SweetSpot vanishing()
+        public SweetSpot vanishing(float vanishingRate)
         {
-            return new SweetSpot(this.sweetSpotType, this.texturePath, this.size, this.reward, this.isFlip, true, this.isMoving, this.particleColor);
+            return new SweetSpot(this.sweetSpotType, this.texturePath, this.size, this.reward, this.isFlip, vanishingRate, this.movingRate, this.particleColor);
         }
 
-        public SweetSpot moving()
+        public SweetSpot moving(float movingRate)
         {
-            return new SweetSpot(this.sweetSpotType, this.texturePath, this.size, this.reward, this.isFlip, this.isVanishing, true, this.particleColor);
+            return new SweetSpot(this.sweetSpotType, this.texturePath, this.size, this.reward, this.isFlip, this.vanishingRate, movingRate, this.particleColor);
         }
 
         public static SweetSpot NORMAL_STEADY = new SweetSpot(
@@ -1188,8 +1201,8 @@ public record FishProperties(
                 22,
                 15,
                 false,
-                false,
-                true,
+                0,
+                3,
                 0x1f1f1f
         );
 
@@ -1291,8 +1304,8 @@ public record FishProperties(
                         Codec.INT.fieldOf("hitbox_size_in_pixels").forGetter(SweetSpot::size),
                         Codec.INT.fieldOf("reward").forGetter(SweetSpot::reward),
                         Codec.BOOL.fieldOf("is_flip").forGetter(SweetSpot::isFlip),
-                        Codec.BOOL.fieldOf("is_vanishing").forGetter(SweetSpot::isVanishing),
-                        Codec.BOOL.fieldOf("is_moving").forGetter(SweetSpot::isMoving),
+                        Codec.FLOAT.fieldOf("vanishing_rate").forGetter(SweetSpot::vanishingRate),
+                        Codec.FLOAT.fieldOf("moving_rate").forGetter(SweetSpot::movingRate),
                         Codec.INT.fieldOf("color_as_int").forGetter(SweetSpot::particleColor)
                 ).apply(instance, SweetSpot::new));
 
@@ -1304,8 +1317,8 @@ public record FishProperties(
                 ByteBufCodecs.INT, SweetSpot::size,
                 ByteBufCodecs.INT, SweetSpot::reward,
                 ByteBufCodecs.BOOL, SweetSpot::isFlip,
-                ByteBufCodecs.BOOL, SweetSpot::isVanishing,
-                ByteBufCodecs.BOOL, SweetSpot::isMoving,
+                ByteBufCodecs.FLOAT, SweetSpot::vanishingRate,
+                ByteBufCodecs.FLOAT, SweetSpot::movingRate,
                 ByteBufCodecs.INT, SweetSpot::particleColor,
                 SweetSpot::new
         );
@@ -1341,11 +1354,11 @@ public record FishProperties(
 
     public enum Rarity implements StringRepresentable
     {
-        COMMON("common", 4, "", "", Style.EMPTY.applyFormat(ChatFormatting.WHITE)),
-        UNCOMMON("uncommon", 8, "<gradient-37>", "</gradient-43>", Style.EMPTY.applyFormat(ChatFormatting.GREEN)),
-        RARE("rare", 12, "<gradient-57>", "</gradient-63>", Style.EMPTY.applyFormat(ChatFormatting.BLUE)),
-        EPIC("epic", 20, "<gradient-80>", "</gradient-90>", Style.EMPTY.applyFormat(ChatFormatting.LIGHT_PURPLE)),
-        LEGENDARY("legendary", 35, "<rgb>", "</rgb>", Style.EMPTY.applyFormat(ChatFormatting.GOLD));
+        COMMON("common", 4, "", "", Style.EMPTY.applyFormat(ChatFormatting.WHITE), 40),
+        UNCOMMON("uncommon", 8, "<gradient-37>", "</gradient-43>", Style.EMPTY.applyFormat(ChatFormatting.GREEN), 40),
+        RARE("rare", 12, "<gradient-57>", "</gradient-63>", Style.EMPTY.applyFormat(ChatFormatting.BLUE), 30),
+        EPIC("epic", 20, "<gradient-80>", "</gradient-90>", Style.EMPTY.applyFormat(ChatFormatting.LIGHT_PURPLE), 10),
+        LEGENDARY("legendary", 35, "<rgb>", "</rgb>", Style.EMPTY.applyFormat(ChatFormatting.GOLD), 10);
 
         public static final Codec<Rarity> CODEC = StringRepresentable.fromEnum(Rarity::values);
         public static final StreamCodec<FriendlyByteBuf, Rarity> STREAM_CODEC = NeoForgeStreamCodecs.enumCodec(Rarity.class);
@@ -1354,19 +1367,26 @@ public record FishProperties(
         private final String pre;
         private final String post;
         private final Style style;
+        private final int stoneHookGraceTicks;
 
-        Rarity(String key, int xp, String pre, String post, Style style)
+        Rarity(String key, int xp, String pre, String post, Style style, int stoneHookGraceTicks)
         {
             this.key = key;
             this.xp = xp;
             this.pre = pre;
             this.post = post;
             this.style = style;
+            this.stoneHookGraceTicks = stoneHookGraceTicks;
         }
 
         public String getSerializedName()
         {
             return this.key;
+        }
+
+        public int getStoneHookGraceTicks()
+        {
+            return stoneHookGraceTicks;
         }
 
         public int getId()

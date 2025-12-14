@@ -30,81 +30,81 @@
         "color_as_int": 3701122,
         "hitbox_size_in_pixels": 24,
         "is_flip": false,
-        "is_moving": false,
-        "is_vanishing": false,
+        "moving_rate": 0.0,
         "reward": 10,
         "sweet_spot_type": "starcatcher:normal",
-        "texture_path": "starcatcher:textures/gui/minigame/spots/nether_crab_claw.png"
+        "texture_path": "starcatcher:textures/gui/minigame/spots/nether_crab_claw.png",
+        "vanishing_rate": 0.0
       },
       {
         "color_as_int": 3701122,
         "hitbox_size_in_pixels": 24,
         "is_flip": false,
-        "is_moving": false,
-        "is_vanishing": false,
+        "moving_rate": 0.0,
         "reward": 10,
         "sweet_spot_type": "starcatcher:normal",
-        "texture_path": "starcatcher:textures/gui/minigame/spots/nether_crab_claw.png"
+        "texture_path": "starcatcher:textures/gui/minigame/spots/nether_crab_claw.png",
+        "vanishing_rate": 0.0
       },
       {
         "color_as_int": 3701122,
         "hitbox_size_in_pixels": 15,
         "is_flip": false,
-        "is_moving": false,
-        "is_vanishing": false,
+        "moving_rate": 0.0,
         "reward": 1,
         "sweet_spot_type": "starcatcher:normal",
-        "texture_path": "starcatcher:textures/gui/minigame/spots/nether_crab_leg.png"
+        "texture_path": "starcatcher:textures/gui/minigame/spots/nether_crab_leg.png",
+        "vanishing_rate": 0.0
       },
       {
         "color_as_int": 3701122,
         "hitbox_size_in_pixels": 15,
         "is_flip": false,
-        "is_moving": false,
-        "is_vanishing": false,
+        "moving_rate": 0.0,
         "reward": 1,
         "sweet_spot_type": "starcatcher:normal",
-        "texture_path": "starcatcher:textures/gui/minigame/spots/nether_crab_leg.png"
+        "texture_path": "starcatcher:textures/gui/minigame/spots/nether_crab_leg.png",
+        "vanishing_rate": 0.0
       },
       {
         "color_as_int": 3701122,
         "hitbox_size_in_pixels": 15,
         "is_flip": false,
-        "is_moving": false,
-        "is_vanishing": false,
+        "moving_rate": 0.0,
         "reward": 1,
         "sweet_spot_type": "starcatcher:normal",
-        "texture_path": "starcatcher:textures/gui/minigame/spots/nether_crab_leg.png"
+        "texture_path": "starcatcher:textures/gui/minigame/spots/nether_crab_leg.png",
+        "vanishing_rate": 0.0
       },
       {
         "color_as_int": 3701122,
         "hitbox_size_in_pixels": 15,
         "is_flip": false,
-        "is_moving": false,
-        "is_vanishing": false,
+        "moving_rate": 0.0,
         "reward": 1,
         "sweet_spot_type": "starcatcher:normal",
-        "texture_path": "starcatcher:textures/gui/minigame/spots/nether_crab_leg.png"
+        "texture_path": "starcatcher:textures/gui/minigame/spots/nether_crab_leg.png",
+        "vanishing_rate": 0.0
       },
       {
         "color_as_int": 3701122,
         "hitbox_size_in_pixels": 15,
         "is_flip": false,
-        "is_moving": false,
-        "is_vanishing": false,
+        "moving_rate": 0.0,
         "reward": 1,
         "sweet_spot_type": "starcatcher:normal",
-        "texture_path": "starcatcher:textures/gui/minigame/spots/nether_crab_leg.png"
+        "texture_path": "starcatcher:textures/gui/minigame/spots/nether_crab_leg.png",
+        "vanishing_rate": 0.0
       },
       {
         "color_as_int": 3701122,
         "hitbox_size_in_pixels": 15,
         "is_flip": false,
-        "is_moving": false,
-        "is_vanishing": false,
+        "moving_rate": 0.0,
         "reward": 1,
         "sweet_spot_type": "starcatcher:normal",
-        "texture_path": "starcatcher:textures/gui/minigame/spots/nether_crab_leg.png"
+        "texture_path": "starcatcher:textures/gui/minigame/spots/nether_crab_leg.png",
+        "vanishing_rate": 0.0
       }
     ]
   },

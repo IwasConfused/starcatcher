@@ -1,5 +1,5 @@
 {
-  "type": "minecraft:crafting_shaped",
+  "type": "starcatcher:modifier_shaped_recipe",
   "category": "misc",
   "key": {
     "H": {
@@ -20,5 +20,6 @@
   "result": {
     "count": 1,
     "id": "starcatcher:stone_hook"
-  }
+  },
+  "modifiers" : ["starcatcher:stone_hook"]
 }

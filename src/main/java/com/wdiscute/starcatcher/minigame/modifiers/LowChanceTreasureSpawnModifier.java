@@ -12,7 +12,7 @@ public class LowChanceTreasureSpawnModifier extends AbstractModifier
     public void onHit(ActiveSweetSpot ass)
     {
         super.onHit(ass);
-        if (U.r.nextFloat() > 0.975 && instance.progress < 75)
+        if (U.r.nextFloat() > 0.975 && instance.progress == 0)
         {
             removed = true;
             ActiveSweetSpot newTreasureSweetSpot = new ActiveSweetSpot(instance, FishProperties.SweetSpot.TREASURE);

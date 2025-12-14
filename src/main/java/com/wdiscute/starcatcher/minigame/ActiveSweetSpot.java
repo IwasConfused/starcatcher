@@ -14,9 +14,10 @@ import java.util.function.Supplier;
 public class ActiveSweetSpot
 {
     //from ss
-    public final ResourceLocation texture;
     public final AbstractSweetSpotBehaviour behaviour;
-    public final int thickness;
+    public final FishProperties.SweetSpot baseSS;
+    public int thickness;
+    public ResourceLocation texture;
     public int reward;
     public int particleColor;
 
@@ -56,6 +57,7 @@ public class ActiveSweetSpot
 
         this.instance = instance;
 
+        this.baseSS = ss;
         this.texture = ss.texturePath();
         this.thickness = ss.size();
         this.reward = ss.reward();
@@ -66,10 +68,8 @@ public class ActiveSweetSpot
         this.hook = hook;
 
         this.isFlip = ss.isFlip();
-        this.vanishingRate = ss.isVanishing() ? 0.1f : 0f;
-        this.movingRate = ss.isMoving() ? 1 : 0;
-
-        //todo set moving and vanishing rate based on fp
+        this.vanishingRate = ss.vanishingRate();
+        this.movingRate = ss.movingRate();
 
         currentRotation = 1;
 

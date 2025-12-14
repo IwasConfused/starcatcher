@@ -1,5 +1,5 @@
 {
-  "type": "minecraft:crafting_shaped",
+  "type": "starcatcher:modifier_shaped_recipe",
   "category": "misc",
   "key": {
     "B": {
@@ -23,5 +23,6 @@
   "result": {
     "count": 1,
     "id": "starcatcher:steady_bobber"
-  }
+  },
+  "modifiers" : ["starcatcher:steady_bobber"]
 }

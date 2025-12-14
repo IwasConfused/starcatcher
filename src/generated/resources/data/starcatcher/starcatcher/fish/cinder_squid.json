@@ -23,21 +23,21 @@
         "color_as_int": 3701122,
         "hitbox_size_in_pixels": 22,
         "is_flip": false,
-        "is_moving": false,
-        "is_vanishing": false,
+        "moving_rate": 0.0,
         "reward": 15,
         "sweet_spot_type": "starcatcher:aqua",
-        "texture_path": "starcatcher:textures/gui/minigame/spots/aqua.png"
+        "texture_path": "starcatcher:textures/gui/minigame/spots/aqua.png",
+        "vanishing_rate": 0.0
       },
       {
         "color_as_int": 3701122,
         "hitbox_size_in_pixels": 22,
         "is_flip": false,
-        "is_moving": false,
-        "is_vanishing": false,
+        "moving_rate": 0.0,
         "reward": 15,
         "sweet_spot_type": "starcatcher:aqua",
-        "texture_path": "starcatcher:textures/gui/minigame/spots/aqua.png"
+        "texture_path": "starcatcher:textures/gui/minigame/spots/aqua.png",
+        "vanishing_rate": 0.0
       }
     ]
   },

@@ -14,7 +14,6 @@ import com.wdiscute.starcatcher.io.ModDataComponents;
 import com.wdiscute.starcatcher.io.network.FishingCompletedPayload;
 import com.wdiscute.starcatcher.items.ColorfulSmithingTemplate;
 import com.wdiscute.starcatcher.minigame.modifiers.BaseModifier;
-import com.wdiscute.starcatcher.minigame.modifiers.SpawnFrozenSweetSpotsModifier;
 import com.wdiscute.starcatcher.registry.ModItems;
 import com.wdiscute.starcatcher.registry.ModKeymappings;
 import com.wdiscute.starcatcher.minigame.modifiers.AbstractModifier;
@@ -40,7 +39,6 @@ import net.minecraft.world.phys.Vec3;
 import net.neoforged.fml.ModList;
 import net.neoforged.neoforge.network.PacketDistributor;
 import org.joml.Quaternionf;
-import org.joml.Random;
 import org.joml.Vector2d;
 
 import java.util.ArrayList;
@@ -132,8 +130,8 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener
         else
             this.itemBeingFished = new ItemStack(fp.catchInfo().fish());
 
-        this.bobber = rod.get(ModDataComponents.BOBBER).stack().copy();
         this.bobberSkin = rod.get(ModDataComponents.BOBBER_SKIN).stack().copy();
+        this.bobber = rod.get(ModDataComponents.BOBBER).stack().copy();
         this.bait = rod.get(ModDataComponents.BAIT).stack().copy();
         this.hook = rod.get(ModDataComponents.HOOK).stack().copy();
 
@@ -158,8 +156,6 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener
         //add base modifier for kimbe before other modifiers so they can override kimbe if needed
         addModifier(new BaseModifier());
 
-        // addSweetSpot(new ActiveSweetSpot(this, FishProperties.SweetSpot.FREEZE));
-
         //add every sweet spot from fp json which is registered
         for (FishProperties.SweetSpot ss : fp.dif().sweetSpots())
         {
@@ -173,6 +169,18 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener
             Optional<AbstractModifier> newModifier = level.registryAccess().registryOrThrow(Starcatcher.MODIFIERS).getOptional(rl);
             newModifier.ifPresent(this::addModifier);
         }
+
+        //cycle through all the items to check for modifiers
+        //todo improve this to check things dynamically, look into baubles compat & armor slots (not inventory otherwise people could offhand modifiers)
+        List<ItemStack> allItems = List.of(bobber, rod, bait, hook);
+        for (ItemStack is : allItems)
+            if (is.has(ModDataComponents.MODIFIERS))
+                for (ResourceLocation rl : is.get(ModDataComponents.MODIFIERS))
+                {
+                    Optional<AbstractModifier> newModifier = level.registryAccess().registryOrThrow(Starcatcher.MODIFIERS).getOptional(rl);
+                    newModifier.ifPresent(this::addModifier);
+                }
+
     }
 
     public void addModifier(AbstractModifier mod)
@@ -184,7 +192,7 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener
     public void addUniqueModifier(AbstractModifier mod)
     {
         //only adds if theres not a modifier of the same class already present
-        if(modifiers.stream().noneMatch(m -> m.getClass() == mod.getClass()))
+        if (modifiers.stream().noneMatch(m -> m.getClass() == mod.getClass()))
         {
             mod.onAdd(this);
             if (!mod.removed) this.modifiers.add(mod);
@@ -195,7 +203,8 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener
     {
         ass.behaviour.onAdd(this, ass);
 
-        for (AbstractModifier modifier : modifiers) {
+        for (AbstractModifier modifier : modifiers)
+        {
             ass = modifier.onSpotAdded(ass);
         }
 
@@ -208,7 +217,7 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener
         {
             int posBeingChecked = U.r.nextInt(360);
 
-            if(activeSweetSpots.stream().noneMatch(s -> doDegreesOverlapWithLeeway(posBeingChecked, s.pos, (s.thickness + sizeOfTheSweetspotToPlace) /2)
+            if (activeSweetSpots.stream().noneMatch(s -> doDegreesOverlapWithLeeway(posBeingChecked, s.pos, (s.thickness + sizeOfTheSweetspotToPlace) / 2)
             ))
             {
                 return posBeingChecked;
@@ -513,13 +522,15 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener
         activeSweetSpots.forEach(s -> s.behaviour.tick());
 
         //remove activeSweetSpots marked for removal
-        activeSweetSpots.removeIf(s -> {
+        activeSweetSpots.removeIf(s ->
+        {
             if (s.removed) s.behaviour.onRemove();
             return s.removed;
         });
 
         //remove modifiers marked for removal
-        modifiers.removeIf(m -> {
+        modifiers.removeIf(m ->
+        {
             if (m.removed) m.onRemove();
             return m.removed;
         });

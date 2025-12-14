@@ -157,7 +157,10 @@
   "tooltip.starcatcher.vanilla_bobber.1": "Whilst equipped in your <gradient-67>Starcatcher's rod</gradient-90>,",
   "tooltip.starcatcher.vanilla_bobber.2": "it will attract vanilla-flavoured fishes and treasures.",
 
-
+  "item.starcatcher.aqua_bobber": "Aqua Hook",
+  "tooltip.starcatcher.aqua_bobber.0": "A beautiful bobber made from a Heart of the Sea.",
+  "tooltip.starcatcher.aqua_bobber.1": "Whilst equipped in your <gradient-67>Starcatcher's rod</gradient-90>,",
+  "tooltip.starcatcher.aqua_bobber.2": "an extra aqua sweet-spot will aid you on your catch.",
 
 
   "item.starcatcher.worm": "Worm",
