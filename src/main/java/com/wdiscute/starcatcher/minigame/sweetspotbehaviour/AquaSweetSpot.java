@@ -10,7 +10,7 @@ public class AquaSweetSpot extends NormalSweetSpotBehaviour
     {
         super.onAdd(instance, ass);
         ass.shouldSudokuOnVanish = true;
-        ass.vanishingRate = 0.01f;
+        ass.vanishingRate = 0.018f;
     }
 
     @Override

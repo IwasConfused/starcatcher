@@ -40,7 +40,9 @@
 
 
   "commands.starcatcher.fish_entry_not_found" : "Fish Entry %s not found",
+  "commands.starcatcher.modifier_not_found" : "Modifier %s not found",
   "commands.starcatcher.rod_not_found" : "You must have a StarcatcherCompatible™ rod in your hand",
+  "commands.starcatcher.item_empty" : "You must have an item in your hand to apply the modifier to",
 
 
 

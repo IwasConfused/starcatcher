@@ -534,7 +534,7 @@ public class TideFishingProperties extends FishingPropertiesRegistry
         //TODO put into corresponding category
         register(overworldLakeFish(U.holderItem("tide", "midas_fish"))
                 //no bucketed version
-                .withEntityToSpawn(U.holderEntity("tide", "midas_fish"))
+                //no entity version
                 .withSizeAndWeight(FishProperties.sw(800, 50, 310000, 120000))
                 .withWeather(FishProperties.Weather.THUNDER)
                 .withBaitRestrictions(FishProperties.BaitRestrictions.LEGENDARY_BAIT)
@@ -543,8 +543,8 @@ public class TideFishingProperties extends FishingPropertiesRegistry
         );
 
         register(overworldOceanFish(U.holderItem("tide", "shooting_starfish"))
-                .withBucketedFish(U.holderItem("tide", "shooting_starfish_bucket"))
-                .withEntityToSpawn(U.holderEntity("tide", "shooting_starfish"))
+                //no bucketed version
+                //no entity version
                 .withSizeAndWeight(FishProperties.sw(30, 10, 1000, 500))
                 .withBaitRestrictions(FishProperties.BaitRestrictions.LEGENDARY_BAIT)
                 .withRarity(FishProperties.Rarity.LEGENDARY)

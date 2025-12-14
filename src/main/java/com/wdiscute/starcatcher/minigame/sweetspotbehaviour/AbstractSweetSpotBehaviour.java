@@ -26,22 +26,31 @@ public abstract class AbstractSweetSpotBehaviour
         ticksActive++;
 
         ass.pos += ass.movingRate * ass.currentRotation;
+        if (ass.pos > 360) ass.pos -= 360;
+        if (ass.pos < 0) ass.pos += 360;
+
         ass.pos += ass.movingRate * ass.currentRotation;
 
         ass.alpha -= ass.vanishingRate;
 
-        if(ass.shouldSudokuOnVanish && ass.alpha <= 0) ass.removed = true;
+        if (ass.shouldSudokuOnVanish && ass.alpha <= 0) ass.removed = true;
     }
 
-    public void onHit(){}
+    public void onHit()
+    {
+    }
 
-    public void onRemove(){}
+    public void onRemove()
+    {
+    }
 
-    public void renderForeground(GuiGraphics guiGraphics, float partialTick, int width, int height) {}
+    public void renderForeground(GuiGraphics guiGraphics, float partialTick, int width, int height)
+    {
+    }
 
     public void render(GuiGraphics guiGraphics, float partialTick, int width, int height)
     {
-        if(ass.removed) return;
+        if (ass.removed) return;
         float centerX = width / 2f;
         float centerY = height / 2f;
 

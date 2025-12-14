@@ -1,4 +1,4 @@
-// 1.21.1	2025-12-14T17:11:04.6738508	FishingProperties
+// 1.21.1	2025-12-14T21:20:39.2872517	FishingProperties
 be60f2d857de148fd2caf6c1b6532125060346b1 data/alexscaves/starcatcher/fish/lanternfish.json
 4c0f285125bd37c9ab9d7ff5709b97ad7f8eddc2 data/alexscaves/starcatcher/fish/radgill.json
 5a6683335e79b9a0904aadaac422ada97586e2ba data/alexscaves/starcatcher/fish/sweetish_fish_blue.json
@@ -282,7 +282,7 @@ ccc840542c0f2ff5c6c268e2ed48e0713a0ba389 data/tide/starcatcher/fish/leafback.jso
 f297e754d3330fde500101abec0d36bdd90eba31 data/tide/starcatcher/fish/luminescent_jellyfish.json
 d4778ef7b92c51b2dfeb66a4c3f7fb738e40eedd data/tide/starcatcher/fish/mackerel.json
 ab0a92b5cbb4273a0f8f3f9baa7d551e137db5f4 data/tide/starcatcher/fish/magma_mackerel.json
-74ea5522630683dcff9b348e5df55e129989c39e data/tide/starcatcher/fish/midas_fish.json
+c57881028165adae43267834e539282b441dc13c data/tide/starcatcher/fish/midas_fish.json
 4a67121f49596e021876fe11d202400901dc4e91 data/tide/starcatcher/fish/mint_carp.json
 32eee364d85486294926b7cb077217bb3a1bb2a3 data/tide/starcatcher/fish/mirage_catfish.json
 fb0b18efbf3fcd21e06898b1498fd02cc73a3e98 data/tide/starcatcher/fish/oakfish.json
@@ -295,7 +295,7 @@ cd008278fef429ca762f708a4745de1cf341ccbe data/tide/starcatcher/fish/pike.json
 65bc8904d34c5e61f95b59ac9d97cbb64718da75 data/tide/starcatcher/fish/sailfish.json
 057d87512eabbd7ca8e4f33551b54543d31fb936 data/tide/starcatcher/fish/sandskipper.json
 6fe0f7524a756090232c42acf4ce137674693e94 data/tide/starcatcher/fish/shadow_snapper.json
-4eb280bd19b21bf8de8c503577856b42637b7fff data/tide/starcatcher/fish/shooting_starfish.json
+e5c381f4641aa61c47540bc93c0dfecf4632e902 data/tide/starcatcher/fish/shooting_starfish.json
 d47b8a51f97fd6cf238683cef259ae85ec644dcc data/tide/starcatcher/fish/slimefin_snapper.json
 4021f41969b38a910f0f5ee77176e2dee0a456d1 data/tide/starcatcher/fish/soulscaler.json
 0d8fe58c7839c32a9107bb1aad49aa44fd1d4129 data/tide/starcatcher/fish/sporestalker.json
