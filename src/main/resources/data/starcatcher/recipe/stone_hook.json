@@ -21,5 +21,5 @@
     "count": 1,
     "id": "starcatcher:stone_hook"
   },
-  "modifiers" : ["starcatcher:stone_hook"]
+  "modifiers" : ["starcatcher:stop_decay_on_hit"]
 }

@@ -21,5 +21,5 @@
     "count": 1,
     "id": "starcatcher:shiny_hook"
   },
-  "modifiers" : ["starcatcher:shiny_hook"]
+  "modifiers" : ["starcatcher:spawn_treasure_on_three_hits"]
 }

@@ -24,5 +24,5 @@
     "count": 1,
     "id": "starcatcher:aqua_bobber"
   },
-  "modifiers" : ["starcatcher:aqua_bobber"]
+  "modifiers" : ["starcatcher:add_aqua_sweet_spot"]
 }

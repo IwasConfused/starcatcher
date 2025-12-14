@@ -50,23 +50,22 @@ public class ModClientEvents
         List<Component> comp = event.getToolTip();
         ItemStack stack = event.getItemStack();
 
-        if(stack.has(ModDataComponents.MODIFIERS))
+        if (stack.has(ModDataComponents.MODIFIERS))
         {
             List<ResourceLocation> modifiers = stack.get(ModDataComponents.MODIFIERS);
 
-            if(!modifiers.isEmpty())
+            if (!modifiers.isEmpty())
             {
-                comp.add(Component.translatable("tooltip.starcatcher.modifiers").withStyle(ChatFormatting.GRAY));
+                comp.add(1, Component.translatable("tooltip.starcatcher.modifiers").withStyle(ChatFormatting.GRAY));
                 for (ResourceLocation rl : modifiers)
                 {
                     for (int i = 0; i < 100; i++)
                     {
-                        if(I18n.exists("tooltip.modifier." + rl.toLanguageKey() + "." + i))
+                        if (I18n.exists("tooltip.modifier." + rl.toLanguageKey() + "." + i))
                         {
-                            comp.add(Component.translatable("tooltip.modifier." + rl.toLanguageKey() + "." + i).withStyle(ChatFormatting.DARK_GRAY));
+                            comp.add(2 + i, Component.literal("-").append(Component.translatable("tooltip.modifier." + rl.toLanguageKey() + "." + i)).withStyle(ChatFormatting.DARK_GRAY));
                         }
                     }
-                    comp.add(Component.literal(""));
                 }
             }
         }

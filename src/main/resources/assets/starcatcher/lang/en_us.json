@@ -153,7 +153,12 @@
   "item.starcatcher.stabilizing_hook": "Stabilizing Hook",
   "item.starcatcher.heavy_hook": "Heavy Hook",
 
-  "item.starcatcher.bobber": "Steady Bobber",
+
+
+  "item.starcatcher.bobber": "Bobber",
+  "tooltip.starcatcher.bobber.0": "A basic bobber for your fishing rod.",
+  "tooltip.starcatcher.bobber.1": "The hook's best friend.",
+
   "item.starcatcher.steady_bobber": "Steady Bobber",
   "item.starcatcher.clear_bobber": "Clear Bobber",
   "item.starcatcher.aqua_bobber": "Aqua Hook",

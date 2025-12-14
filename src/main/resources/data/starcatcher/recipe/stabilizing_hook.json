@@ -1,5 +1,5 @@
 {
-  "type": "minecraft:crafting_shaped",
+  "type": "starcatcher:modifier_shaped_recipe",
   "category": "misc",
   "key": {
     "H": {
@@ -23,5 +23,6 @@
   "result": {
     "count": 1,
     "id": "starcatcher:stabilizing_hook"
-  }
+  },
+  "modifiers" : ["starcatcher:no_flip"]
 }

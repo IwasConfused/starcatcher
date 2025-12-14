@@ -21,5 +21,5 @@
     "count": 1,
     "id": "starcatcher:heavy_hook"
   },
-  "modifiers" : ["starcatcher:heavy_hook"]
+  "modifiers" : ["starcatcher:slower_moving_sweet_spots"]
 }
