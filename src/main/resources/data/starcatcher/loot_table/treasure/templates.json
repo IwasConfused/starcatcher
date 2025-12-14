@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:archaeology",
+  "pools": [
+    {
+      "bonus_rolls": 0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "starcatcher:colorful_bobber_smithing_template"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "starcatcher:pearl_bobber_smithing_template"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "starcatcher:kimbe_bobber_smithing_template"
+        }
+      ],
+      "rolls": 1
+    }
+  ],
+  "random_sequence": "starcatcher:hooks"
+}

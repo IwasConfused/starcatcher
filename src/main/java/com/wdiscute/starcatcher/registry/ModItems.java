@@ -143,8 +143,6 @@ public interface ModItems
 
     //treasure
     DeferredItem<Item> WATERLOGGED_SATCHEL = ITEMS_REGISTRY.register("waterlogged_satchel", () -> new FishingTreasure(Starcatcher.rl("treasure/waterlogged_satchel")));
-    DeferredItem<Item> TREASURE = ITEMS_REGISTRY.register("treasure", () -> new FishingTreasure(Starcatcher.rl("treasure/treasure")));
-    DeferredItem<Item> SCALDING_TREASURE = ITEMS_REGISTRY.register("scalding_treasure", () -> new FishingTreasure(Starcatcher.rl("treasure/scalding_treasure")));
 
     DeferredItem<Item> FISH_BONES = ITEMS_REGISTRY.register("fish_bones", BasicItem::new);
 

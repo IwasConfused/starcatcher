@@ -6,18 +6,13 @@
       "entries": [
         {
           "type": "minecraft:loot_table",
-          "value": "starcatcher:treasure/bobbers",
-          "weight": 3
+          "value": "starcatcher:treasure/templates",
+          "weight": 1
         },
         {
           "type": "minecraft:loot_table",
-          "value": "starcatcher:treasure/hooks",
-          "weight": 3
-        },
-        {
-          "type": "minecraft:loot_table",
-          "value": "starcatcher:treasure/treasure_extra_loot",
-          "weight": 3
+          "value": "starcatcher:treasure/extra_loot",
+          "weight": 6
         }
       ],
       "rolls": 1
