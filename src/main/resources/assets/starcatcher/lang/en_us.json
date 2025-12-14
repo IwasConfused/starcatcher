@@ -134,7 +134,7 @@
 
   "tooltip.modifier.starcatcher.fish_entity.0": "If available, will catch the live fish instead",
 
-  "tooltip.modifier.starcatcher.decrease_time_to_bite.0": "Something will nibble on your hook faster",
+  "tooltip.modifier.starcatcher.decrease_lure_time.0": "Decreases lure time",
 
   "tooltip.modifier.starcatcher.guarantee_new_fish.0": "If available, new catches will be prioritized",
 

@@ -67,7 +67,7 @@ public interface ModModifiers
     ResourceLocation FISH_ENTITY = registerModifier("fish_entity", EmptyModifier::new);
 
     //every bait
-    ResourceLocation DECREASE_TIME_TO_BITE = registerModifier("decrease_time_to_bite", EmptyModifier::new);
+    ResourceLocation DECREASES_LURE_TIME = registerModifier("decrease_lure_time", EmptyModifier::new);
 
     //seeking worm
     ResourceLocation GUARANTEE_NEW_FISH = registerModifier("guarantee_new_fish", EmptyModifier::new);

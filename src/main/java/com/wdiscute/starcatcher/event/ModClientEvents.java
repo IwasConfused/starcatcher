@@ -56,14 +56,14 @@ public class ModClientEvents
 
             if (!modifiers.isEmpty())
             {
-                comp.add(1, Component.translatable("tooltip.starcatcher.modifiers").withStyle(ChatFormatting.GRAY));
+                comp.add(Component.translatable("tooltip.starcatcher.modifiers").withStyle(ChatFormatting.GRAY));
                 for (ResourceLocation rl : modifiers)
                 {
                     for (int i = 0; i < 100; i++)
                     {
                         if (I18n.exists("tooltip.modifier." + rl.toLanguageKey() + "." + i))
                         {
-                            comp.add(2 + i, Component.literal("-").append(Component.translatable("tooltip.modifier." + rl.toLanguageKey() + "." + i)).withStyle(ChatFormatting.DARK_GRAY));
+                            comp.add(Component.literal("-").append(Component.translatable("tooltip.modifier." + rl.toLanguageKey() + "." + i)).withStyle(ChatFormatting.DARK_GRAY));
                         }
                     }
                 }
