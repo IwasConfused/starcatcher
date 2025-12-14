@@ -22,11 +22,13 @@ import com.wdiscute.starcatcher.storage.FishProperties;
 import com.wdiscute.starcatcher.storage.TrophyProperties;
 import com.wdiscute.starcatcher.tournament.StandScreen;
 import com.wdiscute.starcatcher.tournament.TournamentOverlay;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.api.distmarker.Dist;
@@ -48,6 +50,28 @@ public class ModClientEvents
         List<Component> comp = event.getToolTip();
         ItemStack stack = event.getItemStack();
 
+        if(stack.has(ModDataComponents.MODIFIERS))
+        {
+            List<ResourceLocation> modifiers = stack.get(ModDataComponents.MODIFIERS);
+
+            if(!modifiers.isEmpty())
+            {
+                comp.add(Component.translatable("tooltip.starcatcher.modifiers").withStyle(ChatFormatting.GRAY));
+                for (ResourceLocation rl : modifiers)
+                {
+                    for (int i = 0; i < 100; i++)
+                    {
+                        if(I18n.exists("tooltip.modifier." + rl.toLanguageKey() + "." + i))
+                        {
+                            comp.add(Component.translatable("tooltip.modifier." + rl.toLanguageKey() + "." + i).withStyle(ChatFormatting.DARK_GRAY));
+                        }
+                    }
+                    comp.add(Component.literal(""));
+                }
+            }
+        }
+
+        //size and weight
         if (stack.has(ModDataComponents.SIZE_AND_WEIGHT))
         {
             SizeAndWeightInstance sw = stack.get(ModDataComponents.SIZE_AND_WEIGHT);
@@ -60,6 +84,7 @@ public class ModClientEvents
             comp.add(1, Component.literal(size + " - " + weight).withColor(0x888888));
         }
 
+        //rarity name color
         if (stack.has(ModDataComponents.FISH_PROPERTIES))
         {
             FishProperties fp = stack.get(ModDataComponents.FISH_PROPERTIES);
@@ -70,6 +95,7 @@ public class ModClientEvents
             comp.add(0, Tooltips.decodeString(s));
         }
 
+        //trophy stuff
         if (stack.has(ModDataComponents.TROPHY))
         {
             TrophyProperties tp = stack.get(ModDataComponents.TROPHY);

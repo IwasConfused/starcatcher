@@ -7,13 +7,14 @@ public class SteadyBobberModifier extends AbstractModifier
 {
 
     @Override
-    public void onSweetSpotAdded(ActiveSweetSpot ass)
+    public ActiveSweetSpot onSpotAdded(ActiveSweetSpot ass)
     {
-        super.onSweetSpotAdded(ass);
+        super.onSpotAdded(ass);
         if(ass.baseSS.equals(FishProperties.SweetSpot.NORMAL))
         {
             ass.texture = FishProperties.SweetSpot.NORMAL_STEADY.texturePath();
             ass.thickness = FishProperties.SweetSpot.NORMAL_STEADY.size();
         }
+        return ass;
     }
 }

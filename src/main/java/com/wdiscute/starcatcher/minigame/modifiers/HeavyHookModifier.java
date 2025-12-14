@@ -6,9 +6,10 @@ public class HeavyHookModifier extends AbstractModifier
 {
 
     @Override
-    public void onSweetSpotAdded(ActiveSweetSpot ass)
+    public ActiveSweetSpot onSpotAdded(ActiveSweetSpot ass)
     {
-        super.onSweetSpotAdded(ass);
+        super.onSpotAdded(ass);
         if(ass.movingRate > 2) ass.movingRate /= 2;
+        return ass;
     }
 }

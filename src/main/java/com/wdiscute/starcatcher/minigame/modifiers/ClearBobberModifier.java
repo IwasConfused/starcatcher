@@ -5,9 +5,10 @@ import com.wdiscute.starcatcher.minigame.ActiveSweetSpot;
 public class ClearBobberModifier extends AbstractModifier
 {
     @Override
-    public void onSweetSpotAdded(ActiveSweetSpot ass)
+    public ActiveSweetSpot onSpotAdded(ActiveSweetSpot ass)
     {
-        super.onSweetSpotAdded(ass);
+        super.onSpotAdded(ass);
         ass.vanishingRate /= 3;
+        return ass;
     }
 }

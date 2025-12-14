@@ -123,15 +123,6 @@ public class SettingsScreen extends Screen
 
         unitSelected = Config.UNIT.get();
 
-        //make sweet spots fatter if difficulty bobber is being used
-        if (bobber.is(ModItems.STEADY_BOBBER))
-        {
-            bigForgiving = SIZE_4;
-            thinForgiving = SIZE_2;
-            treasureForgiving = SIZE_2;
-            difficultyBobberOffset = 16;
-        }
-
         hand = Minecraft.getInstance().player.getMainHandItem().is(ModItems.ROD) ? InteractionHand.MAIN_HAND : InteractionHand.OFF_HAND;
     }
 

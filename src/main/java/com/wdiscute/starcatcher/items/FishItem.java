@@ -12,9 +12,9 @@ import net.minecraft.world.item.context.UseOnContext;
 
 public class FishItem extends Item
 {
-    public FishItem(Properties properties)
+    public FishItem()
     {
-        super(properties);
+        super(new Item.Properties().food(ModFoodProperties.BASIC_RAW_FISH));
     }
 
     @Override

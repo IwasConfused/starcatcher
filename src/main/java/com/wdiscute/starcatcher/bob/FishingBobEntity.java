@@ -9,11 +9,13 @@ import com.wdiscute.starcatcher.io.ModDataAttachments;
 import com.wdiscute.starcatcher.io.ModDataComponents;
 import com.wdiscute.starcatcher.io.SingleStackContainer;
 import com.wdiscute.starcatcher.io.network.FishingStartedPayload;
+import com.wdiscute.starcatcher.minigame.modifiers.ModModifiers;
 import com.wdiscute.starcatcher.registry.ModEntities;
 import com.wdiscute.starcatcher.registry.ModItems;
 import com.wdiscute.starcatcher.registry.ModParticles;
 import com.wdiscute.starcatcher.storage.FishProperties;
 import com.wdiscute.starcatcher.storage.TrophyProperties;
+import net.dries007.tfc.client.overworld.Star;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -206,8 +208,8 @@ public class FishingBobEntity extends Projectile
             }
         }
 
-        //if the VANILLA BOBBER hook is equipped, drop vanilla treasure loot
-        if (bait.is(ModItems.VANILLA_BOBBER))
+        //if the VANILLA_BOBBER (or anything with "vanilla_loot" modifier) is equipped, drop vanilla treasure loot
+        if (ModModifiers.hasModifier(rod, Starcatcher.rl("vanilla_loot")))
         {
             LootParams lootparams = new LootParams.Builder((ServerLevel) this.level())
                     .withParameter(LootContextParams.ORIGIN, this.position())
@@ -262,7 +264,7 @@ public class FishingBobEntity extends Projectile
         fpToFish = available.get(random.nextInt(available.size()));
 
         //get uncaught fish if using seeking worm
-        if (bait.is(ModItems.SEEKING_WORM))
+        if (ModModifiers.hasModifier(rod, Starcatcher.rl("guarantee_new_fish")))
         {
             List<FishCaughtCounter> fishesCaught = player.getData(ModDataAttachments.FISHES_CAUGHT);
             for (FishProperties fp : available)

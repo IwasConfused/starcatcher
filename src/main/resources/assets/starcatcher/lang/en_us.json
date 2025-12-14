@@ -87,80 +87,79 @@
   "tooltip.starcatcher.starcatcher_twine.0": "A delicate twine wrapped around a stick.",
   "tooltip.starcatcher.starcatcher_twine.1": "Vansire used these for string instruments once upon a time.",
 
+
+
+
+  "tooltip.starcatcher.modifiers": "Fishing Modifiers:",
+
+  "tooltip.modifier.starcatcher.freeze_on_miss.0": "Missing a sweet-spot will cause your",
+  "tooltip.modifier.starcatcher.freeze_on_miss.1": "reel to freeze up for a short period",
+
+  "tooltip.modifier.starcatcher.spawn_frozen_sweet_spots.0": "Every so often a frozen sweet-spot",
+  "tooltip.modifier.starcatcher.spawn_frozen_sweet_spots.1": "might show up which freezes your reel when hit",
+
+  "tooltip.modifier.starcatcher.low_chance_treasure_spawn.0": "There is a low chance a treasure chest",
+  "tooltip.modifier.starcatcher.low_chance_treasure_spawn.1": "might appear when hitting a sweet-spot",
+
+  "tooltip.modifier.starcatcher.spawn_tnt_sweet_spots.0": "Explosive sweet-spots might show up",
+
+  "tooltip.modifier.starcatcher.spawn_treasure_on_three_hits.0": "Successfully hitting 3 sweet-spots in a row",
+  "tooltip.modifier.starcatcher.spawn_treasure_on_three_hits.1": "will summon a treasure chest",
+
+  "tooltip.modifier.starcatcher.extra_exp_based_on_performance.0": "Extra exp is awarded based on your performance",
+
+  "tooltip.modifier.starcatcher.slower_moving_sweet_spots.0": "Slows down moving sweet-spots",
+
+  "tooltip.modifier.starcatcher.stop_decay_on_hit.0": "Prevents your catch from swimming away",
+  "tooltip.modifier.starcatcher.stop_decay_on_hit.1": "for a short period after hitting a sweet-spot",
+
+  "tooltip.modifier.starcatcher.harder_with_treasure_on_perfect.0": "The catch will be harder than usual,",
+  "tooltip.modifier.starcatcher.harder_with_treasure_on_perfect.1": "but a perfect catch awards a treasure",
+
+  "tooltip.modifier.starcatcher.double_item.0": "An extra fish will be added to your catch",
+
+  "tooltip.modifier.starcatcher.no_flip.0": "Sweet-spots will no longer flip when hit",
+
+  "tooltip.modifier.starcatcher.bigger_green_sweet_spots.1": "Green sweet-spots will be slightly bigger",
+
+  "tooltip.modifier.starcatcher.slower_vanishing.1": "Vanishing sweet-spots will take longer to vanish",
+
+  "tooltip.modifier.starcatcher.add_aqua_sweet_spot.1": "An extra aqua sweet-spot is added",
+
+  "tooltip.modifier.starcatcher.add_three_aqua_sweet_spot.1": "Three extra aqua sweet-spot are added",
+
+  "tooltip.modifier.starcatcher.vanilla_loot.0": "Vanilla fishes and treasures will be caught instead",
+
+  "tooltip.modifier.starcatcher.fish_entity.0": "If available, will catch the live fish instead",
+
+  "tooltip.modifier.starcatcher.decrease_time_to_bite.0": "Something will nibble on your hook faster",
+
+  "tooltip.modifier.starcatcher.guarantee_new_fish.0": "If available, new catches will be prioritized",
+
+
+
   "item.starcatcher.hook": "Iron Hook",
   "tooltip.starcatcher.hook.0": "A basic iron hook for your fishing rod.",
   "tooltip.starcatcher.hook.1": "Everyone starts somewhere.",
 
   "item.starcatcher.shiny_hook": "Shiny Hook",
-  "tooltip.starcatcher.shiny_hook.0": "A very shiny hook!",
-  "tooltip.starcatcher.shiny_hook.1": "Whilst equipped in your <gradient-67>Starcatcher's rod</gradient-90>,",
-  "tooltip.starcatcher.shiny_hook.2": "hitting 3 consecutive sweet-spots on a",
-  "tooltip.starcatcher.shiny_hook.3": "not-common fish spawns a treasure!",
-
   "item.starcatcher.gold_hook": "Gold Hook",
-  "tooltip.starcatcher.gold_hook.0": "A glittering gold hook!",
-  "tooltip.starcatcher.gold_hook.1": "Whilst equipped in your <gradient-67>Starcatcher's rod</gradient-90>,",
-  "tooltip.starcatcher.gold_hook.2": "it increases the experience you get from",
-  "tooltip.starcatcher.gold_hook.3": "fishing based on your performance.",
-
   "item.starcatcher.mossy_hook": "Mossy Hook",
-  "tooltip.starcatcher.mossy_hook.0": "A rusty hook covered in moss!",
-  "tooltip.starcatcher.mossy_hook.1": "Whilst equipped in your <gradient-67>Starcatcher's rod</gradient-90>,",
-  "tooltip.starcatcher.mossy_hook.2": "it will increase the difficulty of fishes,",
-  "tooltip.starcatcher.mossy_hook.3": "but a perfect catch will award you a treasure.",
-
   "item.starcatcher.crystal_hook": "Crystal Hook",
-  "tooltip.starcatcher.crystal_hook.0": "An incredibly durable hook, perfect for lava fishing!",
-  "tooltip.starcatcher.crystal_hook.1": "Whilst equipped in your <gradient-67>Starcatcher's rod</gradient-90>,",
-  "tooltip.starcatcher.crystal_hook.2": "allows you to fish in lava. Hot.",
-
   "item.starcatcher.stone_hook": "Stone Hook",
-  "tooltip.starcatcher.stone_hook.0": "An very sturdy hook!",
-  "tooltip.starcatcher.stone_hook.1": "Whilst equipped in your <gradient-67>Starcatcher's rod</gradient-90>,",
-  "tooltip.starcatcher.stone_hook.2": "hitting a sweet-spot will lock the fish into",
-  "tooltip.starcatcher.stone_hook.3": "place for a moment, preventing it from escaping.",
-
   "item.starcatcher.split_hook": "Split Hook",
-  "tooltip.starcatcher.split_hook.0": "An elegantly designed split hook!",
-  "tooltip.starcatcher.split_hook.1": "Whilst equipped in your <gradient-67>Starcatcher's rod</gradient-90>,",
-  "tooltip.starcatcher.split_hook.2": "completing a perfect catch will award 2 fishes.",
-
   "item.starcatcher.stabilizing_hook": "Stabilizing Hook",
-  "tooltip.starcatcher.stabilizing_hook.0": "A thin self-balancing hook!",
-  "tooltip.starcatcher.stabilizing_hook.1": "Whilst equipped in your <gradient-67>Starcatcher's rod</gradient-90>,",
-  "tooltip.starcatcher.stabilizing_hook.2": "fishes won't turn around while being reeled in.",
-
   "item.starcatcher.heavy_hook": "Heavy Hook",
-  "tooltip.starcatcher.heavy_hook.0": "A rather heavy bobber.",
-  "tooltip.starcatcher.heavy_hook.1": "Whilst equipped in your <gradient-67>Starcatcher's rod</gradient-90>,",
-  "tooltip.starcatcher.heavy_hook.2": "sweet-spots will move around slower.",
-
-
-
 
   "item.starcatcher.bobber": "Steady Bobber",
-  "tooltip.starcatcher.bobber.0": "A basic bobber for your fishing rod",
-  "tooltip.starcatcher.bobber.1": "The Iron Hook's best companion.",
-
   "item.starcatcher.steady_bobber": "Steady Bobber",
-  "tooltip.starcatcher.steady_bobber.0": "A stiff heavy bobber.",
-  "tooltip.starcatcher.steady_bobber.1": "Whilst equipped in your <gradient-67>Starcatcher's rod</gradient-90>,",
-  "tooltip.starcatcher.steady_bobber.2": "it will make fishing a lot easier.",
-
   "item.starcatcher.clear_bobber": "Clear Bobber",
-  "tooltip.starcatcher.clear_bobber.0": "A crystal clear bobber.",
-  "tooltip.starcatcher.clear_bobber.1": "Whilst equipped in your <gradient-67>Starcatcher's rod</gradient-90>,",
-  "tooltip.starcatcher.clear_bobber.2": "it will make vanishing sweet-spots easier to see.",
-
+  "item.starcatcher.aqua_bobber": "Aqua Hook",
   "item.starcatcher.vanilla_bobber": "Vanilla-flavoured Bobber",
   "tooltip.starcatcher.vanilla_bobber.0": "A bobber made of [imaginary] vanilla.",
   "tooltip.starcatcher.vanilla_bobber.1": "Whilst equipped in your <gradient-67>Starcatcher's rod</gradient-90>,",
   "tooltip.starcatcher.vanilla_bobber.2": "it will attract vanilla-flavoured fishes and treasures.",
 
-  "item.starcatcher.aqua_bobber": "Aqua Hook",
-  "tooltip.starcatcher.aqua_bobber.0": "A beautiful bobber made from a Heart of the Sea.",
-  "tooltip.starcatcher.aqua_bobber.1": "Whilst equipped in your <gradient-67>Starcatcher's rod</gradient-90>,",
-  "tooltip.starcatcher.aqua_bobber.2": "an extra aqua sweet-spot will aid you on your catch.",
 
 
   "item.starcatcher.worm": "Worm",

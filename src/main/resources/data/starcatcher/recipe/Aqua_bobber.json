@@ -5,7 +5,7 @@
     "B": {
       "item": "starcatcher:bobber"
     },
-    "G": {
+    "H": {
       "item": "minecraft:heart_of_the_sea"
     },
     "D": {
@@ -17,12 +17,12 @@
   },
   "pattern": [
     " HS",
-    "GBG",
-    "SG "
+    "DBD",
+    "SD "
   ],
   "result": {
     "count": 1,
-    "id": "starcatcher:clear_bobber"
+    "id": "starcatcher:aqua_bobber"
   },
   "modifiers" : ["starcatcher:aqua_bobber"]
 }

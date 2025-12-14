@@ -156,13 +156,6 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener
         //add base modifier for kimbe before other modifiers so they can override kimbe if needed
         addModifier(new BaseModifier());
 
-        //add every sweet spot from fp json which is registered
-        for (FishProperties.SweetSpot ss : fp.dif().sweetSpots())
-        {
-            var newSweetSpot = new ActiveSweetSpot(this, ss, bobber, bait, hook);
-            addSweetSpot(newSweetSpot);
-        }
-
         //add every modifier from fp json which is registered
         for (ResourceLocation rl : fp.dif().modifiers())
         {
@@ -180,6 +173,14 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener
                     Optional<AbstractModifier> newModifier = level.registryAccess().registryOrThrow(Starcatcher.MODIFIERS).getOptional(rl);
                     newModifier.ifPresent(this::addModifier);
                 }
+
+
+        //add every sweet spot from fp json which is registered
+        for (FishProperties.SweetSpot ss : fp.dif().sweetSpots())
+        {
+            var newSweetSpot = new ActiveSweetSpot(this, ss, bobber, bait, hook);
+            addSweetSpot(newSweetSpot);
+        }
 
     }
 
@@ -646,5 +647,13 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener
     public void refreshSweetSpotsAlphas()
     {
         activeSweetSpots.forEach(s -> s.alpha = 1);
+    }
+
+    public void removeAllSweetSpots()
+    {
+        for (var dws : activeSweetSpots)
+        {
+            dws.removed = true;
+        }
     }
 }

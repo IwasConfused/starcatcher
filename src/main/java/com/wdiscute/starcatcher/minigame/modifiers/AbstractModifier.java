@@ -16,9 +16,6 @@ public abstract class AbstractModifier
         this.instance = instance;
     }
 
-    public void onSweetSpotAdded(ActiveSweetSpot ass) {
-    }
-
     /**
      * Runs when removed or the minigame ends
      */
