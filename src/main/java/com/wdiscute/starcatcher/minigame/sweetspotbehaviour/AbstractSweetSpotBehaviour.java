@@ -60,10 +60,9 @@ public abstract class AbstractSweetSpotBehaviour
         poseStack.translate(centerX, centerY, 0);
 
         // DO NOT REPLACE THIS WITH THE OLD ONE!!! THIS IS TO FIX IT BEING ROTATED WRONG (+ its way simpler)
-        poseStack.rotateAround(Axis.ZP.rotationDegrees(ass.pos - partialTick * ass.movingRate), 0, 0, 0);
+        poseStack.rotateAround(Axis.ZP.rotationDegrees(ass.pos + partialTick * ass.movingRate), 0, 0, 0);
 
         RenderSystem.setShaderColor(1, 1, 1, ass.alpha);
-
         RenderSystem.enableBlend();
 
         final int spriteSize = 96;
@@ -74,7 +73,6 @@ public abstract class AbstractSweetSpotBehaviour
                 spriteSize, spriteSize, 0, 0, spriteSize, spriteSize, spriteSize, spriteSize);
 
         RenderSystem.disableBlend();
-
         RenderSystem.setShaderColor(1, 1, 1, 1);
 
         poseStack.popPose();
