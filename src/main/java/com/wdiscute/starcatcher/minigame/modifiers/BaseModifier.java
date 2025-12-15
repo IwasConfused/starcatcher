@@ -20,11 +20,12 @@ public class BaseModifier extends AbstractModifier
     }
 
     @Override
-    public void onHit(ActiveSweetSpot ass)
+    public boolean onHit(ActiveSweetSpot ass)
     {
-        super.onHit(ass);
         instance.kimbeMarkerAlpha = 1;
         instance.kimbeMarkerColor = 0x2ce17d;
         instance.kimbeMarkerPos = instance.getPointerPosPrecise();
+
+        return super.onHit(ass);
     }
 }

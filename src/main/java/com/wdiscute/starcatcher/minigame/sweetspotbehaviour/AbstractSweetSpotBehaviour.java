@@ -48,33 +48,20 @@ public abstract class AbstractSweetSpotBehaviour
     {
     }
 
-    public void render(GuiGraphics guiGraphics, float partialTick, int width, int height)
+    public void render(GuiGraphics guiGraphics, PoseStack poseStack, float partialTick)
     {
         if (ass.removed) return;
-        float centerX = width / 2f;
-        float centerY = height / 2f;
 
-        PoseStack poseStack = guiGraphics.pose();
-        poseStack.pushPose();
+        // allows modifier to change color
+        float[] shaderColor = RenderSystem.getShaderColor();
+        RenderSystem.setShaderColor(shaderColor[0], shaderColor[1], shaderColor[2], shaderColor[3] * ass.alpha);
 
-        poseStack.translate(centerX, centerY, 0);
-
-        // DO NOT REPLACE THIS WITH THE OLD ONE!!! THIS IS TO FIX IT BEING ROTATED WRONG (+ its way simpler)
-        poseStack.rotateAround(Axis.ZP.rotationDegrees(ass.pos + partialTick * ass.movingRate), 0, 0, 0);
-
-        RenderSystem.setShaderColor(1, 1, 1, ass.alpha);
         RenderSystem.enableBlend();
 
-        final int spriteSize = 96;
-
         // Renders the sprite centered to the top-left corner of the screen, to be moved with poseStack
-        guiGraphics.blit(
-                ass.texture, -spriteSize / 2, -spriteSize / 2,
-                spriteSize, spriteSize, 0, 0, spriteSize, spriteSize, spriteSize, spriteSize);
+        FishingMinigameScreen.renderPoseCentered(guiGraphics, ass.texture, 96);
 
         RenderSystem.disableBlend();
         RenderSystem.setShaderColor(1, 1, 1, 1);
-
-        poseStack.popPose();
     }
 }

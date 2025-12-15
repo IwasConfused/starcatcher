@@ -14,6 +14,8 @@ import com.wdiscute.starcatcher.io.ModDataComponents;
 import com.wdiscute.starcatcher.io.network.FishingCompletedPayload;
 import com.wdiscute.starcatcher.items.ColorfulSmithingTemplate;
 import com.wdiscute.starcatcher.minigame.modifiers.BaseModifier;
+import com.wdiscute.starcatcher.minigame.modifiers.Nikdo53Modifier;
+import com.wdiscute.starcatcher.minigame.modifiers.SpawnFrozenSweetSpotsModifier;
 import com.wdiscute.starcatcher.registry.ModItems;
 import com.wdiscute.starcatcher.registry.ModKeymappings;
 import com.wdiscute.starcatcher.minigame.modifiers.AbstractModifier;
@@ -239,6 +241,9 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener
         PoseStack poseStack = guiGraphics.pose();
         partial = partialTick;
 
+        //render modifiers background
+        modifiers.forEach(modifier -> modifier.renderBackground(guiGraphics, partialTick, width, height));
+
         if (treasureActive) renderTreasure(guiGraphics);
 
         //render tank background
@@ -250,17 +255,14 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener
         //render spacebar
         guiGraphics.blit(TEXTURE, width / 2 - 16, height / 2 + 40, 32, 16, isHoldingKey ? 48 : 0, 112, 32, 16, 256, 256);
 
-        //render modifiers background
-        modifiers.forEach(modifier -> modifier.renderBackground(guiGraphics, partialTick, width, height));
-
-        //render all hit zones
-        activeSweetSpots.forEach(ass -> ass.behaviour.render(guiGraphics, partialTick, width, height));
+        //render all sweet spots
+        activeSweetSpots.forEach(ass -> renderSweetSpot(ass, guiGraphics, partialTick, poseStack));
 
         //render wheel second layer
         guiGraphics.blit(TEXTURE, width / 2 - 32, height / 2 - 32, 64, 64, 64, 192, 64, 64, 256, 256);
 
         //render pointer
-        renderPointer(guiGraphics, partialTick, poseStack, width, height, isHoldingKey, pointerPos, pointerSpeed, currentRotation);
+        renderPointer(guiGraphics, poseStack, partialTick);
 
         //render kimbe marker
         renderKimbeMarker(guiGraphics);
@@ -290,6 +292,25 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener
 
         //render particles
         hitParticles.forEach(p -> p.render(guiGraphics, width, height));
+    }
+
+    public void renderSweetSpot(ActiveSweetSpot ass, GuiGraphics guiGraphics, float partialTick, PoseStack poseStack) {
+        float centerX = width / 2f;
+        float centerY = height / 2f;
+
+        poseStack.pushPose();
+
+        poseStack.translate(centerX, centerY, 0);
+
+        poseStack.rotateAround(Axis.ZP.rotationDegrees(ass.pos + partialTick * ass.movingRate), 0, 0, 0);
+
+        boolean isDisabled = modifiers.stream().anyMatch(mod -> mod.disableSweetSpotRendering(ass));
+        if (!isDisabled)
+            ass.behaviour.render(guiGraphics, poseStack, partialTick);
+
+        modifiers.forEach(mod -> mod.renderOnSweetSpot(guiGraphics, poseStack, ass, partialTick));
+
+        poseStack.popPose();
     }
 
     private void renderCombo(GuiGraphics guiGraphics, int consecutiveHits, float delta)
@@ -380,7 +401,7 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener
         poseStack.popPose();
     }
 
-    public static void renderPointer(GuiGraphics guiGraphics, float partialTick, PoseStack poseStack, int width, int height, boolean isHoldingSpace, int pointerPos, float speed, int currentRotation)
+    public void renderPointer(GuiGraphics guiGraphics, PoseStack poseStack, float partialTick)
     {
         poseStack.pushPose();
 
@@ -388,28 +409,34 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener
         float centerY = height / 2f;
 
         poseStack.translate(centerX, centerY, 0);
-        // if (isHoldingSpace) poseStack.scale(0.8f, 1f, 1f);
 
-        poseStack.mulPose(new Quaternionf().rotateZ((float) Math.toRadians(pointerPos + ((speed * partialTick) * currentRotation))));
-        poseStack.translate(-centerX, -centerY, 0);
+        poseStack.mulPose(Axis.ZP.rotationDegrees(pointerPos + ((pointerSpeed * partialTick) * currentRotation)));
 
-        //16 offset on y for texture centering
-        guiGraphics.blit(
-                TEXTURE, width / 2 - 32, height / 2 - 32 - 16,
-                64, 64, 128, 192, 64, 64, 256, 256);
+        poseStack.translate(0, -16, 0);
+
+        boolean isDisabled = modifiers.stream().anyMatch(AbstractModifier::disablePointerRendering);
+        if (!isDisabled)
+            renderPoseCentered(guiGraphics, TEXTURE, 64, 64, 128, 192, 256);
+
+        poseStack.translate(0, 16, 0);
+
+        modifiers.forEach(mod -> mod.renderOnPointer(guiGraphics, poseStack, partialTick));
 
         poseStack.popPose();
     }
 
     @Override
-    public boolean keyReleased(int keyCode, int scanCode, int modifiers)
+    public boolean keyReleased(int keyCode, int scanCode, int keyModifiers)
     {
         if (keyCode == ModKeymappings.MINIGAME_HIT.getKey().getValue())
         {
             isHoldingKey = false;
             holdingTicks = 0;
         }
-        return super.keyReleased(keyCode, scanCode, modifiers);
+
+        modifiers.forEach(mod -> mod.onKeyReleased(keyCode, scanCode, keyModifiers));
+
+        return super.keyReleased(keyCode, scanCode, keyModifiers);
     }
 
     @Override
@@ -429,7 +456,7 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener
     }
 
     @Override
-    public boolean keyPressed(int keyCode, int scanCode, int modifiers)
+    public boolean keyPressed(int keyCode, int scanCode, int keyModifiers)
     {
         //closes when pressing E
         InputConstants.Key mouseKey = InputConstants.getKey(keyCode, scanCode);
@@ -447,7 +474,9 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener
             isHoldingKey = true;
         }
 
-        return super.keyPressed(keyCode, scanCode, modifiers);
+        this.modifiers.forEach(mod -> mod.onKeyPress(keyCode, scanCode, keyModifiers));
+
+        return super.keyPressed(keyCode, scanCode, keyModifiers);
     }
 
     private void inputPressed()
@@ -463,26 +492,30 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener
 
         kimbeMarkerPos = getPointerPosPrecise();
 
-        ActiveSweetSpot hitSweetSpot = null;
+
         for (ActiveSweetSpot ass : activeSweetSpots)
         {
             if (doDegreesOverlapWithLeeway(getPointerPosPrecise(), ass.pos, ass.thickness / 2))
             {
-                ass.behaviour.onHit();
 
-                hitSweetSpot = ass;
+                //check if each modifier allows the hit to register
+                boolean isCanceled = false;
+                for (AbstractModifier modifier : modifiers) {
+
+                   if (modifier.onHit(ass))
+                       isCanceled = true;
+                }
+
+                if (isCanceled) continue;
+
                 hitSomething = true;
+                ass.behaviour.onHit();
                 break;
             }
         }
 
 
-        if (hitSomething)
-        {
-            ActiveSweetSpot finalHitSweetSpot = hitSweetSpot;
-            modifiers.forEach(modifier -> modifier.onHit(finalHitSweetSpot));
-        }
-        else
+        if (!hitSomething)
         {
             this.modifiers.forEach(modifier -> modifier.onMiss());
 
@@ -634,6 +667,22 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener
                     ));
         }
     }
+
+    /**
+     * Renders a texture centered to the top left corner, to be moved with poseStack
+     */
+    public static void renderPoseCentered(GuiGraphics guiGraphics, ResourceLocation texture, int spriteSize){
+        guiGraphics.blit(
+                texture, -spriteSize / 2, -spriteSize / 2,
+                spriteSize, spriteSize, 0, 0, spriteSize, spriteSize, spriteSize, spriteSize);
+    }
+
+    public static void renderPoseCentered(GuiGraphics guiGraphics, ResourceLocation texture, int spriteWidth, int spriteHeight, int uOffset, int vOffset, int textureSize){
+        guiGraphics.blit(
+                texture, -spriteWidth / 2, -spriteHeight / 2,
+                spriteWidth, spriteHeight, uOffset, vOffset, spriteWidth, spriteHeight, textureSize, textureSize);
+    }
+
 
     public boolean isHoldingInput()
     {

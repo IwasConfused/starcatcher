@@ -15,9 +15,8 @@ public class ShinyHookModifier extends AbstractModifier
     }
 
     @Override
-    public void onHit(ActiveSweetSpot ass)
+    public boolean onHit(ActiveSweetSpot ass)
     {
-        super.onHit(ass);
         hits++;
 
         if(hits == 3 && !instance.treasureActive && instance.treasureProgress == 0)
@@ -25,5 +24,7 @@ public class ShinyHookModifier extends AbstractModifier
             instance.addSweetSpot(new ActiveSweetSpot(instance, FishProperties.SweetSpot.TREASURE));
             removed = true;
         }
+
+        return super.onHit(ass);
     }
 }

@@ -5,9 +5,10 @@ import com.wdiscute.starcatcher.minigame.ActiveSweetSpot;
 public class StoneHookModifier extends AbstractModifier
 {
     @Override
-    public void onHit(ActiveSweetSpot ass)
+    public boolean onHit(ActiveSweetSpot ass)
     {
-        super.onHit(ass);
         instance.gracePeriod = instance.fishProperties.rarity().getStoneHookGraceTicks();;
+
+        return super.onHit(ass);
     }
 }

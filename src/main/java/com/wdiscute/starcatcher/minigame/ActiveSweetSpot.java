@@ -8,6 +8,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 import java.util.function.Supplier;
 
@@ -39,6 +41,9 @@ public class ActiveSweetSpot
 
     public boolean removed = false;
     public boolean shouldSudokuOnVanish = false;
+
+    // For use with modifiers, map an id with some data
+    public Map<Integer, Object> extraData = new HashMap<>();
 
     public ActiveSweetSpot(FishingMinigameScreen instance, FishProperties.SweetSpot ss, ItemStack bobber, ItemStack bait, ItemStack hook)
     {

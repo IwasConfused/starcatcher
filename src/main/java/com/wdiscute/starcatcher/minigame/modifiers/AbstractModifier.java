@@ -29,7 +29,13 @@ public abstract class AbstractModifier
         return spot;
     }
 
-    public void onHit(ActiveSweetSpot ass){};
+    /**
+     * Runs right before the sweetSpotBehaviour hit
+     * @return whether the hit should be canceled and handled on the sweet spot
+     */
+    public boolean onHit(ActiveSweetSpot ass){
+        return false;
+    };
 
     public void onMiss(){}
 
@@ -37,7 +43,35 @@ public abstract class AbstractModifier
         tickCount++;
     }
 
+    public void onKeyPress(int key,  int scanCode, int keyModifiers){}
+
+    public void onKeyReleased(int key, int scanCode, int keyModifiers){}
+
     public void renderBackground(GuiGraphics guiGraphics, float partialTick, int width, int height){};
 
     public void renderForeground(GuiGraphics guiGraphics, float partialTick, int width, int height){};
+
+    /**
+     * Disables rendering the included pointer
+     * <p>
+     * Still renders {@link #renderOnPointer(GuiGraphics, PoseStack, float)}
+     */
+    public boolean disablePointerRendering(){
+        return false;
+    }
+
+    /**
+     * Has the correctly rotated poseStack already
+     */
+    public void renderOnPointer(GuiGraphics guiGraphics, PoseStack poseStack, float partialTick){};
+
+
+    public boolean disableSweetSpotRendering(ActiveSweetSpot spot){
+        return false;
+    }
+
+    public void renderOnSweetSpot(GuiGraphics guiGraphics, PoseStack poseStack, ActiveSweetSpot spot, float partialTick){
+
+    };
+
 }
