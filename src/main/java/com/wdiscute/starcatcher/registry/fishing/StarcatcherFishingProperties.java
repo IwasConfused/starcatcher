@@ -16,7 +16,7 @@ public class StarcatcherFishingProperties
                 .withSizeAndWeight(FishProperties.sw(17.7f, 5, 1200, 200)));
 
         registerStarcatcherBucketAndEntity(overworldLakeFish(ModItems.MORGANITE)
-                .withSeasons(Seasons.SUMMER)
+                .withSeasons(Seasons.SUMMER, Seasons.AUTUMN)
                 .withSizeAndWeight(FishProperties.sw(120, 80, 7000, 1000))
                 .withWeather(FishProperties.Weather.RAIN)
                 .withRarity(FishProperties.Rarity.UNCOMMON)
@@ -73,7 +73,7 @@ public class StarcatcherFishingProperties
 
         registerStarcatcherBucketAndEntity(overworldColdLakeFish(ModItems.CRYSTALBACK_TROUT)
                 .withSizeAndWeight(FishProperties.sw(35, 8, 1600, 1200))
-                .withSeasons(Seasons.WINTER)
+                .withSeasons(Seasons.AUTUMN, Seasons.WINTER)
                 .withDifficulty(FishProperties.Difficulty.MEDIUM));
 
         registerStarcatcherBucketAndEntity(overworldColdLakeFish(ModItems.AURORA)
@@ -92,7 +92,7 @@ public class StarcatcherFishingProperties
         //lake warm
         registerStarcatcherBucketAndEntity(overworldWarmLakeFish(ModItems.SANDTAIL)
                 .withSizeAndWeight(FishProperties.sw(200, 100, 1600, 1200))
-                .withSeasons(Seasons.SUMMER)
+                .withSeasons(Seasons.SUMMER, Seasons.AUTUMN)
                 .withDaytime(FishProperties.Daytime.NIGHT));
 
         registerStarcatcherBucketAndEntity(overworldWarmLakeFish(ModItems.MIRAGE_CARP)
@@ -109,7 +109,7 @@ public class StarcatcherFishingProperties
 
         registerStarcatcherBucketAndEntity(overworldWarmLakeFish(ModItems.CACTIFISH)
                 .withSizeAndWeight(FishProperties.sw(100, 50, 10000, 3000))
-                .withSeasons(Seasons.SUMMER)
+                .withSeasons(Seasons.SUMMER, Seasons.SUMMER)
                 .withDaytime(FishProperties.Daytime.DAY));
 
         registerStarcatcherBucketAndEntity(overworldWarmLakeFish(ModItems.AGAVE_BREAM)
@@ -149,7 +149,7 @@ public class StarcatcherFishingProperties
         //swamp
         registerStarcatcherBucketAndEntity(overworldSwampFish(ModItems.SLUDGE_CATFISH)
                 .withSizeAndWeight(FishProperties.sw(100, 50, 10000, 3000))
-                .withSeasons(Seasons.SPRING)
+                .withSeasons(Seasons.SPRING, Seasons.SUMMER)
                 .withRarity(FishProperties.Rarity.UNCOMMON));
 
         registerStarcatcherBucketAndEntity(overworldSwampFish(ModItems.LILY_SNAPPER)
@@ -192,13 +192,13 @@ public class StarcatcherFishingProperties
 
         //cherry grove
         registerStarcatcherBucketAndEntity(overworldCherryGroveFish(ModItems.VESANI)
-                .withSeasons(Seasons.SPRING, Seasons.EARLY_SUMMER)
+                .withSeasons(Seasons.SPRING, Seasons.WINTER)
                 .withSizeAndWeight(FishProperties.sw(10, 3, 67, 0))
                 .withRarity(FishProperties.Rarity.LEGENDARY)
                 .withDifficulty(FishProperties.Difficulty.THREE_AQUA_ONE_BIG_ONE_SMALL_VANISHING));
 
         registerStarcatcherBucketAndEntity(overworldCherryGroveFish(ModItems.BLOSSOMFISH)
-                .withSeasons(Seasons.SPRING)
+                .withSeasons(Seasons.SPRING, Seasons.SUMMER)
                 .withSizeAndWeight(FishProperties.sw(60, 20, 6000, 4000))
                 .withWeather(FishProperties.Weather.CLEAR));
 
@@ -209,7 +209,7 @@ public class StarcatcherFishingProperties
                 .withRarity(FishProperties.Rarity.UNCOMMON));
 
         registerStarcatcherBucketAndEntity(overworldCherryGroveFish(ModItems.PINK_KOI)
-                .withSeasons(Seasons.SPRING)
+                .withSeasons(Seasons.SPRING, Seasons.AUTUMN)
                 .withSizeAndWeight(FishProperties.sw(60, 20, 3000, 2000))
                 .withWeather(FishProperties.Weather.RAIN));
 
@@ -266,13 +266,17 @@ public class StarcatcherFishingProperties
                 .withBaseChance(2));
 
         registerStarcatcherBucketAndEntity(overworldRiverFish(ModItems.HOLLOWBELLY_DARTER)
-                .withSeasons(Seasons.SPRING)
+                .withSeasons(Seasons.SPRING, Seasons.SUMMER)
                 .withSizeAndWeight(FishProperties.sw(6, 2, 7, 6))
                 .withDifficulty(FishProperties.Difficulty.EASY_MOVING));
 
         registerStarcatcherBucketAndEntity(overworldRiverFish(ModItems.MISTBACK_CHUB)
-                .withSeasons(Seasons.SPRING)
+                .withSeasons(Seasons.SPRING, Seasons.SUMMER)
                 .withSizeAndWeight(FishProperties.sw(30, 10, 1400, 600)));
+
+        registerStarcatcherBucketAndEntity(overworldRiverFish(ModItems.BLUEGIGI)
+                .withSeasons(Seasons.SPRING, Seasons.SUMMER)
+                .withSizeAndWeight(FishProperties.sw(20, 5, 400, 100)));
 
         registerStarcatcherBucketAndEntity(overworldRiverFish(ModItems.SILVERFIN_PIKE)
                 .withSizeAndWeight(FishProperties.sw(75, 20, 5000, 3000))

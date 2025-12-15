@@ -79,7 +79,8 @@
       "minecraft:water"
     ],
     "seasons": [
-      "summer"
+      "summer",
+      "autumn"
     ]
   }
 }

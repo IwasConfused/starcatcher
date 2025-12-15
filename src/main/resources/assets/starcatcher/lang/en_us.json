@@ -1014,6 +1014,10 @@
   "item.starcatcher.mistback_chub" : "Mistback Chub",
   "tooltip.starcatcher.mistback_chub.0" : "A river fish known for its silver colored scaled",
 
+  "item.starcatcher.bluegigi" : "Bluegigi",
+  "tooltip.starcatcher.bluegigi.0" : "Not to be confused with a bluegill,",
+  "tooltip.starcatcher.bluegigi.1" : "this small fish is rather common around rivers.",
+
   "item.starcatcher.dried_seaweed" : "Dried Seaweed",
   "tooltip.starcatcher.dried_seaweed.0" : "A piece of dead seaweed which got",
   "tooltip.starcatcher.dried_seaweed.1" : "caught up in your hook.",
