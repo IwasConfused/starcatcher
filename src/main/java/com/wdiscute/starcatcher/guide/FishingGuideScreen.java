@@ -586,13 +586,13 @@ public class FishingGuideScreen extends Screen
             {
                 renderImage(guiGraphics, HELP_PAGE_1);
                 renderItem(basicsIcon, uiX + 166, uiY + 39, 1);
-                guiGraphics.drawString(this.font, Component.translatable("gui.guide.basics"), uiX + 80, uiY + 45, 0xff000000, false);
+                guiGraphics.drawString(this.font, Component.translatable("gui.guide.basics"), uiX + 80, uiY + 45, 0x635040, false);
             }
             case 1 ->
             {
                 renderImage(guiGraphics, HELP_PAGE_2);
                 renderItem(treasuresIcon, uiX + 166, uiY + 39, 1);
-                guiGraphics.drawString(this.font, Component.translatable("gui.guide.treasures"), uiX + 80, uiY + 45, 0xff000000, false);
+                guiGraphics.drawString(this.font, Component.translatable("gui.guide.treasures"), uiX + 80, uiY + 45, 0x635040, false);
             }
             case 2 ->
             {
@@ -600,24 +600,57 @@ public class FishingGuideScreen extends Screen
 
                 //hooks
                 renderItem(ironHookIcon, uiX + 166, uiY + 39, 1);
-                guiGraphics.drawString(this.font, Component.translatable("gui.guide.hooks"), uiX + 80, uiY + 45, 0xff000000, false);
+                guiGraphics.drawString(this.font, Component.translatable("gui.guide.hooks"), uiX + 80, uiY + 45, 0x635040, false);
 
-                for (int i = 0; i < 4; i++)
+                for (int i = 0; i < hooks.size(); i++)
                 {
-                    renderItemWithOutlineAndHover(guiGraphics, hooks.get(i), 56 + 28 * i, 157, mouseX, mouseY);
-                }
+                    int rowSize = Math.min(5, (hooks.size() - i / 5 * 5));
+                    int x = 70 - rowSize * 23 / 2;
 
-                for (int i = 0; i < 4; i++)
-                {
-                    renderItemWithOutlineAndHover(guiGraphics, hooks.get(i + 4), 67 + 32 * i, 182, mouseX, mouseY);
+                    int xrender = x + (i % 5) * 23;
+                    int y = i / 5 * 25;
+
+                    //offset to page
+                    xrender += uiX + 60;
+                    y += uiY + 120;
+
+                    ItemStack is = hooks.get(i);
+
+                    guiGraphics.fill(xrender - 10, y - 2, xrender + 10, y + 18, 0xffb4a697);
+                    renderItem(is, xrender - 8, y, 1);
+
+                    if (mouseX > xrender - 10 && mouseX < xrender + 10 && mouseY > y - 2 && mouseY < y + 18)
+                    {
+                        guiGraphics.renderTooltip(this.font, is, mouseX, mouseY);
+                    }
                 }
 
                 //bobbers
                 renderItem(bobberIcon, uiX + 321, uiY + 39, 1);
-                guiGraphics.drawString(this.font, Component.translatable("gui.guide.bobbers"), uiX + 228, uiY + 45, 0xff000000, false);
+                guiGraphics.drawString(this.font, Component.translatable("gui.guide.bobbers"), uiX + 228, uiY + 45, 0x635040, false);
+                for (int i = 0; i < bobbers.size(); i++)
+                {
+                    int rowSize = Math.min(6, (bobbers.size() - i / 6 * 6));
+                    int x = 70 - rowSize * 23 / 2;
 
-                //todo make this dynamic
-                renderItemWithOutlineAndHover(guiGraphics, bobbers.get(1), 332, 157, mouseX, mouseY);
+                    int xrender = x + (i % 6) * 23;
+                    int y = i / 6 * 25;
+
+                    //offset to page
+                    xrender += uiX + 223;
+                    y += uiY + 120;
+
+                    ItemStack is = bobbers.get(i);
+
+                    guiGraphics.fill(xrender - 10, y - 2, xrender + 10, y + 18, 0xffb4a697);
+                    renderItem(is, xrender - 8, y, 1);
+
+                    if (mouseX > xrender - 10 && mouseX < xrender + 10 && mouseY > y - 2 && mouseY < y + 18)
+                    {
+                        guiGraphics.renderTooltip(this.font, is, mouseX, mouseY);
+                    }
+                }
+
             }
             case 3 ->
             {
@@ -625,14 +658,35 @@ public class FishingGuideScreen extends Screen
 
                 //bait
                 renderItem(cherryBaitIcon, uiX + 166, uiY + 39, 1);
-                guiGraphics.drawString(this.font, Component.translatable("gui.guide.baits"), uiX + 80, uiY + 45, 0xff000000, false);
+                guiGraphics.drawString(this.font, Component.translatable("gui.guide.baits"), uiX + 80, uiY + 45, 0x635040, false);
 
-                //todo make this dynamic
-                renderItemWithOutlineAndHover(guiGraphics, baits.get(0), 76, 182, mouseX, mouseY);
+                for (int i = 0; i < baits.size(); i++)
+                {
+                    int slotsPerRow = 6;
+                    int rowSize = Math.min(slotsPerRow, (baits.size() - i / slotsPerRow * slotsPerRow));
+                    int x = 70 - rowSize * 23 / 2;
+
+                    int xrender = x + (i % slotsPerRow) * 23;
+                    int y = i / slotsPerRow * 25;
+
+                    //offset to page
+                    xrender += uiX + 60;
+                    y += uiY + 110;
+
+                    ItemStack is = baits.get(i);
+
+                    guiGraphics.fill(xrender - 10, y - 2, xrender + 10, y + 18, 0xffb4a697);
+                    renderItem(is, xrender - 8, y, 1);
+
+                    if (mouseX > xrender - 10 && mouseX < xrender + 10 && mouseY > y - 2 && mouseY < y + 18)
+                    {
+                        guiGraphics.renderTooltip(this.font, is, mouseX, mouseY);
+                    }
+                }
 
                 //gadgets
                 renderItem(fishSpotterIcon, uiX + 321, uiY + 39, 1);
-                guiGraphics.drawString(this.font, Component.translatable("gui.guide.gadgets"), uiX + 228, uiY + 45, 0xff000000, false);
+                guiGraphics.drawString(this.font, Component.translatable("gui.guide.gadgets"), uiX + 228, uiY + 45, 0x635040, false);
                 renderItemWithOutlineAndHover(guiGraphics, fishSpotterIcon, 276, 170, mouseX, mouseY);
             }
             case 4 ->
@@ -641,11 +695,11 @@ public class FishingGuideScreen extends Screen
 
                 //trophies
                 renderItem(trophiesIcon, uiX + 166, uiY + 39, 1);
-                guiGraphics.drawString(this.font, Component.translatable("gui.guide.trophies"), uiX + 80, uiY + 45, 0xff000000, false);
+                guiGraphics.drawString(this.font, Component.translatable("gui.guide.trophies"), uiX + 80, uiY + 45, 0x635040, false);
                 renderTrophies(guiGraphics, mouseX, mouseY);
 
                 renderItem(secretsIcon, uiX + 321, uiY + 39, 1);
-                guiGraphics.drawString(this.font, Component.translatable("gui.guide.secrets"), uiX + 228, uiY + 45, 0xff000000, false);
+                guiGraphics.drawString(this.font, Component.translatable("gui.guide.secrets"), uiX + 228, uiY + 45, 0x635040, false);
                 renderSecrets(guiGraphics, mouseX, mouseY);
             }
         }
@@ -1867,20 +1921,10 @@ public class FishingGuideScreen extends Screen
     {
         super(Component.empty());
 
-        for (DeferredHolder<Item, ? extends Item> item : ModItems.BOBBERS_REGISTRY.getEntries())
-        {
-            bobbers.add(new ItemStack(item));
-        }
-
-        for (DeferredHolder<Item, ? extends Item> item : ModItems.BAITS_REGISTRY.getEntries())
-        {
-            baits.add(new ItemStack(item));
-        }
-
-        for (DeferredHolder<Item, ? extends Item> item : ModItems.HOOKS_REGISTRY.getEntries())
-        {
-            hooks.add(new ItemStack(item));
-        }
+        //get all items in bobbers/hooks/baits tags
+        BuiltInRegistries.ITEM.getTag(StarcatcherTags.BOBBERS).get().stream().forEach(i -> bobbers.add(i.value().getDefaultInstance()));
+        BuiltInRegistries.ITEM.getTag(StarcatcherTags.BAITS).get().stream().forEach(i -> baits.add(i.value().getDefaultInstance()));
+        BuiltInRegistries.ITEM.getTag(StarcatcherTags.HOOKS).get().stream().forEach(i -> hooks.add(i.value().getDefaultInstance()));
 
         basicsIcon = new ItemStack(ModItems.ROD.get());
         treasuresIcon = new ItemStack(ModItems.WATERLOGGED_SATCHEL.get());
