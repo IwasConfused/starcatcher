@@ -17,16 +17,15 @@ description='''A fishing mod with lots of fishes to collect!
 
 Credits:
 wdiscute - Main Developer
-
-Kapitenft, DuckXYZ, Nikdo53, Quarris - Coding support and fixing my mess
-
+Kapitenft, DuckXYZ, Nikdo53, Quarris & more - Coding support and fixing my mess
 Nikdo53 - Fishing minigame art & miscellaneous texture tweeks
+ScribbleDemon - Guide book, fish radar and "Fish Caught!" notification art
+DayTheMagpie - Trophy Models, tournament stand model & UI art
+Spring - 3d Fish models and some sprite tweaks
+Burning Sulphur - Aiding in adding compatibility with mods
+Axtro - Farmer's Delight addon
 
-ScribbleDemon - Guide book, fish spotter and "Fish Caught!" notification art
-
-DayTheMagpie - Fish Trophies Models
-
-Spring - 3d Fish models
+Thank you everyone who stopped by my streams as I developed the mod and followed along the journey ♥
 '''
 
 [[mixins]]
