@@ -284,7 +284,8 @@ public class StarcatcherFishingProperties
                 .withDifficulty(FishProperties.Difficulty.EASY_MOVING)
                 .withRarity(FishProperties.Rarity.UNCOMMON));
 
-        register(overworldRiverFish(ModItems.DRIED_SEAWEED).withBaseChance(1)
+        register(overworldRiverFish(ModItems.DRIED_SEAWEED)
+                .withBaseChance(1)
                 .withSkipMinigame(true)
                 .withHasGuideEntry(false));
 

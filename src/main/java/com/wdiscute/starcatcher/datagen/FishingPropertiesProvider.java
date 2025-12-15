@@ -41,7 +41,8 @@ public class FishingPropertiesProvider extends DatapackBuiltinEntriesProvider {
                 "aquamirae",
                 "hybrid_aquatic",
                 "hybrid-aquatic",
-                "tfc"
+                "tfc",
+                "betterend"
                 //That's a lot of compatibilities
         ));
     }
