@@ -179,7 +179,7 @@ public class FishingBobEntity extends Projectile
 
             if (check(all, tp.all())
                     && !trophiesCaught.contains(tp)
-                    && FishProperties.getChance(tp.fp(), this, bait) > 0
+                    && FishProperties.getChance(tp.fp(), this, rod) > 0
                     && random.nextIntBetweenInclusive(0, 99) < tp.chanceToCatch()
             )
             {
@@ -247,7 +247,7 @@ public class FishingBobEntity extends Projectile
         //if no trophy is available, get chances of getting each fish
         for (FishProperties fp : level().registryAccess().registryOrThrow(Starcatcher.FISH_REGISTRY))
         {
-            int chance = FishProperties.getChance(fp, this, bait);
+            int chance = FishProperties.getChance(fp, this, rod);
 
             for (int i = 0; i < chance; i++)
             {

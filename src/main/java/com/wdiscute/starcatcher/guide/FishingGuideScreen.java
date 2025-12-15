@@ -59,6 +59,9 @@ public class FishingGuideScreen extends Screen
     private static final ResourceLocation BACKGROUND_ENTRY = Starcatcher.rl("textures/gui/guide/background_entry.png");
     private static final ResourceLocation BACKGROUND_BASICS = Starcatcher.rl("textures/gui/guide/background_basics.png");
 
+    private static final ResourceLocation HIGHLIGHT_LEFT = Starcatcher.rl("textures/gui/guide/highlight_page_left.png");
+    private static final ResourceLocation HIGHLIGHT_RIGHT = Starcatcher.rl("textures/gui/guide/highlight_page_right.png");
+
     private static final ResourceLocation FISHES_IN_AREA_TOP_RIGHT_DECORATION = Starcatcher.rl("textures/gui/guide/fishes_in_area_top_right_decoration.png");
     private static final ResourceLocation FISHES_IN_AREA_BOTTOM_LEFT_DECORATION = Starcatcher.rl("textures/gui/guide/fishes_in_area_bottom_left_decoration.png");
     private static final ResourceLocation FISHES_IN_AREA_FISH_DECORATION = Starcatcher.rl("textures/gui/guide/fishes_in_area_fish_decoration.png");
@@ -120,6 +123,9 @@ public class FishingGuideScreen extends Screen
 
     int clickedX;
     int clickedY;
+
+    float highlightLeftAlpha = 0;
+    float highlightRightAlpha = 0;
 
     boolean arrowPreviousPressed;
     boolean arrowNextPressed;
@@ -376,6 +382,14 @@ public class FishingGuideScreen extends Screen
         }
 
         return super.mouseClicked(mouseX, mouseY, button);
+    }
+
+    @Override
+    public void tick()
+    {
+        super.tick();
+        highlightLeftAlpha -= 0.025f;
+        highlightRightAlpha -= 0.025f;
     }
 
     @Override
@@ -880,6 +894,11 @@ public class FishingGuideScreen extends Screen
             minecraft.player.playSound(SoundEvents.BOOK_PAGE_TURN);
             menu = 2;
             page = entries.indexOf(fp) / 2;
+
+            if(entries.indexOf(fp) % 2 == 0)
+                highlightLeftAlpha = 0.5f;
+            else
+                highlightRightAlpha = 0.5f;
         }
 
         //render fill
@@ -942,22 +961,47 @@ public class FishingGuideScreen extends Screen
                 components.add(Component.translatable("gui.guide.caught").append(Component.literal(" [" + caught + "]")).withColor(0x40752c));
             }
 
+            components.add(Component.literal(""));
+
+            String check = "";
+            color = FishProperties.isDimensionCorrect(player, fp) ? 0x40752c : 0xa34536;
+            check = FishProperties.isDimensionCorrect(player, fp) ? "✅" : "❌";
+            components.add(Component.translatable("gui.guide.dimension").append(Component.literal(check)).withColor(color));
+
+            color = FishProperties.isBiomeCorrect(player, fp) ? 0x40752c : 0xa34536;
+            check = FishProperties.isBiomeCorrect(player, fp) ? "✅" : "❌";
+            components.add(Component.translatable("gui.guide.biome").append(Component.literal(check)).withColor(color));
+
+            color = FishProperties.isWeatherCorrect(player, fp, ItemStack.EMPTY) ? 0x40752c : 0xa34536;
+            check = FishProperties.isWeatherCorrect(player, fp, ItemStack.EMPTY) ? "✅" : "❌";
+            components.add(Component.translatable("gui.guide.weather").append(Component.literal(check)).withColor(color));
+
+            color = FishProperties.isDaytimeCorrect(player, fp) ? 0x40752c : 0xa34536;
+            check = FishProperties.isDaytimeCorrect(player, fp) ? "✅" : "❌";
+            components.add(Component.translatable("gui.guide.daytime").append(Component.literal(check)).withColor(color));
+
+            color = FishProperties.isElevationCorrect(player, fp) ? 0x40752c : 0xa34536;
+            check = FishProperties.isElevationCorrect(player, fp) ? "✅" : "❌";
+            components.add(Component.translatable("gui.guide.elevation").append(Component.literal(check)).withColor(color));
+
+            components.add(Component.literal(""));
+
             //Serene Seasons compat
-            if (ModList.get().isLoaded("sereneseasons"))
+            if (ModList.get().isLoaded("sereneseasons") && Config.ENABLE_SEASONS.get())
                 if (SereneSeasonsCompat.canCatch(fp, level))
                     components.add(Component.translatable("gui.guide.seasons.in_season").withStyle(Style.EMPTY.withColor(0x40752c)));
                 else
                     components.add(Component.translatable("gui.guide.seasons.not_in_season").withStyle(Style.EMPTY.withColor(0xa34536)));
 
             //Ecliptic Seasons compat
-            if (ModList.get().isLoaded("eclipticseasons"))
+            if (ModList.get().isLoaded("eclipticseasons") && Config.ENABLE_SEASONS.get())
                 if (EclipticSeasonsCompat.canCatch(fp, level))
                     components.add(Component.translatable("gui.guide.seasons.in_season").withStyle(Style.EMPTY.withColor(0x40752c)));
                 else
                     components.add(Component.translatable("gui.guide.seasons.not_in_season").withStyle(Style.EMPTY.withColor(0xa34536)));
 
             //TerraFirmaCraft Seasons compat
-            if (ModList.get().isLoaded("tfc"))
+            if (ModList.get().isLoaded("tfc") && Config.ENABLE_SEASONS.get())
                 if (TerraFirmaCraftSeasonsCompat.canCatch(fp, level))
                     components.add(Component.translatable("gui.guide.seasons.in_season").withStyle(Style.EMPTY.withColor(0x40752c)));
                 else
@@ -995,7 +1039,7 @@ public class FishingGuideScreen extends Screen
             }
         }
 
-        //render caught: (always shown)
+        //render caught:
         //caught:
         guiGraphics.drawString(
                 this.font, Component.translatable("gui.guide.caught"),
@@ -1028,7 +1072,7 @@ public class FishingGuideScreen extends Screen
 
 
         //render seasons
-        if (ModList.get().isLoaded("sereneseasons") || ModList.get().isLoaded("eclipticseasons") || ModList.get().isLoaded("tfc"))
+        if ((ModList.get().isLoaded("sereneseasons") || ModList.get().isLoaded("eclipticseasons") || ModList.get().isLoaded("tfc")) && Config.ENABLE_SEASONS.get())
         {
 
             int seasonX = 79;
@@ -1070,10 +1114,9 @@ public class FishingGuideScreen extends Screen
                 }
                 guiGraphics.renderTooltip(this.font, seasonsComp, Optional.empty(), mouseX, mouseY);
             }
-
         }
 
-
+        //rarity
         guiGraphics.drawString(
                 this.font, Component.translatable("gui.guide.rarity"),
                 uiX + xOffset + 73, uiY + 90, 0x9c897c, false);
@@ -1130,9 +1173,7 @@ public class FishingGuideScreen extends Screen
 
         //render fish tooltip
         if (mouseX > uiX + xOffset + 0 && mouseX < uiX + xOffset + 65 && mouseY > uiY + 45 && mouseY < uiY + 110 && fcc != null)
-        {
             guiGraphics.renderTooltip(this.font, is, mouseX, mouseY);
-        }
 
         //render stats tooltip
         if (mouseX > uiX + xOffset + 66 && mouseX < uiX + xOffset + 140 && mouseY > uiY + 57 && mouseY < uiY + 110 && fcc != null)
@@ -1398,7 +1439,6 @@ public class FishingGuideScreen extends Screen
 
         yOffset += 12;
 
-
         //weather
         {
             Component comp;
@@ -1441,9 +1481,7 @@ public class FishingGuideScreen extends Screen
 
         }
 
-
         yOffset += 12;
-
 
         //daytime
         {
@@ -1568,6 +1606,24 @@ public class FishingGuideScreen extends Screen
             }
             guiGraphics.drawString(this.font, Component.translatable("gui.guide.fluid").append(comp), uiX + xOffset, uiY + yOffset, 0x635040, false);
 
+        }
+
+        if(highlightRightAlpha > 0)
+        {
+            RenderSystem.enableBlend();
+            RenderSystem.setShaderColor(1, 1, 1, highlightRightAlpha);
+            renderImage(guiGraphics, HIGHLIGHT_RIGHT);
+            RenderSystem.setShaderColor(1, 1, 1, 1);
+            RenderSystem.disableBlend();
+        }
+
+        if(highlightLeftAlpha > 0)
+        {
+            RenderSystem.enableBlend();
+            RenderSystem.setShaderColor(1, 1, 1, highlightLeftAlpha);
+            renderImage(guiGraphics, HIGHLIGHT_LEFT);
+            RenderSystem.setShaderColor(1, 1, 1, 1);
+            RenderSystem.disableBlend();
         }
     }
 
