@@ -627,10 +627,10 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener
                             xPos,
                             yPos,
                             new Vector2d(U.r.nextFloat() * 2 - 1, U.r.nextFloat() * 2 - 1),
-                            FastColor.ARGB32.red(color),
-                            FastColor.ARGB32.green(color),
-                            FastColor.ARGB32.blue(color),
-                            FastColor.ARGB32.alpha(color)
+                            (float) U.intToRed(color) / 255,
+                            (float) U.intToGreen(color) / 255,
+                            (float) U.intToBlue(color) / 255,
+                            1
                     ));
         }
     }
