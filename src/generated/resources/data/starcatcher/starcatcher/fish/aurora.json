@@ -12,7 +12,7 @@
     "entity": "starcatcher:fish",
     "fish_bucket": "starcatcher:starcaught_bucket",
     "item": "starcatcher:aurora",
-    "treasure": "starcatcher:waterlogged_satchel"
+    "treasure": "starcatcher:azure_crystal_rod"
   },
   "daytime": "all",
   "difficulty": {

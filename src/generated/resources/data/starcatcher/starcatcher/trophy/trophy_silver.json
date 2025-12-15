@@ -76,5 +76,6 @@
     }
   },
   "progress": {},
+  "repeatable": true,
   "trophy_type": "trophy"
 }

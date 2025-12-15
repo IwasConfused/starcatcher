@@ -16,7 +16,7 @@
       "always_spawn_entity": false,
       "entity": "starcatcher:fish",
       "fish_bucket": "starcatcher:missingno",
-      "item": "minecraft:netherite_upgrade_smithing_template",
+      "item": "starcatcher:boner_rod",
       "treasure": "starcatcher:waterlogged_satchel"
     },
     "daytime": "all",
@@ -61,7 +61,9 @@
     "world_restrictions": {
       "above_y": -2147483648,
       "below_y": 2147483647,
-      "biomes": [],
+      "biomes": [
+        "minecraft:soul_sand_valley"
+      ],
       "biomes_blacklist": [],
       "biomes_blacklist_tags": [],
       "biomes_tags": [],

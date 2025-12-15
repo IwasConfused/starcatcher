@@ -85,5 +85,6 @@
       "unique": 0
     }
   },
+  "repeatable": false,
   "trophy_type": "secret"
 }

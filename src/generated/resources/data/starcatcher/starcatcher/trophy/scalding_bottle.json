@@ -78,5 +78,6 @@
     }
   },
   "progress": {},
+  "repeatable": false,
   "trophy_type": "secret"
 }

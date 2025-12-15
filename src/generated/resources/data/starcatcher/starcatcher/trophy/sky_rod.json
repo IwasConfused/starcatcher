@@ -16,7 +16,7 @@
       "always_spawn_entity": false,
       "entity": "starcatcher:fish",
       "fish_bucket": "starcatcher:missingno",
-      "item": "minecraft:netherite_upgrade_smithing_template",
+      "item": "starcatcher:sky_rod",
       "treasure": "starcatcher:waterlogged_satchel"
     },
     "daytime": "all",
@@ -59,18 +59,18 @@
     "skips_minigame": false,
     "weather": "all",
     "world_restrictions": {
-      "above_y": -2147483648,
+      "above_y": 300,
       "below_y": 2147483647,
       "biomes": [],
       "biomes_blacklist": [],
       "biomes_blacklist_tags": [],
       "biomes_tags": [],
       "dimensions": [
-        "minecraft:the_nether"
+        "minecraft:overworld"
       ],
       "dimensions_blacklist": [],
       "fluids": [
-        "minecraft:lava"
+        "minecraft:water"
       ],
       "seasons": [
         "all"

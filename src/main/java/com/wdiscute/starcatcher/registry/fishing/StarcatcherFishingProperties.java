@@ -62,7 +62,7 @@ public class StarcatcherFishingProperties
                 .withDifficulty(FishProperties.Difficulty.HARD_VANISHING));
 
         register(overworldLakeFish(ModItems.BOOT).withBaseChance(1)
-                .withSkipMinigame(true)
+                .withDifficulty(FishProperties.Difficulty.TRASH)
                 .withHasGuideEntry(false));
 
 
@@ -77,6 +77,7 @@ public class StarcatcherFishingProperties
                 .withDifficulty(FishProperties.Difficulty.MEDIUM));
 
         registerStarcatcherBucketAndEntity(overworldColdLakeFish(ModItems.AURORA)
+                .withTreasure(ModItems.AZURE_CRYSTAL_ROD)
                 .withSizeAndWeight(FishProperties.sw(10, 8, 120, 30))
                 .withRarity(FishProperties.Rarity.LEGENDARY)
                 .withBaitRestrictions(FishProperties.BaitRestrictions.LEGENDARY_BAIT)
@@ -166,7 +167,7 @@ public class StarcatcherFishingProperties
                 .withWeather(FishProperties.Weather.CLEAR));
 
         register(overworldSwampFish(ModItems.MOSSY_BOOT).withBaseChance(1)
-                .withSkipMinigame(true)
+                .withDifficulty(FishProperties.Difficulty.TRASH)
                 .withHasGuideEntry(false));
 
 
@@ -285,8 +286,8 @@ public class StarcatcherFishingProperties
                 .withRarity(FishProperties.Rarity.UNCOMMON));
 
         register(overworldRiverFish(ModItems.DRIED_SEAWEED)
+                .withDifficulty(FishProperties.Difficulty.TRASH)
                 .withBaseChance(1)
-                .withSkipMinigame(true)
                 .withHasGuideEntry(false));
 
 
@@ -356,8 +357,8 @@ public class StarcatcherFishingProperties
 
         register(overworldOceanFish(ModItems.WATERLOGGED_BOTTLE)
                 .withBaseChance(1)
-                .withHasGuideEntry(false)
-                .withSkipMinigame(true));
+                .withDifficulty(FishProperties.Difficulty.TRASH)
+                .withHasGuideEntry(false));
 
         //deep ocean
         registerStarcatcherBucketAndEntity(overworldDeepOceanFish(ModItems.BIGEYE_TUNA)
@@ -370,11 +371,11 @@ public class StarcatcherFishingProperties
         //beach
         register(overworldBeachFish(ModItems.CONCH)
                 .withSizeAndWeight(FishProperties.sw(5, 2, 100, 49))
-                .withSkipMinigame(true));
+                .withDifficulty(FishProperties.Difficulty.TRASH));
 
         register(overworldBeachFish(ModItems.CLAM)
                 .withSizeAndWeight(FishProperties.sw(20, 5, 1000, 400))
-                .withSkipMinigame(true));
+                .withDifficulty(FishProperties.Difficulty.TRASH));
 
         //mushroom islands
         registerStarcatcherBucketAndEntity(overworldMushroomFieldsFish(ModItems.SHROOMFISH)
@@ -590,7 +591,7 @@ public class StarcatcherFishingProperties
                 .withDifficulty(FishProperties.Difficulty.MEDIUM_MOVING));
 
         register(netherLavaFish(ModItems.LAVA_CRAB_CLAW).withBaseChance(1)
-                .withSkipMinigame(true)
+                .withDifficulty(FishProperties.Difficulty.TRASH)
                 .withHasGuideEntry(false));
 
 

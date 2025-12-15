@@ -281,6 +281,12 @@ public class FishingPropertiesRegistry
                 .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD_DARK_FOREST);
     }
 
+    protected static FishProperties.Builder overworldForestFish(Holder<Item> fish)
+    {
+        return FishProperties.builder().withFish(fish)
+                .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD_FOREST);
+    }
+
     //endregion
 
     private static final List<Pair<ResourceKey<FishProperties>, FishProperties>> PROPERTIES = new ArrayList<>();

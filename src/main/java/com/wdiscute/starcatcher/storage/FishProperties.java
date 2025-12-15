@@ -152,6 +152,12 @@ public record FishProperties(
             return this;
         }
 
+        public Builder withTreasure(Holder<Item> treasure)
+        {
+            this.catchInfo.treasure = treasure;
+            return this;
+        }
+
         public Builder withBucketedFish(Holder<Item> bucketedFish)
         {
             this.catchInfo.withBucketedFish(bucketedFish);
@@ -341,12 +347,6 @@ public record FishProperties(
             public Builder withOverrideMinigameWith(Holder<Item> itemToOverrideWith)
             {
                 this.itemToOverrideWith = itemToOverrideWith;
-                return this;
-            }
-
-            public Builder withTreasure(Holder<Item> treasure)
-            {
-                this.treasure = treasure;
                 return this;
             }
 
@@ -706,6 +706,12 @@ public record FishProperties(
                         .withBiomesTags(StarcatcherTags.IS_DARK_FOREST)
                         .withMustBeCaughtAboveY(50);
 
+        public static final WorldRestrictions OVERWORLD_FOREST =
+                WorldRestrictions.DEFAULT
+                        .withDims(Level.OVERWORLD.location())
+                        .withBiomesTags(BiomeTags.IS_FOREST.location())
+                        .withMustBeCaughtAboveY(50);
+
         public static final WorldRestrictions OVERWORLD_SURFACE =
                 WorldRestrictions.DEFAULT
                         .withDims(Level.OVERWORLD.location())
@@ -882,6 +888,12 @@ public record FishProperties(
 
 
         //region preset difficulties
+
+        public static Difficulty TRASH = new Difficulty(
+                10, 0, 0,
+                List.of(),
+                SweetSpot.TRASH, SweetSpot.TRASH
+        );
 
         public static Difficulty EASY = new Difficulty(
                 9, 5, 1,
@@ -1140,6 +1152,14 @@ public record FishProperties(
         {
             return new SweetSpot(this.sweetSpotType, this.texturePath, this.size, this.reward, this.isFlip, this.vanishingRate, movingRate, this.particleColor);
         }
+
+        public static SweetSpot TRASH = new SweetSpot(
+                ModSweetSpotsBehaviour.NORMAL,
+                RL_NORMAL,
+                22,
+                30,
+                0x00ff00
+        );
 
         public static SweetSpot NORMAL_STEADY = new SweetSpot(
                 ModSweetSpotsBehaviour.NORMAL,

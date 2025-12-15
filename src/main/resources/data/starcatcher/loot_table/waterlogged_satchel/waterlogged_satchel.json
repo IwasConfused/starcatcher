@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:loot_table",
-          "value": "starcatcher:waterlogged_satchel/templates",
+          "value": "starcatcher:waterlogged_satchel/cosmetics",
           "weight": 1
         },
         {

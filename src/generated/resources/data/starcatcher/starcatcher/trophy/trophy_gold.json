@@ -97,5 +97,6 @@
       "unique": 23
     }
   },
+  "repeatable": true,
   "trophy_type": "trophy"
 }
