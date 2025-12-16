@@ -70,8 +70,8 @@ public interface ModItems
 
     //baits
     DeferredItem<Item> WORM = BAITS_REGISTRY.register("worm", () -> new ModifierItem(64, ModModifiers.DECREASES_LURE_TIME));
-    DeferredItem<Item> ALMIGHTY_WORM = BAITS_REGISTRY.register("almighty_worm", () -> new ModifierItem(64, ModModifiers.DECREASES_LURE_TIME, ModModifiers.DECREASES_LURE_TIME));
-    DeferredItem<Item> SEEKING_WORM = BAITS_REGISTRY.register("seeking_worm", () -> new ModifierItem(64, ModModifiers.DECREASES_LURE_TIME, ModModifiers.DECREASES_LURE_TIME));
+    DeferredItem<Item> ALMIGHTY_WORM = BAITS_REGISTRY.register("almighty_worm", () -> new ModifierItem(64, ModModifiers.DECREASES_LURE_TIME, ModModifiers.FISH_ENTITY));
+    DeferredItem<Item> SEEKING_WORM = BAITS_REGISTRY.register("seeking_worm", () -> new ModifierItem(64, ModModifiers.DECREASES_LURE_TIME, ModModifiers.GUARANTEE_NEW_FISH));
 
     DeferredItem<Item> GUNPOWDER_BAIT = BAITS_REGISTRY.register("gunpowder_bait", () -> new ModifierItem(64, ModModifiers.DECREASES_LURE_TIME));
     DeferredItem<Item> CHERRY_BAIT = BAITS_REGISTRY.register("cherry_bait", () -> new ModifierItem(64, ModModifiers.DECREASES_LURE_TIME));
