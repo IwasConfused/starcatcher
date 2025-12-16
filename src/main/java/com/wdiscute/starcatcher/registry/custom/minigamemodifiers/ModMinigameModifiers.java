@@ -28,6 +28,9 @@ public interface ModMinigameModifiers
     //gunpowder bait
     Pair<ResourceLocation, Supplier<AbstractMinigameModifier>> SPAWN_TNT_SWEET_SPOTS = registerMinigameModifier("spawn_tnt_sweet_spots", SpawnTntSweetSpotsModifier::new);
 
+    //faster spawn speed
+    Pair<ResourceLocation, Supplier<AbstractMinigameModifier>> SPAWN_TNT_SWEET_SPOTS_PLUS = registerMinigameModifier("spawn_tnt_sweet_spots_plus", () -> new SpawnTntSweetSpotsModifier(0.50f, 4));
+
     //shiny hook
     Pair<ResourceLocation, Supplier<AbstractMinigameModifier>> SPAWN_TREASURE_ON_THREE_HITS = registerMinigameModifier("spawn_treasure_on_three_hits", ShinyHookModifier::new);
 
@@ -52,6 +55,7 @@ public interface ModMinigameModifiers
     //unused
     Pair<ResourceLocation, Supplier<AbstractMinigameModifier>> ADD_THREE_AQUA_SWEET_SPOT = registerMinigameModifier("add_three_aqua_sweet_spot", () -> new AquaBobberModifier(3));
 
+    //MultiLayer
     Pair<ResourceLocation, Supplier<AbstractMinigameModifier>> NIKDO53_MODIFIER = registerMinigameModifier("nikdo53_modifier", Nikdo53Modifier::new);
 
 

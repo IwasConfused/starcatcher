@@ -1,4 +1,4 @@
-// 1.21.1	2025-12-16T18:26:03.3051036	Item Models: starcatcher
+// 1.21.1	2025-12-16T21:28:29.2129179	Item Models: starcatcher
 190248e04c8aaf81e80cc0d828c1b3f9addf4641 assets/starcatcher/models/item/agave_bream.json
 2acefa5cf3f98fbcb50f2258e2777ac75275271d assets/starcatcher/models/item/almighty_worm.json
 033477fbb520065b97801242f6e7c58288fea05d assets/starcatcher/models/item/amethystback.json
@@ -22,6 +22,7 @@ ff350c277dd34a5e1f58bef63243dfdc703f052c assets/starcatcher/models/item/bobber.j
 5becb58593d2ba6ec1da2dab7983c07b6ffd0c56 assets/starcatcher/models/item/broken_bottle.json
 62ceb251bfbc13f7cb95f66013984bdea191c2e5 assets/starcatcher/models/item/burning_bottle.json
 4f3eb43e292dace969f2c5503fb98cb88e976f33 assets/starcatcher/models/item/cactifish.json
+f6383369cb097a667f5406f76a8ecd9ec0bd23ce assets/starcatcher/models/item/cerberay.json
 79b5cc1a5234adfd11b11def8c91364aa4a44655 assets/starcatcher/models/item/charfish.json
 0c77190e961a836d737046d35796897c2585f4fd assets/starcatcher/models/item/cherry_bait.json
 2868c28fc9094f68a9e7f4909b441d9299d5f279 assets/starcatcher/models/item/chorus_crab.json

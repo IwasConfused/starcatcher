@@ -216,14 +216,20 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener
 
     public int getRandomFreePosition(int sizeOfTheSweetspotToPlace)
     {
-        for (int i = 0; i < 100; i++)
-        {
-            int posBeingChecked = U.r.nextInt(360);
+        int posBeingChecked = U.r.nextInt(360);
 
-            if (activeSweetSpots.stream().noneMatch(s -> doDegreesOverlapWithLeeway(posBeingChecked, s.pos, (s.thickness + sizeOfTheSweetspotToPlace) / 2)
-            ))
-            {
-                return posBeingChecked;
+        //find the closest available pos
+        for (int i = 0; i < 180; i++) {
+
+            //check left and right
+            for (int j = 1; j > -2; j -= 2) {
+
+                int checkPos = clampPos(posBeingChecked + (i * j));
+
+                if (activeSweetSpots.stream().noneMatch(s -> doDegreesOverlapWithLeeway(checkPos, s.pos, (s.thickness + sizeOfTheSweetspotToPlace) / 2)
+                )) {
+                    return checkPos;
+                }
             }
         }
 
@@ -694,6 +700,14 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener
 
     public boolean isSettingsScreen(){
         return false;
+    }
+
+    public static int clampPos(int pos){
+        pos %= 360;
+        if (pos < 0){
+            pos += 360;
+        }
+        return pos;
     }
 
     @Override

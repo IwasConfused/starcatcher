@@ -73,5 +73,4 @@ public abstract class AbstractMinigameModifier
     public void renderOnSweetSpot(GuiGraphics guiGraphics, PoseStack poseStack, ActiveSweetSpot spot, float partialTick){
 
     };
-
 }

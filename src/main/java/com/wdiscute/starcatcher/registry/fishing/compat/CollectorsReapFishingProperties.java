@@ -21,7 +21,7 @@ public class CollectorsReapFishingProperties extends FishingPropertiesRegistry
         register(fish(U.holderItem("collectorsreap", "platinum_bass"))
                 .withBucketedFish(U.holderItem("collectorsreap", "platinum_bass_bucket"))
                 .withEntityToSpawn(U.holderEntity("collectorsreap", "platinum_bass"))
-                .withSizeAndWeight(FishProperties.sw(40, 12, 1600, 1100))
+                .withSizeAndWeight(FishProperties.sizeWeight(40, 12, 1600, 1100))
                 .withSeasons(Seasons.MID_AUTUMN, Seasons.LATE_AUTUMN, Seasons.WINTER)
                 .withDifficulty(FishProperties.Difficulty.EASY_MOVING)
                 .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD
@@ -32,7 +32,7 @@ public class CollectorsReapFishingProperties extends FishingPropertiesRegistry
         register(fish(U.holderItem("collectorsreap", "tiger_prawn"))
                 .withBucketedFish(U.holderItem("collectorsreap", "tiger_prawn_bucket"))
                 .withEntityToSpawn(U.holderEntity("collectorsreap", "tiger_prawn"))
-                .withSizeAndWeight(FishProperties.sw(28, 8, 260, 60))
+                .withSizeAndWeight(FishProperties.sizeWeight(28, 8, 260, 60))
                 .withDifficulty(FishProperties.Difficulty.MEDIUM_VANISHING)
                 .withRarity(FishProperties.Rarity.RARE)
                 .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD
@@ -60,7 +60,7 @@ public class CollectorsReapFishingProperties extends FishingPropertiesRegistry
         register(fish(U.holderItem("collectorsreap", "chieftain_crab"))
                 .withBucketedFish(U.holderItem("collectorsreap", "chieftain_crab_bucket"))
                 .withEntityToSpawn(U.holderEntity("collectorsreap", "chieftain_crab"))
-                .withSizeAndWeight(FishProperties.sw(28, 8, 260, 60))
+                .withSizeAndWeight(FishProperties.sizeWeight(28, 8, 260, 60))
                 .withDifficulty(FishProperties.Difficulty.NETHER_CRAB)
                 .withRarity(FishProperties.Rarity.UNCOMMON)
                 .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD

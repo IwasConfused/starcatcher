@@ -19,7 +19,7 @@ public class AquamiraeFishingProperties extends FishingPropertiesRegistry
         register(fish(U.holderItem("aquamirae", "spinefish"))
                 .withBucketedFish(U.holderItem("aquamirae", "spinefish_bucket"))
                 .withEntityToSpawn(U.holderEntity("aquamirae", "spinefish"))
-                .withSizeAndWeight(FishProperties.sw(30, 10, 500, 300))
+                .withSizeAndWeight(FishProperties.sizeWeight(30, 10, 500, 300))
                 .withRarity(FishProperties.Rarity.UNCOMMON)
                 .withDifficulty(FishProperties.Difficulty.MEDIUM_VANISHING)
                 .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD

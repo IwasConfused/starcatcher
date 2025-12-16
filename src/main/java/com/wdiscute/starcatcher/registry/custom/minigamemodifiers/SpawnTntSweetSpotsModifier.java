@@ -8,15 +8,28 @@ import java.util.Random;
 public class SpawnTntSweetSpotsModifier extends AbstractMinigameModifier
 {
     private final Random r = new Random();
+    float chance;
+    int cooldown;
+
+    public SpawnTntSweetSpotsModifier(){
+        chance = 0.25f;
+        cooldown = 5;
+    }
+
+    public SpawnTntSweetSpotsModifier(float chance, int cooldown){
+        this.chance = chance;
+    }
 
     @Override
     public void tick()
     {
         super.tick();
-        if (r.nextFloat() > 0.95f)
+        if (tickCount % 4 == 0  &&  r.nextFloat() < chance)
         {
             ActiveSweetSpot activeSweetSpot = new ActiveSweetSpot(instance, FishProperties.SweetSpot.TNT);
             instance.addSweetSpot(activeSweetSpot);
         }
     }
+
+
 }

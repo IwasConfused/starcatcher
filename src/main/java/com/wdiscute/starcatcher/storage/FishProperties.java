@@ -53,7 +53,7 @@ import java.util.Optional;
 public record FishProperties(
         CatchInfo catchInfo,
         int baseChance,
-        SizeAndWeight sw,
+        SizeAndWeight sizeWeight,
         Rarity rarity,
         WorldRestrictions wr,
         BaitRestrictions br,
@@ -68,7 +68,7 @@ public record FishProperties(
             instance.group(
                     CatchInfo.CODEC.fieldOf("catch_info").forGetter(FishProperties::catchInfo),
                     Codec.INT.fieldOf("base_chance").forGetter(FishProperties::baseChance),
-                    SizeAndWeight.CODEC.fieldOf("size_and_weight").forGetter(FishProperties::sw),
+                    SizeAndWeight.CODEC.fieldOf("size_and_weight").forGetter(FishProperties::sizeWeight),
                     Rarity.CODEC.fieldOf("rarity").forGetter(FishProperties::rarity),
                     WorldRestrictions.CODEC.fieldOf("world_restrictions").forGetter(FishProperties::wr),
                     BaitRestrictions.CODEC.fieldOf("bait_restrictions").forGetter(FishProperties::br),
@@ -86,7 +86,7 @@ public record FishProperties(
     public static final StreamCodec<RegistryFriendlyByteBuf, FishProperties> STREAM_CODEC = ExtraComposites.composite(
             CatchInfo.STREAM_CODEC, FishProperties::catchInfo,
             ByteBufCodecs.VAR_INT, FishProperties::baseChance,
-            SizeAndWeight.STREAM_CODEC, FishProperties::sw,
+            SizeAndWeight.STREAM_CODEC, FishProperties::sizeWeight,
             Rarity.STREAM_CODEC, FishProperties::rarity,
             WorldRestrictions.STREAM_CODEC, FishProperties::wr,
             BaitRestrictions.STREAM_CODEC, FishProperties::br,
@@ -1075,6 +1075,12 @@ public record FishProperties(
                 SweetSpot.AQUA_1, SweetSpot.AQUA_1
         );
 
+        public static Difficulty CERBERAY = new Difficulty(
+                16, 10, 1.5f,
+                List.of(ModMinigameModifiers.SPAWN_TNT_SWEET_SPOTS_PLUS.getFirst(), ModMinigameModifiers.NIKDO53_MODIFIER.getFirst()),
+                SweetSpot.THIN, SweetSpot.THIN, SweetSpot.THIN
+        );
+
         //endregion preset difficulties
 
 
@@ -1739,9 +1745,9 @@ public record FishProperties(
         return fluid1;
     }
 
-    public static SizeAndWeight sw(float s, float s1, float w, float w1)
+    public static SizeAndWeight sizeWeight(float sizeAvg, float sizeDev, float weightAvg, float weightDev)
     {
-        return new SizeAndWeight(s, s1, w, w1);
+        return new SizeAndWeight(sizeAvg, sizeDev, weightAvg, weightDev);
     }
 
     public static ResourceLocation rl(String ns, String path)

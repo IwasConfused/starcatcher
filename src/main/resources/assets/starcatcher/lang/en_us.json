@@ -1278,6 +1278,9 @@
 
 
 
+  "item.starcatcher.cerberay" : "Cerberay",
+  "tooltip.starcatcher.cerberay.0" : "A stinging fish with 3 heads.",
+  "tooltip.starcatcher.cerberay.1" : "The 2 smaller ones only share 1 brain",
 
   "item.starcatcher.embergill" : "Embergill",
   "tooltip.starcatcher.embergill.0" : "A fish found in the vast lava oceans of The Nether.",

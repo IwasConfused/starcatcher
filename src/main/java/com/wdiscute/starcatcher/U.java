@@ -217,13 +217,13 @@ public class U
 
     public static int getRandomSize(FishProperties fp)
     {
-        return ((int) Starcatcher.truncatedNormal(fp.sw().sizeAverage(), fp.sw().sizeDeviation()));
+        return ((int) Starcatcher.truncatedNormal(fp.sizeWeight().sizeAverage(), fp.sizeWeight().sizeDeviation()));
 
     }
 
     public static int getRandomWeight(FishProperties fp)
     {
-        return ((int) Starcatcher.truncatedNormal(fp.sw().weightAverage(), fp.sw().weightDeviation()));
+        return ((int) Starcatcher.truncatedNormal(fp.sizeWeight().weightAverage(), fp.sizeWeight().weightDeviation()));
 
     }
 

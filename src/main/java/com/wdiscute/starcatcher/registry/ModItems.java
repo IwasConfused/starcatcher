@@ -300,6 +300,8 @@ public interface ModItems
     DeferredItem<Item> GLOWSTONE_PUFFERFISH = FISH_REGISTRY.register("glowstone_pufferfish", FireResistantBasicItem::new);
     DeferredItem<Item> WILLISH = FISH_REGISTRY.register("willish", FireResistantBasicItem::new);
 
+    DeferredItem<Item> CERBERAY = FISH_REGISTRY.register("cerberay", FireResistantBasicItem::new);
+
     DeferredItem<Item> LAVA_CRAB_CLAW = TRASH_REGISTRY.register("lava_crab_claw", FireResistantBasicItem::new);
 
     //the end

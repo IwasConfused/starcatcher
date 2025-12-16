@@ -19,7 +19,7 @@ public class MinersDelightFishingProperties extends FishingPropertiesRegistry
 
         register(overworldSurfaceFish(U.holderItem("miners_delight", "squid"))
                 .withEntityToSpawn(U.holderEntity("minecraft", "squid"))
-                .withSizeAndWeight(FishProperties.sw(40, 20, 1300, 700))
+                .withSizeAndWeight(FishProperties.sizeWeight(40, 20, 1300, 700))
                 .withDifficulty(FishProperties.Difficulty.SINGLE_BIG_FAST_MOVING)
                 .withRarity(FishProperties.Rarity.UNCOMMON)
                 .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD_SURFACE
@@ -29,7 +29,7 @@ public class MinersDelightFishingProperties extends FishingPropertiesRegistry
 
         register(overworldUndergroundFish(U.holderItem("miners_delight", "glow_squid"))
                 .withEntityToSpawn(U.holderEntity("minecraft", "glow_squid"))
-                .withSizeAndWeight(FishProperties.sw(40, 20, 1300, 700))
+                .withSizeAndWeight(FishProperties.sizeWeight(40, 20, 1300, 700))
                 .withDifficulty(FishProperties.Difficulty.SINGLE_BIG_FAST_MOVING)
                 .withRarity(FishProperties.Rarity.COMMON)
         );

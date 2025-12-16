@@ -30,7 +30,7 @@ public class TerraFirmaCraftFishProperties extends FishingPropertiesRegistry
         register(overworldLakeFish(U.holderItem("tfc", "food/bluegill"))
                 .withBucketedFish(U.holderItem("tfc", "bucket/bluegill"))
                 .withEntityToSpawn(U.holderEntity("tfc", "bluegill"))
-                .withSizeAndWeight(FishProperties.sw(15, 5, 200, 20))
+                .withSizeAndWeight(FishProperties.sizeWeight(15, 5, 200, 20))
                 .withRarity(FishProperties.Rarity.UNCOMMON)
                 .withDifficulty(FishProperties.Difficulty.MEDIUM)
         );
@@ -38,7 +38,7 @@ public class TerraFirmaCraftFishProperties extends FishingPropertiesRegistry
         register(overworldRiverFish(U.holderItem("tfc", "food/lake_trout"))
                 .withBucketedFish(U.holderItem("tfc", "bucket/lake_trout"))
                 .withEntityToSpawn(U.holderEntity("tfc", "lake_trout"))
-                .withSizeAndWeight(FishProperties.sw(15, 5, 200, 20))
+                .withSizeAndWeight(FishProperties.sizeWeight(15, 5, 200, 20))
                 .withRarity(FishProperties.Rarity.UNCOMMON)
                 .withDifficulty(FishProperties.Difficulty.MEDIUM)
         );
@@ -46,7 +46,7 @@ public class TerraFirmaCraftFishProperties extends FishingPropertiesRegistry
         register(overworldLakeFish(U.holderItem("tfc", "food/largemouth_bass"))
                 .withBucketedFish(U.holderItem("tfc", "bucket/bluegill"))
                 .withEntityToSpawn(U.holderEntity("tfc", "bluegill"))
-                .withSizeAndWeight(FishProperties.sw(15, 5, 200, 20))
+                .withSizeAndWeight(FishProperties.sizeWeight(15, 5, 200, 20))
                 .withRarity(FishProperties.Rarity.UNCOMMON)
                 .withDifficulty(FishProperties.Difficulty.MEDIUM)
         );
@@ -54,7 +54,7 @@ public class TerraFirmaCraftFishProperties extends FishingPropertiesRegistry
         register(overworldRiverFish(U.holderItem("tfc", "food/rainbow_trout"))
                 .withBucketedFish(U.holderItem("tfc", "bucket/rainbow_trout"))
                 .withEntityToSpawn(U.holderEntity("tfc", "rainbow_trout"))
-                .withSizeAndWeight(FishProperties.sw(15, 5, 200, 20))
+                .withSizeAndWeight(FishProperties.sizeWeight(15, 5, 200, 20))
                 .withRarity(FishProperties.Rarity.UNCOMMON)
                 .withDifficulty(FishProperties.Difficulty.MEDIUM)
         );
@@ -62,7 +62,7 @@ public class TerraFirmaCraftFishProperties extends FishingPropertiesRegistry
         register(overworldLakeFish(U.holderItem("tfc", "food/smallmouth_bass"))
                 .withBucketedFish(U.holderItem("tfc", "bucket/smallmouth_bass"))
                 .withEntityToSpawn(U.holderEntity("tfc", "smallmouth_bass"))
-                .withSizeAndWeight(FishProperties.sw(15, 5, 200, 20))
+                .withSizeAndWeight(FishProperties.sizeWeight(15, 5, 200, 20))
                 .withRarity(FishProperties.Rarity.UNCOMMON)
                 .withDifficulty(FishProperties.Difficulty.MEDIUM)
         );
@@ -70,7 +70,7 @@ public class TerraFirmaCraftFishProperties extends FishingPropertiesRegistry
         register(overworldLakeFish(U.holderItem("tfc", "food/salmon"))
                 .withBucketedFish(U.holderItem("tfc", "bucket/salmon"))
                 .withEntityToSpawn(U.holderEntity("tfc", "salmon"))
-                .withSizeAndWeight(FishProperties.sw(15, 5, 200, 20))
+                .withSizeAndWeight(FishProperties.sizeWeight(15, 5, 200, 20))
                 .withRarity(FishProperties.Rarity.UNCOMMON)
                 .withDifficulty(FishProperties.Difficulty.MEDIUM)
         );
@@ -78,7 +78,7 @@ public class TerraFirmaCraftFishProperties extends FishingPropertiesRegistry
         register(overworldOceanFish(U.holderItem("tfc", "food/cod"))
                 .withBucketedFish(U.holderItem("tfc", "bucket/cod"))
                 .withEntityToSpawn(U.holderEntity("tfc", "cod"))
-                .withSizeAndWeight(FishProperties.sw(15, 5, 200, 20))
+                .withSizeAndWeight(FishProperties.sizeWeight(15, 5, 200, 20))
                 .withRarity(FishProperties.Rarity.UNCOMMON)
                 .withDifficulty(FishProperties.Difficulty.MEDIUM)
         );
@@ -100,7 +100,7 @@ public class TerraFirmaCraftFishProperties extends FishingPropertiesRegistry
                                 U.rl("tfc", "food/tropical_fish")
                         )
                 )
-                .withSizeAndWeight(FishProperties.sw(15, 5, 200, 20))
+                .withSizeAndWeight(FishProperties.sizeWeight(15, 5, 200, 20))
                 .withRarity(FishProperties.Rarity.UNCOMMON)
                 .withDifficulty(FishProperties.Difficulty.MEDIUM)
                 .withHasGuideEntry(false)
