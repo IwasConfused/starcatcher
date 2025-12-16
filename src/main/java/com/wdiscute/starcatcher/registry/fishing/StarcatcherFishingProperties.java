@@ -308,7 +308,7 @@ public class StarcatcherFishingProperties
                 .withRarity(FishProperties.Rarity.LEGENDARY)
                 .withBaitRestrictions(FishProperties.BaitRestrictions.LEGENDARY_BAIT)
                 .withBaseChance(1)
-                .withDifficulty(FishProperties.Difficulty.NON_STOP_ACTION_AQUA));
+                .withDifficulty(FishProperties.Difficulty.NON_STOP_ACTION_THREE_BIG));
 
         registerStarcatcherBucketAndEntity(overworldColdRiverFish(ModItems.BLUE_CRYSTAL_FIN)
                 .withSeasons(Seasons.WINTER)

@@ -16,49 +16,39 @@
   },
   "daytime": "midnight",
   "difficulty": {
-    "decay": 0.0,
+    "decay": 1.0,
     "missPenalty": 20,
     "modifiers": [],
     "speed": 14,
     "sweetspots": [
       {
-        "color_as_int": 3701122,
+        "color_as_int": 65280,
         "hitbox_size_in_pixels": 22,
         "is_flip": false,
         "moving_rate": 0.0,
-        "reward": 10,
-        "sweet_spot_type": "starcatcher:aqua",
-        "texture_path": "starcatcher:textures/gui/minigame/spots/aqua.png",
+        "reward": 15,
+        "sweet_spot_type": "starcatcher:normal",
+        "texture_path": "starcatcher:textures/gui/minigame/spots/normal.png",
         "vanishing_rate": 0.0
       },
       {
-        "color_as_int": 3701122,
+        "color_as_int": 65280,
         "hitbox_size_in_pixels": 22,
         "is_flip": false,
         "moving_rate": 0.0,
-        "reward": 10,
-        "sweet_spot_type": "starcatcher:aqua",
-        "texture_path": "starcatcher:textures/gui/minigame/spots/aqua.png",
+        "reward": 15,
+        "sweet_spot_type": "starcatcher:normal",
+        "texture_path": "starcatcher:textures/gui/minigame/spots/normal.png",
         "vanishing_rate": 0.0
       },
       {
-        "color_as_int": 3701122,
+        "color_as_int": 65280,
         "hitbox_size_in_pixels": 22,
         "is_flip": false,
         "moving_rate": 0.0,
-        "reward": 10,
-        "sweet_spot_type": "starcatcher:aqua",
-        "texture_path": "starcatcher:textures/gui/minigame/spots/aqua.png",
-        "vanishing_rate": 0.0
-      },
-      {
-        "color_as_int": 3701122,
-        "hitbox_size_in_pixels": 22,
-        "is_flip": false,
-        "moving_rate": 0.0,
-        "reward": 10,
-        "sweet_spot_type": "starcatcher:aqua",
-        "texture_path": "starcatcher:textures/gui/minigame/spots/aqua.png",
+        "reward": 15,
+        "sweet_spot_type": "starcatcher:normal",
+        "texture_path": "starcatcher:textures/gui/minigame/spots/normal.png",
         "vanishing_rate": 0.0
       }
     ]

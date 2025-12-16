@@ -87,7 +87,7 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener
     public float partial;
     public float hitDelay;
 
-    public int progress = 20;
+    public float progress = 20;
     public int progressSmooth = 20;
 
     public boolean perfectCatch = true;

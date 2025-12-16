@@ -47,7 +47,9 @@
 
 
 
-
+  "tooltip.starcatcher.tournament_stand.0" : "still wip sorry :( couldn't make it in time for this release!",
+  "tooltip.starcatcher.tournament_stand.1" : "kinda somewhat not really works, I wouldnt recommend using it in",
+  "tooltip.starcatcher.tournament_stand.2" : "a world you care about...",
 
 
 
@@ -216,11 +218,8 @@
 
   "item.starcatcher.steady_bobber": "Steady Bobber",
   "item.starcatcher.clear_bobber": "Clear Bobber",
-  "item.starcatcher.aqua_bobber": "Aqua Hook",
+  "item.starcatcher.aqua_bobber": "Aqua Bobber",
   "item.starcatcher.vanilla_bobber": "Vanilla-flavoured Bobber",
-  "tooltip.starcatcher.vanilla_bobber.0": "A bobber made of [imaginary] vanilla.",
-  "tooltip.starcatcher.vanilla_bobber.1": "Whilst equipped in your <gradient-67>Starcatcher's rod</gradient-90>,",
-  "tooltip.starcatcher.vanilla_bobber.2": "it will attract vanilla-flavoured fishes and treasures.",
 
 
 

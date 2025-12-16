@@ -1012,15 +1012,15 @@ public record FishProperties(
         );
 
         public static Difficulty NON_STOP_ACTION_THREE_BIG = new Difficulty(
-                14, 20, 0,
+                14, 20, 1,
                 List.of(),
                 SweetSpot.NORMAL, SweetSpot.NORMAL, SweetSpot.NORMAL
         );
 
         public static Difficulty NON_STOP_ACTION_AQUA = new Difficulty(
-                14, 20, 0,
+                14, 2, 0.2f,
                 List.of(),
-                SweetSpot.AQUA_10, SweetSpot.AQUA_10, SweetSpot.AQUA_10, SweetSpot.AQUA_10
+                SweetSpot.AQUA_1, SweetSpot.AQUA_1, SweetSpot.AQUA_1, SweetSpot.AQUA_1
         );
 
         public static Difficulty WITHER = new Difficulty(
