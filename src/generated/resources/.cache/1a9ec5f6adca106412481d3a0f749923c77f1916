@@ -1,4 +1,4 @@
-// 1.21.1	2025-12-15T18:38:20.3751958	FishingProperties
+// 1.21.1	2025-12-16T12:42:43.6886299	FishingProperties
 be60f2d857de148fd2caf6c1b6532125060346b1 data/alexscaves/starcatcher/fish/lanternfish.json
 4c0f285125bd37c9ab9d7ff5709b97ad7f8eddc2 data/alexscaves/starcatcher/fish/radgill.json
 5a6683335e79b9a0904aadaac422ada97586e2ba data/alexscaves/starcatcher/fish/sweetish_fish_blue.json
@@ -25,7 +25,7 @@ bfb93de05d955cd58974ee1e1d6bed243decf47a data/aquaculture/starcatcher/fish/carp.
 da9eb27f6213d46bc41cca4344b2d2a6a628b71d data/aquaculture/starcatcher/fish/catfish.json
 8ceb4830a7ec06b8eb4309808be23b9269e74856 data/aquaculture/starcatcher/fish/gar.json
 584ea0cea8f8887dc2539e77b8954a6d24680039 data/aquaculture/starcatcher/fish/goldfish.json
-3fcfc09cdb552464bf1c14c5ba801abe17bdd9f8 data/aquaculture/starcatcher/fish/jellyfish.json
+8877be03dd9d60fc5c16e074e6caa75db6079168 data/aquaculture/starcatcher/fish/jellyfish.json
 0afb57f65256d3814eeb5b8d88f078890211e571 data/aquaculture/starcatcher/fish/leech.json
 58ea2cec00e3a7427117a847a9ff7af85684cae0 data/aquaculture/starcatcher/fish/minnow.json
 7be4e5c4c4447da3b633e6d5bc22c4d4a9b054b6 data/aquaculture/starcatcher/fish/muskellunge.json

@@ -199,7 +199,7 @@ public class AquacultureFishingProperties extends FishingPropertiesRegistry
         //saltwater
         register(overworldOceanFish(U.holderItem("aquaculture", "jellyfish"))
                 .withBucketedFish(U.holderItem("aquaculture", "jellyfish_bucket"))
-                .withEntityToSpawn(U.holderEntity("aquaculture", "jellyfish_trout"))
+                .withEntityToSpawn(U.holderEntity("aquaculture", "jellyfish"))
                 .withSeasons(Seasons.SUMMER)
                 .withSizeAndWeight(FishProperties.sw(100, 70, 50000, 40000))
                 .withRarity(FishProperties.Rarity.UNCOMMON)
