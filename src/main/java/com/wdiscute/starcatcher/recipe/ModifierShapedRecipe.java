@@ -92,7 +92,7 @@ public class ModifierShapedRecipe implements CraftingRecipe
     {
         var wad = this.getResultItem(registries).copy();
         //only add if its not empty to not clutter itemStacks
-        if(!modifiers.isEmpty()) wad.set(ModDataComponents.MODIFIERS, modifiers);
+        if(!modifiers.isEmpty()) wad.set(ModDataComponents.MINIGAME_MODIFIERS, modifiers);
         return wad;
     }
 

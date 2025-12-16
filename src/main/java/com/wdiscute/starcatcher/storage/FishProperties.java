@@ -11,10 +11,9 @@ import com.wdiscute.starcatcher.compat.EclipticSeasonsCompat;
 import com.wdiscute.starcatcher.compat.SereneSeasonsCompat;
 import com.wdiscute.starcatcher.compat.TerraFirmaCraftSeasonsCompat;
 import com.wdiscute.starcatcher.io.ExtraComposites;
-import com.wdiscute.starcatcher.io.ModDataAttachments;
 import com.wdiscute.starcatcher.io.ModDataComponents;
-import com.wdiscute.starcatcher.minigame.modifiers.ModModifiers;
-import com.wdiscute.starcatcher.minigame.sweetspotbehaviour.ModSweetSpotsBehaviour;
+import com.wdiscute.starcatcher.registry.custom.minigamemodifiers.ModMinigameModifiers;
+import com.wdiscute.starcatcher.registry.custom.sweetspotbehaviour.ModSweetSpotsBehaviour;
 import com.wdiscute.starcatcher.registry.ModItems;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.ChatFormatting;
@@ -1032,7 +1031,7 @@ public record FishProperties(
 
         public static Difficulty CREEPER = new Difficulty(
                 10, 20, 1,
-                List.of(ModModifiers.SPAWN_TNT_SWEET_SPOTS),
+                List.of(ModMinigameModifiers.SPAWN_TNT_SWEET_SPOTS),
                 SweetSpot.CREEPER, SweetSpot.CREEPER
         );
 

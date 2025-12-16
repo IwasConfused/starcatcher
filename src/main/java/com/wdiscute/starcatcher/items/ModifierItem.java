@@ -11,7 +11,7 @@ public class ModifierItem extends Item
     public ModifierItem(ResourceLocation... modifiers)
     {
         super(new Item.Properties()
-                .component(ModDataComponents.MODIFIERS, List.of(modifiers))
+                .component(ModDataComponents.MINIGAME_MODIFIERS, List.of(modifiers))
                 .stacksTo(1)
         );
     }
@@ -19,7 +19,7 @@ public class ModifierItem extends Item
     public ModifierItem(int maxStackSize, ResourceLocation... modifiers)
     {
         super(new Item.Properties()
-                .component(ModDataComponents.MODIFIERS, List.of(modifiers))
+                .component(ModDataComponents.MINIGAME_MODIFIERS, List.of(modifiers))
                 .stacksTo(maxStackSize)
         );
     }

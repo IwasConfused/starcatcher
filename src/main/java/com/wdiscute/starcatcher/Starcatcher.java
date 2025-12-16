@@ -1,15 +1,17 @@
 package com.wdiscute.starcatcher;
 
-import com.wdiscute.starcatcher.minigame.sweetspotbehaviour.ModSweetSpotsBehaviour;
+import com.wdiscute.starcatcher.registry.custom.catchmodifiers.AbstractCatchModifier;
+import com.wdiscute.starcatcher.registry.custom.catchmodifiers.ModCatchModifiers;
+import com.wdiscute.starcatcher.registry.custom.minigamemodifiers.ModMinigameModifiers;
+import com.wdiscute.starcatcher.registry.custom.sweetspotbehaviour.ModSweetSpotsBehaviour;
 import com.wdiscute.starcatcher.registry.blocks.ModBlockEntities;
 import com.wdiscute.starcatcher.registry.blocks.ModBlocks;
 import com.wdiscute.starcatcher.datagen.TrustedHolder;
 import com.wdiscute.starcatcher.guide.FishCaughtToast;
 import com.wdiscute.starcatcher.guide.SettingsScreen;
 import com.wdiscute.starcatcher.io.*;
-import com.wdiscute.starcatcher.minigame.modifiers.AbstractModifier;
-import com.wdiscute.starcatcher.minigame.modifiers.ModModifiers;
-import com.wdiscute.starcatcher.minigame.sweetspotbehaviour.AbstractSweetSpotBehaviour;
+import com.wdiscute.starcatcher.registry.custom.minigamemodifiers.AbstractMinigameModifier;
+import com.wdiscute.starcatcher.registry.custom.sweetspotbehaviour.AbstractSweetSpotBehaviour;
 import com.wdiscute.starcatcher.registry.*;
 import com.wdiscute.starcatcher.storage.FishProperties;
 import com.wdiscute.starcatcher.storage.TrophyProperties;
@@ -44,21 +46,28 @@ public class Starcatcher
     public static final ResourceKey<Registry<TrophyProperties>> TROPHY_REGISTRY =
             ResourceKey.createRegistryKey(Starcatcher.rl("trophy"));
 
-    public static final ResourceKey<Registry<Supplier<? extends AbstractSweetSpotBehaviour>>> SWEET_SPOT_TYPES =
-            ResourceKey.createRegistryKey(Starcatcher.rl("sweet_spot_types"));
+    public static final ResourceKey<Registry<Supplier<? extends AbstractSweetSpotBehaviour>>> SWEET_SPOT_BEHAVIOUR =
+            ResourceKey.createRegistryKey(Starcatcher.rl("sweet_spot_behaviour"));
 
-    public static final ResourceKey<Registry<Supplier<AbstractModifier>>> MODIFIERS =
-            ResourceKey.createRegistryKey(Starcatcher.rl("modifiers"));
+    public static final ResourceKey<Registry<Supplier<AbstractMinigameModifier>>> MINIGAME_MODIFIERS =
+            ResourceKey.createRegistryKey(Starcatcher.rl("minigame_modifiers"));
 
+    public static final ResourceKey<Registry<Supplier<AbstractCatchModifier>>> CATCH_MODIFIERS =
+            ResourceKey.createRegistryKey(Starcatcher.rl("catch_modifiers"));
 
-    public static final Registry<Supplier<? extends AbstractSweetSpotBehaviour>> SWEET_SPOTS_REGISTRY = new RegistryBuilder<>(SWEET_SPOT_TYPES)
+    public static final Registry<Supplier<? extends AbstractSweetSpotBehaviour>> SWEET_SPOT_BEHAVIOUR_REGISTRY = new RegistryBuilder<>(SWEET_SPOT_BEHAVIOUR)
             .sync(true)
             .defaultKey(Starcatcher.rl("normal"))
             .create();
 
-    public static final Registry<Supplier<AbstractModifier>> MODIFIERS_REGISTRY = new RegistryBuilder<>(MODIFIERS)
+    public static final Registry<Supplier<AbstractMinigameModifier>> MINIGAME_MODIFIERS_REGISTRY = new RegistryBuilder<>(MINIGAME_MODIFIERS)
             .sync(true)
-            .defaultKey(Starcatcher.rl("normal"))
+            .defaultKey(Starcatcher.rl("no_flip"))
+            .create();
+
+    public static final Registry<Supplier<AbstractCatchModifier>> CATCH_MODIFIERS_REGISTRY = new RegistryBuilder<>(CATCH_MODIFIERS)
+            .sync(true)
+            .defaultKey(Starcatcher.rl("no_flip"))
             .create();
 
     public static final Random r = new Random();
@@ -134,7 +143,8 @@ public class Starcatcher
         ModMenuTypes.register(modEventBus);
         ModDataAttachments.register(modEventBus);
         ModSweetSpotsBehaviour.register(modEventBus);
-        ModModifiers.register(modEventBus);
+        ModMinigameModifiers.register(modEventBus);
+        ModCatchModifiers.register(modEventBus);
         ModCriterionTriggers.register(modEventBus);
 
         modContainer.registerConfig(ModConfig.Type.CLIENT, Config.SPEC);

@@ -2,7 +2,7 @@ package com.wdiscute.starcatcher.minigame;
 
 import com.mojang.logging.LogUtils;
 import com.wdiscute.starcatcher.Starcatcher;
-import com.wdiscute.starcatcher.minigame.sweetspotbehaviour.AbstractSweetSpotBehaviour;
+import com.wdiscute.starcatcher.registry.custom.sweetspotbehaviour.AbstractSweetSpotBehaviour;
 import com.wdiscute.starcatcher.storage.FishProperties;
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
@@ -48,7 +48,7 @@ public class ActiveSweetSpot
     public ActiveSweetSpot(FishingMinigameScreen instance, FishProperties.SweetSpot ss, ItemStack bobber, ItemStack bait, ItemStack hook)
     {
         //get sweet spot type from rl
-        Optional<Supplier<? extends AbstractSweetSpotBehaviour>> behaviour = Minecraft.getInstance().level.registryAccess().registryOrThrow(Starcatcher.SWEET_SPOT_TYPES).getOptional(ss.sweetSpotType());
+        Optional<Supplier<? extends AbstractSweetSpotBehaviour>> behaviour = Minecraft.getInstance().level.registryAccess().registryOrThrow(Starcatcher.SWEET_SPOT_BEHAVIOUR).getOptional(ss.sweetSpotType());
 
         //if sweet spot type is registered then continue, otherwise set as removed
         if(behaviour.isPresent())

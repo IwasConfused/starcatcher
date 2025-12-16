@@ -5,7 +5,7 @@ import com.wdiscute.starcatcher.bob.FishingBobEntity;
 import com.wdiscute.starcatcher.datagen.TrustedHolder;
 import com.wdiscute.starcatcher.fishentity.FishEntity;
 import com.wdiscute.starcatcher.io.*;
-import com.wdiscute.starcatcher.minigame.modifiers.ModModifiers;
+import com.wdiscute.starcatcher.registry.custom.catchmodifiers.AbstractCatchModifier;
 import com.wdiscute.starcatcher.registry.ModCriterionTriggers;
 import com.wdiscute.starcatcher.registry.ModItems;
 import com.wdiscute.starcatcher.storage.FishProperties;
@@ -56,7 +56,14 @@ public class U
             {
                 FishProperties fp = fbe.fpToFish;
 
-                ModCriterionTriggers.MINIGAME_COMPLETED.get().trigger((ServerPlayer) player, hits, perfectCatch, completedTreasure, time, fp.catchInfo().fish());
+                ModCriterionTriggers.MINIGAME_COMPLETED.get().trigger(player, hits, perfectCatch, completedTreasure, time, fp.catchInfo().fish());
+
+                //trigger modifiers
+                fbe.modifiers.forEach(m -> m.onSuccessfulMinigameCompletion(player, time, completedTreasure, perfectCatch, hits));
+
+                //if should cancel because of modifier, return
+                if(fbe.modifiers.stream().anyMatch(m -> m.shouldCancelAfterSuccessfulMinigameCompletion(
+                        player, time, completedTreasure, perfectCatch, hits))) return;
 
                 //pick size and weight
                 int size = getRandomSize(fp);
@@ -79,14 +86,13 @@ public class U
 
                 //award exp
                 int exp = fp.rarity().getXp();
-                if (fbe.hook.is(ModItems.GOLD_HOOK))
-                    exp *= (int) ((double) hits / 3) + 1; //extra exp if gold hook is used
+
                 player.giveExperiencePoints(exp);
 
                 //SPAWN ENTITY if ⏬⏬⏬
                 if (fp.catchInfo().alwaysSpawnEntity() ||
                         ModList.get().isLoaded("fishingreal") ||
-                        ModModifiers.hasModifier(fbe.rod, Starcatcher.rl("fish_entity")))
+                        fbe.modifiers.stream().anyMatch(AbstractCatchModifier::forceSpawnEntity))
                 {
 
                     Vec3 objPos = player.position().subtract(fbe.position());
@@ -123,9 +129,9 @@ public class U
                 else
                 {
                     //SPAWN ITEMSTACK
-                    boolean isStarcaught = fp.catchInfo().bucketedFish().is(ModItems.STARCAUGHT_BUCKET.getKey())
-                            && fbe.bait.is(Items.BUCKET);
-                    boolean isBucketed = !fp.catchInfo().bucketedFish().is(ModItems.MISSINGNO.getKey()) && !isStarcaught && fbe.bait.is(Items.BUCKET);
+                    ItemStack bait = fbe.rod.get(ModDataComponents.BAIT).stack().copy();
+                    boolean isStarcaught = fp.catchInfo().bucketedFish().is(ModItems.STARCAUGHT_BUCKET.getKey()) && bait.is(Items.BUCKET);
+                    boolean isBucketed = !fp.catchInfo().bucketedFish().is(ModItems.MISSINGNO.getKey()) && !isStarcaught && bait.is(Items.BUCKET);
 
                     ItemStack is;
                     //create itemStack
@@ -144,8 +150,11 @@ public class U
                         //store fp in itemstack for name color change
                         is.set(ModDataComponents.FISH_PROPERTIES, fp);
 
-                        //split hook double drops unless it's gonna be converted to a starcaught bucket
-                        if (perfectCatch && fbe.hook.is(ModItems.SPLIT_HOOK) && !isStarcaught) is.setCount(2);
+                        //split hook double drops unless it's going to be converted to a starcaught bucket
+                        for (AbstractCatchModifier acm : fbe.modifiers)
+                        {
+                            is = acm.modifyItemStack(is);
+                        }
 
                         if (isStarcaught)
                         {
@@ -187,6 +196,7 @@ public class U
             else
             {
                 //if fish minigame failed/canceled, play sound
+                fbe.modifiers.forEach(AbstractCatchModifier::onFailedMinigame);
                 Vec3 p = player.position();
                 level.playSound(null, p.x, p.y, p.z, SoundEvents.VILLAGER_NO, SoundSource.AMBIENT);
             }

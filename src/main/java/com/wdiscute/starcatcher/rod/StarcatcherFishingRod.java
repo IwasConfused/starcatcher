@@ -97,7 +97,7 @@ public class StarcatcherFishingRod extends Item implements MenuProvider {
 
     @Override
     public Component getDisplayName() {
-        return Component.literal("Starcatcher's rod");
+        return Component.literal("");
     }
 
     @Override

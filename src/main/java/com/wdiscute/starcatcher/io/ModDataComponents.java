@@ -70,8 +70,12 @@ public class ModDataComponents
             "size_and_weight",
             builder -> builder.persistent(SizeAndWeightInstance.CODEC));
 
-    public static final DeferredHolder<DataComponentType<?>, DataComponentType<List<ResourceLocation>>> MODIFIERS = register(
-            "modifiers",
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<List<ResourceLocation>>> MINIGAME_MODIFIERS = register(
+            "minigame_modifiers",
+            builder -> builder.persistent(ResourceLocation.CODEC.listOf()));
+
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<List<ResourceLocation>>> CATCH_MODIFIERS = register(
+            "catch_modifiers",
             builder -> builder.persistent(ResourceLocation.CODEC.listOf()));
 
     private static <T> DeferredHolder<DataComponentType<?>, DataComponentType<T>> register(String name,

@@ -21,13 +21,11 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.item.ItemEntity;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.FarmBlock;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.bus.api.Event;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.RegisterCommandsEvent;
@@ -59,7 +57,7 @@ public class ModEvents
     }
 
     @SubscribeEvent
-    public static void addCommand(PlayerEvent.PlayerLoggedInEvent event)
+    public static void onPlayerLoggedIn(PlayerEvent.PlayerLoggedInEvent event)
     {
         if(event.getEntity() instanceof ServerPlayer sp)
         {
@@ -75,8 +73,8 @@ public class ModEvents
     @SubscribeEvent
     public static void addRegistry(NewRegistryEvent event)
     {
-        event.register(Starcatcher.SWEET_SPOTS_REGISTRY);
-        event.register(Starcatcher.MODIFIERS_REGISTRY);
+        event.register(Starcatcher.SWEET_SPOT_BEHAVIOUR_REGISTRY);
+        event.register(Starcatcher.MINIGAME_MODIFIERS_REGISTRY);
     }
 
     @SubscribeEvent

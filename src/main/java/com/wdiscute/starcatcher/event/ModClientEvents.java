@@ -23,7 +23,6 @@ import com.wdiscute.starcatcher.storage.TrophyProperties;
 import com.wdiscute.starcatcher.tournament.StandScreen;
 import com.wdiscute.starcatcher.tournament.TournamentOverlay;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.client.resources.language.I18n;
@@ -31,7 +30,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.phys.Vec3;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -51,9 +49,9 @@ public class ModClientEvents
         List<Component> comp = event.getToolTip();
         ItemStack stack = event.getItemStack();
 
-        if (stack.has(ModDataComponents.MODIFIERS))
+        if (stack.has(ModDataComponents.MINIGAME_MODIFIERS))
         {
-            List<ResourceLocation> modifiers = stack.get(ModDataComponents.MODIFIERS);
+            List<ResourceLocation> modifiers = stack.get(ModDataComponents.MINIGAME_MODIFIERS);
 
             if (!modifiers.isEmpty())
             {

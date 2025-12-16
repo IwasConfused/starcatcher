@@ -62,7 +62,7 @@ public class FishRenderer extends EntityRenderer<FishEntity>
     public void render(FishEntity fish, float entityYaw, float partialTicks, PoseStack poseStack, MultiBufferSource buffer, int packedLight)
     {
         poseStack.pushPose();
-        poseStack.translate(0.0F, 1.5F, 0.0F);
+        poseStack.translate(0.0F, 1.3F, 0.0F);
         poseStack.scale(1.0F, -1.0F, -1.0F);
 
         poseStack.mulPose(Axis.YP.rotationDegrees(entityYaw));
@@ -73,15 +73,20 @@ public class FishRenderer extends EntityRenderer<FishEntity>
             poseStack.translate(1.1F, 1.4F, -0.1F);
             poseStack.mulPose(Axis.ZP.rotationDegrees(90.0F));
             poseStack.mulPose(Axis.ZP.rotationDegrees(f));
-
         }
 
         if (!fish.getBodyArmorItem().isEmpty())
         {
             if (!renderCustomModel(fish.getBodyArmorItem().getItem(), poseStack, buffer, packedLight))
+            {
+                poseStack.translate(0F, 1F, 0.0F);
+                poseStack.mulPose(Axis.YP.rotationDegrees(270.0F));
+                poseStack.mulPose(Axis.ZP.rotationDegrees(45.0F));
                 this.itemRenderer.renderStatic(
                         fish.getBodyArmorItem(), ItemDisplayContext.FIXED, packedLight,
                         OverlayTexture.NO_OVERLAY, poseStack, buffer, fish.level(), fish.getId());
+            }
+
         }
 
         poseStack.popPose();

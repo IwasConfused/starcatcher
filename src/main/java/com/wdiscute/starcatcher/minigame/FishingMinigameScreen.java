@@ -13,12 +13,10 @@ import com.wdiscute.starcatcher.U;
 import com.wdiscute.starcatcher.io.ModDataComponents;
 import com.wdiscute.starcatcher.io.network.FishingCompletedPayload;
 import com.wdiscute.starcatcher.items.ColorfulSmithingTemplate;
-import com.wdiscute.starcatcher.minigame.modifiers.BaseModifier;
-import com.wdiscute.starcatcher.minigame.modifiers.Nikdo53Modifier;
-import com.wdiscute.starcatcher.minigame.modifiers.SpawnFrozenSweetSpotsModifier;
+import com.wdiscute.starcatcher.registry.custom.minigamemodifiers.BaseModifier;
 import com.wdiscute.starcatcher.registry.ModItems;
 import com.wdiscute.starcatcher.registry.ModKeymappings;
-import com.wdiscute.starcatcher.minigame.modifiers.AbstractModifier;
+import com.wdiscute.starcatcher.registry.custom.minigamemodifiers.AbstractMinigameModifier;
 import com.wdiscute.starcatcher.storage.FishProperties;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
@@ -111,7 +109,7 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener
     private boolean isHoldingMouse = false;
 
     private final List<ActiveSweetSpot> activeSweetSpots = new ArrayList<>();
-    private final List<AbstractModifier> modifiers = new ArrayList<>();
+    private final List<AbstractMinigameModifier> modifiers = new ArrayList<>();
 
     public FishingMinigameScreen(FishProperties fp, ItemStack rod)
     {
@@ -163,7 +161,7 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener
         //add every modifier from fp json which is registered
         for (ResourceLocation rl : fp.dif().modifiers())
         {
-            Optional<Supplier<AbstractModifier>> newModifier = level.registryAccess().registryOrThrow(Starcatcher.MODIFIERS).getOptional(rl);
+            Optional<Supplier<AbstractMinigameModifier>> newModifier = level.registryAccess().registryOrThrow(Starcatcher.MINIGAME_MODIFIERS).getOptional(rl);
             newModifier.ifPresent(mod -> addModifier(mod.get()));
         }
 
@@ -171,10 +169,10 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener
         //todo improve this to check things dynamically, look into baubles compat & armor slots (not inventory otherwise people could offhand modifiers)
         List<ItemStack> allItems = List.of(bobber, rod, bait, hook);
         for (ItemStack is : allItems)
-            if (is.has(ModDataComponents.MODIFIERS))
-                for (ResourceLocation rl : Objects.requireNonNull(is.get(ModDataComponents.MODIFIERS)))
+            if (is.has(ModDataComponents.MINIGAME_MODIFIERS))
+                for (ResourceLocation rl : Objects.requireNonNull(is.get(ModDataComponents.MINIGAME_MODIFIERS)))
                 {
-                    Optional<Supplier<AbstractModifier>> newModifier = level.registryAccess().registryOrThrow(Starcatcher.MODIFIERS).getOptional(rl);
+                    Optional<Supplier<AbstractMinigameModifier>> newModifier = level.registryAccess().registryOrThrow(Starcatcher.MINIGAME_MODIFIERS).getOptional(rl);
                     newModifier.ifPresent(mod -> addModifier(mod.get()));
                 }
 
@@ -188,13 +186,13 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener
 
     }
 
-    public void addModifier(AbstractModifier mod)
+    public void addModifier(AbstractMinigameModifier mod)
     {
         mod.onAdd(this);
         if (!mod.removed) this.modifiers.add(mod);
     }
 
-    public void addUniqueModifier(AbstractModifier mod)
+    public void addUniqueModifier(AbstractMinigameModifier mod)
     {
         //only adds if theres not a modifier of the same class already present
         if (modifiers.stream().noneMatch(m -> m.getClass() == mod.getClass()))
@@ -208,7 +206,7 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener
     {
         ass.behaviour.onAdd(this, ass);
 
-        for (AbstractModifier modifier : modifiers)
+        for (AbstractMinigameModifier modifier : modifiers)
         {
             ass = modifier.onSpotAdded(ass);
         }
@@ -414,7 +412,7 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener
 
         poseStack.translate(0, -16, 0);
 
-        boolean isDisabled = modifiers.stream().anyMatch(AbstractModifier::disablePointerRendering);
+        boolean isDisabled = modifiers.stream().anyMatch(AbstractMinigameModifier::disablePointerRendering);
         if (!isDisabled)
             renderPoseCentered(guiGraphics, TEXTURE, 64, 64, 128, 192, 256);
 
@@ -500,7 +498,7 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener
 
                 //check if each modifier allows the hit to register
                 boolean isCanceled = false;
-                for (AbstractModifier modifier : modifiers) {
+                for (AbstractMinigameModifier modifier : modifiers) {
 
                    if (modifier.onHit(ass))
                        isCanceled = true;
@@ -553,7 +551,7 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener
         }
 
         //tick modifiers
-        modifiers.forEach(AbstractModifier::tick);
+        modifiers.forEach(AbstractMinigameModifier::tick);
         //tick behaviour
         activeSweetSpots.forEach(s -> s.behaviour.tick());
 
@@ -614,7 +612,7 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener
     @Override
     public void onClose()
     {
-        modifiers.forEach(AbstractModifier::onRemove);
+        modifiers.forEach(AbstractMinigameModifier::onRemove);
 
         if (!ModList.get().isLoaded("distanthorizons"))
             Minecraft.getInstance().options.guiScale().set(previousGuiScale);

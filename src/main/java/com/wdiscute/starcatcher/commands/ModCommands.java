@@ -8,13 +8,11 @@ import com.wdiscute.starcatcher.Starcatcher;
 import com.wdiscute.starcatcher.StarcatcherTags;
 import com.wdiscute.starcatcher.io.ModDataComponents;
 import com.wdiscute.starcatcher.io.network.FishingStartedPayload;
-import com.wdiscute.starcatcher.minigame.modifiers.AbstractModifier;
+import com.wdiscute.starcatcher.registry.custom.minigamemodifiers.AbstractMinigameModifier;
 import com.wdiscute.starcatcher.storage.FishProperties;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
-import net.minecraft.commands.arguments.ResourceOrTagArgument;
 import net.minecraft.commands.arguments.ResourceOrTagKeyArgument;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -65,39 +63,39 @@ public class ModCommands
 
             )
             .then(Commands.literal("add_modifier")
-                    .then(Commands.argument("modifier", ResourceOrTagKeyArgument.resourceOrTagKey(Starcatcher.MODIFIERS))
+                    .then(Commands.argument("modifier", ResourceOrTagKeyArgument.resourceOrTagKey(Starcatcher.MINIGAME_MODIFIERS))
                             .executes(context ->
                                     addModifier(
                                             context.getSource().getPlayerOrException(),
                                             ResourceOrTagKeyArgument.getResourceOrTagKey(
                                                     context,
                                                     "modifier",
-                                                    Starcatcher.MODIFIERS,
+                                                    Starcatcher.MINIGAME_MODIFIERS,
                                                     ERROR_FISH_ENTRY_INVALID)
                                     )
                             ))
             );
 
-    private static int addModifier(ServerPlayer player, ResourceOrTagKeyArgument.Result<Supplier<AbstractModifier>> fishPropertiesResult) throws CommandSyntaxException
+    private static int addModifier(ServerPlayer player, ResourceOrTagKeyArgument.Result<Supplier<AbstractMinigameModifier>> fishPropertiesResult) throws CommandSyntaxException
     {
         if (player.getMainHandItem().isEmpty()) throw ERROR_EMPTY.create(null);
 
-        Either<ResourceKey<Supplier<AbstractModifier>>, TagKey<Supplier<AbstractModifier>>> unwrap = fishPropertiesResult.unwrap();
-        Optional<ResourceKey<Supplier<AbstractModifier>>> left = unwrap.left();
+        Either<ResourceKey<Supplier<AbstractMinigameModifier>>, TagKey<Supplier<AbstractMinigameModifier>>> unwrap = fishPropertiesResult.unwrap();
+        Optional<ResourceKey<Supplier<AbstractMinigameModifier>>> left = unwrap.left();
 
         if (left.isPresent())
         {
             ResourceLocation location = left.get().location();
 
-            if (player.getMainHandItem().has(ModDataComponents.MODIFIERS))
+            if (player.getMainHandItem().has(ModDataComponents.MINIGAME_MODIFIERS))
             {
-                List<ResourceLocation> mods = new ArrayList<>(player.getMainHandItem().get(ModDataComponents.MODIFIERS));
+                List<ResourceLocation> mods = new ArrayList<>(player.getMainHandItem().get(ModDataComponents.MINIGAME_MODIFIERS));
                 mods.add(location);
-                player.getMainHandItem().set(ModDataComponents.MODIFIERS, mods);
+                player.getMainHandItem().set(ModDataComponents.MINIGAME_MODIFIERS, mods);
             }
             else
             {
-                player.getMainHandItem().set(ModDataComponents.MODIFIERS, List.of(location));
+                player.getMainHandItem().set(ModDataComponents.MINIGAME_MODIFIERS, List.of(location));
             }
             return 1;
         }

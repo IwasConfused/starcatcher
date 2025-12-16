@@ -15,15 +15,13 @@ public class FakeStarcatcherMinigameScreen extends FishingMinigameScreen
     @Override
     public void tick()
     {
-        if (progressSmooth > 75)
-        {
-            //if completed treasure minigame, or is a perfect catch with the mossy hook
-            boolean awardTreasure = treasureProgress > 100 || (perfectCatch && hook.is(ModItems.MOSSY_HOOK));
-            onCloseFunction.onClose(this.itemBeingFished.getItem(), this.fishProperties, tickCount, awardTreasure, perfectCatch, consecutiveHits);
+        //if completed treasure minigame, or is a perfect catch with the mossy hook
+        boolean awardTreasure = treasureProgress > 100;
+        onCloseFunction.onClose(this.itemBeingFished.getItem(), this.fishProperties, tickCount, awardTreasure, perfectCatch, consecutiveHits);
 
-            Minecraft.getInstance().options.guiScale().set(previousGuiScale);
-            this.minecraft.popGuiLayer();
-        }
+        Minecraft.getInstance().options.guiScale().set(previousGuiScale);
+        this.minecraft.popGuiLayer();
+
 
         super.tick();
     }
