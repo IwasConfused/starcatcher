@@ -75,6 +75,7 @@ public class ModEvents
     {
         event.register(Starcatcher.SWEET_SPOT_BEHAVIOUR_REGISTRY);
         event.register(Starcatcher.MINIGAME_MODIFIERS_REGISTRY);
+        event.register(Starcatcher.CATCH_MODIFIERS_REGISTRY);
     }
 
     @SubscribeEvent
