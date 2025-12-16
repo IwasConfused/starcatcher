@@ -1137,6 +1137,9 @@ public record FishProperties(
         private static final ResourceLocation RL_OBSIDIAN_CRAB_LEG = Starcatcher.rl("textures/gui/minigame/spots/obsidian_crab_leg.png");
         private static final ResourceLocation RL_OBSIDIAN_CRAB_CLAW = Starcatcher.rl("textures/gui/minigame/spots/obsidian_crab_claw.png");
 
+        private static final ResourceLocation RL_THIN_MOSSY = Starcatcher.rl("textures/gui/minigame/spots/thin_mossy.png");
+
+
         public SweetSpot flip()
         {
             return new SweetSpot(this.sweetSpotType, this.texturePath, this.size, this.reward, true, this.vanishingRate, this.movingRate, this.particleColor);
@@ -1181,6 +1184,15 @@ public record FishProperties(
                 RL_THIN,
                 20,
                 20,
+                0x00ff00
+        );
+
+        public static SweetSpot THIN_STEADY_MOSSY = new SweetSpot(
+                ModSweetSpotsBehaviour.NORMAL,
+                RL_THIN_MOSSY,
+                20,
+                10,
+                true, 0.01f, 1,
                 0x00ff00
         );
 

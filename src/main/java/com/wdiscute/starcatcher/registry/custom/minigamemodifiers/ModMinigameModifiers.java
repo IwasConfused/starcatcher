@@ -40,9 +40,6 @@ public interface ModMinigameModifiers
     //mossy hook
     Pair<ResourceLocation, Supplier<AbstractMinigameModifier>> HARDER_WITH_TREASURE_ON_PERFECT = registerMinigameModifier("harder_with_treasure_on_perfect", MossyHookModifier::new);
 
-    //stabilizing hook
-    Pair<ResourceLocation, Supplier<AbstractMinigameModifier>> NO_FLIP = registerMinigameModifier("no_flip", EmptyMinigameModifier::new);
-
     //steady bobber
     Pair<ResourceLocation, Supplier<AbstractMinigameModifier>> BIGGER_GREEN_SWEET_SPOTS = registerMinigameModifier("bigger_green_sweet_spots", SteadyBobberModifier::new);
 

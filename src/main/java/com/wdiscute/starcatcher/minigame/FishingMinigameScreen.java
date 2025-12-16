@@ -79,7 +79,7 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener
     public boolean minigameStarted;
 
     public float pointerSpeed;
-    public final float pointerBaseSpeed;
+    public float pointerBaseSpeed;
 
     public int tickCount = 0;
     public int pointerPos = 0;

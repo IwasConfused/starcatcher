@@ -58,7 +58,8 @@ public interface ModItems
     DeferredItem<Item> MOSSY_HOOK = HOOKS_REGISTRY.register("mossy_hook", () -> new MinigameModifierItem(ModMinigameModifiers.HARDER_WITH_TREASURE_ON_PERFECT));
     DeferredItem<Item> STONE_HOOK = HOOKS_REGISTRY.register("stone_hook", () -> new MinigameModifierItem(ModMinigameModifiers.STOP_DECAY_ON_HIT));
     DeferredItem<Item> SPLIT_HOOK = HOOKS_REGISTRY.register("split_hook", () -> new CatchModifierItem(ModCatchModifiers.EXTRA_ITEM));
-    DeferredItem<Item> STABILIZING_HOOK = HOOKS_REGISTRY.register("stabilizing_hook", () -> new MinigameModifierItem(ModMinigameModifiers.NO_FLIP));
+    //TODO add stabilizing hook, no idea what for
+    //DeferredItem<Item> STABILIZING_HOOK = HOOKS_REGISTRY.register("stabilizing_hook", () -> new MinigameModifierItem(ModMinigameModifiers.NO_FLIP));
     DeferredItem<Item> HEAVY_HOOK = HOOKS_REGISTRY.register("heavy_hook", () -> new MinigameModifierItem(ModMinigameModifiers.SLOWER_MOVING_SWEET_SPOTS));
 
     //bobbers

@@ -1,4 +1,4 @@
-// 1.21.1	2025-12-15T16:25:18.3789831	Item Models: starcatcher
+// 1.21.1	2025-12-16T18:26:03.3051036	Item Models: starcatcher
 190248e04c8aaf81e80cc0d828c1b3f9addf4641 assets/starcatcher/models/item/agave_bream.json
 2acefa5cf3f98fbcb50f2258e2777ac75275271d assets/starcatcher/models/item/almighty_worm.json
 033477fbb520065b97801242f6e7c58288fea05d assets/starcatcher/models/item/amethystback.json
@@ -126,7 +126,6 @@ f0fd4696bb77c46600fcd8b72e54bdda3fddef98 assets/starcatcher/models/item/shiny_ho
 1a8027de10d5846f36f4a52ed21e4816165892a3 assets/starcatcher/models/item/sludge_catfish.json
 0383069604e5c523a16837d94d99b6d9fc56e7c5 assets/starcatcher/models/item/split_hook.json
 a0b1b4a48004bd29218d918496264e80c07e32da assets/starcatcher/models/item/sporefish.json
-bc1781efa27b6d449e1f9a5df14bc14ef2b9eae1 assets/starcatcher/models/item/stabilizing_hook.json
 ce5e10dc8fc86156b332f5aa3c844a4d4a9120e3 assets/starcatcher/models/item/starcatcher_guide.json
 3918c4ce228ba7e6b2dbfdb8761ee542d9822561 assets/starcatcher/models/item/starcatcher_twine.json
 38c575590867de049b86a9eac7a8bb04a0c24ef7 assets/starcatcher/models/item/starcaught_bucket.json

@@ -13,8 +13,11 @@ public class MossyHookModifier extends AbstractMinigameModifier
         if(tickCount == 1)
         {
             instance.removeAllSweetSpots();
+            instance.pointerBaseSpeed = 12;
+            instance.pointerSpeed = 12;
+            instance.penalty = 25;
 
-            instance.addSweetSpot(new ActiveSweetSpot(instance, FishProperties.SweetSpot.THIN_STEADY));
+            instance.addSweetSpot(new ActiveSweetSpot(instance, FishProperties.SweetSpot.THIN_STEADY_MOSSY));
             instance.addSweetSpot(new ActiveSweetSpot(instance, FishProperties.SweetSpot.AQUA_10));
         }
     }
