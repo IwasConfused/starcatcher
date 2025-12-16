@@ -30,7 +30,7 @@ public class ModDataAttachments
     );
 
     public static final Supplier<AttachmentType<Boolean>> RECEIVED_GUIDE = ATTACHMENT_TYPES.register(
-            "fishing", () -> AttachmentType.builder(() -> false)
+            "received_guide", () -> AttachmentType.builder(() -> false)
                     .serialize(Codec.BOOL)
                     .sync(ByteBufCodecs.BOOL)
                     .build()
