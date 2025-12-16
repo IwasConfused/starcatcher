@@ -28,6 +28,7 @@ import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
@@ -63,7 +64,8 @@ public class ModClientEvents
                     {
                         if (I18n.exists("tooltip.modifier." + rl.toLanguageKey() + "." + i))
                         {
-                            comp.add(Component.literal("-").append(Component.translatable("tooltip.modifier." + rl.toLanguageKey() + "." + i)).withStyle(ChatFormatting.DARK_GRAY));
+                            MutableComponent start = i == 0 ? Component.literal("- ") : Component.literal("");
+                            comp.add(start.append(Component.translatable("tooltip.modifier." + rl.toLanguageKey() + "." + i)).withStyle(ChatFormatting.DARK_GRAY));
                         }
                     }
                 }
