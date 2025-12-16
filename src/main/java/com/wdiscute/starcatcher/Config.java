@@ -32,6 +32,10 @@ public class Config
 
     private static final ModConfigSpec.Builder BUILDER_SERVER = new ModConfigSpec.Builder();
 
+    public static final ModConfigSpec.BooleanValue GIVE_GUIDE = BUILDER_SERVER
+            .comment("Award guide when joining the world/server once per player")
+            .define("give_guide", false);
+
     public static final ModConfigSpec.BooleanValue SHOW_EXCLAMATION_MARK_PARTICLE = BUILDER_SERVER
             .define("show_exclamation_mark_particle", false);
 

@@ -4,6 +4,8 @@ import com.mojang.serialization.Codec;
 import com.wdiscute.starcatcher.Starcatcher;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.attachment.AttachmentType;
 import net.neoforged.neoforge.attachment.IAttachmentHolder;
@@ -24,6 +26,13 @@ public class ModDataAttachments
             "fishing", () -> AttachmentType.builder(() -> "")
                     .serialize(Codec.unit(""))
                     .sync(ByteBufCodecs.STRING_UTF8)
+                    .build()
+    );
+
+    public static final Supplier<AttachmentType<Boolean>> RECEIVED_GUIDE = ATTACHMENT_TYPES.register(
+            "fishing", () -> AttachmentType.builder(() -> false)
+                    .serialize(Codec.BOOL)
+                    .sync(ByteBufCodecs.BOOL)
                     .build()
     );
 
@@ -79,28 +88,34 @@ public class ModDataAttachments
                             .build()
     );
 
-    public static<T> T remove(IAttachmentHolder holder, Supplier<AttachmentType<T>> attachmentType){
+    public static <T> T remove(Entity holder, Supplier<AttachmentType<T>> attachmentType)
+    {
         return holder.removeData(attachmentType);
     }
 
-    public static<T> T remove(IAttachmentHolder holder, AttachmentType<T> attachmentType){
+    public static <T> T remove(Entity holder, AttachmentType<T> attachmentType)
+    {
         return holder.removeData(attachmentType);
     }
 
-    public static<T> T set(IAttachmentHolder holder, Supplier<AttachmentType<T>> attachmentType, T data){
+    public static <T> T set(Entity holder, Supplier<AttachmentType<T>> attachmentType, T data)
+    {
         return holder.setData(attachmentType, data);
     }
 
-    public static<T> T set(IAttachmentHolder holder, AttachmentType<T> attachmentType, T data){
+    public static <T> T set(Entity holder, AttachmentType<T> attachmentType, T data)
+    {
         return holder.setData(attachmentType, data);
     }
 
-    public static<T> T get(IAttachmentHolder holder, Supplier<AttachmentType<T>> attachmentType){
+    public static <T> T get(Entity holder, Supplier<AttachmentType<T>> attachmentType)
+    {
         return holder.getData(attachmentType);
     }
 
-    public static<T> T get(IAttachmentHolder holder, AttachmentType<T> attachmentType){
-       return holder.getData(attachmentType);
+    public static <T> T get(Entity holder, AttachmentType<T> attachmentType)
+    {
+        return holder.getData(attachmentType);
     }
 
     public static void register(IEventBus eventBus)

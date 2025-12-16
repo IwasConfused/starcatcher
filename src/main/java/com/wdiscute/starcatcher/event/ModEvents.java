@@ -4,6 +4,7 @@ import com.wdiscute.starcatcher.Config;
 import com.wdiscute.starcatcher.Starcatcher;
 import com.wdiscute.starcatcher.commands.ModCommands;
 import com.wdiscute.starcatcher.fishentity.FishEntity;
+import com.wdiscute.starcatcher.io.ModDataAttachments;
 import com.wdiscute.starcatcher.io.network.FPsSeenPayload;
 import com.wdiscute.starcatcher.io.network.FishCaughtPayload;
 import com.wdiscute.starcatcher.io.network.FishingCompletedPayload;
@@ -20,15 +21,18 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.FarmBlock;
 import net.minecraft.world.phys.Vec3;
+import net.neoforged.bus.api.Event;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.RegisterCommandsEvent;
 import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
+import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.neoforged.neoforge.event.tick.ServerTickEvent;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
@@ -53,6 +57,20 @@ public class ModEvents
                 ModCommands.COMMAND
         );
     }
+
+    @SubscribeEvent
+    public static void addCommand(PlayerEvent.PlayerLoggedInEvent event)
+    {
+        if(event.getEntity() instanceof ServerPlayer sp)
+        {
+            if(Config.GIVE_GUIDE.get() && !ModDataAttachments.get(sp, ModDataAttachments.RECEIVED_GUIDE))
+            {
+                sp.addItem(new ItemStack(ModItems.GUIDE.get()));
+                ModDataAttachments.set(sp, ModDataAttachments.RECEIVED_GUIDE, true);
+            }
+        }
+    }
+
 
     @SubscribeEvent
     public static void addRegistry(NewRegistryEvent event)
