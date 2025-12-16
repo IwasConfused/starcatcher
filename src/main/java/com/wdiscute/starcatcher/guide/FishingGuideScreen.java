@@ -404,7 +404,7 @@ public class FishingGuideScreen extends Screen
             case -1 ->
             {
                 Minecraft.getInstance().setScreen(
-                        new SettingsScreen(
+                        new NewSettingsScreen(
                                 FishProperties.builder().withFish(ModItems.AURORA).build(),
                                 new ItemStack(ModItems.ROD.get()
                                 )

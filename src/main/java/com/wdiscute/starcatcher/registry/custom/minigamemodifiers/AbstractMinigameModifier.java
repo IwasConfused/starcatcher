@@ -23,7 +23,7 @@ public abstract class AbstractMinigameModifier
 
     /**
      * Transforms an ActiveSweetSpot before it gets added.
-     * Setting removed to true cancels it
+     * Setting spot removed to true cancels it
      */
     public ActiveSweetSpot onSpotAdded(ActiveSweetSpot spot){
         return spot;
@@ -31,7 +31,7 @@ public abstract class AbstractMinigameModifier
 
     /**
      * Runs right before the sweetSpotBehaviour hit
-     * @return whether the hit should be canceled and handled on the sweet spot
+     * @return whether the hit should be canceled
      */
     public boolean onHit(ActiveSweetSpot ass){
         return false;

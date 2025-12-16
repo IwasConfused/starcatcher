@@ -105,11 +105,11 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener
     // Nikdo53 values, these are mine dont steal them
     public final int holdingDelay = 6;
     public int holdingTicks = 0;
-    private boolean isHoldingKey = false;
-    private boolean isHoldingMouse = false;
+    protected boolean isHoldingKey = false;
+    protected boolean isHoldingMouse = false;
 
-    private final List<ActiveSweetSpot> activeSweetSpots = new ArrayList<>();
-    private final List<AbstractMinigameModifier> modifiers = new ArrayList<>();
+    protected final List<ActiveSweetSpot> activeSweetSpots = new ArrayList<>();
+    protected final List<AbstractMinigameModifier> modifiers = new ArrayList<>();
 
     public FishingMinigameScreen(FishProperties fp, ItemStack rod)
     {
@@ -118,7 +118,7 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener
         handToSwing = Minecraft.getInstance().player.getMainHandItem().is(StarcatcherTags.RODS) ? InteractionHand.MAIN_HAND : InteractionHand.OFF_HAND;
 
         previousGuiScale = Minecraft.getInstance().options.guiScale().get();
-        if (!ModList.get().isLoaded("distanthorizons"))
+        if (!hasDistantHorizons())
             Minecraft.getInstance().options.guiScale().set(Config.MINIGAME_GUI_SCALE.get());
 
         hitDelay = Config.HIT_DELAY.get().floatValue();
@@ -477,7 +477,7 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener
         return super.keyPressed(keyCode, scanCode, keyModifiers);
     }
 
-    private void inputPressed()
+    public void inputPressed()
     {
         if (gracePeriod > 0) gracePeriod = 0;
 
@@ -545,7 +545,7 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener
     public void tick()
     {
         if (isHoldingInput())
-        { //mimics the keyboard behaviour
+        { //mimics the keyboard behavior
             holdingTicks++;
             if (holdingTicks > holdingDelay) inputPressed();
         }
@@ -592,18 +592,19 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener
             progress -= decay;
         }
 
-        if (progressSmooth < 0)
-        {
-            this.onClose();
-        }
+        if (!isSettingsScreen()) {
 
-        if (progressSmooth > 75)
-        {
-            //if completed treasure minigame, or is a perfect catch with the mossy hook
-            boolean awardTreasure = treasureProgress > 100;
+            if (progressSmooth < 0) {
+                this.onClose();
+            }
 
-            PacketDistributor.sendToServer(new FishingCompletedPayload(tickCount, awardTreasure, perfectCatch, consecutiveHits));
-            this.onClose();
+            if (progressSmooth > 75) {
+                //if completed treasure minigame, or is a perfect catch with the mossy hook
+                boolean awardTreasure = treasureProgress > 100;
+
+                PacketDistributor.sendToServer(new FishingCompletedPayload(tickCount, awardTreasure, perfectCatch, consecutiveHits));
+                this.onClose();
+            }
         }
 
         hitParticles.removeIf(HitFakeParticle::tick);
@@ -614,7 +615,7 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener
     {
         modifiers.forEach(AbstractMinigameModifier::onRemove);
 
-        if (!ModList.get().isLoaded("distanthorizons"))
+        if (!hasDistantHorizons())
             Minecraft.getInstance().options.guiScale().set(previousGuiScale);
 
         PacketDistributor.sendToServer(new FishingCompletedPayload(-1, false, false, consecutiveHits));
@@ -685,6 +686,14 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener
     public boolean isHoldingInput()
     {
         return isHoldingMouse || isHoldingKey;
+    }
+
+    public static boolean hasDistantHorizons() {
+        return ModList.get().isLoaded("distanthorizons");
+    }
+
+    public boolean isSettingsScreen(){
+        return false;
     }
 
     @Override

@@ -52,6 +52,7 @@ public interface ModMinigameModifiers
     //unused
     Pair<ResourceLocation, Supplier<AbstractMinigameModifier>> ADD_THREE_AQUA_SWEET_SPOT = registerMinigameModifier("add_three_aqua_sweet_spot", () -> new AquaBobberModifier(3));
 
+    Pair<ResourceLocation, Supplier<AbstractMinigameModifier>> NIKDO53_MODIFIER = registerMinigameModifier("nikdo53_modifier", Nikdo53Modifier::new);
 
 
     static Pair<ResourceLocation, Supplier<AbstractMinigameModifier>> registerMinigameModifier(String name, Supplier<AbstractMinigameModifier> sup)
