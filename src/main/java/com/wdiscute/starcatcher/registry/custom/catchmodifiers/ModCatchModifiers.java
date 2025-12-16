@@ -44,7 +44,7 @@ public interface ModCatchModifiers
 
     //seeking worm
     ResourceLocation GUARANTEE_NEW_FISH_ALWAYS = registerCatchModifier("guarantee_new_fish_always", () -> new GuaranteeNewFishModifier(101));
-    ResourceLocation GUARANTEE_NEW_FISH_ALWAYS = registerCatchModifier("guarantee_new_fish_half", () -> new GuaranteeNewFishModifier(50));
+    ResourceLocation GUARANTEE_NEW_FISH_HALF = registerCatchModifier("guarantee_new_fish_half", () -> new GuaranteeNewFishModifier(50));
 
     //gold hook
     ResourceLocation EXTRA_EXP_BASED_ON_PERFORMANCE = registerCatchModifier("extra_exp_based_on_performance", ExtraExpBasedOnPerformanceModifier::new);
@@ -53,8 +53,8 @@ public interface ModCatchModifiers
     ResourceLocation EXTRA_ITEM = registerCatchModifier("extra_item", () -> new ExtraItemsModifier(1));
     ResourceLocation EXTRA_TWO_ITEMS = registerCatchModifier("extra_two_item", () -> new ExtraItemsModifier(2));
     ResourceLocation EXTRA_THREE_ITEMS = registerCatchModifier("extra_three_item", () -> new ExtraItemsModifier(3));
-    ResourceLocation EXTRA_FIVE_ITEMS = registerCatchModifier("extra_two_item", () -> new ExtraItemsModifier(5));
-    ResourceLocation EXTRA_TEN_ITEMS = registerCatchModifier("extra_two_item", () -> new ExtraItemsModifier(10));
+    ResourceLocation EXTRA_FIVE_ITEMS = registerCatchModifier("extra_five_item", () -> new ExtraItemsModifier(5));
+    ResourceLocation EXTRA_TEN_ITEMS = registerCatchModifier("extra_ten_item", () -> new ExtraItemsModifier(10));
     ResourceLocation EXTRA_THIRTY_TWO_ITEMS = registerCatchModifier("extra_thirty_two_item", () -> new ExtraItemsModifier(32));
 
 
