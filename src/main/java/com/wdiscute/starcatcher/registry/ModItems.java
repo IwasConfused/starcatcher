@@ -53,34 +53,34 @@ public interface ModItems
 
     //hooks
     DeferredItem<Item> HOOK = HOOKS_REGISTRY.register("hook", SingleStackBasicItem::new);
-    DeferredItem<Item> SHINY_HOOK = HOOKS_REGISTRY.register("shiny_hook", () -> new ModifierItem(ModMinigameModifiers.SPAWN_TREASURE_ON_THREE_HITS));
-    DeferredItem<Item> GOLD_HOOK = HOOKS_REGISTRY.register("gold_hook", () -> new ModifierItem(ModCatchModifiers.EXTRA_EXP_BASED_ON_PERFORMANCE));
-    DeferredItem<Item> MOSSY_HOOK = HOOKS_REGISTRY.register("mossy_hook", () -> new ModifierItem(ModMinigameModifiers.HARDER_WITH_TREASURE_ON_PERFECT));
-    DeferredItem<Item> STONE_HOOK = HOOKS_REGISTRY.register("stone_hook", () -> new ModifierItem(ModMinigameModifiers.STOP_DECAY_ON_HIT));
-    DeferredItem<Item> SPLIT_HOOK = HOOKS_REGISTRY.register("split_hook", () -> new ModifierItem(ModCatchModifiers.EXTRA_ITEM));
-    DeferredItem<Item> STABILIZING_HOOK = HOOKS_REGISTRY.register("stabilizing_hook", () -> new ModifierItem(ModMinigameModifiers.NO_FLIP));
-    DeferredItem<Item> HEAVY_HOOK = HOOKS_REGISTRY.register("heavy_hook", () -> new ModifierItem(ModMinigameModifiers.SLOWER_MOVING_SWEET_SPOTS));
+    DeferredItem<Item> SHINY_HOOK = HOOKS_REGISTRY.register("shiny_hook", () -> new MinigameModifierItem(ModMinigameModifiers.SPAWN_TREASURE_ON_THREE_HITS));
+    DeferredItem<Item> GOLD_HOOK = HOOKS_REGISTRY.register("gold_hook", () -> new CatchModifierItem(ModCatchModifiers.EXTRA_EXP_BASED_ON_PERFORMANCE));
+    DeferredItem<Item> MOSSY_HOOK = HOOKS_REGISTRY.register("mossy_hook", () -> new MinigameModifierItem(ModMinigameModifiers.HARDER_WITH_TREASURE_ON_PERFECT));
+    DeferredItem<Item> STONE_HOOK = HOOKS_REGISTRY.register("stone_hook", () -> new MinigameModifierItem(ModMinigameModifiers.STOP_DECAY_ON_HIT));
+    DeferredItem<Item> SPLIT_HOOK = HOOKS_REGISTRY.register("split_hook", () -> new CatchModifierItem(ModCatchModifiers.EXTRA_ITEM));
+    DeferredItem<Item> STABILIZING_HOOK = HOOKS_REGISTRY.register("stabilizing_hook", () -> new MinigameModifierItem(ModMinigameModifiers.NO_FLIP));
+    DeferredItem<Item> HEAVY_HOOK = HOOKS_REGISTRY.register("heavy_hook", () -> new MinigameModifierItem(ModMinigameModifiers.SLOWER_MOVING_SWEET_SPOTS));
 
     //bobbers
     DeferredItem<Item> BOBBER = BOBBERS_REGISTRY.register("bobber", SingleStackBasicItem::new);
-    DeferredItem<Item> STEADY_BOBBER = BOBBERS_REGISTRY.register("steady_bobber", () -> new ModifierItem(ModMinigameModifiers.BIGGER_GREEN_SWEET_SPOTS));
-    DeferredItem<Item> CLEAR_BOBBER = BOBBERS_REGISTRY.register("clear_bobber", () -> new ModifierItem(ModMinigameModifiers.SLOWER_VANISHING));
-    DeferredItem<Item> AQUA_BOBBER = BOBBERS_REGISTRY.register("aqua_bobber", () -> new ModifierItem(ModMinigameModifiers.ADD_AQUA_SWEET_SPOT));
-    DeferredItem<Item> VANILLA_BOBBER = BOBBERS_REGISTRY.register("vanilla_bobber", () -> new ModifierItem(ModCatchModifiers.VANILLA_LOOT));
+    DeferredItem<Item> STEADY_BOBBER = BOBBERS_REGISTRY.register("steady_bobber", () -> new MinigameModifierItem(ModMinigameModifiers.BIGGER_GREEN_SWEET_SPOTS));
+    DeferredItem<Item> CLEAR_BOBBER = BOBBERS_REGISTRY.register("clear_bobber", () -> new MinigameModifierItem(ModMinigameModifiers.SLOWER_VANISHING));
+    DeferredItem<Item> AQUA_BOBBER = BOBBERS_REGISTRY.register("aqua_bobber", () -> new MinigameModifierItem(ModMinigameModifiers.ADD_AQUA_SWEET_SPOT));
+    DeferredItem<Item> VANILLA_BOBBER = BOBBERS_REGISTRY.register("vanilla_bobber", () -> new CatchModifierItem(ModCatchModifiers.VANILLA_LOOT));
 
     //baits
-    DeferredItem<Item> WORM = BAITS_REGISTRY.register("worm", () -> new ModifierItem(64, ModCatchModifiers.DECREASES_LURE_TIME));
-    DeferredItem<Item> ALMIGHTY_WORM = BAITS_REGISTRY.register("almighty_worm", () -> new ModifierItem(64, ModCatchModifiers.DECREASES_LURE_TIME, ModCatchModifiers.FISH_ENTITY));
-    DeferredItem<Item> SEEKING_WORM = BAITS_REGISTRY.register("seeking_worm", () -> new ModifierItem(64, ModCatchModifiers.DECREASES_LURE_TIME, ModCatchModifiers.GUARANTEE_NEW_FISH_ALWAYS));
+    DeferredItem<Item> WORM = BAITS_REGISTRY.register("worm", () -> new CatchModifierItem(64, ModCatchModifiers.DECREASES_LURE_TIME));
+    DeferredItem<Item> ALMIGHTY_WORM = BAITS_REGISTRY.register("almighty_worm", () -> new CatchModifierItem(64, ModCatchModifiers.DECREASES_LURE_TIME, ModCatchModifiers.FISH_ENTITY));
+    DeferredItem<Item> SEEKING_WORM = BAITS_REGISTRY.register("seeking_worm", () -> new CatchModifierItem(64, ModCatchModifiers.DECREASES_LURE_TIME, ModCatchModifiers.GUARANTEE_NEW_FISH_ALWAYS));
 
-    DeferredItem<Item> GUNPOWDER_BAIT = BAITS_REGISTRY.register("gunpowder_bait", () -> new ModifierItem(64, ModCatchModifiers.DECREASES_LURE_TIME));
-    DeferredItem<Item> CHERRY_BAIT = BAITS_REGISTRY.register("cherry_bait", () -> new ModifierItem(64, ModCatchModifiers.DECREASES_LURE_TIME));
-    DeferredItem<Item> LUSH_BAIT = BAITS_REGISTRY.register("lush_bait", () -> new ModifierItem(64, ModCatchModifiers.DECREASES_LURE_TIME));
-    DeferredItem<Item> SCULK_BAIT = BAITS_REGISTRY.register("sculk_bait", () -> new ModifierItem(64, ModCatchModifiers.DECREASES_LURE_TIME));
-    DeferredItem<Item> DRIPSTONE_BAIT = BAITS_REGISTRY.register("dripstone_bait", () -> new ModifierItem(64, ModCatchModifiers.DECREASES_LURE_TIME));
-    DeferredItem<Item> MURKWATER_BAIT = BAITS_REGISTRY.register("murkwater_bait", () -> new ModifierItem(64, ModCatchModifiers.DECREASES_LURE_TIME));
-    DeferredItem<Item> LEGENDARY_BAIT = BAITS_REGISTRY.register("legendary_bait", () -> new ModifierItem(64, ModCatchModifiers.DECREASES_LURE_TIME));
-    DeferredItem<Item> METEOROLOGICAL_BAIT = BAITS_REGISTRY.register("meteorological_bait", () -> new ModifierItem(64, ModCatchModifiers.DECREASES_LURE_TIME));
+    DeferredItem<Item> GUNPOWDER_BAIT = BAITS_REGISTRY.register("gunpowder_bait", () -> new CatchModifierItem(64, ModCatchModifiers.DECREASES_LURE_TIME));
+    DeferredItem<Item> CHERRY_BAIT = BAITS_REGISTRY.register("cherry_bait", () -> new CatchModifierItem(64, ModCatchModifiers.DECREASES_LURE_TIME));
+    DeferredItem<Item> LUSH_BAIT = BAITS_REGISTRY.register("lush_bait", () -> new CatchModifierItem(64, ModCatchModifiers.DECREASES_LURE_TIME));
+    DeferredItem<Item> SCULK_BAIT = BAITS_REGISTRY.register("sculk_bait", () -> new CatchModifierItem(64, ModCatchModifiers.DECREASES_LURE_TIME));
+    DeferredItem<Item> DRIPSTONE_BAIT = BAITS_REGISTRY.register("dripstone_bait", () -> new CatchModifierItem(64, ModCatchModifiers.DECREASES_LURE_TIME));
+    DeferredItem<Item> MURKWATER_BAIT = BAITS_REGISTRY.register("murkwater_bait", () -> new CatchModifierItem(64, ModCatchModifiers.DECREASES_LURE_TIME));
+    DeferredItem<Item> LEGENDARY_BAIT = BAITS_REGISTRY.register("legendary_bait", () -> new CatchModifierItem(64, ModCatchModifiers.DECREASES_LURE_TIME));
+    DeferredItem<Item> METEOROLOGICAL_BAIT = BAITS_REGISTRY.register("meteorological_bait", () -> new CatchModifierItem(64, ModCatchModifiers.DECREASES_LURE_TIME));
 
 
 

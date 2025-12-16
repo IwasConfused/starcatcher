@@ -152,8 +152,6 @@
   "tooltip.modifier.starcatcher.spawn_treasure_on_three_hits.0": "Successfully hitting 3 sweet-spots in a row",
   "tooltip.modifier.starcatcher.spawn_treasure_on_three_hits.1": "will summon a treasure chest",
 
-  "tooltip.modifier.starcatcher.extra_exp_based_on_performance.0": "Extra exp is awarded based on your performance",
-
   "tooltip.modifier.starcatcher.slower_moving_sweet_spots.0": "Slows down moving sweet-spots",
 
   "tooltip.modifier.starcatcher.stop_decay_on_hit.0": "Prevents your catch from swimming away",
@@ -162,25 +160,38 @@
   "tooltip.modifier.starcatcher.harder_with_treasure_on_perfect.0": "The catch will be harder than usual,",
   "tooltip.modifier.starcatcher.harder_with_treasure_on_perfect.1": "but a perfect catch awards a treasure",
 
-  "tooltip.modifier.starcatcher.double_item.0": "An extra fish will be added to your catch",
-
   "tooltip.modifier.starcatcher.no_flip.0": "Sweet-spots will no longer flip when hit",
 
-  "tooltip.modifier.starcatcher.bigger_green_sweet_spots.1": "Green sweet-spots will be slightly bigger",
-
   "tooltip.modifier.starcatcher.slower_vanishing.1": "Vanishing sweet-spots will take longer to vanish",
+
+  "tooltip.modifier.starcatcher.bigger_green_sweet_spots.1": "Green sweet-spots will be slightly bigger",
 
   "tooltip.modifier.starcatcher.add_aqua_sweet_spot.1": "An extra aqua sweet-spot is added",
 
   "tooltip.modifier.starcatcher.add_three_aqua_sweet_spot.1": "Three extra aqua sweet-spot are added",
 
+
+
+  "tooltip.modifier.starcatcher.decrease_lure_time.0": "Decreases lure time",
+  "tooltip.modifier.starcatcher.big_decrease_lure_time.0": "Decreases lure time greatly",
+  "tooltip.modifier.starcatcher.increase_lure_time.0": "Increases lure time",
+
   "tooltip.modifier.starcatcher.vanilla_loot.0": "Restores vanilla fishing behaviour",
+
+  "tooltip.modifier.starcatcher.extra_exp_based_on_performance.0": "Extra exp is awarded based on your performance",
 
   "tooltip.modifier.starcatcher.fish_entity.0": "If available, will catch the live fish instead",
 
-  "tooltip.modifier.starcatcher.decrease_lure_time.0": "Decreases lure time",
+  "tooltip.modifier.starcatcher.guarantee_new_fish_always.0": "If available, an undiscovered fish will bite",
+  "tooltip.modifier.starcatcher.guarantee_new_fish_half.0": "An undiscovered fish is more likely to bite",
 
-  "tooltip.modifier.starcatcher.guarantee_new_fish.0": "If available, new catches will be prioritized",
+  "tooltip.modifier.starcatcher.extra_item.0": "An extra fish will come alongside your catch",
+  "tooltip.modifier.starcatcher.extra_two_item.0": "Two extra fish will come alongside your catch",
+  "tooltip.modifier.starcatcher.extra_three_item.0": "Three extra fish will come alongside your catch",
+  "tooltip.modifier.starcatcher.extra_five_item.0": "Five extra fish will come alongside your catch",
+  "tooltip.modifier.starcatcher.extra_ten_item.0": "A bunch of extra fish will come alongside your catch",
+  "tooltip.modifier.starcatcher.extra_thirty_two_item.0": "A whole school will come alongside your catch",
+
 
 
 

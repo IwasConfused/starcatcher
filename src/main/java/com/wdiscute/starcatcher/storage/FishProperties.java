@@ -1031,7 +1031,7 @@ public record FishProperties(
 
         public static Difficulty CREEPER = new Difficulty(
                 10, 20, 1,
-                List.of(ModMinigameModifiers.SPAWN_TNT_SWEET_SPOTS),
+                List.of(ModMinigameModifiers.SPAWN_TNT_SWEET_SPOTS.getFirst()),
                 SweetSpot.CREEPER, SweetSpot.CREEPER
         );
 
