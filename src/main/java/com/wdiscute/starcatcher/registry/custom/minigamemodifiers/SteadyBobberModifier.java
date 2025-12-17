@@ -10,10 +10,16 @@ public class SteadyBobberModifier extends AbstractMinigameModifier
     public ActiveSweetSpot onSpotAdded(ActiveSweetSpot ass)
     {
         super.onSpotAdded(ass);
-        if(ass.baseSS.equals(FishProperties.SweetSpot.NORMAL))
+        if(ass.baseSS.texturePath().equals(FishProperties.SweetSpot.NORMAL.texturePath()))
         {
             ass.texture = FishProperties.SweetSpot.NORMAL_STEADY.texturePath();
             ass.thickness = FishProperties.SweetSpot.NORMAL_STEADY.size();
+        }
+
+        if(ass.baseSS.texturePath().equals(FishProperties.SweetSpot.THIN.texturePath()))
+        {
+            ass.texture = FishProperties.SweetSpot.THIN_STEADY.texturePath();
+            ass.thickness = FishProperties.SweetSpot.THIN_STEADY.size();
         }
         return ass;
     }

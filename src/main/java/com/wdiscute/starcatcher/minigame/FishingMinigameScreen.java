@@ -317,17 +317,6 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener
         poseStack.popPose();
     }
 
-    private void renderCombo(GuiGraphics guiGraphics, int consecutiveHits, float delta)
-    {
-        //todo make this into a modifier
-        PoseStack pose = guiGraphics.pose();
-        pose.translate(width / 2f + 20, height / 2f - 40, 0);
-        pose.mulPose(Axis.ZP.rotationDegrees(30));
-        float f = 1.8F - Mth.abs(Mth.sin(delta % 20) * ((float) Math.PI * 2F) * 0.01F);
-        pose.scale(f, f, 1);
-        guiGraphics.drawCenteredString(this.font, Component.translatable("fishing.combo", consecutiveHits).withStyle(ChatFormatting.GOLD), 0, -5, -1);
-    }
-
     public void renderTreasure(GuiGraphics guiGraphics)
     {
         //treasure bar

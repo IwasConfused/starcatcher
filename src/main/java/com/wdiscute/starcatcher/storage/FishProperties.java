@@ -1121,7 +1121,9 @@ public record FishProperties(
         }
 
         private static final ResourceLocation RL_NORMAL = Starcatcher.rl("textures/gui/minigame/spots/normal.png");
+        private static final ResourceLocation RL_NORMAL_STEADY = Starcatcher.rl("textures/gui/minigame/spots/normal_steady.png");
         private static final ResourceLocation RL_THIN = Starcatcher.rl("textures/gui/minigame/spots/thin.png");
+        private static final ResourceLocation RL_THIN_STEADY = Starcatcher.rl("textures/gui/minigame/spots/thin_steady.png");
         private static final ResourceLocation RL_FREEZE = Starcatcher.rl("textures/gui/minigame/spots/frozen.png");
         private static final ResourceLocation RL_TREASURE = Starcatcher.rl("textures/gui/minigame/spots/treasure.png");
         private static final ResourceLocation RL_WITHER = Starcatcher.rl("textures/gui/minigame/spots/wither.png");
@@ -1171,7 +1173,7 @@ public record FishProperties(
 
         public static SweetSpot NORMAL_STEADY = new SweetSpot(
                 ModSweetSpotsBehaviour.NORMAL,
-                RL_NORMAL,
+                RL_NORMAL_STEADY,
                 33,
                 15,
                 0x00ff00
@@ -1187,7 +1189,7 @@ public record FishProperties(
 
         public static SweetSpot THIN_STEADY = new SweetSpot(
                 ModSweetSpotsBehaviour.NORMAL,
-                RL_THIN,
+                RL_THIN_STEADY,
                 20,
                 20,
                 0x00ff00

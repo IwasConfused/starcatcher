@@ -17,6 +17,7 @@ public class BaseModifier extends AbstractMinigameModifier
         //refresh all vanishes
         instance.refreshSweetSpotsAlphas();
 
+        instance.consecutiveHits = 0;
     }
 
     @Override
@@ -25,6 +26,8 @@ public class BaseModifier extends AbstractMinigameModifier
         instance.kimbeMarkerAlpha = 1;
         instance.kimbeMarkerColor = 0x2ce17d;
         instance.kimbeMarkerPos = instance.getPointerPosPrecise();
+
+        instance.consecutiveHits++;
 
         return super.onHit(ass);
     }
