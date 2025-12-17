@@ -2,12 +2,9 @@ package com.wdiscute.starcatcher.registry.custom.catchmodifiers;
 
 import com.wdiscute.starcatcher.Starcatcher;
 import com.wdiscute.starcatcher.bob.FishingBobEntity;
-import com.wdiscute.starcatcher.io.FishCaughtCounter;
-import com.wdiscute.starcatcher.io.ModDataAttachments;
 import com.wdiscute.starcatcher.storage.FishProperties;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
 
 import java.util.List;
 
@@ -58,12 +55,13 @@ public abstract class AbstractCatchModifier
     }
 
     //server only
-    public void beforeChoosingTheCatch(List<FishProperties> available)
+    public List<FishProperties> modifyAvailablePool(List<FishProperties> available)
     {
+        return available;
     }
 
     //server only
-    public void afterChoosingTheCatch(List<FishProperties> available)
+    public void afterChoosingTheCatch(List<FishProperties> immutableAvailable)
     {
     }
 

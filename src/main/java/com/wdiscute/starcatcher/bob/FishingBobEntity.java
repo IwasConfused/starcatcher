@@ -11,7 +11,6 @@ import com.wdiscute.starcatcher.io.SingleStackContainer;
 import com.wdiscute.starcatcher.io.network.FishingStartedPayload;
 import com.wdiscute.starcatcher.registry.custom.catchmodifiers.AbstractCatchModifier;
 import com.wdiscute.starcatcher.registry.custom.catchmodifiers.ModCatchModifiers;
-import com.wdiscute.starcatcher.registry.custom.minigamemodifiers.ModMinigameModifiers;
 import com.wdiscute.starcatcher.registry.ModEntities;
 import com.wdiscute.starcatcher.registry.ModItems;
 import com.wdiscute.starcatcher.registry.ModParticles;
@@ -225,13 +224,17 @@ public class FishingBobEntity extends Projectile
         if (available.isEmpty()) this.kill();
 
         //trigger modifiers for which fish to get based on available
-        modifiers.forEach(acm -> acm.beforeChoosingTheCatch(available));
+        for (AbstractCatchModifier acm : modifiers)
+        {
+            available = acm.modifyAvailablePool(available);
+        }
 
         //get random fish from available pool
         fpToFish = available.get(random.nextInt(available.size()));
 
         //trigger modifiers for which fish to get based on available
-        modifiers.forEach(acm -> acm.afterChoosingTheCatch(available));
+        List<FishProperties> immutableAvailable = available;
+        modifiers.forEach(acm -> acm.afterChoosingTheCatch(immutableAvailable));
 
         //should cancel to prevent normal minigame/item fished (only used for vanilla bobber)
         if(modifiers.stream().anyMatch(AbstractCatchModifier::shouldCancelBeforeSkipsMinigameCheck))

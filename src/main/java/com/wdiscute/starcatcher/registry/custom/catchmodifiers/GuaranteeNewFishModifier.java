@@ -19,16 +19,16 @@ public class GuaranteeNewFishModifier extends AbstractCatchModifier
     }
 
     @Override
-    public void afterChoosingTheCatch(List<FishProperties> available)
+    public void afterChoosingTheCatch(List<FishProperties> immutableAvailable)
     {
-        super.afterChoosingTheCatch(available);
+        super.afterChoosingTheCatch(immutableAvailable);
 
         if(U.r.nextFloat(100) > chance) return;
 
         Level level = instance.level();
 
         List<FishCaughtCounter> fishesCaught = ModDataAttachments.get(instance.player, ModDataAttachments.FISHES_CAUGHT);
-        for (FishProperties fp : available)
+        for (FishProperties fp : immutableAvailable)
         {
             boolean caught = false;
             for (FishCaughtCounter fcc : fishesCaught)
