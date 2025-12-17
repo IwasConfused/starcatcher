@@ -106,4 +106,10 @@ public abstract class AbstractCatchModifier
     {
         return is;
     }
+
+    public boolean shouldCancelBeforeSkipsMinigameCheck()
+    {
+        return false;
+    }
+
 }

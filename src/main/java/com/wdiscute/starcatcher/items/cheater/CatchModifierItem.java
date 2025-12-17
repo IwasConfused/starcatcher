@@ -3,7 +3,6 @@ package com.wdiscute.starcatcher.items.cheater;
 import com.mojang.datafixers.util.Pair;
 import com.wdiscute.starcatcher.io.ModDataComponents;
 import com.wdiscute.starcatcher.registry.custom.catchmodifiers.AbstractCatchModifier;
-import com.wdiscute.starcatcher.registry.custom.minigamemodifiers.AbstractMinigameModifier;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 
@@ -23,7 +22,7 @@ public class CatchModifierItem extends Item
     public CatchModifierItem(int maxStackSize, Pair<ResourceLocation, Supplier<AbstractCatchModifier>>... modifiers)
     {
         super(new Item.Properties()
-                .component(ModDataComponents.MINIGAME_MODIFIERS, getAsList(modifiers))
+                .component(ModDataComponents.CATCH_MODIFIERS, getAsList(modifiers))
                 .stacksTo(maxStackSize)
         );
     }

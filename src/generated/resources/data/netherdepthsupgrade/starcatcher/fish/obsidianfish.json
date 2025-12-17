@@ -23,7 +23,7 @@
     "decay": 0.0,
     "missPenalty": 20,
     "modifiers": [],
-    "speed": 9,
+    "speed": 12,
     "sweetspots": [
       {
         "color_as_int": 4802889,

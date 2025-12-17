@@ -205,6 +205,8 @@ public class FishingBobEntity extends Projectile
             }
         }
 
+        System.out.println("wdawd");
+
         //trigger modifiers
         modifiers.forEach(AbstractCatchModifier::onReelAfterTreasureCheck);
 
@@ -230,6 +232,13 @@ public class FishingBobEntity extends Projectile
 
         //trigger modifiers for which fish to get based on available
         modifiers.forEach(acm -> acm.afterChoosingTheCatch(available));
+
+        //should cancel to prevent normal minigame/item fished (only used for vanilla bobber)
+        if(modifiers.stream().anyMatch(AbstractCatchModifier::shouldCancelBeforeSkipsMinigameCheck))
+        {
+            this.kill();
+            return;
+        }
 
         //skips minigame if (skipsminigame() or server config of minigame enabled = false) OR any modifier wants to
         if ((fpToFish.skipMinigame() || !Config.ENABLE_MINIGAME.get())

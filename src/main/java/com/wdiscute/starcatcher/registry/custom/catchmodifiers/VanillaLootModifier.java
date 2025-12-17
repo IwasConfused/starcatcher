@@ -19,6 +19,12 @@ public class VanillaLootModifier extends AbstractCatchModifier
 {
 
     @Override
+    public boolean shouldCancelBeforeSkipsMinigameCheck()
+    {
+        return true;
+    }
+
+    @Override
     public void onReelAfterTreasureCheck()
     {
         super.onReelAfterTreasureCheck();

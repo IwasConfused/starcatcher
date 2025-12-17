@@ -903,9 +903,9 @@ public record FishProperties(
         public static Difficulty EASY_MOVING = EASY.moving();
 
         public static Difficulty MEDIUM = new Difficulty(
-                10, 10, 1,
+                10, 20, 1,
                 List.of(),
-                SweetSpot.NORMAL, SweetSpot.NORMAL, SweetSpot.THIN
+                SweetSpot.NORMAL, SweetSpot.THIN
         );
         public static Difficulty MEDIUM_VANISHING = MEDIUM.vanishing();
         public static Difficulty MEDIUM_MOVING = MEDIUM.moving();
@@ -974,7 +974,7 @@ public record FishProperties(
         public static Difficulty THREE_BIG_TWO_THIN_VANISHING = THREE_BIG_TWO_THIN.vanishing();
 
         public static Difficulty FOUR_STONE_SPOTS = new Difficulty(
-                9, 20, 0,
+                12, 20, 0,
                 List.of(),
                 SweetSpot.STONE, SweetSpot.STONE, SweetSpot.STONE, SweetSpot.STONE
         );

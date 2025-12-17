@@ -37,7 +37,9 @@ import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.event.*;
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @EventBusSubscriber(modid = Starcatcher.MOD_ID, value = Dist.CLIENT)
 public class ModClientEvents
@@ -49,9 +51,12 @@ public class ModClientEvents
         List<Component> comp = event.getToolTip();
         ItemStack stack = event.getItemStack();
 
-        if (stack.has(ModDataComponents.MINIGAME_MODIFIERS))
+        if (stack.has(ModDataComponents.MINIGAME_MODIFIERS) || stack.has(ModDataComponents.CATCH_MODIFIERS))
         {
-            List<ResourceLocation> modifiers = stack.get(ModDataComponents.MINIGAME_MODIFIERS);
+            List<ResourceLocation> modifiers = new ArrayList<>();
+
+            if(stack.has(ModDataComponents.CATCH_MODIFIERS)) modifiers.addAll(Objects.requireNonNull(stack.get(ModDataComponents.CATCH_MODIFIERS)));
+            if(stack.has(ModDataComponents.MINIGAME_MODIFIERS)) modifiers.addAll(Objects.requireNonNull(stack.get(ModDataComponents.MINIGAME_MODIFIERS)));
 
             if (!modifiers.isEmpty())
             {

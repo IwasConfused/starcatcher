@@ -178,7 +178,7 @@
   "tooltip.modifier.starcatcher.big_decrease_lure_time.0": "Decreases lure time greatly",
   "tooltip.modifier.starcatcher.increase_lure_time.0": "Increases lure time",
 
-  "tooltip.modifier.starcatcher.vanilla_loot.0": "Restores vanilla fishing behaviour",
+  "tooltip.modifier.starcatcher.vanilla_loot.0": "Restores vanilla fishing behaviour and loot",
 
   "tooltip.modifier.starcatcher.extra_exp_based_on_performance.0": "Extra exp is awarded based on your performance",
 
@@ -224,18 +224,13 @@
 
 
   "item.starcatcher.worm": "Worm",
-  "tooltip.starcatcher.worm.0": "A basic worm bait which every fish likes.",
-  "tooltip.starcatcher.worm.1": "Used by anglers as an easy way to get quicker bites.",
+  "tooltip.starcatcher.worm.0": "A common worm found by bonemealing some farmland.",
 
   "item.starcatcher.seeking_worm": "Seeking Worm",
-  "tooltip.starcatcher.seeking_worm.0": "A very powerful magical worm known for seeking",
-  "tooltip.starcatcher.seeking_worm.1": "fishes which the angler has yet to catch.",
-  "tooltip.starcatcher.seeking_worm.2": "Useful for completionists looking for fill up their collection.",
+  "tooltip.starcatcher.seeking_worm.0": "A rare worm found by bonemealing some farmland.",
 
   "item.starcatcher.almighty_worm": "Almighty Worm",
-  "tooltip.starcatcher.almighty_worm.0": "A strong worm which prevents fishes from being killed",
-  "tooltip.starcatcher.almighty_worm.1": "when being caught! Be careful when using this worm as a",
-  "tooltip.starcatcher.almighty_worm.2": "bait as you might get slapped by a flying cod.",
+  "tooltip.starcatcher.almighty_worm.0": "A rare worm found by bonemealing some farmland.",
 
 
   "item.starcatcher.gunpowder_bait": "Gunpowder Bait",
@@ -861,7 +856,6 @@
 
   "item.starcatcher.silverveil_perch" : "Silverveil Perch",
   "tooltip.starcatcher.silverveil_perch.0" : "A small perch with scales resembling silver.",
-  "tooltip.starcatcher.silverveil_perch.1" : "Most commonly found during rainy days.",
 
   "item.starcatcher.elderscale" : "Elderscale",
   "tooltip.starcatcher.elderscale.0" : "A deceiving fish often found in lakes.",

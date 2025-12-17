@@ -3,19 +3,26 @@ package com.wdiscute.starcatcher.recipe;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.wdiscute.starcatcher.Starcatcher;
 import com.wdiscute.starcatcher.io.ModDataComponents;
 import com.wdiscute.starcatcher.registry.ModRecipes;
+import com.wdiscute.starcatcher.registry.custom.catchmodifiers.AbstractCatchModifier;
+import com.wdiscute.starcatcher.registry.custom.minigamemodifiers.AbstractMinigameModifier;
+import net.dries007.tfc.client.overworld.Star;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Supplier;
 
 public class ModifierShapedRecipe implements CraftingRecipe
 {
@@ -34,11 +41,6 @@ public class ModifierShapedRecipe implements CraftingRecipe
         this.result = result;
         this.showNotification = showNotification;
         this.modifiers = modifiers;
-    }
-
-    public ModifierShapedRecipe(String group, CraftingBookCategory category, ShapedRecipePattern pattern, ItemStack result)
-    {
-        this(group, category, pattern, result, true, List.of());
     }
 
     @Override
@@ -90,10 +92,27 @@ public class ModifierShapedRecipe implements CraftingRecipe
 
     public ItemStack assemble(CraftingInput input, HolderLookup.Provider registries)
     {
-        var wad = this.getResultItem(registries).copy();
-        //only add if its not empty to not clutter itemStacks
-        if(!modifiers.isEmpty()) wad.set(ModDataComponents.MINIGAME_MODIFIERS, modifiers);
-        return wad;
+        var itemstack = this.getResultItem(registries).copy();
+
+        List<ResourceLocation> catchModifiers = new ArrayList<>();
+        List<ResourceLocation> minigameModifiers = new ArrayList<>();
+
+        for (ResourceLocation rl : modifiers)
+        {
+            ResourceKey<Supplier<AbstractCatchModifier>> catchRK = ResourceKey.create(Starcatcher.CATCH_MODIFIERS, rl);
+            ResourceKey<Supplier<AbstractMinigameModifier>> minigameRK = ResourceKey.create(Starcatcher.MINIGAME_MODIFIERS, rl);
+
+            if(registries.lookupOrThrow(Starcatcher.CATCH_MODIFIERS).get(catchRK).isPresent())
+                catchModifiers.add(rl);
+
+            if(registries.lookupOrThrow(Starcatcher.MINIGAME_MODIFIERS).get(minigameRK).isPresent())
+                minigameModifiers.add(rl);
+        }
+
+        if(!catchModifiers.isEmpty()) itemstack.set(ModDataComponents.CATCH_MODIFIERS, catchModifiers);
+        if(!minigameModifiers.isEmpty()) itemstack.set(ModDataComponents.MINIGAME_MODIFIERS, minigameModifiers);
+
+        return itemstack;
     }
 
     public int getWidth()

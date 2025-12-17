@@ -412,7 +412,7 @@ public class StarcatcherFishingProperties
 
         registerStarcatcherBucketAndEntity(overworldCavesFish(ModItems.STONEFISH)
                 .withSizeAndWeight(FishProperties.sizeWeight(300, 150, 26000, 7000))
-                .withDifficulty(FishProperties.Difficulty.MEDIUM_MOVING));
+                .withDifficulty(FishProperties.Difficulty.FOUR_STONE_SPOTS));
 
         registerStarcatcherBucketAndEntity(overworldCavesFish(ModItems.AMETHYSTBACK)
                 .withSizeAndWeight(FishProperties.sizeWeight(300, 150, 16000, 7000))
