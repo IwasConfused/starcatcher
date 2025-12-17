@@ -51,9 +51,7 @@ public class ModEvents
     @SubscribeEvent
     public static void addCommand(RegisterCommandsEvent event)
     {
-        event.getDispatcher().register(
-                ModCommands.COMMAND
-        );
+        ModCommands.register(event.getDispatcher(), event.getBuildContext());
     }
 
     @SubscribeEvent
