@@ -35,13 +35,13 @@ public record FishingRodSmithingRecipe(
         ) return true;
 
         //bobber skins
-        if(input.template().is(StarcatcherTags.BOBBER_SKIN_TEMPLATES) && input.addition().isEmpty())
+        if(input.template().is(StarcatcherTags.TEMPLATES) && input.addition().isEmpty())
         {
             SingleStackContainer singleStackContainer = input.base().get(ModDataComponents.BOBBER_SKIN);
             if(singleStackContainer == null) return true;
 
             //if bobber skin is the template, can not craft
-            return !singleStackContainer.stack().is(input.template().getItem());
+            return !singleStackContainer.stack().is(input.template().getItem()) || singleStackContainer.stack().is(ModItems.COLORFUL_BOBBER_SMITHING_TEMPLATE);
         }
 
         return false;
@@ -57,9 +57,9 @@ public record FishingRodSmithingRecipe(
             return newRod;
         }
 
-        if(input.template().is(StarcatcherTags.BOBBER_SKIN_TEMPLATES))
+        if(input.template().is(StarcatcherTags.TEMPLATES))
         {
-            newRod.set(ModDataComponents.BOBBER_SKIN, new SingleStackContainer(input.template()));
+            newRod.set(ModDataComponents.BOBBER_SKIN, new SingleStackContainer(input.template().copy()));
             return newRod;
         }
 

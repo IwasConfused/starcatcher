@@ -623,7 +623,7 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener
 
         for (int i = 0; i < count; i++)
         {
-            if (bobber.is(ModItems.PEARL_BOBBER_SMITHING_TEMPLATE))
+            if (bobberSkin.is(ModItems.PEARL_BOBBER_SMITHING_TEMPLATE))
             {
                 hitParticles.add(new HitFakeParticle(
                         xPos, yPos, new Vector2d(U.r.nextFloat() * 2 - 1, U.r.nextFloat() * 2 - 1),
@@ -635,9 +635,9 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener
                 continue;
             }
 
-            if (bobber.is(ModItems.COLORFUL_BOBBER_SMITHING_TEMPLATE))
+            if (bobberSkin.is(ModItems.COLORFUL_BOBBER_SMITHING_TEMPLATE))
             {
-                ColorfulSmithingTemplate.BobberColor bobberColor = bobber.get(ModDataComponents.BOBBER_COLOR);
+                ColorfulSmithingTemplate.BobberColor bobberColor = bobberSkin.get(ModDataComponents.BOBBER_COLOR);
                 hitParticles.add(new HitFakeParticle(
                         xPos, yPos, new Vector2d(U.r.nextFloat() * 2 - 1, U.r.nextFloat() * 2 - 1),
                         bobberColor.r(),

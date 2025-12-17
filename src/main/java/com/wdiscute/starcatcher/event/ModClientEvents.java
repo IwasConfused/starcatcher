@@ -55,8 +55,10 @@ public class ModClientEvents
         {
             List<ResourceLocation> modifiers = new ArrayList<>();
 
-            if(stack.has(ModDataComponents.CATCH_MODIFIERS)) modifiers.addAll(Objects.requireNonNull(stack.get(ModDataComponents.CATCH_MODIFIERS)));
-            if(stack.has(ModDataComponents.MINIGAME_MODIFIERS)) modifiers.addAll(Objects.requireNonNull(stack.get(ModDataComponents.MINIGAME_MODIFIERS)));
+            if (stack.has(ModDataComponents.CATCH_MODIFIERS))
+                modifiers.addAll(Objects.requireNonNull(stack.get(ModDataComponents.CATCH_MODIFIERS)));
+            if (stack.has(ModDataComponents.MINIGAME_MODIFIERS))
+                modifiers.addAll(Objects.requireNonNull(stack.get(ModDataComponents.MINIGAME_MODIFIERS)));
 
             if (!modifiers.isEmpty())
             {
@@ -93,14 +95,27 @@ public class ModClientEvents
             comp.add(1, Component.literal(size + " - " + weight).withColor(0x888888));
         }
 
+        //Cosmetic
+        if (stack.has(ModDataComponents.BOBBER_SKIN))
+        {
+            ItemStack copy = stack.get(ModDataComponents.BOBBER_SKIN).stack().copy();
+
+            if(!copy.isEmpty())
+            {
+                comp.add(1, copy.getDisplayName().copy().withColor(0x888888));
+                comp.add(1, Tooltips.decodeTranslationKey("tooltip.starcatcher.templates"));
+            }
+        }
+
         //Netherite Upgrade
         if (stack.has(ModDataComponents.NETHERITE_UPGRADE))
         {
-            if(stack.get(ModDataComponents.NETHERITE_UPGRADE))
+            if (stack.get(ModDataComponents.NETHERITE_UPGRADE))
             {
                 comp.add(1, Tooltips.decodeTranslationKey("tooltip.starcatcher.rod.netherite"));
             }
         }
+
 
         //rarity name color
         if (stack.has(ModDataComponents.FISH_PROPERTIES))
