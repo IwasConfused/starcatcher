@@ -31,7 +31,7 @@ public class EnvironmentalFishingProperties extends FishingPropertiesRegistry
         register(fish(U.holderItem("environmental", "slabfish_bucket"))
                 .withAlwaysSpawnEntity(true)
                 .withBucketedFish(U.holderItem("environmental", "slabfish_bucket"))
-                .withEntityToSpawn(U.holderEntity("environmental", "slabfish_bucket"))
+                .withEntityToSpawn(U.holderEntity("environmental", "slabfish"))
                 .withSizeAndWeight(FishProperties.sizeWeight(120, 40, 20000, 10000))
                 .withDifficulty(FishProperties.Difficulty.HARD)
                 .withRarity(FishProperties.Rarity.UNCOMMON)
