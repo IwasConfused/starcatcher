@@ -35,7 +35,10 @@ public interface ModMinigameModifiers
     Pair<ResourceLocation, Supplier<AbstractMinigameModifier>> SPAWN_TREASURE_ON_THREE_HITS = registerMinigameModifier("spawn_treasure_on_three_hits", ShinyHookModifier::new);
 
     //heavy hook
-    Pair<ResourceLocation, Supplier<AbstractMinigameModifier>> SLOWER_MOVING_SWEET_SPOTS = registerMinigameModifier("slower_moving_sweet_spots", HeavyHookModifier::new);
+    Pair<ResourceLocation, Supplier<AbstractMinigameModifier>> SLOWER_MOVING_SWEET_SPOTS = registerMinigameModifier("slower_moving_sweet_spots", () -> new HeavyHookModifier(2));
+    Pair<ResourceLocation, Supplier<AbstractMinigameModifier>> SLOWER_MOVING_SWEET_SPOTS_MORE = registerMinigameModifier("slower_moving_sweet_spots_more", () -> new HeavyHookModifier(3));
+    Pair<ResourceLocation, Supplier<AbstractMinigameModifier>> SLOWER_MOVING_SWEET_SPOTS_MORE_MORE = registerMinigameModifier("slower_moving_sweet_spots_more_more", () -> new HeavyHookModifier(4));
+    Pair<ResourceLocation, Supplier<AbstractMinigameModifier>> SLOWER_MOVING_SWEET_SPOTS_MORE_MORE_MORE = registerMinigameModifier("slower_moving_sweet_spots_more_more_more", () -> new HeavyHookModifier(5));
 
     //stone hook
     Pair<ResourceLocation, Supplier<AbstractMinigameModifier>> STOP_DECAY_ON_HIT = registerMinigameModifier("stop_decay_on_hit", StoneHookModifier::new);

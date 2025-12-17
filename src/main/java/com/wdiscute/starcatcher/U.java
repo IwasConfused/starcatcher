@@ -180,7 +180,7 @@ public class U
                 }
 
                 //spawn treasure item
-                if (completedTreasure)
+                if (completedTreasure || fbe.modifiers.stream().anyMatch(m -> m.forceAwardTreasure(fbe, time, completedTreasure, perfectCatch, hits)))
                 {
                     ItemStack treasure = new ItemStack(fp.catchInfo().treasure());
                     ItemEntity treasureFished = new ItemEntity(level, fbe.position().x, fbe.position().y + 1.2f, fbe.position().z, treasure);

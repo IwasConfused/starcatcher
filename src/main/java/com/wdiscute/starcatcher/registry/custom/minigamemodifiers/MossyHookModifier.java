@@ -5,7 +5,6 @@ import com.wdiscute.starcatcher.storage.FishProperties;
 
 public class MossyHookModifier extends AbstractMinigameModifier
 {
-
     @Override
     public void tick()
     {
@@ -21,4 +20,13 @@ public class MossyHookModifier extends AbstractMinigameModifier
             instance.addSweetSpot(new ActiveSweetSpot(instance, FishProperties.SweetSpot.AQUA_10));
         }
     }
+
+    //award treasure if perfect catch and mossy hook
+    @Override
+    public boolean forceAwardTreasure()
+    {
+        return instance.perfectCatch;
+    }
 }
+
+

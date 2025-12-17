@@ -17,6 +17,8 @@ public class BaseModifier extends AbstractMinigameModifier
         //refresh all vanishes
         instance.refreshSweetSpotsAlphas();
 
+        instance.perfectCatch = false;
+
         instance.consecutiveHits = 0;
     }
 

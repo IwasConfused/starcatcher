@@ -510,14 +510,13 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener
 
         if (!hitSomething)
         {
-            this.modifiers.forEach(modifier -> modifier.onMiss());
+            this.modifiers.forEach(AbstractMinigameModifier::onMiss);
 
             if (bobber.is(ModItems.KIMBE_BOBBER_SMITHING_TEMPLATE))
                 Minecraft.getInstance().player.playSound(SoundEvents.VILLAGER_NO, 1, 1);
             consecutiveHits = 0;
             level.playLocalSound(pos.x, pos.y, pos.z, SoundEvents.COMPARATOR_CLICK, SoundSource.BLOCKS, 1, 1, false);
             progress -= penalty;
-            perfectCatch = false;
         }
     }
 
@@ -595,7 +594,7 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener
 
             if (progressSmooth > 75) {
                 //if completed treasure minigame, or is a perfect catch with the mossy hook
-                boolean awardTreasure = treasureProgress > 100;
+                boolean awardTreasure = treasureProgress > 100 || modifiers.stream().anyMatch(AbstractMinigameModifier::forceAwardTreasure);
 
                 PacketDistributor.sendToServer(new FishingCompletedPayload(tickCount, awardTreasure, perfectCatch, consecutiveHits));
                 this.onClose();

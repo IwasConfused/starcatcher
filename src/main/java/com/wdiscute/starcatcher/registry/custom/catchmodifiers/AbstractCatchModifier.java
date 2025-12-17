@@ -112,4 +112,8 @@ public abstract class AbstractCatchModifier
         return false;
     }
 
+    public boolean forceAwardTreasure(FishingBobEntity fbe, int time, boolean completedTreasure, boolean perfectCatch, int hits)
+    {
+        return false;
+    }
 }
