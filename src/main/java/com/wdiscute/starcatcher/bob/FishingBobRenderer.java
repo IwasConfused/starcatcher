@@ -2,10 +2,11 @@ package com.wdiscute.starcatcher.bob;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.wdiscute.starcatcher.ModItems;
+import com.wdiscute.starcatcher.StarcatcherTags;
+import com.wdiscute.starcatcher.registry.ModItems;
 import com.wdiscute.starcatcher.Starcatcher;
-import com.wdiscute.starcatcher.networkandcodecs.ModDataAttachments;
-import com.wdiscute.starcatcher.networkandcodecs.ModDataComponents;
+import com.wdiscute.starcatcher.io.ModDataAttachments;
+import com.wdiscute.starcatcher.io.ModDataComponents;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
@@ -45,8 +46,8 @@ public class FishingBobRenderer extends EntityRenderer<FishingBobEntity>
         poseStack.translate(0.0F, 1.5F, 0.0F);
         poseStack.scale(-1.0F, -1.0F, 1.0F);
         int color = 0xffff9999;
-        ItemStack bobber = fishingBobEntity.getData(ModDataAttachments.BOBBER).stack().copy();
-        if (bobber.is(ModItems.COLORFUL_BOBBER))
+        ItemStack bobber = ModDataAttachments.get(fishingBobEntity ,ModDataAttachments.BOBBER_SKIN).stack().copy();
+        if (bobber.is(ModItems.COLORFUL_BOBBER_SMITHING_TEMPLATE))
         {
             //why is rendering so annoying
             color = bobber.get(ModDataComponents.BOBBER_COLOR).getColorAsInt();
@@ -110,7 +111,7 @@ public class FishingBobRenderer extends EntityRenderer<FishingBobEntity>
     private Vec3 getPlayerHandPos(Player player, float p_340872_, float partialTick) {
         int i = player.getMainArm() == HumanoidArm.RIGHT ? 1 : -1;
         ItemStack itemstack = player.getMainHandItem();
-        if (!itemstack.is(ModItems.ROD)) {
+        if (!itemstack.is(StarcatcherTags.RODS)) {
             i = -i;
         }
 

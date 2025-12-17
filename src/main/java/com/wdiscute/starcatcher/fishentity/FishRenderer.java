@@ -3,12 +3,11 @@ package com.wdiscute.starcatcher.fishentity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
-import com.wdiscute.starcatcher.ModItems;
+import com.wdiscute.starcatcher.registry.ModItems;
 import com.wdiscute.starcatcher.Starcatcher;
 import com.wdiscute.starcatcher.fishentity.fishmodels.*;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.ItemRenderer;
@@ -18,9 +17,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemDisplayContext;
-import net.minecraft.world.item.ItemStack;
 
-import javax.swing.text.html.parser.Entity;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -52,26 +49,23 @@ public class FishRenderer extends EntityRenderer<FishEntity>
         map.put(ModItems.WHITEVEIL.get(), new Whiteveil<>(context.bakeLayer(Whiteveil.LAYER_LOCATION)));
         map.put(ModItems.WILLOW_BREAM.get(), new WillowBream<>(context.bakeLayer(WillowBream.LAYER_LOCATION)));
         map.put(ModItems.WINTERY_PIKE.get(), new WinteryPike<>(context.bakeLayer(WinteryPike.LAYER_LOCATION)));
+        map.put(ModItems.CRYSTALBACK_TROUT.get(), new CrystalbackTrout<>(context.bakeLayer(CrystalbackTrout.LAYER_LOCATION)));
+        map.put(ModItems.EMBERGILL.get(), new Embergill<>(context.bakeLayer(Embergill.LAYER_LOCATION)));
+        map.put(ModItems.FROSTGILL_CHUB.get(), new FrostgillChub<>(context.bakeLayer(FrostgillChub.LAYER_LOCATION)));
+        map.put(ModItems.FROSTJAW_TROUT.get(), new FrostjawTrout<>(context.bakeLayer(FrostjawTrout.LAYER_LOCATION)));
+        map.put(ModItems.HOLLOWBELLY_DARTER.get(), new HollowbellyDarter<>(context.bakeLayer(HollowbellyDarter.LAYER_LOCATION)));
+        map.put(ModItems.ICETOOTH_STURGEON.get(), new IcetoothSturgeon<>(context.bakeLayer(IcetoothSturgeon.LAYER_LOCATION)));
+        map.put(ModItems.MISTBACK_CHUB.get(), new MistbackChub<>(context.bakeLayer(MistbackChub.LAYER_LOCATION)));
     }
 
     @Override
     public void render(FishEntity fish, float entityYaw, float partialTicks, PoseStack poseStack, MultiBufferSource buffer, int packedLight)
     {
         poseStack.pushPose();
-        poseStack.translate(0.0F, 1.5F, 0.0F);
+        poseStack.translate(0.0F, 1.3F, 0.0F);
         poseStack.scale(1.0F, -1.0F, -1.0F);
 
         poseStack.mulPose(Axis.YP.rotationDegrees(entityYaw));
-        //todo fish stuff!!!!!! DONT DELETE
-//        poseStack.pushPose();
-//
-//        poseStack.translate(0, 0.25f, 0);
-//
-//        poseStack.translate(0.0F, 1.5F, 0.0F);
-//        poseStack.scale(-1.0F, -1.0F, 1.0F);
-//        poseStack.mulPose(Axis.XP.rotationDegrees(fish.getXRot()));
-//        poseStack.mulPose(Axis.YP.rotationDegrees(90 - fish.getYRot()));
-//
 
         if (!fish.isInWater())
         {
@@ -79,15 +73,20 @@ public class FishRenderer extends EntityRenderer<FishEntity>
             poseStack.translate(1.1F, 1.4F, -0.1F);
             poseStack.mulPose(Axis.ZP.rotationDegrees(90.0F));
             poseStack.mulPose(Axis.ZP.rotationDegrees(f));
-
         }
 
         if (!fish.getBodyArmorItem().isEmpty())
         {
             if (!renderCustomModel(fish.getBodyArmorItem().getItem(), poseStack, buffer, packedLight))
+            {
+                poseStack.translate(0F, 1F, 0.0F);
+                poseStack.mulPose(Axis.YP.rotationDegrees(270.0F));
+                poseStack.mulPose(Axis.ZP.rotationDegrees(45.0F));
                 this.itemRenderer.renderStatic(
                         fish.getBodyArmorItem(), ItemDisplayContext.FIXED, packedLight,
                         OverlayTexture.NO_OVERLAY, poseStack, buffer, fish.level(), fish.getId());
+            }
+
         }
 
         poseStack.popPose();

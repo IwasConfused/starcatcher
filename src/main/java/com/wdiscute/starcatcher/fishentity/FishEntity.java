@@ -1,5 +1,8 @@
 package com.wdiscute.starcatcher.fishentity;
 
+import com.wdiscute.starcatcher.io.ModDataComponents;
+import com.wdiscute.starcatcher.io.SingleStackContainer;
+import com.wdiscute.starcatcher.registry.ModItems;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -55,6 +58,13 @@ public class FishEntity extends AbstractFish
     }
 
     @Override
+    public void tick()
+    {
+        super.tick();
+        if(getBodyArmorItem().isEmpty()) kill();
+    }
+
+    @Override
     protected void dropAllDeathLoot(ServerLevel p_level, DamageSource damageSource)
     {
         super.dropAllDeathLoot(p_level, damageSource);
@@ -68,6 +78,8 @@ public class FishEntity extends AbstractFish
     @Override
     public ItemStack getBucketItemStack()
     {
-        return getBodyArmorItem();
+        ItemStack is = new ItemStack(ModItems.STARCAUGHT_BUCKET.get());
+        is.set(ModDataComponents.BUCKETED_FISH, new SingleStackContainer(getBodyArmorItem().copy()));
+        return is;
     }
 }

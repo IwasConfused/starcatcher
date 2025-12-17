@@ -1,5 +1,5 @@
 {
-  "type": "minecraft:crafting_shapeless",
+  "type": "starcatcher:modifier_shapeless_recipe",
   "category": "misc",
   "ingredients": [
     {
@@ -11,6 +11,7 @@
   ],
   "result": {
     "id": "starcatcher:lush_bait",
-    "count": 4
-  }
+    "count": 2
+  },
+  "modifiers" : ["starcatcher:decrease_time_to_bite"]
 }

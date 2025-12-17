@@ -1,7 +1,7 @@
 package com.wdiscute.starcatcher.secretnotes;
 
 import com.mojang.serialization.Codec;
-import com.wdiscute.starcatcher.networkandcodecs.ModDataComponents;
+import com.wdiscute.starcatcher.io.ModDataComponents;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
@@ -45,6 +45,7 @@ public class SecretNote extends Item
         ARNWULF_2("lava_proof_bottle_2"),
         HOPEFUL_NOTE("hopeful_note"),
         HOPELESS_NOTE("hopeless_note"),
+        WITHER("wither_note"),
         TRUE_BLUE("true_blue");
 
         public static final Codec<Note> CODEC = StringRepresentable.fromEnum(Note::values);

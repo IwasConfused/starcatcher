@@ -1,5 +1,5 @@
 {
-  "type": "minecraft:crafting_shapeless",
+  "type": "starcatcher:modifier_shapeless_recipe",
   "category": "misc",
   "ingredients": [
     {
@@ -12,5 +12,6 @@
   "result": {
     "id": "starcatcher:meteorological_bait",
     "count": 32
-  }
+  },
+  "modifiers" : ["starcatcher:decrease_time_to_bite", "ignore_daytime_and_weather_restrictions"]
 }
