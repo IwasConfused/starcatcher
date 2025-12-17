@@ -95,7 +95,8 @@ public class FishingBobEntity extends Projectile
         this.rod = rod;
         this.modifiers = ModCatchModifiers.getAllCatchModifiers(level, rod);
 
-        if (rod.has(ModDataComponents.NETHERITE_UPGRADE)) netherite_upgraded = true;
+        if (rod.has(ModDataComponents.NETHERITE_UPGRADE))
+            netherite_upgraded = rod.get(ModDataComponents.NETHERITE_UPGRADE);
 
         minTicksToFish = 100;
         maxTicksToFish = 300;

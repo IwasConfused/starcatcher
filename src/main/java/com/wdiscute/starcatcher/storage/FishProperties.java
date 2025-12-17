@@ -982,7 +982,7 @@ public record FishProperties(
         public static Difficulty EASY_FAST_FISH = new Difficulty(
                 15, 20, 1,
                 List.of(),
-                SweetSpot.NORMAL_STEADY, SweetSpot.NORMAL_STEADY
+                SweetSpot.NORMAL, SweetSpot.NORMAL
         );
 
         public static Difficulty SINGLE_BIG_FAST = new Difficulty(
@@ -1145,7 +1145,7 @@ public record FishProperties(
         private static final ResourceLocation RL_OBSIDIAN_CRAB_LEG = Starcatcher.rl("textures/gui/minigame/spots/obsidian_crab_leg.png");
         private static final ResourceLocation RL_OBSIDIAN_CRAB_CLAW = Starcatcher.rl("textures/gui/minigame/spots/obsidian_crab_claw.png");
 
-        private static final ResourceLocation RL_THIN_MOSSY = Starcatcher.rl("textures/gui/minigame/spots/thin_mossy.png");
+        private static final ResourceLocation RL_THIN_STEADY_MOSSY = Starcatcher.rl("textures/gui/minigame/spots/thin_mossy.png");
 
 
         public SweetSpot flip()
@@ -1197,7 +1197,7 @@ public record FishProperties(
 
         public static SweetSpot THIN_STEADY_MOSSY = new SweetSpot(
                 ModSweetSpotsBehaviour.NORMAL,
-                RL_THIN_MOSSY,
+                RL_THIN_STEADY_MOSSY,
                 20,
                 10,
                 true, 0.01f, 1,

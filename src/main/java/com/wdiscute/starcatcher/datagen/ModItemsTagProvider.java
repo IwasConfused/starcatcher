@@ -44,6 +44,12 @@ public class ModItemsTagProvider extends ItemTagsProvider
             tag(StarcatcherTags.BAITS).add(item.get());
         }
 
+        //templates tag
+        for (DeferredHolder<Item, ? extends Item> item : ModItems.TEMPLATES_REGISTRY.getEntries())
+        {
+            tag(StarcatcherTags.TEMPLATES).add(item.get());
+        }
+
         //extra baits
         tag(StarcatcherTags.BAITS).add(Items.BUCKET);
         tag(StarcatcherTags.BAITS).add(Items.WITHER_SKELETON_SKULL);

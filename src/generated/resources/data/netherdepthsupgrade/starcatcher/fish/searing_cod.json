@@ -27,7 +27,7 @@
     "sweetspots": [
       {
         "color_as_int": 65280,
-        "hitbox_size_in_pixels": 33,
+        "hitbox_size_in_pixels": 22,
         "is_flip": false,
         "moving_rate": 0.0,
         "reward": 15,
@@ -37,7 +37,7 @@
       },
       {
         "color_as_int": 65280,
-        "hitbox_size_in_pixels": 33,
+        "hitbox_size_in_pixels": 22,
         "is_flip": false,
         "moving_rate": 0.0,
         "reward": 15,

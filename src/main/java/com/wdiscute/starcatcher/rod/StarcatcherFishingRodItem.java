@@ -26,13 +26,12 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class StarcatcherFishingRod extends Item implements MenuProvider {
-    public StarcatcherFishingRod() {
+public class StarcatcherFishingRodItem extends Item implements MenuProvider {
+    public StarcatcherFishingRodItem() {
         super(new Item.Properties()
                 .rarity(Rarity.EPIC)
                 .fireResistant()
                 .stacksTo(1)
-                .component(ModDataComponents.NETHERITE_UPGRADE.get(), false)
                 .component(ModDataComponents.BOBBER_SKIN.get(), SingleStackContainer.EMPTY)
                 .component(ModDataComponents.BOBBER.get(), new SingleStackContainer(new ItemStack(ModItems.BOBBER.get())))
                 .component(ModDataComponents.BAIT.get(), SingleStackContainer.EMPTY)

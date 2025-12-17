@@ -58,6 +58,11 @@
   "tooltip.minecraft.fishing_rod.2": "One can only dream of upgrading",
   "tooltip.minecraft.fishing_rod.3": "it to a <gradient-67>Starcatcher's rod</gradient-90>.",
 
+
+
+
+  "tooltip.starcatcher.rod.netherite" : "<rgb>Netherite Upgraded</rgb>",
+
   "item.starcatcher.starcatcher_rod": "Starcatcher's Rod",
   "tooltip.starcatcher.starcatcher_rod.0": "A special fishing rod which allows",
   "tooltip.starcatcher.starcatcher_rod.1": "for the use of bobbers, bait and hooks.",

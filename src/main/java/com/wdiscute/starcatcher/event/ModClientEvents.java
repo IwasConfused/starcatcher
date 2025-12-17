@@ -93,6 +93,15 @@ public class ModClientEvents
             comp.add(1, Component.literal(size + " - " + weight).withColor(0x888888));
         }
 
+        //Netherite Upgrade
+        if (stack.has(ModDataComponents.NETHERITE_UPGRADE))
+        {
+            if(stack.get(ModDataComponents.NETHERITE_UPGRADE))
+            {
+                comp.add(1, Tooltips.decodeTranslationKey("tooltip.starcatcher.rod.netherite"));
+            }
+        }
+
         //rarity name color
         if (stack.has(ModDataComponents.FISH_PROPERTIES))
         {

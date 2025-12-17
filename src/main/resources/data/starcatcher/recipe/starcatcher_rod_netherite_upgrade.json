@@ -1,7 +1,7 @@
 {
   "type": "starcatcher:fishing_rod_smithing",
   "rod": {
-    "item": "starcatcher:starcatcher_rod"
+    "tag": "starcatcher:rods"
   },
   "template": {
     "item": "minecraft:netherite_upgrade_smithing_template"

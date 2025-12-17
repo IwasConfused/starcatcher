@@ -1,7 +1,7 @@
 {
   "type": "starcatcher:fishing_rod_smithing",
   "rod": {
-    "item": "starcatcher:starcatcher_rod"
+    "tag": "starcatcher:templates"
   },
   "template": {
     "item": "starcatcher:kimbe_bobber_smithing_template"
