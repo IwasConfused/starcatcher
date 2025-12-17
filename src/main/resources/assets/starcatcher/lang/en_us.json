@@ -164,19 +164,25 @@
 
   "tooltip.modifier.starcatcher.no_flip.0": "Sweet-spots will no longer flip when hit",
 
-  "tooltip.modifier.starcatcher.slower_vanishing.1": "Vanishing sweet-spots will take longer to vanish",
+  "tooltip.modifier.starcatcher.slower_vanishing.0": "Vanishing sweet-spots will take longer to vanish",
 
-  "tooltip.modifier.starcatcher.bigger_green_sweet_spots.1": "Green sweet-spots will be slightly bigger",
+  "tooltip.modifier.starcatcher.bigger_green_sweet_spots.0": "Green sweet-spots will be slightly bigger",
 
-  "tooltip.modifier.starcatcher.add_aqua_sweet_spot.1": "An extra aqua sweet-spot is added",
+  "tooltip.modifier.starcatcher.add_aqua_sweet_spot.0": "An extra aqua sweet-spot is added",
 
-  "tooltip.modifier.starcatcher.add_three_aqua_sweet_spot.1": "Three extra aqua sweet-spot are added",
+  "tooltip.modifier.starcatcher.add_three_aqua_sweet_spot.0": "Three extra aqua sweet-spot are added",
 
 
+
+
+  "tooltip.modifier.starcatcher.ignore_daytime_and_weather_restrictions.0": "Ignores fish daytime & weather restrictions",
 
   "tooltip.modifier.starcatcher.decrease_lure_time.0": "Decreases lure time",
   "tooltip.modifier.starcatcher.big_decrease_lure_time.0": "Decreases lure time greatly",
   "tooltip.modifier.starcatcher.increase_lure_time.0": "Increases lure time",
+
+
+
 
   "tooltip.modifier.starcatcher.vanilla_loot.0": "Restores vanilla fishing behaviour and loot",
 

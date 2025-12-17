@@ -204,8 +204,6 @@ public class FishingBobEntity extends Projectile
             }
         }
 
-        System.out.println("wdawd");
-
         //trigger modifiers
         modifiers.forEach(AbstractCatchModifier::onReelAfterTreasureCheck);
 

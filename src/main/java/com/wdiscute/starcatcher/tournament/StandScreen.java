@@ -338,9 +338,6 @@ public class StandScreen extends AbstractContainerScreen<StandMenu>
         double x = mouseX - uiX;
         double y = mouseY - uiY;
 
-        System.out.println("clicked relative x:" + x);
-        System.out.println("clicked relative y:" + y);
-
         //sign up
         if (x > 48 && x < 98 && y > 117 && y < 127)
         {

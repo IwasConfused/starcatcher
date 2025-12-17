@@ -32,7 +32,6 @@ public class FTBTeamsCompat
                 if (playerByUUID != null)
                 {
                     FishCaughtCounter.awardFishCaughtCounter(fp, playerByUUID, 0, 0, 0, false, false);
-                    System.out.println(player.getName() + " awarded fish to " + playerByUUID.getName());
                 }
             }
         }

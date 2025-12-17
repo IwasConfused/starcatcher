@@ -61,6 +61,7 @@ public class ModClientEvents
             if (!modifiers.isEmpty())
             {
                 comp.add(Component.translatable("tooltip.starcatcher.modifiers").withStyle(ChatFormatting.GRAY));
+
                 for (ResourceLocation rl : modifiers)
                 {
                     for (int i = 0; i < 100; i++)
@@ -69,6 +70,10 @@ public class ModClientEvents
                         {
                             MutableComponent start = i == 0 ? Component.literal("- ") : Component.literal("");
                             comp.add(start.append(Component.translatable("tooltip.modifier." + rl.toLanguageKey() + "." + i)).withStyle(ChatFormatting.DARK_GRAY));
+                        }
+                        else
+                        {
+                            break;
                         }
                     }
                 }

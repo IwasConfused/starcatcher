@@ -81,7 +81,6 @@ public class TournamentHandler
         setupTournaments.remove(tournament);
         tournament.status = Tournament.Status.ACTIVE;
         tournament.lastsUntil = level.getGameTime() + tournament.settings.duration;
-        System.out.println("tournament: " + tournament.name + " has started");
     }
 
     public static void cancelTournament(Player ownerPlayer, Tournament tournament)
@@ -189,7 +188,6 @@ public class TournamentHandler
             if (levelTicks >= t.lastsUntil)
             {
                 finishedTournaments.add(t);
-                System.out.println("tournament: " + t.name + " has ended");
 
                 UUID winner = null;
                 int bestScore = 0;
@@ -207,7 +205,6 @@ public class TournamentHandler
 
                 if (winner == null)
                 {
-                    System.out.println("no one won :(");
                 }
                 else
                 {
@@ -215,7 +212,6 @@ public class TournamentHandler
 
                     if (profileCache == null)
                     {
-                        System.out.println("unknown player won looooooool who tf is that " + winner);
                     }
                     else
                     {
@@ -223,11 +219,9 @@ public class TournamentHandler
 
                         if (gameProfile.isPresent())
                         {
-                            System.out.println("Winner is " + gameProfile.get().getName());
                         }
                         else
                         {
-                            System.out.println("unknown player won looooooool who tf is that " + winner);
                         }
                     }
 

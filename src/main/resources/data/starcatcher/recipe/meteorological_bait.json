@@ -13,5 +13,5 @@
     "id": "starcatcher:meteorological_bait",
     "count": 32
   },
-  "modifiers" : ["starcatcher:decrease_time_to_bite"]
+  "modifiers" : ["starcatcher:decrease_time_to_bite", "ignore_daytime_and_weather_restrictions"]
 }

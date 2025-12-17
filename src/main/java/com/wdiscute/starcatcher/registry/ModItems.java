@@ -81,7 +81,7 @@ public interface ModItems
     DeferredItem<Item> DRIPSTONE_BAIT = BAITS_REGISTRY.register("dripstone_bait", () -> new CatchModifierItem(64, ModCatchModifiers.DECREASES_LURE_TIME));
     DeferredItem<Item> MURKWATER_BAIT = BAITS_REGISTRY.register("murkwater_bait", () -> new CatchModifierItem(64, ModCatchModifiers.DECREASES_LURE_TIME));
     DeferredItem<Item> LEGENDARY_BAIT = BAITS_REGISTRY.register("legendary_bait", () -> new CatchModifierItem(64, ModCatchModifiers.DECREASES_LURE_TIME));
-    DeferredItem<Item> METEOROLOGICAL_BAIT = BAITS_REGISTRY.register("meteorological_bait", () -> new CatchModifierItem(64, ModCatchModifiers.DECREASES_LURE_TIME));
+    DeferredItem<Item> METEOROLOGICAL_BAIT = BAITS_REGISTRY.register("meteorological_bait", () -> new CatchModifierItem(64, ModCatchModifiers.DECREASES_LURE_TIME,  ModCatchModifiers.IGNORE_DAYTIME_AND_WEATHER_RESTRICTIONS));
 
 
 
