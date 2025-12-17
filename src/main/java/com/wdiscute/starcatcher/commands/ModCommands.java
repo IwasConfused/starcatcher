@@ -10,6 +10,7 @@ import com.wdiscute.starcatcher.io.FishCaughtCounter;
 import com.wdiscute.starcatcher.io.ModDataAttachments;
 import com.wdiscute.starcatcher.io.ModDataComponents;
 import com.wdiscute.starcatcher.io.network.FishingStartedPayload;
+import com.wdiscute.starcatcher.registry.custom.catchmodifiers.AbstractCatchModifier;
 import com.wdiscute.starcatcher.registry.custom.minigamemodifiers.AbstractMinigameModifier;
 import com.wdiscute.starcatcher.storage.FishProperties;
 import net.minecraft.commands.CommandBuildContext;
@@ -66,7 +67,7 @@ public class ModCommands
 
 
                 //starcatcher add_modifier starcatcher:freeze_on_miss
-                .then(Commands.literal("add_modifier")
+                .then(Commands.literal("add_minigame_modifier")
                         .then(Commands.argument("modifier", ResourceArgument.resource(context, Starcatcher.MINIGAME_MODIFIERS))
                                 .executes(c ->
                                         addMinigameModifier(
@@ -76,10 +77,30 @@ public class ModCommands
                                 ))
                 )
 
-                //starcatcher remove_modifier
-                .then(Commands.literal("remove_modifier")
+                //starcatcher add_modifier starcatcher:ignore_daytime_and_weather_restrictions
+                .then(Commands.literal("add_catch_modifier")
+                        .then(Commands.argument("modifier", ResourceArgument.resource(context, Starcatcher.CATCH_MODIFIERS))
+                                .executes(c ->
+                                        addCatchModifier(
+                                                c.getSource().getPlayerOrException(),
+                                                ResourceArgument.getResource(c, "modifier", Starcatcher.CATCH_MODIFIERS).unwrap().left().get()
+                                        )
+                                ))
+                )
+
+                //starcatcher remove_catch_modifier
+                .then(Commands.literal("remove_minigame_modifier")
                         .executes(c ->
                                 removeMinigameModifier(
+                                        c.getSource().getPlayerOrException()
+                                )
+                        )
+                )
+
+                //starcatcher remove_minigame_modifier
+                .then(Commands.literal("remove_catch_modifier")
+                        .executes(c ->
+                                removeCatchModifier(
                                         c.getSource().getPlayerOrException()
                                 )
                         )
@@ -201,6 +222,17 @@ public class ModCommands
         return 1;
     }
 
+    private static int removeCatchModifier(ServerPlayer player) throws CommandSyntaxException
+    {
+        if (player.getMainHandItem().isEmpty()) throw ERROR_EMPTY.create(null);
+
+        if (player.getMainHandItem().has(ModDataComponents.CATCH_MODIFIERS))
+        {
+            player.getMainHandItem().remove(ModDataComponents.CATCH_MODIFIERS);
+        }
+        return 1;
+    }
+
     private static int addMinigameModifier(ServerPlayer player, ResourceKey<Supplier<AbstractMinigameModifier>> modifier) throws CommandSyntaxException
     {
         if (player.getMainHandItem().isEmpty()) throw ERROR_EMPTY.create(null);
@@ -214,6 +246,24 @@ public class ModCommands
         else
         {
             player.getMainHandItem().set(ModDataComponents.MINIGAME_MODIFIERS, List.of(modifier.location()));
+        }
+
+        return 1;
+    }
+
+    private static int addCatchModifier(ServerPlayer player, ResourceKey<Supplier<AbstractCatchModifier>> modifier) throws CommandSyntaxException
+    {
+        if (player.getMainHandItem().isEmpty()) throw ERROR_EMPTY.create(null);
+
+        if (player.getMainHandItem().has(ModDataComponents.CATCH_MODIFIERS))
+        {
+            List<ResourceLocation> mods = new ArrayList<>(player.getMainHandItem().get(ModDataComponents.CATCH_MODIFIERS));
+            mods.add(modifier.location());
+            player.getMainHandItem().set(ModDataComponents.CATCH_MODIFIERS, mods);
+        }
+        else
+        {
+            player.getMainHandItem().set(ModDataComponents.CATCH_MODIFIERS, List.of(modifier.location()));
         }
 
         return 1;
