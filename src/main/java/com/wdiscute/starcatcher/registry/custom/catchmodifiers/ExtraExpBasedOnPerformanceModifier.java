@@ -8,7 +8,8 @@ public class ExtraExpBasedOnPerformanceModifier extends AbstractCatchModifier
     public void onSuccessfulMinigameCompletion(ServerPlayer player, int time, boolean completedTreasure, boolean perfectCatch, int hits)
     {
         super.onSuccessfulMinigameCompletion(player, time, completedTreasure, perfectCatch, hits);
-        player.giveExperiencePoints(instance.fpToFish.rarity().getXp() * (hits / 3) + 1);
+        int hitsNonCheated = Math.min(hits, 20);
+        player.giveExperiencePoints(instance.fpToFish.rarity().getXp() * (hitsNonCheated / 3) + 1);
     }
 }
 
