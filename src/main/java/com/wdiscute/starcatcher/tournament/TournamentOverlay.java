@@ -77,17 +77,20 @@ public class TournamentOverlay implements LayeredDraw.Layer
 
         renderImage(guiGraphics, BACKGROUND);
 
-        guiGraphics.drawString(this.font, firstPlace.getFirst(), 18, uiY + 27, 0x635040, false);
-        guiGraphics.drawString(this.font, firstPlace.getSecond() + "", 87, uiY + 27, 0x635040, false);
+        guiGraphics.drawString(this.font, tournament.name, 18, uiY + 8, 0x635040, false);
 
-        guiGraphics.drawString(this.font, secondPlace.getFirst(), 18, uiY + 40, 0x635040, false);
-        guiGraphics.drawString(this.font, secondPlace.getSecond() + "", 87, uiY + 40, 0x635040, false);
 
-        guiGraphics.drawString(this.font, thirdPlace.getFirst(), 18, uiY + 53, 0x635040, false);
-        guiGraphics.drawString(this.font, thirdPlace.getSecond() + "", 87, uiY + 53, 0x635040, false);
+        guiGraphics.drawString(this.font, firstPlace.getFirst(), 18, uiY + 23, 0x635040, false);
+        guiGraphics.drawString(this.font, firstPlace.getSecond() + "", 93, uiY + 23, 0x635040, false);
 
-        guiGraphics.drawString(this.font, playerPlace.getFirst(), 18, uiY + 71, 0x635040, false);
-        guiGraphics.drawString(this.font, playerPlace.getSecond() + "", 87, uiY + 71, 0x635040, false);
+        guiGraphics.drawString(this.font, secondPlace.getFirst(), 18, uiY + 36, 0x635040, false);
+        guiGraphics.drawString(this.font, secondPlace.getSecond() + "", 93, uiY + 36, 0x635040, false);
+
+        guiGraphics.drawString(this.font, thirdPlace.getFirst(), 18, uiY + 49, 0x635040, false);
+        guiGraphics.drawString(this.font, thirdPlace.getSecond() + "", 93, uiY + 49, 0x635040, false);
+
+        guiGraphics.drawString(this.font, playerPlace.getFirst(), 18, uiY + 64, 0x635040, false);
+        guiGraphics.drawString(this.font, playerPlace.getSecond() + "", 93, uiY + 64, 0x635040, false);
 
         guiGraphics.pose().popPose();
 

@@ -175,12 +175,6 @@ public class ModEvents
                 CBActiveTournamentUpdatePayload.STREAM_CODEC,
                 CBActiveTournamentUpdatePayload::handle
         );
-
-        registrar.playToServer(
-                SBStandTournamentStartCancelPayload.TYPE,
-                SBStandTournamentStartCancelPayload.STREAM_CODEC,
-                SBStandTournamentStartCancelPayload::handle
-        );
     }
 
 }

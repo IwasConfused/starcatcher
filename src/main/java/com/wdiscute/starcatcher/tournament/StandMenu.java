@@ -32,38 +32,6 @@ public class StandMenu extends AbstractContainerMenu
         sbe = ((StandBlockEntity) blockEntity);
         level = inv.player.level();
 
-        //player inventory
-//        for (int i = 0; i < 3; ++i)
-//        {
-//            for (int l = 0; l < 9; ++l)
-//            {
-//                this.addSlot(new Slot(inv, l + i * 9 + 9, 210 + l * 16, 131 + i * 16));
-//            }
-//        }
-
-        //player hotbar
-        for (int i = 0; i < 9; ++i)
-        {
-            this.addSlot(new Slot(inv, i, 210 + i * 16, 185));
-        }
-
-        if (!level.isClientSide)
-        {
-            Tournament tournament = TournamentHandler.getTournamentOrNew(sbe.uuid);
-            for (int i = 0; i < tournament.settings.entryCost.size(); i++)
-            {
-                sbe.entryCost.setStackInSlot(i, tournament.settings.entryCost.get(i).stack().copy());
-            }
-        }
-
-//        if(!level.isClientSide)
-//        {
-//            for (int i = 0; i < sbe.tournament.settings.entryCost.size(); i++)
-//            {
-//                sbe.entryCost.insertItem(i, sbe.tournament.settings.entryCost.get(i).stack().copy(), false);
-//            }
-//        }
-
         for (int i = 0; i < 9; i++)
         {
             int slotid = i;
@@ -142,7 +110,25 @@ public class StandMenu extends AbstractContainerMenu
             PacketDistributor.sendToAllPlayers(CBStandTournamentUpdatePayload.helper(player, sbe.tournament));
         }
 
+        //start
+        if(id == 68)
+        {
+            if(player.getUUID().equals(sbe.tournament.owner) && sbe.tournament.status.equals(Tournament.Status.SETUP))
+            {
+                TournamentHandler.startTournament(player, sbe.tournament);
+            }
+        }
 
+        //cancel
+        if(id == 69)
+        {
+            if(player.getUUID().equals(sbe.tournament.owner) && sbe.tournament.status.equals(Tournament.Status.ACTIVE))
+            {
+                TournamentHandler.cancelTournament(player, sbe.tournament);
+            }
+        }
+
+        //signup
         if (id == 67)
         {
             //if player has the items to signup and is not already signed up
@@ -172,10 +158,10 @@ public class StandMenu extends AbstractContainerMenu
 
                     }
                 }
-
-
             }
         }
+
+
         return super.clickMenuButton(player, id);
     }
 

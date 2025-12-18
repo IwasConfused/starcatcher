@@ -73,7 +73,6 @@ public class TournamentHandler
             sendActiveTournamentUpdateToClient(player, tournament);
         }
 
-
         //send to all players to update stand screens
         PacketDistributor.sendToAllPlayers(CBStandTournamentUpdatePayload.helper(playerWhoStartedTheTournament, tournament));
 
