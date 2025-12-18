@@ -40,12 +40,16 @@
 
 
   "commands.starcatcher.fish_entry_not_found": "Entrada de Peixe %s não encontrada",
+  "commands.starcatcher.modifier_not_found": "Modificador %s não encontrado",
   "commands.starcatcher.rod_not_found": "Você deve ter uma vara compatível com Starcatcher™ na mão",
+  "commands.starcatcher.item_empty": "Você deve ter um item na sua mão para aplicar o modificador",
 
 
 
 
-
+  "tooltip.starcatcher.tournament_stand.0": "ainda em desenvolvimento desculpe :( não consegui terminar a tempo para este lançamento!",
+  "tooltip.starcatcher.tournament_stand.1": "meio que funciona mas nem tanto, eu não recomendaria usar em",
+  "tooltip.starcatcher.tournament_stand.2": "um mundo com o qual você se importa...",
 
 
 
@@ -53,6 +57,11 @@
   "tooltip.minecraft.fishing_rod.1": "o mais básico dos peixes.",
   "tooltip.minecraft.fishing_rod.2": "Alguém pode apenas sonhar em melhorá-la",
   "tooltip.minecraft.fishing_rod.3": "para uma <gradient-67>Vara do Starcatcher</gradient-90>.",
+
+
+
+
+  "tooltip.starcatcher.rod.netherite": "<rgb>Aprimorada com Netherita</rgb>",
 
   "item.starcatcher.starcatcher_rod": "Vara do Starcatcher",
   "tooltip.starcatcher.starcatcher_rod.0": "Uma vara de pesca especial que permite",
@@ -64,19 +73,63 @@
   "tooltip.starcatcher.starcatcher_rod.6": "seleção de boia, isca e anzol",
 
   "item.starcatcher.naturalist_rod": "Vara Naturalista",
+  "tooltip.starcatcher.naturalist_rod.0": "Uma vara perdida encontrada muito raramente em florestas.",
+  "tooltip.starcatcher.naturalist_rod.1": "Parece não ser nada mais do que um",
+  "tooltip.starcatcher.naturalist_rod.2": "graveto e um barbante.",
+
   "item.starcatcher.iceborn_rod": "Vara Glacial",
+  "tooltip.starcatcher.iceborn_rod.0": "Uma vara congelada feita por um Nascido do Gelo, deixada",
+  "tooltip.starcatcher.iceborn_rod.1": "para trás em um oceano frio para você encontrar.",
+
   "item.starcatcher.magmaforged_rod": "Vara Forjada em Magma",
+  "tooltip.starcatcher.magmaforged_rod.0": "Uma vara forjada a partir de magma.",
+  "tooltip.starcatcher.magmaforged_rod.1": "Encontrada muito raramente nas profundezas",
+  "tooltip.starcatcher.magmaforged_rod.2": "dos oceanos de lava do Nether.",
+
   "item.starcatcher.slimed_rod": "Vara de Slime",
+  "tooltip.starcatcher.slimed_rod.0": "Uma vara viscosa encontrada raramente em",
+  "tooltip.starcatcher.slimed_rod.1": "sacolas encharcadas.",
+
   "item.starcatcher.sharktooth_rod": "Vara Dente de Tubarão",
+  "tooltip.starcatcher.sharktooth_rod.0": "Uma vara de brinquedo feita para parecer um tubarão.",
+  "tooltip.starcatcher.sharktooth_rod.1": "Deixada para trás dentro de uma sacola por quem quer que a possuía.",
+
   "item.starcatcher.azure_crystal_rod": "Vara de Cristal Lazúli",
+  "tooltip.starcatcher.azure_crystal_rod.0": "Uma vara <rgb>Lendária</rgb> feita de puro cristal lazúli.",
+  "tooltip.starcatcher.azure_crystal_rod.1": "Dizem que os <gradient-30>Pescadores Mais Velhos</gradient-50> presenteiam esta vara",
+  "tooltip.starcatcher.azure_crystal_rod.2": "para aqueles que conseguem cobiçar um tesouro enquanto capturam um <rgb>Aurora</rgb>",
+
   "item.starcatcher.good_old_rod": "A boa e velha vara",
+  "tooltip.starcatcher.good_old_rod.0": "Uma vara simples, agora com suporte para boias, anzóis e iscas.",
+  "tooltip.starcatcher.good_old_rod.1": "Encontrada raramente em sacolas.",
+
   "item.starcatcher.bamboo_rod": "Vara de Bambu",
+  "tooltip.starcatcher.bamboo_rod.0": "Uma vara construída de bambu, encontrada raramente em selvas de bambu.",
+
   "item.starcatcher.obsidian_rod": "Vara de Obsidiana",
+  "tooltip.starcatcher.obsidian_rod.0": "Uma vara resistente feita de obsidiana.",
+  "tooltip.starcatcher.obsidian_rod.1": "Encontrada raramente em lagos de lava da superfície,",
+  "tooltip.starcatcher.obsidian_rod.2": "será que foi jogada de propósito?",
+
   "item.starcatcher.alpha_rod": "Vara Alfa",
+  "tooltip.starcatcher.alpha_rod.0": "Uma vara que relembra os velhos tempos.",
+  "tooltip.starcatcher.alpha_rod.1": "Encontrada dentro de sacolas.",
+
   "item.starcatcher.boner_rod": "Vara Ossuda",
+  "tooltip.starcatcher.boner_rod.0": "Uma vara feita de ossos...",
+  "tooltip.starcatcher.boner_rod.1": "Pescada em vales das almas...",
+
   "item.starcatcher.sky_rod": "Vara do Céu",
+  "tooltip.starcatcher.sky_rod.0": "Uma vara feita entre as nuvens.",
+  "tooltip.starcatcher.sky_rod.1": "Encontrada muito raramente ao pescar perto do paraíso",
+
   "item.starcatcher.lush_glowberry_rod": "Vara de Bagas Brilhantes Exuberantes",
+  "tooltip.starcatcher.lush_glowberry_rod.0": "Uma vara de bagas brilhantes que brilha exatamente como bagas brilhantes.",
+  "tooltip.starcatcher.lush_glowberry_rod.1": "Raramente pescada em cavernas exuberantes.",
+
   "item.starcatcher.humble_rod": "Vara Humilde",
+  "tooltip.starcatcher.humble_rod.0": "Uma vara muito humilde encontrada raramente em rios.",
+
 
   "item.starcatcher.starcatcher_guide": "Guia do Starcatcher",
   "tooltip.starcatcher.starcatcher_guide.0": "O melhor companheiro de um pescador, registrando",
@@ -87,92 +140,108 @@
   "tooltip.starcatcher.starcatcher_twine.0": "Um fio delicado enrolado em um graveto.",
   "tooltip.starcatcher.starcatcher_twine.1": "Vansire usou estes para instrumentos de corda antigamente.",
 
+
+
+
+  "tooltip.starcatcher.modifiers": "Modificadores de Pesca:",
+
+  "tooltip.modifier.starcatcher.freeze_on_miss.0": "Errar um ponto ideal fará com que seu",
+  "tooltip.modifier.starcatcher.freeze_on_miss.1": "molinete congele por um curto período",
+
+  "tooltip.modifier.starcatcher.spawn_frozen_sweet_spots.0": "De vez em quando um ponto ideal congelado",
+  "tooltip.modifier.starcatcher.spawn_frozen_sweet_spots.1": "pode aparecer, o que congela seu molinete ao ser atingido",
+
+  "tooltip.modifier.starcatcher.low_chance_treasure_spawn.0": "Existe uma pequena chance de um baú de tesouro",
+  "tooltip.modifier.starcatcher.low_chance_treasure_spawn.1": "aparecer ao atingir um ponto ideal",
+
+  "tooltip.modifier.starcatcher.spawn_tnt_sweet_spots.0": "Pontos ideais explosivos podem aparecer",
+
+  "tooltip.modifier.starcatcher.spawn_treasure_on_three_hits.0": "Atingir com sucesso 3 pontos ideais seguidos",
+  "tooltip.modifier.starcatcher.spawn_treasure_on_three_hits.1": "invocará um baú de tesouro",
+
+  "tooltip.modifier.starcatcher.slower_moving_sweet_spots.0": "Desacelera pontos ideais em movimento",
+
+  "tooltip.modifier.starcatcher.stop_decay_on_hit.0": "Impede que sua captura nade para longe",
+  "tooltip.modifier.starcatcher.stop_decay_on_hit.1": "por um curto período após atingir um ponto ideal",
+
+  "tooltip.modifier.starcatcher.harder_with_treasure_on_perfect.0": "A captura será mais difícil que o normal,",
+  "tooltip.modifier.starcatcher.harder_with_treasure_on_perfect.1": "mas uma captura perfeita premia com um tesouro",
+
+  "tooltip.modifier.starcatcher.no_flip.0": "Pontos ideais não vão mais inverter ao serem atingidos",
+
+  "tooltip.modifier.starcatcher.slower_vanishing.0": "Pontos ideais que desaparecem levarão mais tempo para sumir",
+
+  "tooltip.modifier.starcatcher.bigger_green_sweet_spots.0": "Pontos ideais verdes serão ligeiramente maiores",
+
+  "tooltip.modifier.starcatcher.add_aqua_sweet_spot.0": "Um ponto ideal aqua extra é adicionado",
+
+  "tooltip.modifier.starcatcher.add_three_aqua_sweet_spot.0": "Três pontos ideais aqua extras são adicionados",
+
+
+
+
+  "tooltip.modifier.starcatcher.ignore_daytime_and_weather_restrictions.0": "Ignora restrições de horário e clima dos peixes",
+
+  "tooltip.modifier.starcatcher.decrease_lure_time.0": "Diminui o tempo de atração",
+  "tooltip.modifier.starcatcher.big_decrease_lure_time.0": "Diminui muito o tempo de atração",
+  "tooltip.modifier.starcatcher.increase_lure_time.0": "Aumenta o tempo de atração",
+
+
+
+
+  "tooltip.modifier.starcatcher.vanilla_loot.0": "Restaura o comportamento e saque de pesca do Vanilla",
+
+  "tooltip.modifier.starcatcher.extra_exp_based_on_performance.0": "XP extra é concedido com base no seu desempenho",
+
+  "tooltip.modifier.starcatcher.fish_entity.0": "Se disponível, capturará o peixe vivo em vez disso",
+
+  "tooltip.modifier.starcatcher.guarantee_new_fish_always.0": "Se disponível, um peixe não descoberto morderá",
+  "tooltip.modifier.starcatcher.guarantee_new_fish_half.0": "Um peixe não descoberto é mais propenso a morder",
+
+  "tooltip.modifier.starcatcher.extra_item.0": "Um peixe extra virá junto com sua captura",
+  "tooltip.modifier.starcatcher.extra_two_item.0": "Dois peixes extras virão junto com sua captura",
+  "tooltip.modifier.starcatcher.extra_three_item.0": "Três peixes extras virão junto com sua captura",
+  "tooltip.modifier.starcatcher.extra_five_item.0": "Cinco peixes extras virão junto com sua captura",
+  "tooltip.modifier.starcatcher.extra_ten_item.0": "Um monte de peixes extras virá junto com sua captura",
+  "tooltip.modifier.starcatcher.extra_thirty_two_item.0": "Um cardume inteiro virá junto com sua captura",
+
+
+
+
   "item.starcatcher.hook": "Anzol de Ferro",
   "tooltip.starcatcher.hook.0": "Um anzol de ferro básico para sua vara de pesca.",
   "tooltip.starcatcher.hook.1": "Todo mundo começa de algum lugar.",
 
   "item.starcatcher.shiny_hook": "Anzol Brilhante",
-  "tooltip.starcatcher.shiny_hook.0": "Um anzol muito brilhante!",
-  "tooltip.starcatcher.shiny_hook.1": "Enquanto equipado em sua <gradient-67>Vara do Starcatcher</gradient-90>,",
-  "tooltip.starcatcher.shiny_hook.2": "acertar 3 pontos ideais consecutivos em um",
-  "tooltip.starcatcher.shiny_hook.3": "peixe não comum gera um tesouro!",
-
   "item.starcatcher.gold_hook": "Anzol de Ouro",
-  "tooltip.starcatcher.gold_hook.0": "Um anzol de ouro cintilante!",
-  "tooltip.starcatcher.gold_hook.1": "Enquanto equipado em sua <gradient-67>Vara do Starcatcher</gradient-90>,",
-  "tooltip.starcatcher.gold_hook.2": "ele aumenta a experiência que você ganha ao",
-  "tooltip.starcatcher.gold_hook.3": "pescar com base no seu desempenho.",
-
   "item.starcatcher.mossy_hook": "Anzol Musgoso",
-  "tooltip.starcatcher.mossy_hook.0": "Um anzol enferrujado coberto de musgo!",
-  "tooltip.starcatcher.mossy_hook.1": "Enquanto equipado em sua <gradient-67>Vara do Starcatcher</gradient-90>,",
-  "tooltip.starcatcher.mossy_hook.2": "ele aumentará a dificuldade dos peixes,",
-  "tooltip.starcatcher.mossy_hook.3": "mas uma pesca perfeita lhe concederá um tesouro.",
-
   "item.starcatcher.crystal_hook": "Anzol de Cristal",
-  "tooltip.starcatcher.crystal_hook.0": "Um anzol incrivelmente durável, perfeito para pescar na lava!",
-  "tooltip.starcatcher.crystal_hook.1": "Enquanto equipado em sua <gradient-67>Vara do Starcatcher</gradient-90>,",
-  "tooltip.starcatcher.crystal_hook.2": "permite que você pesque na lava. Quente.",
-
   "item.starcatcher.stone_hook": "Anzol de Pedra",
-  "tooltip.starcatcher.stone_hook.0": "Um anzol muito robusto!",
-  "tooltip.starcatcher.stone_hook.1": "Enquanto equipado em sua <gradient-67>Vara do Starcatcher</gradient-90>,",
-  "tooltip.starcatcher.stone_hook.2": "acertar um ponto ideal travará o peixe no",
-  "tooltip.starcatcher.stone_hook.3": "lugar por um momento, impedindo-o de escapar.",
-
   "item.starcatcher.split_hook": "Anzol Dividido",
-  "tooltip.starcatcher.split_hook.0": "Um anzol dividido elegantemente projetado!",
-  "tooltip.starcatcher.split_hook.1": "Enquanto equipado em sua <gradient-67>Vara do Starcatcher</gradient-90>,",
-  "tooltip.starcatcher.split_hook.2": "completar uma pesca perfeita concederá 2 peixes.",
-
   "item.starcatcher.stabilizing_hook": "Anzol Estabilizador",
-  "tooltip.starcatcher.stabilizing_hook.0": "Um anzol fino autoequilibrado!",
-  "tooltip.starcatcher.stabilizing_hook.1": "Enquanto equipado em sua <gradient-67>Vara do Starcatcher</gradient-90>,",
-  "tooltip.starcatcher.stabilizing_hook.2": "os peixes não se virarão enquanto forem puxados.",
-
   "item.starcatcher.heavy_hook": "Anzol Pesado",
-  "tooltip.starcatcher.heavy_hook.0": "Uma boia bastante pesada.",
-  "tooltip.starcatcher.heavy_hook.1": "Enquanto equipado em sua <gradient-67>Vara do Starcatcher</gradient-90>,",
-  "tooltip.starcatcher.heavy_hook.2": "os pontos ideais se moverão mais lentamente.",
 
 
 
-
-  "item.starcatcher.bobber": "Boia Estável",
+  "item.starcatcher.bobber": "Boia",
   "tooltip.starcatcher.bobber.0": "Uma boia básica para sua vara de pesca",
-  "tooltip.starcatcher.bobber.1": "A melhor companheira do Anzol de Ferro.",
+  "tooltip.starcatcher.bobber.1": "Melhor amiga do Anzol.",
 
   "item.starcatcher.steady_bobber": "Boia Estável",
-  "tooltip.starcatcher.steady_bobber.0": "Uma boia rígida e pesada.",
-  "tooltip.starcatcher.steady_bobber.1": "Enquanto equipada em sua <gradient-67>Vara do Starcatcher</gradient-90>,",
-  "tooltip.starcatcher.steady_bobber.2": "ela tornará a pescaria muito mais fácil.",
-
   "item.starcatcher.clear_bobber": "Boia Transparente",
-  "tooltip.starcatcher.clear_bobber.0": "Uma boia cristalina.",
-  "tooltip.starcatcher.clear_bobber.1": "Enquanto equipada em sua <gradient-67>Vara do Starcatcher</gradient-90>,",
-  "tooltip.starcatcher.clear_bobber.2": "ela tornará os pontos ideais que somem mais fáceis de ver.",
-
-  "item.starcatcher.vanilla_bobber": "Boia Sabor Baunilha",
-  "tooltip.starcatcher.vanilla_bobber.0": "Uma boia feita de baunilha [imaginária].",
-  "tooltip.starcatcher.vanilla_bobber.1": "Enquanto equipada em sua <gradient-67>Vara do Starcatcher</gradient-90>,",
-  "tooltip.starcatcher.vanilla_bobber.2": "atrairá peixes e tesouros com sabor de baunilha.",
-
+  "item.starcatcher.aqua_bobber": "Boia Aqua",
+  "item.starcatcher.vanilla_bobber": "Boia Sabor Vanilla",
 
 
 
   "item.starcatcher.worm": "Minhoca",
-  "tooltip.starcatcher.worm.0": "Uma isca de minhoca básica que todo peixe gosta.",
-  "tooltip.starcatcher.worm.1": "Usada por pescadores como uma maneira fácil de obter fisgadas mais rápidas.",
+  "tooltip.starcatcher.worm.0": "Uma minhoca comum encontrada ao aplicar farinha de osso em terra arada.",
 
   "item.starcatcher.seeking_worm": "Minhoca Buscadora",
-  "tooltip.starcatcher.seeking_worm.0": "Uma minhoca mágica muito poderosa conhecida por buscar",
-  "tooltip.starcatcher.seeking_worm.1": "peixes que o pescador ainda não pegou.",
-  "tooltip.starcatcher.seeking_worm.2": "Útil para complecionistas procurando preencher sua coleção.",
+  "tooltip.starcatcher.seeking_worm.0": "Uma minhoca rara encontrada ao aplicar farinha de osso em terra arada.",
 
   "item.starcatcher.almighty_worm": "Minhoca Toda-Poderosa",
-  "tooltip.starcatcher.almighty_worm.0": "Uma minhoca forte que impede que os peixes morram",
-  "tooltip.starcatcher.almighty_worm.1": "ao serem capturados! Tenha cuidado ao usar esta minhoca como",
-  "tooltip.starcatcher.almighty_worm.2": "isca, pois você pode levar um tapa de um bacalhau voador.",
+  "tooltip.starcatcher.almighty_worm.0": "Uma minhoca rara encontrada ao aplicar farinha de osso em terra arada.",
 
 
   "item.starcatcher.gunpowder_bait": "Isca de Pólvora",
@@ -211,6 +280,7 @@
   "tooltip.starcatcher.legendary_bait.1": "não conseguem simplesmente ignorar.",
 
 
+  "tooltip.starcatcher.templates": "Modelo Cosmético:",
 
   "item.starcatcher.kimbe_bobber_smithing_template": "Modelo de Ferraria de Boia Kimbe",
   "tooltip.starcatcher.kimbe_bobber_smithing_template.0": "Um modelo para sua vara que pode ser aplicado em uma",
@@ -470,15 +540,9 @@
   "gui.guide.page2.left.2": "",
   "gui.guide.page2.left.3": "",
   "gui.guide.page2.left.4": "",
-  "gui.guide.page2.left.5": "  Diferentes anzóis podem ser",
-  "gui.guide.page2.left.6": "obtidos através de diferentes",
-  "gui.guide.page2.left.7": "meios, mas geralmente como saque",
-  "gui.guide.page2.left.8": "de tesouros!",
-  "gui.guide.page2.left.9": "",
-  "gui.guide.page2.left.10": "  Eles fornecem diferentes",
-  "gui.guide.page2.left.11": "benefícios e bônus, então use ",
-  "gui.guide.page2.left.12": "o anzol mais apropriado",
-  "gui.guide.page2.left.13": "para a tarefa.",
+  "gui.guide.page2.left.5": "  Anzóis têm vantagens especiais",
+  "gui.guide.page2.left.6": "para te ajudar a capturar até",
+  "gui.guide.page2.left.7": "os peixes mais desafiadores!",
 
   "gui.guide.page2.right.0": "",
   "gui.guide.page2.right.1": "",
@@ -486,28 +550,17 @@
   "gui.guide.page2.right.3": "",
   "gui.guide.page2.right.4": "",
   "gui.guide.page2.right.5": "  Assim como os anzóis, boias",
-  "gui.guide.page2.right.6": "são encontradas principalmente através",
-  "gui.guide.page2.right.7": "de tesouros.",
-  "gui.guide.page2.right.8": "",
-  "gui.guide.page2.right.9": "",
-  "gui.guide.page2.right.10": "  Boias fornecem uma variedade",
-  "gui.guide.page2.right.11": "de diferentes modificações",
-  "gui.guide.page2.right.12": "para sua experiência de pescaria.",
+  "gui.guide.page2.right.6": "fornecem vantagens diferentes.",
 
   "gui.guide.page3.left.0": "",
   "gui.guide.page3.left.1": "",
   "gui.guide.page3.left.2": "",
   "gui.guide.page3.left.3": "",
   "gui.guide.page3.left.4": "",
-  "gui.guide.page3.left.5": "Qualquer pescador experiente",
-  "gui.guide.page3.left.6": "lhe dirá a importância",
-  "gui.guide.page3.left.7": "das iscas. Embora elas",
-  "gui.guide.page3.left.8": "não façam o peixe morder mais rápido,",
-  "gui.guide.page3.left.9": "certos peixes são atraídos",
-  "gui.guide.page3.left.10": "por iscas específicas que",
-  "gui.guide.page3.left.11": "tornarão a busca por eles",
-  "gui.guide.page3.left.12": "muito mais fácil! ",
-  "gui.guide.page3.left.13": "Especialmente peixes <rgb>lendários</rgb>.",
+  "gui.guide.page3.left.5": "  Iscas atraem peixes mais rápido,",
+  "gui.guide.page3.left.6": "reduzindo o tempo de mordida.",
+  "gui.guide.page3.left.7": "Algumas iscas também podem atrair",
+  "gui.guide.page3.left.8": "espécies específicas.",
 
   "gui.guide.page3.right.0": "",
   "gui.guide.page3.right.1": "",
@@ -518,11 +571,6 @@
   "gui.guide.page3.right.6": "dentro de tesouros você",
   "gui.guide.page3.right.7": "pode encontrar algumas",
   "gui.guide.page3.right.8": "engenhocas antigas!",
-  "gui.guide.page3.right.9": "",
-  "gui.guide.page3.right.10": "  Elas geralmente também são",
-  "gui.guide.page3.right.11": "fabricáveis e são úteis",
-  "gui.guide.page3.right.12": "em várias atividades",
-  "gui.guide.page3.right.13": "relacionadas a peixes.",
 
   "gui.guide.page4.left.0": "",
   "gui.guide.page4.left.1": "",
@@ -621,6 +669,10 @@
   "gui.starcatcher.tournament.duration": "Duração",
   "gui.starcatcher.tournament.start": "[Iniciar Torneio]",
   "gui.starcatcher.tournament.cancel": "[Cancelar Torneio]",
+  "gui.starcatcher.tournament.waiting": "Aguardando",
+
+  "gui.starcatcher.tournament.duration.days": "dias do Minecraft",
+
 
   "gui.starcatcher.tournament.status.setup": "Preparando",
   "gui.starcatcher.tournament.status.active": "Em andamento",
@@ -820,7 +872,6 @@
 
   "item.starcatcher.silverveil_perch": "Perca do Véu de Prata",
   "tooltip.starcatcher.silverveil_perch.0": "Uma pequena perca com escamas que lembram prata.",
-  "tooltip.starcatcher.silverveil_perch.1": "Mais comumente encontrada durante dias chuvosos.",
 
   "item.starcatcher.elderscale": "Escama Ancestral",
   "tooltip.starcatcher.elderscale.0": "Um peixe enganador frequentemente encontrado em lagos.",
@@ -1027,6 +1078,10 @@
   "item.starcatcher.mistback_chub": "Chub de Dorso Nebuloso",
   "tooltip.starcatcher.mistback_chub.0": "Um peixe de rio conhecido por suas escamas de cor prateada",
 
+  "item.starcatcher.bluegigi": "Bluegigi",
+  "tooltip.starcatcher.bluegigi.0": "Não confunda com um bluegill,",
+  "tooltip.starcatcher.bluegigi.1": "este pequeno peixe é bastante comum perto de rios.",
+
   "item.starcatcher.dried_seaweed": "Alga Seca",
   "tooltip.starcatcher.dried_seaweed.0": "Um pedaço de alga morta que ficou",
   "tooltip.starcatcher.dried_seaweed.1": "preso no seu anzol.",
@@ -1195,7 +1250,6 @@
   "tooltip.starcatcher.ward.1": "Em vez de resistir ao Sculk, este peixe o abraçou e tornou-se mais forte por isso.",
   "item.starcatcher.glowing_dark": "Escuridão Brilhante",
   "tooltip.starcatcher.glowing_dark.0": "Um peixe rápido encontrado apenas na escuridão profunda.",
-  "tooltip.starcatcher.glowing_dark.1": "Um peixe rápido encontrado apenas na escuridão profunda.",
 
 
 
@@ -1232,6 +1286,9 @@
 
 
 
+  "item.starcatcher.cerberay": "Cerberarraia",
+  "tooltip.starcatcher.cerberay.0": "Um peixe picante com 3 cabeças.",
+  "tooltip.starcatcher.cerberay.1": "As 2 menores compartilham apenas 1 cérebro",
 
   "item.starcatcher.embergill": "Guelra de Brasa",
   "tooltip.starcatcher.embergill.0": "Um peixe encontrado nos vastos oceanos de lava do Nether.",
