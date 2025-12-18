@@ -70,7 +70,7 @@ public record CBStandTournamentUpdatePayload(List<GameProfile> listSignups,
 
     public void handle(IPayloadContext context)
     {
-        clientReceiveTournamentData(this, context);
+       context.enqueueWork(() -> clientReceiveTournamentData(this, context));
     }
 
     @OnlyIn(Dist.CLIENT)

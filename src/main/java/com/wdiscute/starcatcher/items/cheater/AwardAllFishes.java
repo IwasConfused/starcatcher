@@ -3,6 +3,7 @@ package com.wdiscute.starcatcher.items.cheater;
 import com.wdiscute.starcatcher.Starcatcher;
 import com.wdiscute.starcatcher.U;
 import com.wdiscute.starcatcher.io.FishCaughtCounter;
+import com.wdiscute.starcatcher.io.attachments.FishingGuideAttachment;
 import com.wdiscute.starcatcher.storage.FishProperties;
 import com.wdiscute.starcatcher.io.ModDataAttachments;
 import net.minecraft.world.InteractionHand;
@@ -39,14 +40,16 @@ public class AwardAllFishes extends Item
         }
 
 
-        ModDataAttachments.set(player, ModDataAttachments.FISHES_CAUGHT, fishCounter);
+        FishingGuideAttachment fishingGuideAttachment = ModDataAttachments.get(player, ModDataAttachments.FISHING_GUIDE);
+        fishingGuideAttachment.fishesCaught = fishCounter;
 
         for (FishProperties fp : level.registryAccess().registryOrThrow(Starcatcher.FISH_REGISTRY))
         {
             fishes.add(fp);
         }
 
-        ModDataAttachments.set(player, ModDataAttachments.FISHES_NOTIFICATION, U.getRlsFromFps(level, fishes));
+        fishingGuideAttachment.fishNotifications = U.getRlsFromFps(level, fishes);
+        FishingGuideAttachment.sync(player);
 
         return InteractionResultHolder.success(player.getItemInHand(usedHand));
     }

@@ -44,7 +44,9 @@ public record SBStandTournamentNameChangePayload(UUID uuid, String name) impleme
 
     public void handle(IPayloadContext context)
     {
-        TournamentHandler.setName(((ServerPlayer) context.player()), uuid, name);
+       context.enqueueWork(() -> {
+           TournamentHandler.setName(((ServerPlayer) context.player()), uuid, name);
+       });
     }
 
 }

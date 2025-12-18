@@ -30,6 +30,8 @@ public record FishCaughtPayload(FishProperties fp, boolean newFish, int size, in
     }
 
     public void handle(IPayloadContext context) {
-        Starcatcher.fishCaughtToast(fp(), newFish(), size(), weight());
+        context.enqueueWork(() -> {
+            Starcatcher.fishCaughtToast(fp(), newFish(), size(), weight());
+        });
     }
 }

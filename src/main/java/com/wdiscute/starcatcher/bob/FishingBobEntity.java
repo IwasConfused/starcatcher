@@ -132,7 +132,8 @@ public class FishingBobEntity extends Projectile
         this.yRotO = this.getYRot();
         this.xRotO = this.getXRot();
 
-        if (!level.isClientSide) ModDataAttachments.set(player, ModDataAttachments.FISHING.get(), this.uuid.toString());
+        if (!level.isClientSide)
+            ModDataAttachments.get(player, ModDataAttachments.FISHING_BOB).setUuid(this.uuid);
 
         currentState = FishHookState.FLYING;
     }
@@ -144,12 +145,12 @@ public class FishingBobEntity extends Projectile
         //server only
         List<FishProperties> available = new ArrayList<>(List.of());
 
-        List<ResourceLocation> data = ModDataAttachments.get(player, ModDataAttachments.TROPHIES_CAUGHT);
+        List<ResourceLocation> data = ModDataAttachments.get(player, ModDataAttachments.FISHING_GUIDE).trophiesCaught;
 
         List<TrophyProperties> trophiesCaught = new ArrayList<>(U.getTpsFromRls(level(), data));
 
         //-1 on the common to account for the default "fish" unfortunately, there's probably a way to fix this
-        TrophyProperties.RarityProgress all = new TrophyProperties.RarityProgress(0, ModDataAttachments.get(player, ModDataAttachments.FISHES_CAUGHT).size() - 1); //-1 to remove the default
+        TrophyProperties.RarityProgress all =TrophyProperties.RarityProgress.fromAttachment(player);
         Map<FishProperties.Rarity, TrophyProperties.RarityProgress> progressMap = new EnumMap<>(Map.of(
                 FishProperties.Rarity.COMMON, new TrophyProperties.RarityProgress(0, -1),
                 FishProperties.Rarity.UNCOMMON, TrophyProperties.RarityProgress.DEFAULT,
@@ -158,7 +159,7 @@ public class FishingBobEntity extends Projectile
                 FishProperties.Rarity.LEGENDARY, TrophyProperties.RarityProgress.DEFAULT
         ));
 
-        for (FishCaughtCounter fcc : ModDataAttachments.get(player, ModDataAttachments.FISHES_CAUGHT))
+        for (FishCaughtCounter fcc : ModDataAttachments.get(player, ModDataAttachments.FISHING_GUIDE).fishesCaught)
         {
             all = new TrophyProperties.RarityProgress(all.total() + fcc.count(), all.unique());
 
@@ -199,7 +200,8 @@ public class FishingBobEntity extends Projectile
 
                 trophiesCaught.add(tp);
 
-                ModDataAttachments.set(player, ModDataAttachments.TROPHIES_CAUGHT, U.getRlsFromTps(level(), trophiesCaught));
+                ModDataAttachments.get(player, ModDataAttachments.FISHING_GUIDE).trophiesCaught = U.getRlsFromTps(level(), trophiesCaught);
+
                 kill();
                 return;
             }
@@ -317,7 +319,7 @@ public class FishingBobEntity extends Projectile
     @Override
     public void kill()
     {
-        ModDataAttachments.set(player, ModDataAttachments.FISHING, "");
+        ModDataAttachments.remove(player, ModDataAttachments.FISHING_BOB);
         super.kill();
     }
 
@@ -345,7 +347,7 @@ public class FishingBobEntity extends Projectile
         if (player == null || this.shouldStopFishing(player))
         {
             this.discard();
-            if (player != null) ModDataAttachments.set(player, ModDataAttachments.FISHING.get(), "");
+            if (player != null) ModDataAttachments.remove(player, ModDataAttachments.FISHING_BOB);
         }
 
         BlockPos blockpos = this.blockPosition();
@@ -388,7 +390,7 @@ public class FishingBobEntity extends Projectile
 
             if (timeBiting > 80)
             {
-                ModDataAttachments.set(player, ModDataAttachments.FISHING, "");
+                ModDataAttachments.remove(player, ModDataAttachments.FISHING_BOB);
                 kill();
             }
         }

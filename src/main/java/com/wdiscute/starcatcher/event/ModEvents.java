@@ -5,6 +5,7 @@ import com.wdiscute.starcatcher.Starcatcher;
 import com.wdiscute.starcatcher.commands.ModCommands;
 import com.wdiscute.starcatcher.fishentity.FishEntity;
 import com.wdiscute.starcatcher.io.ModDataAttachments;
+import com.wdiscute.starcatcher.io.attachments.FishingGuideAttachment;
 import com.wdiscute.starcatcher.io.network.FPsSeenPayload;
 import com.wdiscute.starcatcher.io.network.FishCaughtPayload;
 import com.wdiscute.starcatcher.io.network.FishingCompletedPayload;
@@ -57,12 +58,19 @@ public class ModEvents
     @SubscribeEvent
     public static void onPlayerLoggedIn(PlayerEvent.PlayerLoggedInEvent event)
     {
-        if(event.getEntity() instanceof ServerPlayer sp)
+        if(event.getEntity() instanceof ServerPlayer serverPlayer)
         {
-            if(Config.GIVE_GUIDE.get() && !ModDataAttachments.get(sp, ModDataAttachments.RECEIVED_GUIDE))
+            FishingGuideAttachment fishingGuideAttachment = ModDataAttachments.get(serverPlayer, ModDataAttachments.FISHING_GUIDE);
+
+            if (FishingGuideAttachment.hasLegacyData(serverPlayer)){
+                fishingGuideAttachment.loadFromLegacy(serverPlayer);
+                FishingGuideAttachment.sync(serverPlayer);
+            }
+
+            if(Config.GIVE_GUIDE.get() && !fishingGuideAttachment.receivedGuide)
             {
-                sp.addItem(new ItemStack(ModItems.GUIDE.get()));
-                ModDataAttachments.set(sp, ModDataAttachments.RECEIVED_GUIDE, true);
+                serverPlayer.addItem(new ItemStack(ModItems.GUIDE.get()));
+                fishingGuideAttachment.receivedGuide = true;
             }
         }
     }

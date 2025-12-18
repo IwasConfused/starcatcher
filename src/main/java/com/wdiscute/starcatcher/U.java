@@ -47,9 +47,9 @@ public class U
     {
         ServerLevel level = ((ServerLevel) player.level());
 
-        if (ModDataAttachments.get(player, ModDataAttachments.FISHING).isEmpty()) return;
+        if (ModDataAttachments.get(player, ModDataAttachments.FISHING_BOB).isEmpty()) return;
 
-        Entity levelEntity = level.getEntity(UUID.fromString(ModDataAttachments.get(player, ModDataAttachments.FISHING)));
+        Entity levelEntity = level.getEntity(ModDataAttachments.get(player, ModDataAttachments.FISHING_BOB).getUuid());
         if (levelEntity instanceof FishingBobEntity fbe)
         {
             if (time != -1)
@@ -80,9 +80,7 @@ public class U
                 level.playSound(null, p.x, p.y, p.z, SoundEvents.VILLAGER_CELEBRATE, SoundSource.AMBIENT);
 
                 //award fish counter
-                List<FishProperties> list = new ArrayList<>(U.getFpsFromRls(level, ModDataAttachments.get(player, ModDataAttachments.FISHES_NOTIFICATION)));
-                list.add(fbe.fpToFish);
-                ModDataAttachments.set(player, ModDataAttachments.FISHES_NOTIFICATION, U.getRlsFromFps(level, list));
+                ModDataAttachments.get(player, ModDataAttachments.FISHING_GUIDE).fishNotifications.add(U.getRlFromFp(level, fbe.fpToFish));
 
                 //award exp
                 int exp = fp.rarity().getXp();
@@ -204,7 +202,7 @@ public class U
             fbe.kill();
         }
 
-        ModDataAttachments.set(player, ModDataAttachments.FISHING.get(), "");
+        ModDataAttachments.remove(player, ModDataAttachments.FISHING_BOB.get());
     }
 
     public static ItemStack getFishedItemstackFromFP(FishProperties fp)

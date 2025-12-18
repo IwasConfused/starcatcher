@@ -5,6 +5,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.wdiscute.starcatcher.Config;
 import com.wdiscute.starcatcher.Starcatcher;
 import com.wdiscute.starcatcher.compat.FTBTeamsCompat;
+import com.wdiscute.starcatcher.io.attachments.FishingGuideAttachment;
 import com.wdiscute.starcatcher.io.network.FishCaughtPayload;
 import com.wdiscute.starcatcher.storage.FishProperties;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -69,7 +70,7 @@ public record FishCaughtCounter(
             FTBTeamsCompat.awardToTeam(player, fpCaught);
         }
 
-        List<FishCaughtCounter> listFishCaughtCounter = ModDataAttachments.get(player, ModDataAttachments.FISHES_CAUGHT);
+        List<FishCaughtCounter> listFishCaughtCounter = ModDataAttachments.get(player, ModDataAttachments.FISHING_GUIDE).fishesCaught;
         List<FishCaughtCounter> newlist = new ArrayList<>();
 
         boolean newFish = true;
@@ -115,7 +116,9 @@ public record FishCaughtCounter(
         if (!fpCaught.catchInfo().alwaysSpawnEntity())
             PacketDistributor.sendToPlayer(((ServerPlayer) player), new FishCaughtPayload(fpCaught, newFish, size, weight));
 
-        ModDataAttachments.set(player, ModDataAttachments.FISHES_CAUGHT, newlist);
+        ModDataAttachments.get(player, ModDataAttachments.FISHING_GUIDE).fishesCaught = newlist;
+
+        FishingGuideAttachment.sync(player);
     }
 
 }

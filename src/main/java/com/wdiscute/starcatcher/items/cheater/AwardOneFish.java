@@ -3,10 +3,12 @@ package com.wdiscute.starcatcher.items.cheater;
 import com.wdiscute.starcatcher.Starcatcher;
 import com.wdiscute.starcatcher.U;
 import com.wdiscute.starcatcher.io.FishCaughtCounter;
+import com.wdiscute.starcatcher.io.attachments.FishingGuideAttachment;
 import com.wdiscute.starcatcher.storage.FishProperties;
 import com.wdiscute.starcatcher.io.ModDataAttachments;
 import com.wdiscute.starcatcher.io.network.FishCaughtPayload;
 import net.minecraft.core.Holder;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -30,12 +32,11 @@ public class AwardOneFish extends Item
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand usedHand)
     {
-        if(!player.isCreative())
-            return InteractionResultHolder.pass(player.getItemInHand(usedHand));List<FishCaughtCounter> fishCounter;
+        if(!player.isCreative()) return InteractionResultHolder.pass(player.getItemInHand(usedHand));
+        if (level.isClientSide()) return InteractionResultHolder.success(player.getItemInHand(usedHand));
 
-        List<FishProperties> fishes = new ArrayList<>(U.getFpsFromRls(level, ModDataAttachments.get(player, ModDataAttachments.FISHES_NOTIFICATION)));
-
-        fishCounter = new ArrayList<>(ModDataAttachments.get(player, ModDataAttachments.FISHES_CAUGHT));
+        List<FishCaughtCounter> fishCounter = ModDataAttachments.get(player, ModDataAttachments.FISHING_GUIDE).fishesCaught;
+        List<ResourceLocation> fishNotifications = ModDataAttachments.get(player, ModDataAttachments.FISHING_GUIDE).fishNotifications;
 
         Optional<Holder.Reference<FishProperties>> optional = level.registryAccess().registryOrThrow(Starcatcher.FISH_REGISTRY).getRandom(level.random);
 
@@ -46,7 +47,7 @@ public class AwardOneFish extends Item
 
             //todo fix this awarding repeated entries. It should check which entries the player doesnt have to award a new one instead
             fishCounter.add(new FishCaughtCounter(U.getRlFromFp(level, fp), 999999, 0, 0, 0, 0, false, false));
-            fishes.add(fp);
+            fishNotifications.add(U.getRlFromFp(level, fp));
 
             if(player instanceof ServerPlayer sp)
             {
@@ -54,8 +55,7 @@ public class AwardOneFish extends Item
             }
         }
 
-        ModDataAttachments.set(player, ModDataAttachments.FISHES_CAUGHT, fishCounter);
-        ModDataAttachments.set(player, ModDataAttachments.FISHES_NOTIFICATION, U.getRlsFromFps(level, fishes));
+        FishingGuideAttachment.sync(player);
 
         return InteractionResultHolder.success(player.getItemInHand(usedHand));
     }

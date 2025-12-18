@@ -27,7 +27,7 @@ public class GuaranteeNewFishModifier extends AbstractCatchModifier
 
         Level level = instance.level();
 
-        List<FishCaughtCounter> fishesCaught = ModDataAttachments.get(instance.player, ModDataAttachments.FISHES_CAUGHT);
+        List<FishCaughtCounter> fishesCaught = ModDataAttachments.get(instance.player, ModDataAttachments.FISHING_GUIDE).fishesCaught;
         for (FishProperties fp : immutableAvailable)
         {
             boolean caught = false;

@@ -9,6 +9,7 @@ import com.wdiscute.starcatcher.StarcatcherTags;
 import com.wdiscute.starcatcher.io.FishCaughtCounter;
 import com.wdiscute.starcatcher.io.ModDataAttachments;
 import com.wdiscute.starcatcher.io.ModDataComponents;
+import com.wdiscute.starcatcher.io.attachments.FishingGuideAttachment;
 import com.wdiscute.starcatcher.io.network.FishingStartedPayload;
 import com.wdiscute.starcatcher.registry.custom.catchmodifiers.AbstractCatchModifier;
 import com.wdiscute.starcatcher.registry.custom.minigamemodifiers.AbstractMinigameModifier;
@@ -174,14 +175,15 @@ public class ModCommands
 
     private static int revokeAllFish(ServerPlayer player)
     {
-        ModDataAttachments.remove(player, ModDataAttachments.FISHES_CAUGHT);
+        ModDataAttachments.get(player, ModDataAttachments.FISHING_GUIDE).fishesCaught.clear();
+        FishingGuideAttachment.sync(player);
         return 0;
     }
 
     private static int revokeFish(ServerPlayer player, ResourceKey<FishProperties> fish)
     {
-        List<FishCaughtCounter> fishCaughtCounter = ModDataAttachments.get(player, ModDataAttachments.FISHES_CAUGHT);
-        ModDataAttachments.set(player, ModDataAttachments.FISHES_CAUGHT, fishCaughtCounter.stream().filter(fcc -> !fcc.fp().equals(fish.location())).toList());
+        ModDataAttachments.get(player, ModDataAttachments.FISHING_GUIDE).fishesCaught.removeIf(fcc -> !fcc.fp().equals(fish.location()));
+        FishingGuideAttachment.sync(player);
         return 0;
     }
 

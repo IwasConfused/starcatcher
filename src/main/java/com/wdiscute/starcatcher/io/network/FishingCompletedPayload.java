@@ -34,6 +34,8 @@ public record FishingCompletedPayload(int time, boolean completedTreasure, boole
 
     public void handle(IPayloadContext context)
     {
-        U.spawnFishFromPlayerFishing(((ServerPlayer) context.player()), time, completedTreasure, perfectCatch, hits);
+        context.enqueueWork( () -> {
+            U.spawnFishFromPlayerFishing(((ServerPlayer) context.player()), time, completedTreasure, perfectCatch, hits);
+        });
     }
 }

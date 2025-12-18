@@ -2,12 +2,14 @@ package com.wdiscute.starcatcher.io.network;
 
 import com.wdiscute.starcatcher.Starcatcher;
 import com.wdiscute.starcatcher.U;
+import com.wdiscute.starcatcher.io.attachments.FishingGuideAttachment;
 import com.wdiscute.starcatcher.storage.FishProperties;
 import com.wdiscute.starcatcher.io.ModDataAttachments;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.resources.ResourceLocation;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 import java.util.ArrayList;
@@ -29,14 +31,8 @@ public record FPsSeenPayload(List<FishProperties> fps) implements CustomPacketPa
     }
 
     public void handle(IPayloadContext context) {
-        List<FishProperties> list = U.getFpsFromRls(context.player().level(), ModDataAttachments.get(context.player(), ModDataAttachments.FISHES_NOTIFICATION));
-        List<FishProperties> newList = new ArrayList<>();
-
-        for (FishProperties fp : list) {
-            if (!fps().contains(fp))
-                newList.add(fp);
-        }
-
-        ModDataAttachments.set(context.player(), ModDataAttachments.FISHES_NOTIFICATION, U.getRlsFromFps(context.player().level(), newList));
+        context.enqueueWork(() ->{
+            ModDataAttachments.get(context.player(), ModDataAttachments.FISHING_GUIDE).fishNotifications.removeIf(loc -> !fps.contains(U.getFpFromRl(context.player().level(),loc)));
+        });
     }
 }
