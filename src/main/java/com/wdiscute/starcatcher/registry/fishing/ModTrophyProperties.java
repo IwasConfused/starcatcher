@@ -201,7 +201,7 @@ public class ModTrophyProperties
                 context, TrophyProperties.builder().setFishProperties(
                                 overworldFish(ModItems.BAMBOO_ROD)
                                         .withWorldRestrictions(FishProperties.WorldRestrictions.OVERWORLD
-                                                .withBiomesTags(Biomes.BAMBOO_JUNGLE.location())))
+                                                .withBiomes(Biomes.BAMBOO_JUNGLE.location())))
                         .setTrophyType(TrophyProperties.TrophyType.EXTRA)
                         .setChanceToCatch(1)
                         .setRepeatable(true)
