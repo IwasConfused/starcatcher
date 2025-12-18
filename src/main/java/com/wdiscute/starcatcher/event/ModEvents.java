@@ -170,18 +170,6 @@ public class ModEvents
                 SBStandTournamentNameChangePayload::handle
         );
 
-        registrar.playToServer(
-                SBStandTournamentDurationChangePayload.TYPE,
-                SBStandTournamentDurationChangePayload.STREAM_CODEC,
-                SBStandTournamentDurationChangePayload::handle
-        );
-
-        registrar.playToServer(
-                SBStandTournamentScoringTypeChangePayload.TYPE,
-                SBStandTournamentScoringTypeChangePayload.STREAM_CODEC,
-                SBStandTournamentScoringTypeChangePayload::handle
-        );
-
         registrar.playToClient(
                 CBActiveTournamentUpdatePayload.TYPE,
                 CBActiveTournamentUpdatePayload.STREAM_CODEC,

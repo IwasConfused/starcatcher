@@ -24,9 +24,6 @@ public class Config
     public static final ModConfigSpec.EnumValue<FishingGuideScreen.Sort> SORT = BUILDER
             .defineEnum("sort", FishingGuideScreen.Sort.ALPHABETICAL_DOWN);
 
-    public static final ModConfigSpec.EnumValue<StandScreen.DurationDisplay> DURATION = BUILDER
-            .defineEnum("duration_display", StandScreen.DurationDisplay.MINUTES);
-
     static final ModConfigSpec SPEC = BUILDER.build();
 
 

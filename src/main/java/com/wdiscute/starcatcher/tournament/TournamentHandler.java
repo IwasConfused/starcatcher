@@ -45,7 +45,7 @@ public class TournamentHandler
                 new HashMap<>(),
                 new TournamentSettings(
                         TournamentSettings.Scoring.SIMPLE,
-                        110660,
+                        48000,
                         0,
                         0,
                         SingleStackContainer.EMPTY_LIST),
@@ -146,32 +146,6 @@ public class TournamentHandler
             if (t.tournamentUUID.equals(uuid) && player.getUUID().equals(t.owner))
             {
                 t.name = name;
-                PacketDistributor.sendToAllPlayers(CBStandTournamentUpdatePayload.helper(player, t));
-            }
-        }
-    }
-
-    public static void setDuration(ServerPlayer player, UUID uuid, long duration)
-    {
-        if (player.level().isClientSide) return;
-        for (Tournament t : setupTournaments)
-        {
-            if (t.tournamentUUID.equals(uuid) && player.getUUID().equals(t.owner))
-            {
-                t.settings.duration = player.getServer().getTickCount() + duration;
-                PacketDistributor.sendToAllPlayers(CBStandTournamentUpdatePayload.helper(player, t));
-            }
-        }
-    }
-
-    public static void setScoring(ServerPlayer player, UUID uuid, TournamentSettings.Scoring scoringType)
-    {
-        if (player.level().isClientSide) return;
-        for (Tournament t : setupTournaments)
-        {
-            if (t.tournamentUUID.equals(uuid) && player.getUUID().equals(t.owner))
-            {
-                t.settings.scoring = scoringType;
                 PacketDistributor.sendToAllPlayers(CBStandTournamentUpdatePayload.helper(player, t));
             }
         }

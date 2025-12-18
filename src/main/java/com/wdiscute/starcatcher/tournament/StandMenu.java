@@ -6,6 +6,7 @@ import com.wdiscute.starcatcher.registry.blocks.ModBlocks;
 import com.wdiscute.starcatcher.registry.blocks.StandBlockEntity;
 import com.wdiscute.starcatcher.io.SingleStackContainer;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.server.players.StoredUserEntry;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -100,11 +101,48 @@ public class StandMenu extends AbstractContainerMenu
     @Override
     public boolean clickMenuButton(Player player, int id)
     {
-        if(player.level().isClientSide) return false;
+        if (player.level().isClientSide) return false;
+
         //six seven
         //¯\_(ツ)¯\_
         //
         //_/¯(ツ)_/¯
+
+        //duration -
+        if (id == 101)
+        {
+            if (sbe.tournament.settings.duration > 1200)
+            {
+                sbe.tournament.settings.duration -= 1200;
+                PacketDistributor.sendToAllPlayers(CBStandTournamentUpdatePayload.helper(player, sbe.tournament));
+            }
+        }
+
+        //duration --
+        if (id == 102)
+        {
+            if (sbe.tournament.settings.duration > 12000)
+            {
+                sbe.tournament.settings.duration -= 12000;
+                PacketDistributor.sendToAllPlayers(CBStandTournamentUpdatePayload.helper(player, sbe.tournament));
+            }
+        }
+
+        //duration +
+        if (id == 103)
+        {
+            sbe.tournament.settings.duration += 1200;
+            PacketDistributor.sendToAllPlayers(CBStandTournamentUpdatePayload.helper(player, sbe.tournament));
+        }
+
+        //duration ++
+        if (id == 104)
+        {
+            sbe.tournament.settings.duration += 12000;
+            PacketDistributor.sendToAllPlayers(CBStandTournamentUpdatePayload.helper(player, sbe.tournament));
+        }
+
+
         if (id == 67)
         {
             //if player has the items to signup and is not already signed up
@@ -138,19 +176,10 @@ public class StandMenu extends AbstractContainerMenu
 
             }
         }
-
-
-
         return super.clickMenuButton(player, id);
     }
 
-    // CREDIT GOES TO: diesieben07 | https://github.com/diesieben07/SevenCommons
-    // must assign a slot number to each of the slots used by the GUI.
-    // For this container, we can see both the tile inventory's slots as well as the uuid inventory slots and the hotbar.
-    // Each time we add a Slot to the container, it automatically increases the slotIndex, which means
-    //  0 - 8 = hotbar slots (which will map to the InventoryPlayer slot numbers 0 - 8)
-    //  9 - 35 = uuid inventory slots (which map to the InventoryPlayer slot numbers 9 - 35)
-    //  36 - 44 = TileInventory slots, which map to our TileEntity slot numbers 0 - 8)
+
     private static final int HOTBAR_SLOT_COUNT = 9;
     private static final int PLAYER_INVENTORY_ROW_COUNT = 3;
     private static final int PLAYER_INVENTORY_COLUMN_COUNT = 9;

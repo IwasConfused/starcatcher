@@ -1,21 +1,20 @@
 package com.wdiscute.starcatcher.tournament;
 
-import com.wdiscute.starcatcher.Config;
 import com.wdiscute.starcatcher.Starcatcher;
+import com.wdiscute.starcatcher.U;
 import com.wdiscute.starcatcher.io.SingleStackContainer;
-import com.wdiscute.starcatcher.io.network.tournament.stand.SBStandTournamentDurationChangePayload;
 import com.wdiscute.starcatcher.io.network.tournament.stand.SBStandTournamentNameChangePayload;
-import com.wdiscute.starcatcher.io.network.tournament.stand.SBStandTournamentScoringTypeChangePayload;
 import com.wdiscute.starcatcher.io.network.tournament.stand.SBStandTournamentStartCancelPayload;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
-import net.minecraft.client.model.AnimationUtils;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.neoforged.neoforge.network.PacketDistributor;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 
@@ -23,13 +22,9 @@ public class StandScreen extends AbstractContainerScreen<StandMenu>
 {
     public Tournament tournamentCache;
     public static Map<UUID, String> gameProfilesCache;
-    private final StandMenu standMenu;
 
-    private static String durationCache = "waiting...";
     private EditBox nameEditBox;
-    private EditBox durationEditBox;
     private boolean nameWasFocused;
-    private boolean durationWasFocused;
 
     private static final ResourceLocation BACKGROUND = Starcatcher.rl("textures/gui/tournament/background.png");
 
@@ -56,17 +51,6 @@ public class StandScreen extends AbstractContainerScreen<StandMenu>
         nameEditBox.setTextShadow(false);
         nameEditBox.setEditable(false);
         addWidget(this.nameEditBox);
-
-        durationEditBox = new EditBox(this.font, uiX + 55, uiY + 88, 210, 12, Component.translatable("container.repair"));
-        durationEditBox.setCanLoseFocus(true);
-        durationEditBox.setBordered(true);
-        durationEditBox.setTextColor(0x635040);
-        durationEditBox.setBordered(false);
-        durationEditBox.setMaxLength(10);
-        durationEditBox.setValue("");
-        durationEditBox.setTextShadow(false);
-        durationEditBox.setEditable(false);
-        addWidget(this.durationEditBox);
     }
 
     @Override
@@ -87,21 +71,6 @@ public class StandScreen extends AbstractContainerScreen<StandMenu>
         PacketDistributor.sendToServer(new SBStandTournamentNameChangePayload(tournamentCache.tournamentUUID, nameEditBox.getValue()));
         tournamentCache.name = nameEditBox.getValue();
         nameEditBox.setValue("");
-    }
-
-    private void onFocusDurationEditBox()
-    {
-        durationEditBox.setValue(tournamentCache.settings.duration + "");
-        tournamentCache.settings.duration = 0;
-    }
-
-    private void onUnfocusDurationEditBox()
-    {
-        //send packet
-        long duration = Long.parseLong(durationEditBox.getValue());
-        PacketDistributor.sendToServer(new SBStandTournamentDurationChangePayload(tournamentCache.tournamentUUID, duration));
-        tournamentCache.settings.duration = duration;
-        durationEditBox.setValue("");
     }
 
     @Override
@@ -125,16 +94,6 @@ public class StandScreen extends AbstractContainerScreen<StandMenu>
         }
         nameWasFocused = nameEditBox.isFocused();
 
-        //handle Duration editbox focusing
-        if (durationWasFocused != durationEditBox.isFocused())
-        {
-            if (durationEditBox.isFocused())
-                onFocusDurationEditBox();
-            else
-                onUnfocusDurationEditBox();
-        }
-        durationWasFocused = durationEditBox.isFocused();
-
         //render background
         renderImage(guiGraphics, BACKGROUND);
 
@@ -150,8 +109,22 @@ public class StandScreen extends AbstractContainerScreen<StandMenu>
         guiGraphics.drawString(this.font, Component.translatable("gui.starcatcher.tournament.status"), uiX + 130, uiY + 68, 0x9c897c, false);
 
         //duration
-        guiGraphics.drawString(this.font, Component.literal(durationCache), uiX + 55, uiY + 88, 0x635040, false);
+        guiGraphics.drawString(this.font, U.calculateRealLifeTimeFromTicks(tournamentCache.settings.duration), uiX + 55, uiY + 88, 0x635040, false);
         guiGraphics.drawString(this.font, Component.translatable("gui.starcatcher.tournament.duration"), uiX + 60, uiY + 100, 0x9c897c, false);
+        //duration hover
+        if(x > 52 && x < 116 && y > 85 && y < 98)
+        {
+            List<Component> durationTooltip = new ArrayList<>();
+
+            durationTooltip.add(Component.literal(tournamentCache.settings.duration + " ticks"));
+
+            MutableComponent durationComp = Component.literal(String.format("%.2f ", (float) tournamentCache.settings.duration / 24000));
+            if(tournamentCache.settings.duration % 24000 == 0) durationComp = Component.literal(tournamentCache.settings.duration / 24000 + " ");
+            durationTooltip.add(durationComp.append(Component.translatable("gui.starcatcher.tournament.duration.days")));
+
+            guiGraphics.renderTooltip(this.font, durationTooltip, Optional.empty(), mouseX, mouseY);
+        }
+
 
         //scoring
         int xOwnerOffset = 0;
@@ -187,7 +160,6 @@ public class StandScreen extends AbstractContainerScreen<StandMenu>
 
             guiGraphics.renderTooltip(this.font, signUpCostList, Optional.empty(), mouseX, mouseY);
         }
-
 
         //list of players
         int count = 0;
@@ -239,96 +211,12 @@ public class StandScreen extends AbstractContainerScreen<StandMenu>
 
         //inventory
         guiGraphics.drawString(this.font, Component.translatable("gui.starcatcher.tournament.inventory"), uiX + 212, uiY + 175, 0x9c897c, false);
-
-        //start / cancel
-        if (tournamentCache.status == Tournament.Status.SETUP)
-        {
-            guiGraphics.drawString(this.font, Component.translatable("gui.starcatcher.tournament.start"), uiX + 215, uiY + 50, 0x635040, false);
-            if (x > 209 && x < 317 && y > 44 && y < 60)
-            {
-                List<Component> list = new ArrayList<>();
-
-                list.add(Component.literal("This will start the tournament which will"));
-                list.add(Component.literal("automatically end once the duration has"));
-                list.add(Component.literal("ended. Settings can not be changed"));
-                list.add(Component.literal("once the tournament has started."));
-                list.add(Component.literal("Items can still be added to the prize pool."));
-
-                guiGraphics.renderTooltip(this.font, list, Optional.empty(), mouseX, mouseY);
-            }
-
-            this.durationEditBox.render(guiGraphics, mouseX, mouseY, partialTick);
-            this.nameEditBox.render(guiGraphics, mouseX, mouseY, partialTick);
-            renderTooltip(guiGraphics, mouseX, mouseY);
-        }
-        else if (tournamentCache.status == Tournament.Status.ACTIVE)
-        {
-            guiGraphics.drawString(this.font, Component.translatable("gui.starcatcher.tournament.cancel"), uiX + 215, uiY + 50, 0xa34536, false);
-            if (x > 209 && x < 317 && y > 44 && y < 60)
-            {
-                List<Component> list = new ArrayList<>();
-
-                list.add(Component.literal("This will start the tournament which will"));
-                list.add(Component.literal("automatically end once the duration has"));
-                list.add(Component.literal("ended. Settings can not be changed"));
-                list.add(Component.literal("once the tournament has started."));
-                list.add(Component.literal("Items can still be added to the prize pool."));
-
-                guiGraphics.renderTooltip(this.font, list, Optional.empty(), mouseX, mouseY);
-            }
-
-            this.durationEditBox.render(guiGraphics, mouseX, mouseY, partialTick);
-            this.nameEditBox.render(guiGraphics, mouseX, mouseY, partialTick);
-            renderTooltip(guiGraphics, mouseX, mouseY);
-        }
-
-
     }
 
     public void onTournamentReceived(Tournament tournament)
     {
         tournamentCache = tournament;
         nameEditBox.setEditable(tournamentCache.owner.equals(Minecraft.getInstance().player.getUUID()));
-        durationEditBox.setEditable(tournamentCache.owner.equals(Minecraft.getInstance().player.getUUID()));
-        updateDurationCache();
-    }
-
-    private void updateDurationCache()
-    {
-        if (Config.DURATION.get().equals(DurationDisplay.MINUTES))
-        {
-            String s = "";
-            long totalSeconds = tournamentCache.settings.duration / 20;
-            long hours = totalSeconds / 3600;
-
-            if (hours > 0)
-            {
-                totalSeconds -= 3600 * hours;
-                s = hours + "h ";
-            }
-
-            long minutes = totalSeconds / 60;
-
-            if (minutes > 0)
-            {
-                totalSeconds -= 60 * minutes;
-                s += minutes + "m ";
-            }
-
-            s += totalSeconds + "s ";
-
-            durationCache = s;
-        }
-
-        if (Config.DURATION.get().equals(DurationDisplay.MINECRAFT_DAYS))
-        {
-            durationCache = tournamentCache.settings.duration / 24000 + " days";
-        }
-
-        if (Config.DURATION.get().equals(DurationDisplay.TICKS))
-        {
-            durationCache = tournamentCache.settings.duration + " ticks";
-        }
     }
 
     @Override
@@ -337,6 +225,9 @@ public class StandScreen extends AbstractContainerScreen<StandMenu>
 
         double x = mouseX - uiX;
         double y = mouseY - uiY;
+
+        System.out.println("clicked relative x: " + x);
+        System.out.println("clicked relative y: " + y);
 
         //sign up
         if (x > 48 && x < 98 && y > 117 && y < 127)
@@ -353,38 +244,37 @@ public class StandScreen extends AbstractContainerScreen<StandMenu>
                 PacketDistributor.sendToServer(new SBStandTournamentStartCancelPayload(false, tournamentCache.tournamentUUID));
         }
 
-        //duration cycling previous
+        //duration decrease, shift does x10
         if (x > 50 && x < 60 && y > 98 && y < 107)
         {
-            Config.DURATION.set(Config.DURATION.get().previous());
-            Config.SORT.save();
-            updateDurationCache();
+            if(!hasShiftDown())
+                minecraft.gameMode.handleInventoryButtonClick(this.menu.containerId, 101);
+            else
+                minecraft.gameMode.handleInventoryButtonClick(this.menu.containerId, 102);
         }
 
-        //duration cycling next
+        //duration increase, shift does x10
         if (x > 109 && x < 119 && y > 99 && y < 109)
         {
-            Config.DURATION.set(Config.DURATION.get().next());
-            Config.SORT.save();
-            updateDurationCache();
+            if(!hasShiftDown())
+                minecraft.gameMode.handleInventoryButtonClick(this.menu.containerId, 103);
+            else
+                minecraft.gameMode.handleInventoryButtonClick(this.menu.containerId, 104);
         }
 
-        //duration cycling previous
+        //scoring previous
         if (x > 124 && x < 134 && y > 99 && y < 109)
         {
-            PacketDistributor.sendToServer(new SBStandTournamentScoringTypeChangePayload(tournamentCache.tournamentUUID, tournamentCache.settings.scoring.previous()));
+            minecraft.gameMode.handleInventoryButtonClick(this.menu.containerId, 103);
         }
 
-        //duration cycling next
+        //scoring next
         if (x > 182 && x < 192 && y > 99 && y < 109)
         {
-            PacketDistributor.sendToServer(new SBStandTournamentScoringTypeChangePayload(tournamentCache.tournamentUUID, tournamentCache.settings.scoring.next()));
+            minecraft.gameMode.handleInventoryButtonClick(this.menu.containerId, 104);
         }
 
-
         nameEditBox.setFocused(false);
-        durationEditBox.setFocused(false);
-
         return super.mouseClicked(mouseX, mouseY, button);
     }
 
@@ -424,35 +314,13 @@ public class StandScreen extends AbstractContainerScreen<StandMenu>
         }
 
         boolean editbox = this.nameEditBox.keyPressed(keyCode, scanCode, modifiers) || this.nameEditBox.canConsumeInput();
-        boolean durationBox = this.durationEditBox.keyPressed(keyCode, scanCode, modifiers) || this.durationEditBox.canConsumeInput();
-        return editbox || durationBox || super.keyPressed(keyCode, scanCode, modifiers);
-    }
-
-
-    public enum DurationDisplay
-    {
-        TICKS,
-        MINUTES,
-        MINECRAFT_DAYS;
-
-        private static final DurationDisplay[] vals = values();
-
-        public DurationDisplay previous()
-        {
-            if (this.ordinal() == 0) return vals[vals.length - 1];
-            return vals[(this.ordinal() - 1) % vals.length];
-        }
-
-        public DurationDisplay next()
-        {
-            return vals[(this.ordinal() + 1) % vals.length];
-        }
+        return editbox || super.keyPressed(keyCode, scanCode, modifiers);
     }
 
     public StandScreen(StandMenu menu, Inventory playerInventory, Component title)
     {
         super(menu, playerInventory, title);
-        standMenu = menu;
+        //standMenu = menu;
         imageWidth = 420;
         imageHeight = 260;
     }

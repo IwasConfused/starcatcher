@@ -670,6 +670,9 @@
   "gui.starcatcher.tournament.start" : "[Start Tournament]",
   "gui.starcatcher.tournament.cancel" : "[Cancel Tournament]",
 
+  "gui.starcatcher.tournament.duration.days" : "Minecraft days",
+
+
   "gui.starcatcher.tournament.status.setup" : "Preparing",
   "gui.starcatcher.tournament.status.active" : "Ongoing",
   "gui.starcatcher.tournament.status.finished" : "Complete",

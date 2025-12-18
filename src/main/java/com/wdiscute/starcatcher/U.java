@@ -402,6 +402,39 @@ public class U
         return getRlFromFp(level.registryAccess(), tp);
     }
 
+    public static String calculateRealLifeTimeFromTicks(long ticks)
+    {
+        long ticksRemainingToCalculate = ticks / 20;
+        String finalString = "";
+
+        //days
+        if(ticksRemainingToCalculate > 86400)
+        {
+            finalString += ticksRemainingToCalculate / 86400 + "d ";
+            ticksRemainingToCalculate = ticksRemainingToCalculate % 86400;
+        }
+
+        //hours
+        if(ticksRemainingToCalculate > 3600)
+        {
+            finalString += ticksRemainingToCalculate / 3600 + "h ";
+            ticksRemainingToCalculate = ticksRemainingToCalculate % 3600;
+        }
+
+        //minutes
+        if(ticksRemainingToCalculate > 60)
+        {
+            finalString += ticksRemainingToCalculate / 60 + "m ";
+            ticksRemainingToCalculate = ticksRemainingToCalculate % 60;
+        }
+
+        //seconds
+        if(ticksRemainingToCalculate > 0)
+        {
+            finalString += ticksRemainingToCalculate + "s";
+        }
+        return finalString;
+    }
 
     @SafeVarargs
     public static <T> boolean containsAny(List<T> list, T... contains)
