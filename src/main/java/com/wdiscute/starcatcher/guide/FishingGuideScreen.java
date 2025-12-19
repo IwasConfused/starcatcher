@@ -9,12 +9,12 @@ import com.wdiscute.starcatcher.Config;
 import com.wdiscute.starcatcher.Starcatcher;
 import com.wdiscute.starcatcher.StarcatcherTags;
 import com.wdiscute.starcatcher.U;
+import com.wdiscute.starcatcher.io.FishCaughtCounter;
+import com.wdiscute.starcatcher.io.attachments.FishingGuideAttachment;
 import com.wdiscute.starcatcher.registry.blocks.ModBlocks;
 import com.wdiscute.starcatcher.compat.EclipticSeasonsCompat;
 import com.wdiscute.starcatcher.compat.SereneSeasonsCompat;
 import com.wdiscute.starcatcher.compat.TerraFirmaCraftSeasonsCompat;
-import com.wdiscute.starcatcher.io.FishCaughtCounter;
-import com.wdiscute.starcatcher.io.ModDataAttachments;
 import com.wdiscute.starcatcher.io.ModDataComponents;
 import com.wdiscute.starcatcher.io.network.FPsSeenPayload;
 import com.wdiscute.starcatcher.registry.ModItems;
@@ -40,17 +40,16 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.FastColor;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.neoforged.fml.ModList;
 import net.neoforged.neoforge.network.PacketDistributor;
-import net.neoforged.neoforge.registries.DeferredHolder;
 
 import java.awt.*;
 import java.util.*;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class FishingGuideScreen extends Screen
 {
@@ -140,12 +139,12 @@ public class FishingGuideScreen extends Screen
     ClientLevel level;
     LocalPlayer player;
 
-    List<FishProperties> fpsSeen = new ArrayList<>();
+    List<ResourceLocation> fpsSeen = new ArrayList<>();
     List<FishProperties> entries = new ArrayList<>(999);
     List<TrophyProperties> trophiesTps = new ArrayList<>();
     List<TrophyProperties> secretsTps = new ArrayList<>();
     List<FishProperties> fishInArea = new ArrayList<>();
-    List<FishCaughtCounter> fishCaughtCounterList = new ArrayList<>();
+    Map<ResourceLocation, FishCaughtCounter> fishCaughtCounterMap = new HashMap<>();
 
     TrophyProperties.RarityProgress all = TrophyProperties.RarityProgress.DEFAULT;
     private final Map<FishProperties.Rarity, TrophyProperties.RarityProgress> progressMap = new EnumMap<FishProperties.Rarity, TrophyProperties.RarityProgress>(Map.of(
@@ -175,7 +174,7 @@ public class FishingGuideScreen extends Screen
         player = Minecraft.getInstance().player;
 
         fishInArea = FishProperties.getFpsWithGuideEntryForArea(player);
-        fishCaughtCounterList = ModDataAttachments.get(player, ModDataAttachments.FISHING_GUIDE).fishesCaught;
+        fishCaughtCounterMap = FishingGuideAttachment.getFishesCaught(player);
 
         for (FishProperties fp : FishProperties.getFPs(level)) if (fp.hasGuideEntry()) entries.add(fp);
         sortEntries();
@@ -186,19 +185,17 @@ public class FishingGuideScreen extends Screen
         for (TrophyProperties tp : level.registryAccess().registryOrThrow(Starcatcher.TROPHY_REGISTRY))
         {
             if (tp.trophyType() == TrophyProperties.TrophyType.SECRET
-                    && ModDataAttachments.get(player, ModDataAttachments.FISHING_GUIDE).trophiesCaught.contains(level.registryAccess().registryOrThrow(Starcatcher.TROPHY_REGISTRY).getKey(tp)))
+                    && FishingGuideAttachment.getTrophiesCaught(player).containsKey(level.registryAccess().registryOrThrow(Starcatcher.TROPHY_REGISTRY).getKey(tp)))
                 secretsTps.add(tp);
         }
 
         all = TrophyProperties.RarityProgress.fromAttachment(player);
 
-        for (FishCaughtCounter fcc : fishCaughtCounterList)
-        {
-            all = new TrophyProperties.RarityProgress(all.total() + fcc.count(), all.unique());
+        fishCaughtCounterMap.forEach((loc, counter) -> {
+            all = new TrophyProperties.RarityProgress(all.total() + counter.count(), all.unique());
 
-            this.progressMap.compute(U.getFpFromRl(level, fcc.fp()).rarity(), (r, p) -> new TrophyProperties.RarityProgress(p.total() + fcc.count(), p.unique() + 1));
-        }
-
+            this.progressMap.compute(U.getFpFromRl(level, loc).rarity(), (r, p) -> new TrophyProperties.RarityProgress(p.total() + counter.count(), p.unique() + 1));
+        });
     }
 
     @Override
@@ -545,7 +542,7 @@ public class FishingGuideScreen extends Screen
             boolean isMouseOnTop = mouseX > xrender - 10 && mouseX < xrender + 10 && mouseY > y - 2 && mouseY < y + 18;
 
             //if caught
-            if (ModDataAttachments.get(player, ModDataAttachments.FISHING_GUIDE).trophiesCaught.contains(level.registryAccess().registryOrThrow(Starcatcher.TROPHY_REGISTRY).getKey(tp)))
+            if (FishingGuideAttachment.getTrophiesCaught(player).containsKey(level.registryAccess().registryOrThrow(Starcatcher.TROPHY_REGISTRY).getKey(tp)))
             {
                 is = new ItemStack(tp.fish());
                 is.set(ModDataComponents.TROPHY, tp);
@@ -873,19 +870,12 @@ public class FishingGuideScreen extends Screen
 
     private void renderFishIndex(GuiGraphics guiGraphics, int xOffset, int yOffset, int mouseX, int mouseY, FishProperties fp, int backgroundFillColor)
     {
-        List<FishCaughtCounter> fishCounterList = ModDataAttachments.get(player, ModDataAttachments.FISHING_GUIDE).fishesCaught;
+        Map<ResourceLocation, FishCaughtCounter> fishesCaught = FishingGuideAttachment.getFishesCaught(player);
+        FishCaughtCounter fishCaughtCounter = FishCaughtCounter.get(player, fp);
         ItemStack is = new ItemStack(fp.catchInfo().fish());
 
         //calculate caught counter
-        int caught = 0;
-        for (FishCaughtCounter f : fishCounterList)
-        {
-            if (fp.equals(U.getFpFromRl(level, f.fp())))
-            {
-                caught = f.count();
-                break;
-            }
-        }
+        int caught = fishCaughtCounter == null ? 0 : fishCaughtCounter.count();
 
         //handle click
         if (clickedX > xOffset - 3 && clickedX < xOffset + 21 - 3 && clickedY > yOffset - 3 && clickedY < yOffset + 21 - 3)
@@ -935,11 +925,9 @@ public class FishingGuideScreen extends Screen
             renderItem(new ItemStack(ModItems.MISSINGNO.get()), xOffset, yOffset, 1);
 
         //render fish notification icon
-        for (FishProperties fpNotif : U.getFpsFromRls(level, ModDataAttachments.get(player, ModDataAttachments.FISHING_GUIDE).fishNotifications))
-        {
-            if (fp.equals(fpNotif))
-                guiGraphics.blit(STAR, xOffset + 10, yOffset + 7, 0, 0, 10, 10, 10, 10);
-        }
+        if (fishCaughtCounter != null && fishCaughtCounter.hasGuideNotification())
+            guiGraphics.blit(STAR, xOffset + 10, yOffset + 7, 0, 0, 10, 10, 10, 10);
+
 
         //render tooltip
         if (mouseX > xOffset - 3 && mouseX < xOffset + 21 - 3 && mouseY > yOffset - 3 && mouseY < yOffset + 21 - 3)
@@ -1025,18 +1013,12 @@ public class FishingGuideScreen extends Screen
         ItemStack is = new ItemStack(entries.get(entry).catchInfo().fish());
         FishProperties fp = entries.get(entry);
 
-        if (!fpsSeen.contains(fp)) fpsSeen.add(fp);
+        ResourceLocation loc = fp.toLoc(level);
+        FishCaughtCounter fishCaughtCounter = fishCaughtCounterMap.get(loc);
+        if (fishCaughtCounter != null && !fpsSeen.contains(loc) && fishCaughtCounter.hasGuideNotification()) fpsSeen.add(loc);
 
         //get fishCaughtCount
-        FishCaughtCounter fcc = null;
-        for (FishCaughtCounter fccAll : fishCaughtCounterList)
-        {
-            if (fp.equals(U.getFpFromRl(level, fccAll.fp())))
-            {
-                fcc = fccAll;
-                break;
-            }
-        }
+        FishCaughtCounter fcc = FishCaughtCounter.get(player, fp);
 
         //render caught:
         //caught:
@@ -1167,7 +1149,8 @@ public class FishingGuideScreen extends Screen
         guiGraphics.setColor(1, 1, 1, 1);
 
         //render new fish icon
-        if (ModDataAttachments.get(player, ModDataAttachments.FISHING_GUIDE).fishNotifications.contains(U.getRlFromFp(level, fp)))
+        FishCaughtCounter counter = fishCaughtCounterMap.get(U.getRlFromFp(level, fp));
+        if (counter != null && counter.hasGuideNotification())
             renderImage(guiGraphics, NEW_FISH, xOffset - 52, 0);
 
         //render fish tooltip
@@ -1869,28 +1852,17 @@ public class FishingGuideScreen extends Screen
             sortEntries();
             Config.SORT.set(sort);
             Config.SORT.save();
-            List<FishProperties> entriesSorted = new ArrayList<>();
+            Set<FishProperties> entriesSorted = new HashSet<>();
 
-            List<FishProperties> notCaught = new ArrayList<>(entries);
+            Set<FishProperties> notCaught = new HashSet<>();
 
             //add all fishes caught to start
-            entries.forEach(fp ->
-            {
-                for (FishCaughtCounter fccAll : fishCaughtCounterList)
-                {
-                    if (fccAll.fp().equals(level.registryAccess().registryOrThrow(Starcatcher.FISH_REGISTRY).getKey(fp)))
-                    {
-                        entriesSorted.add(fp);
-                    }
-                }
-            });
-
-            notCaught.removeAll(entriesSorted);
-
-            entriesSorted.addAll(notCaught);
+            entriesSorted = FishingGuideAttachment.getFishesCaught(player).keySet().stream().map(loc -> U.getFpFromRl(level ,loc)).collect(Collectors.toSet());
+            entriesSorted.addAll(entries); // since it's a set, only the not caught ones should get added
 
 
-            entries = sort.equals(Sort.CAUGHT_UP) ? entriesSorted : entriesSorted.reversed();
+            List<FishProperties> entryList = entriesSorted.stream().toList();
+            entries = sort.equals(Sort.CAUGHT_UP) ? entryList : entryList.reversed();
         }
 
         //SEASONS

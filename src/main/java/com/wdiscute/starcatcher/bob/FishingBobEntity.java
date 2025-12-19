@@ -4,10 +4,8 @@ import com.wdiscute.starcatcher.Config;
 import com.wdiscute.starcatcher.Starcatcher;
 import com.wdiscute.starcatcher.StarcatcherTags;
 import com.wdiscute.starcatcher.U;
-import com.wdiscute.starcatcher.io.FishCaughtCounter;
-import com.wdiscute.starcatcher.io.ModDataAttachments;
-import com.wdiscute.starcatcher.io.ModDataComponents;
-import com.wdiscute.starcatcher.io.SingleStackContainer;
+import com.wdiscute.starcatcher.io.*;
+import com.wdiscute.starcatcher.io.attachments.FishingGuideAttachment;
 import com.wdiscute.starcatcher.io.network.FishingStartedPayload;
 import com.wdiscute.starcatcher.registry.custom.catchmodifiers.AbstractCatchModifier;
 import com.wdiscute.starcatcher.registry.custom.catchmodifiers.ModCatchModifiers;
@@ -46,6 +44,7 @@ import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class FishingBobEntity extends Projectile
 {
@@ -140,17 +139,17 @@ public class FishingBobEntity extends Projectile
 
     public void reel()
     {
-        modifiers.forEach(acm -> acm.onReelStart());
+        modifiers.forEach(AbstractCatchModifier::onReelStart);
 
         //server only
         List<FishProperties> available = new ArrayList<>(List.of());
 
-        List<ResourceLocation> data = ModDataAttachments.get(player, ModDataAttachments.FISHING_GUIDE).trophiesCaught;
+        Map<ResourceLocation, Integer> data = FishingGuideAttachment.getTrophiesCaught(player);
 
-        List<TrophyProperties> trophiesCaught = new ArrayList<>(U.getTpsFromRls(level(), data));
+        List<TrophyProperties> trophiesCaught = new ArrayList<>(U.getTpsFromRls(level(), data.keySet().stream().toList()));
 
         //-1 on the common to account for the default "fish" unfortunately, there's probably a way to fix this
-        TrophyProperties.RarityProgress all =TrophyProperties.RarityProgress.fromAttachment(player);
+        AtomicReference<TrophyProperties.RarityProgress> all = new AtomicReference<>(TrophyProperties.RarityProgress.fromAttachment(player));
         Map<FishProperties.Rarity, TrophyProperties.RarityProgress> progressMap = new EnumMap<>(Map.of(
                 FishProperties.Rarity.COMMON, new TrophyProperties.RarityProgress(0, -1),
                 FishProperties.Rarity.UNCOMMON, TrophyProperties.RarityProgress.DEFAULT,
@@ -159,12 +158,11 @@ public class FishingBobEntity extends Projectile
                 FishProperties.Rarity.LEGENDARY, TrophyProperties.RarityProgress.DEFAULT
         ));
 
-        for (FishCaughtCounter fcc : ModDataAttachments.get(player, ModDataAttachments.FISHING_GUIDE).fishesCaught)
-        {
-            all = new TrophyProperties.RarityProgress(all.total() + fcc.count(), all.unique());
+        FishingGuideAttachment.getFishesCaught(player).forEach((loc, counter) -> {
+            all.set(new TrophyProperties.RarityProgress(all.get().total() + counter.count(), all.get().unique()));
 
-            progressMap.compute(U.getFpFromRl(level(), fcc.fp()).rarity(), (r, p) -> new TrophyProperties.RarityProgress(p.total() + fcc.count(), p.unique() + 1));
-        }
+            progressMap.computeIfPresent(U.getFpFromRl(level(), loc).rarity(), (r, p) -> new TrophyProperties.RarityProgress(p.total() + counter.count(), p.unique() + 1));
+        });
 
         //check if any trophy can be caught
         e:
@@ -176,7 +174,7 @@ public class FishingBobEntity extends Projectile
                 if (!check(progressMap.get(value), tp.getProgress(value))) continue e;
             }
 
-            if (check(all, tp.all())
+            if (check(all.get(), tp.all())
                     && !trophiesCaught.contains(tp)
                     && FishProperties.getChance(tp.fp(), this, rod) > 0
                     && random.nextIntBetweenInclusive(0, 99) < tp.chanceToCatch()
@@ -200,7 +198,7 @@ public class FishingBobEntity extends Projectile
 
                 trophiesCaught.add(tp);
 
-                ModDataAttachments.get(player, ModDataAttachments.FISHING_GUIDE).trophiesCaught = U.getRlsFromTps(level(), trophiesCaught);
+                U.getRlsFromTps(level(), trophiesCaught).forEach(loc -> data.putIfAbsent(loc, 0));
 
                 kill();
                 return;

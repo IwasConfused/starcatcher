@@ -1,11 +1,9 @@
 package com.wdiscute.starcatcher.compat;
 
 import com.wdiscute.starcatcher.io.FishCaughtCounter;
-import com.wdiscute.starcatcher.storage.FishProperties;
 import dev.ftb.mods.ftbteams.api.Team;
 import dev.ftb.mods.ftbteams.data.TeamManagerImpl;
 import net.minecraft.world.entity.player.Player;
-import net.neoforged.fml.ISystemReportExtender;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

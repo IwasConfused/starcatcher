@@ -25,7 +25,7 @@ public class RevokeAllSecrets extends Item
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand usedHand)
     {
 
-        ModDataAttachments.get(player, ModDataAttachments.FISHING_GUIDE).trophiesCaught.removeIf(loc -> U.getTpFromRl(level, loc).trophyType() == TrophyProperties.TrophyType.SECRET);
+        FishingGuideAttachment.getTrophiesCaught(player).keySet().removeIf(loc -> U.getTpFromRl(level, loc).trophyType() == TrophyProperties.TrophyType.SECRET);
         FishingGuideAttachment.sync(player);
 
         return InteractionResultHolder.success(player.getItemInHand(usedHand));

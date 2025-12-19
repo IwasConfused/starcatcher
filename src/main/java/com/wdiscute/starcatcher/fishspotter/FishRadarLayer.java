@@ -1,12 +1,10 @@
 package com.wdiscute.starcatcher.fishspotter;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import com.wdiscute.starcatcher.U;
+import com.wdiscute.starcatcher.io.attachments.FishingGuideAttachment;
 import com.wdiscute.starcatcher.registry.ModItems;
 import com.wdiscute.starcatcher.Starcatcher;
-import com.wdiscute.starcatcher.io.FishCaughtCounter;
 import com.wdiscute.starcatcher.storage.FishProperties;
-import com.wdiscute.starcatcher.io.ModDataAttachments;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
@@ -47,14 +45,16 @@ public class FishRadarLayer implements LayeredDraw.Layer
     ClientLevel level;
 
     List<FishProperties> fpsInArea = new ArrayList<>();
-    List<FishProperties> fishesCaught;
+    List<FishProperties> fishesCaught = new ArrayList<>();
 
     private void recalculate()
     {
         fpsInArea = FishProperties.getFpsWithGuideEntryForArea(player);
-        fishesCaught = new ArrayList<>();
-        for (FishCaughtCounter fishes : ModDataAttachments.get(player, ModDataAttachments.FISHING_GUIDE).fishesCaught)
-            fishesCaught.add(U.getFpFromRl(level, fishes.fp()));
+        fishesCaught.clear();
+
+        FishingGuideAttachment.getFishesCaught(player).forEach((loc, counter) ->{
+            fishesCaught.add(U.getFpFromRl(level, loc));
+        });
     }
 
     @Override

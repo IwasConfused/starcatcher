@@ -10,6 +10,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class RevokeAllFishes extends Item
 {
@@ -22,11 +23,7 @@ public class RevokeAllFishes extends Item
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand usedHand)
     {
         //reset fishes caught
-        FishingGuideAttachment fishingGuideAttachment = ModDataAttachments.get(player, ModDataAttachments.FISHING_GUIDE);
-        fishingGuideAttachment.fishesCaught.clear();
-        fishingGuideAttachment.fishNotifications.clear();
-
-        FishingGuideAttachment.sync(player);
+        FishingGuideAttachment.setFishesCaught(player, new HashMap<>());
 
         return InteractionResultHolder.success(player.getItemInHand(usedHand));
     }

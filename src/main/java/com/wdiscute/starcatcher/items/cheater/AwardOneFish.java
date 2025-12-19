@@ -5,7 +5,6 @@ import com.wdiscute.starcatcher.U;
 import com.wdiscute.starcatcher.io.FishCaughtCounter;
 import com.wdiscute.starcatcher.io.attachments.FishingGuideAttachment;
 import com.wdiscute.starcatcher.storage.FishProperties;
-import com.wdiscute.starcatcher.io.ModDataAttachments;
 import com.wdiscute.starcatcher.io.network.FishCaughtPayload;
 import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceLocation;
@@ -18,8 +17,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.network.PacketDistributor;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 public class AwardOneFish extends Item
@@ -35,8 +33,7 @@ public class AwardOneFish extends Item
         if(!player.isCreative()) return InteractionResultHolder.pass(player.getItemInHand(usedHand));
         if (level.isClientSide()) return InteractionResultHolder.success(player.getItemInHand(usedHand));
 
-        List<FishCaughtCounter> fishCounter = ModDataAttachments.get(player, ModDataAttachments.FISHING_GUIDE).fishesCaught;
-        List<ResourceLocation> fishNotifications = ModDataAttachments.get(player, ModDataAttachments.FISHING_GUIDE).fishNotifications;
+        Map<ResourceLocation, FishCaughtCounter> fishesCaught = FishingGuideAttachment.getFishesCaught(player);
 
         Optional<Holder.Reference<FishProperties>> optional = level.registryAccess().registryOrThrow(Starcatcher.FISH_REGISTRY).getRandom(level.random);
 
@@ -46,8 +43,7 @@ public class AwardOneFish extends Item
             FishProperties fp = optional.get().value();
 
             //todo fix this awarding repeated entries. It should check which entries the player doesnt have to award a new one instead
-            fishCounter.add(new FishCaughtCounter(U.getRlFromFp(level, fp), 999999, 0, 0, 0, 0, false, false));
-            fishNotifications.add(U.getRlFromFp(level, fp));
+            fishesCaught.putIfAbsent(U.getRlFromFp(level, fp), FishCaughtCounter.createHacked());
 
             if(player instanceof ServerPlayer sp)
             {

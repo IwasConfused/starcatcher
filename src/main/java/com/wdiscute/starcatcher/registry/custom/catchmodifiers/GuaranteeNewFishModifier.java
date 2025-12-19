@@ -1,13 +1,12 @@
 package com.wdiscute.starcatcher.registry.custom.catchmodifiers;
 
-import com.wdiscute.starcatcher.Starcatcher;
 import com.wdiscute.starcatcher.U;
-import com.wdiscute.starcatcher.io.FishCaughtCounter;
-import com.wdiscute.starcatcher.io.ModDataAttachments;
+import com.wdiscute.starcatcher.io.attachments.FishingGuideAttachment;
 import com.wdiscute.starcatcher.storage.FishProperties;
 import net.minecraft.world.level.Level;
 
 import java.util.List;
+import java.util.Optional;
 
 public class GuaranteeNewFishModifier extends AbstractCatchModifier
 {
@@ -27,21 +26,10 @@ public class GuaranteeNewFishModifier extends AbstractCatchModifier
 
         Level level = instance.level();
 
-        List<FishCaughtCounter> fishesCaught = ModDataAttachments.get(instance.player, ModDataAttachments.FISHING_GUIDE).fishesCaught;
-        for (FishProperties fp : immutableAvailable)
-        {
-            boolean caught = false;
-            for (FishCaughtCounter fcc : fishesCaught)
-            {
-                if (fp.equals(level.registryAccess().registryOrThrow(Starcatcher.FISH_REGISTRY).get(fcc.fp())))
-                    caught = true;
-            }
+        List<FishProperties> caughtList = FishingGuideAttachment.getFishesCaught(instance.player).keySet().stream().map(loc -> U.getFpFromRl(level, loc)).toList();
 
-            if (!caught && fp.hasGuideEntry())
-            {
-                instance.fpToFish = fp;
-                break;
-            }
-        }
+        Optional<FishProperties> notCaughtFish = immutableAvailable.stream().filter(properties -> !caughtList.contains(properties) && properties.hasGuideEntry()).findAny();
+
+        notCaughtFish.ifPresent(fish -> instance.fpToFish = fish);
     }
 }

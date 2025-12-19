@@ -5,7 +5,7 @@ import com.wdiscute.starcatcher.U;
 import com.wdiscute.starcatcher.io.FishCaughtCounter;
 import com.wdiscute.starcatcher.io.attachments.FishingGuideAttachment;
 import com.wdiscute.starcatcher.storage.FishProperties;
-import com.wdiscute.starcatcher.io.ModDataAttachments;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
@@ -13,8 +13,8 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 public class AwardAllFishes extends Item
 {
@@ -30,26 +30,15 @@ public class AwardAllFishes extends Item
             return InteractionResultHolder.pass(player.getItemInHand(usedHand));
 
         //sets all fps on fishes caught to 1
-        List<FishCaughtCounter> fishCounter = new ArrayList<>();
-        List<FishProperties> fishes = new ArrayList<>();
+        Map<ResourceLocation, FishCaughtCounter> fishesCaught = new HashMap<>();
 
-        for (FishProperties fp : level.registryAccess().registryOrThrow(Starcatcher.FISH_REGISTRY))
+        for (FishProperties fish : level.registryAccess().registryOrThrow(Starcatcher.FISH_REGISTRY))
         {
-            if(fp.hasGuideEntry())
-                fishCounter.add(new FishCaughtCounter(U.getRlFromFp(level, fp), 999999, 0, 0, 0, 0, false, false));
+            if(fish.hasGuideEntry())
+                fishesCaught.put(U.getRlFromFp(level, fish), FishCaughtCounter.createHacked());
         }
 
-
-        FishingGuideAttachment fishingGuideAttachment = ModDataAttachments.get(player, ModDataAttachments.FISHING_GUIDE);
-        fishingGuideAttachment.fishesCaught = fishCounter;
-
-        for (FishProperties fp : level.registryAccess().registryOrThrow(Starcatcher.FISH_REGISTRY))
-        {
-            fishes.add(fp);
-        }
-
-        fishingGuideAttachment.fishNotifications = U.getRlsFromFps(level, fishes);
-        FishingGuideAttachment.sync(player);
+        FishingGuideAttachment.setFishesCaught(player, fishesCaught);
 
         return InteractionResultHolder.success(player.getItemInHand(usedHand));
     }

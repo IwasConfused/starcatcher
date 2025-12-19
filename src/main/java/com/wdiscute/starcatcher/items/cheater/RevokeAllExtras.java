@@ -25,7 +25,8 @@ public class RevokeAllExtras extends Item
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand usedHand)
     {
 
-        ModDataAttachments.get(player, ModDataAttachments.FISHING_GUIDE).trophiesCaught.removeIf(loc -> U.getTpFromRl(level, loc).trophyType() == TrophyProperties.TrophyType.EXTRA);
+
+        FishingGuideAttachment.getTrophiesCaught(player).keySet().removeIf(loc -> U.getTpFromRl(level, loc).trophyType() == TrophyProperties.TrophyType.EXTRA);
 
         FishingGuideAttachment.sync(player);
 

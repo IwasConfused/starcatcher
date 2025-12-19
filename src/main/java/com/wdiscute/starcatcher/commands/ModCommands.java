@@ -7,7 +7,6 @@ import com.mojang.brigadier.exceptions.DynamicCommandExceptionType;
 import com.wdiscute.starcatcher.Starcatcher;
 import com.wdiscute.starcatcher.StarcatcherTags;
 import com.wdiscute.starcatcher.io.FishCaughtCounter;
-import com.wdiscute.starcatcher.io.ModDataAttachments;
 import com.wdiscute.starcatcher.io.ModDataComponents;
 import com.wdiscute.starcatcher.io.attachments.FishingGuideAttachment;
 import com.wdiscute.starcatcher.io.network.FishingStartedPayload;
@@ -175,14 +174,14 @@ public class ModCommands
 
     private static int revokeAllFish(ServerPlayer player)
     {
-        ModDataAttachments.get(player, ModDataAttachments.FISHING_GUIDE).fishesCaught.clear();
+        FishingGuideAttachment.getFishesCaught(player).clear();
         FishingGuideAttachment.sync(player);
         return 0;
     }
 
     private static int revokeFish(ServerPlayer player, ResourceKey<FishProperties> fish)
     {
-        ModDataAttachments.get(player, ModDataAttachments.FISHING_GUIDE).fishesCaught.removeIf(fcc -> !fcc.fp().equals(fish.location()));
+        FishingGuideAttachment.getFishesCaught(player).remove(fish.location());
         FishingGuideAttachment.sync(player);
         return 0;
     }

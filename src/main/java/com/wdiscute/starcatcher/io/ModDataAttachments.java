@@ -12,7 +12,6 @@ import net.neoforged.neoforge.attachment.AttachmentType;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Supplier;
 
@@ -47,11 +46,11 @@ public class ModDataAttachments
     );
 
     @Deprecated // use FISHING_GUIDE attachment!!!
-    public static final Supplier<AttachmentType<List<FishCaughtCounter>>> FISHES_CAUGHT = ATTACHMENT_TYPES.register(
+    public static final Supplier<AttachmentType<List<LegacyFishCaughtCounter>>> FISHES_CAUGHT = ATTACHMENT_TYPES.register(
             "fishes_caught", () ->
-                    AttachmentType.builder(() -> List.<FishCaughtCounter>of())
-                            .serialize(FishCaughtCounter.LIST_CODEC)
-                            .sync(FishCaughtCounter.LIST_STREAM_CODEC)
+                    AttachmentType.builder(() -> List.<LegacyFishCaughtCounter>of())
+                            .serialize(LegacyFishCaughtCounter.LIST_CODEC)
+                            .sync(LegacyFishCaughtCounter.LIST_STREAM_CODEC)
                             .copyOnDeath()
                             .build()
     );

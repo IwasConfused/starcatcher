@@ -2,12 +2,9 @@ package com.wdiscute.starcatcher.io.attachments;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import com.wdiscute.starcatcher.U;
-import com.wdiscute.starcatcher.io.FishCaughtCounter;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.resources.ResourceLocation;
 
 import java.util.UUID;
 

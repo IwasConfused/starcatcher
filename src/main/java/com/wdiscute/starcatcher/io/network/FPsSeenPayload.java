@@ -2,6 +2,7 @@ package com.wdiscute.starcatcher.io.network;
 
 import com.wdiscute.starcatcher.Starcatcher;
 import com.wdiscute.starcatcher.U;
+import com.wdiscute.starcatcher.io.FishCaughtCounter;
 import com.wdiscute.starcatcher.io.attachments.FishingGuideAttachment;
 import com.wdiscute.starcatcher.storage.FishProperties;
 import com.wdiscute.starcatcher.io.ModDataAttachments;
@@ -13,15 +14,17 @@ import net.minecraft.resources.ResourceLocation;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-public record FPsSeenPayload(List<FishProperties> fps) implements CustomPacketPayload {
+public record FPsSeenPayload(List<ResourceLocation> locs) implements CustomPacketPayload {
 
     public static final Type<FPsSeenPayload> TYPE = new Type<>(Starcatcher.rl("fps_seen"));
 
     public static final StreamCodec<ByteBuf, FPsSeenPayload> STREAM_CODEC = StreamCodec.composite(
-            ByteBufCodecs.fromCodec(FishProperties.LIST_CODEC),
-            FPsSeenPayload::fps,
+            ResourceLocation.STREAM_CODEC.apply(ByteBufCodecs.list()),
+            FPsSeenPayload::locs,
             FPsSeenPayload::new
     );
 
@@ -31,8 +34,17 @@ public record FPsSeenPayload(List<FishProperties> fps) implements CustomPacketPa
     }
 
     public void handle(IPayloadContext context) {
-        context.enqueueWork(() ->{
-            ModDataAttachments.get(context.player(), ModDataAttachments.FISHING_GUIDE).fishNotifications.removeIf(loc -> !fps.contains(U.getFpFromRl(context.player().level(),loc)));
+        context.enqueueWork(() -> {
+            Map<ResourceLocation, FishCaughtCounter> map = new HashMap<>(FishingGuideAttachment.getFishesCaught(context.player()));
+
+            locs.forEach(loc -> {
+                FishCaughtCounter fishCaughtCounter = map.get(loc);
+
+                if (fishCaughtCounter != null)
+                    map.replace(loc,  fishCaughtCounter.removeNotification());
+            });
+
+            FishingGuideAttachment.setFishesCaught(context.player(), map);
         });
     }
 }

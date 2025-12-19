@@ -100,6 +100,9 @@ public record FishProperties(
 
     public static final StreamCodec<RegistryFriendlyByteBuf, List<FishProperties>> STREAM_CODEC_LIST = STREAM_CODEC.apply(ByteBufCodecs.list());
 
+    public ResourceLocation toLoc(Level level){
+        return U.getRlFromFp(level, this);
+    }
 
     /**
      * @deprecated use Builder instead

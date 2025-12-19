@@ -36,7 +36,6 @@ import net.neoforged.neoforge.registries.DeferredItem;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.UUID;
 import java.util.function.Supplier;
 
 public class U
@@ -78,9 +77,6 @@ public class U
                 //play sound
                 Vec3 p = player.position();
                 level.playSound(null, p.x, p.y, p.z, SoundEvents.VILLAGER_CELEBRATE, SoundSource.AMBIENT);
-
-                //award fish counter
-                ModDataAttachments.get(player, ModDataAttachments.FISHING_GUIDE).fishNotifications.add(U.getRlFromFp(level, fbe.fpToFish));
 
                 //award exp
                 int exp = fp.rarity().getXp();
