@@ -35,22 +35,22 @@ public class StarcatcherEmiSmithingRecipe implements EmiRecipe
         this.template = EmiIngredient.of(recipe.template());
         this.input = EmiIngredient.of(recipe.rod());
 
-        ItemStack is = Arrays.stream(recipe.rod().getItems()).findFirst().get().copy();
+        ItemStack stack = Arrays.stream(recipe.rod().getItems()).findFirst().get().copy();
 
         if (template.getEmiStacks().getFirst().getItemStack().is(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE))
         {
-            is.set(ModDataComponents.NETHERITE_UPGRADE, true);
+            ModDataComponents.set(stack, ModDataComponents.NETHERITE_UPGRADE, true);
             isNetheriteUpgrade = true;
         }
         else
         {
             ItemStack bobberSkin = template.getEmiStacks().getFirst().getItemStack();
-            is.set(ModDataComponents.BOBBER_SKIN, new SingleStackContainer(bobberSkin));
+            ModDataComponents.set(stack, ModDataComponents.BOBBER_SKIN, new SingleStackContainer(bobberSkin));
             isNetheriteUpgrade = false;
         }
 
 
-        this.output = EmiStack.of(is);
+        this.output = EmiStack.of(stack);
     }
 
     @Override

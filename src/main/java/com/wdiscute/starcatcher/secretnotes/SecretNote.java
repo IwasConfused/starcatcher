@@ -27,7 +27,7 @@ public class SecretNote extends Item
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand usedHand)
     {
-        if(level.isClientSide) openScreen(player.getItemInHand(usedHand).get(ModDataComponents.SECRET_NOTE));
+        if(level.isClientSide) openScreen(ModDataComponents.get(player.getItemInHand(usedHand), ModDataComponents.SECRET_NOTE));
         return super.use(level, player, usedHand);
     }
 

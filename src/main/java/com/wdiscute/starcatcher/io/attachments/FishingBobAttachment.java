@@ -34,7 +34,6 @@ public class FishingBobAttachment {
         this.uuid = uuid.toString();
     }
 
-
     public UUID getUuid() {
         return UUID.fromString(uuid);
     }

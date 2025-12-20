@@ -1603,7 +1603,7 @@ public record FishProperties(
             return 0;
 
         //correct bait chance bonus
-        ItemStack bait = rod.has(ModDataComponents.BAIT) ? rod.get(ModDataComponents.BAIT).stack().copy() : ItemStack.EMPTY;
+        ItemStack bait = ModDataComponents.has(rod, ModDataComponents.BAIT) ? ModDataComponents.get(rod, ModDataComponents.BAIT).stack().copy() : ItemStack.EMPTY;
         if (fp.br().correctBait().contains(BuiltInRegistries.ITEM.getKey(bait.getItem())))
         {
             return fp.baseChance() + fp.br().correctBaitChanceAdded();
@@ -1625,7 +1625,7 @@ public record FishProperties(
     public static boolean isWeatherCorrect(Entity entity, FishProperties fp, ItemStack rod)
     {
         Level level = entity.level();
-        ItemStack bait = rod.has(ModDataComponents.BAIT) ? rod.get(ModDataComponents.BAIT).stack().copy() : ItemStack.EMPTY;
+        ItemStack bait = ModDataComponents.has(rod, ModDataComponents.BAIT) ? ModDataComponents.get(rod, ModDataComponents.BAIT).stack().copy() : ItemStack.EMPTY;
 
         if (!bait.is(ModItems.METEOROLOGICAL_BAIT))
         {

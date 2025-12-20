@@ -50,7 +50,7 @@ public class FishingBobRenderer extends EntityRenderer<FishingBobEntity>
         if (bobber.is(ModItems.COLORFUL_BOBBER_SMITHING_TEMPLATE))
         {
             //why is rendering so annoying
-            color = bobber.get(ModDataComponents.BOBBER_COLOR).getColorAsInt();
+            color = ModDataComponents.get(bobber, ModDataComponents.BOBBER_COLOR).getColorAsInt();
         }
         VertexConsumer vertexbobber = buffer.getBuffer(this.model.renderType(this.getTextureLocation(fishingBobEntity)));
         this.model.renderToBuffer(poseStack, vertexbobber, packedLight, OverlayTexture.NO_OVERLAY, color);

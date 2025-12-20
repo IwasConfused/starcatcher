@@ -9,11 +9,15 @@ import com.wdiscute.starcatcher.storage.TrophyProperties;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.List;
+import java.util.function.Supplier;
 import java.util.function.UnaryOperator;
 
 public class ModDataComponents
@@ -77,6 +81,33 @@ public class ModDataComponents
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<List<ResourceLocation>>> CATCH_MODIFIERS = register(
             "catch_modifiers",
             builder -> builder.persistent(ResourceLocation.CODEC.listOf()));
+
+
+
+
+    public static <T> void set(ItemStack stack, Supplier<DataComponentType<T>> component, T data){
+        stack.set(component, data);
+    }
+
+    @Nullable
+    public static <T> T get(ItemStack stack, Supplier<DataComponentType<T>> component){
+        return stack.get(component);
+    }
+
+    public static <T> boolean has(ItemStack stack, Supplier<DataComponentType<T>> component){
+        return stack.has(component);
+    }
+
+    public static  <T> void remove(ItemStack stack, Supplier<DataComponentType<T>> component){
+        stack.remove(component);
+    }
+
+    @Nonnull
+    public static <T> T getOrDefault(ItemStack stack, Supplier<DataComponentType<T>> component, T defaultValue) {
+        return stack.getOrDefault(component, defaultValue);
+    }
+
+
 
     private static <T> DeferredHolder<DataComponentType<?>, DataComponentType<T>> register(String name,
                                                                                            UnaryOperator<DataComponentType.Builder<T>> builderOperator)

@@ -109,8 +109,8 @@ public class ModifierShapedRecipe implements CraftingRecipe
                 minigameModifiers.add(rl);
         }
 
-        if(!catchModifiers.isEmpty()) itemstack.set(ModDataComponents.CATCH_MODIFIERS, catchModifiers);
-        if(!minigameModifiers.isEmpty()) itemstack.set(ModDataComponents.MINIGAME_MODIFIERS, minigameModifiers);
+        if(!catchModifiers.isEmpty()) ModDataComponents.set(itemstack, ModDataComponents.CATCH_MODIFIERS, catchModifiers);
+        if(!minigameModifiers.isEmpty()) ModDataComponents.set(itemstack, ModDataComponents.MINIGAME_MODIFIERS, minigameModifiers);
 
         return itemstack;
     }

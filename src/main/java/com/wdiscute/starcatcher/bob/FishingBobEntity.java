@@ -94,8 +94,7 @@ public class FishingBobEntity extends Projectile
         this.rod = rod;
         this.modifiers = ModCatchModifiers.getAllCatchModifiers(level, rod);
 
-        if (rod.has(ModDataComponents.NETHERITE_UPGRADE))
-            netherite_upgraded = rod.get(ModDataComponents.NETHERITE_UPGRADE);
+        netherite_upgraded = ModDataComponents.getOrDefault(rod, ModDataComponents.NETHERITE_UPGRADE, false);
 
         minTicksToFish = 100;
         maxTicksToFish = 300;
@@ -183,7 +182,7 @@ public class FishingBobEntity extends Projectile
 
                 ItemStack is = new ItemStack(tp.fish().value());
 
-                is.set(ModDataComponents.TROPHY, tp);
+                ModDataComponents.set(is, ModDataComponents.TROPHY, tp);
 
                 Entity itemFished = new ItemEntity(
                         level(), position().x, position().y + 1.2f, position().z, is);
@@ -258,20 +257,20 @@ public class FishingBobEntity extends Projectile
         }
 
         //consume bait
-        ItemStack bait = rod.get(ModDataComponents.BAIT).stack().copy();
+        ItemStack bait = ModDataComponents.get(rod, ModDataComponents.BAIT).stack().copy();
         if (fpToFish.br().consumesBait())
         {
             if (!bait.is(Items.BUCKET))
             {
                 bait.shrink(1);
-                rod.set(ModDataComponents.BAIT, new SingleStackContainer(bait));
+                ModDataComponents.set(rod, ModDataComponents.BAIT, new SingleStackContainer(bait));
                 return;
             }
 
             if (bait.is(Items.BUCKET) && !fpToFish.catchInfo().bucketedFish().is(ModItems.MISSINGNO.getKey()))
             {
                 bait.shrink(1);
-                rod.set(ModDataComponents.BAIT, new SingleStackContainer(bait));
+                ModDataComponents.set(rod, ModDataComponents.BAIT, new SingleStackContainer(bait));
             }
 
         }

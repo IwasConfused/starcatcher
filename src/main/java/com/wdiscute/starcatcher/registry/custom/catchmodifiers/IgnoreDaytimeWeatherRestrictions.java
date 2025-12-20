@@ -53,7 +53,7 @@ public class IgnoreDaytimeWeatherRestrictions extends AbstractCatchModifier
             return 0;
 
         //correct bait chance bonus
-        ItemStack bait = rod.has(ModDataComponents.BAIT) ? rod.get(ModDataComponents.BAIT).stack().copy() : ItemStack.EMPTY;
+        ItemStack bait = ModDataComponents.has(rod, ModDataComponents.BAIT) ? ModDataComponents.get(rod, ModDataComponents.BAIT).stack().copy() : ItemStack.EMPTY;
         if (fp.br().correctBait().contains(BuiltInRegistries.ITEM.getKey(bait.getItem())))
         {
             return fp.baseChance() + fp.br().correctBaitChanceAdded();

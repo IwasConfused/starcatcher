@@ -79,7 +79,7 @@ public class FishEntity extends AbstractFish
     public ItemStack getBucketItemStack()
     {
         ItemStack is = new ItemStack(ModItems.STARCAUGHT_BUCKET.get());
-        is.set(ModDataComponents.BUCKETED_FISH, new SingleStackContainer(getBodyArmorItem().copy()));
+        ModDataComponents.set(is, ModDataComponents.BUCKETED_FISH, new SingleStackContainer(getBodyArmorItem().copy()));
         return is;
     }
 }

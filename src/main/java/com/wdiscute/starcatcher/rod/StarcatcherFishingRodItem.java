@@ -69,7 +69,7 @@ public class StarcatcherFishingRodItem extends Item implements MenuProvider
                 level.addFreshEntity(entity);
 
                 fishingBobAttachment.setUuid(entity.getUUID());
-                SingleStackContainer bobberSkin = player.getItemInHand(hand).get(ModDataComponents.BOBBER_SKIN);
+                SingleStackContainer bobberSkin = ModDataComponents.get(player.getItemInHand(hand),ModDataComponents.BOBBER_SKIN);
                 if (bobberSkin != null)
                     ModDataAttachments.set(entity, ModDataAttachments.BOBBER_SKIN.get(), bobberSkin);
             }

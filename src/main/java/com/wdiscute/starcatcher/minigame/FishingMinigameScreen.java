@@ -132,10 +132,10 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener
         else
             this.itemBeingFished = new ItemStack(fp.catchInfo().fish());
 
-        this.bobberSkin = rod.get(ModDataComponents.BOBBER_SKIN).stack().copy();
-        this.bobber = rod.get(ModDataComponents.BOBBER).stack().copy();
-        this.bait = rod.get(ModDataComponents.BAIT).stack().copy();
-        this.hook = rod.get(ModDataComponents.HOOK).stack().copy();
+        this.bobberSkin = ModDataComponents.get(rod, ModDataComponents.BOBBER_SKIN).stack().copy();
+        this.bobber = ModDataComponents.get(rod, ModDataComponents.BOBBER).stack().copy();
+        this.bait = ModDataComponents.get(rod, ModDataComponents.BAIT).stack().copy();
+        this.hook = ModDataComponents.get(rod, ModDataComponents.HOOK).stack().copy();
 
         this.treasureIS = new ItemStack(fp.catchInfo().treasure());
 
@@ -169,8 +169,8 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener
         //todo improve this to check things dynamically, look into baubles compat & armor slots (not inventory otherwise people could offhand modifiers)
         List<ItemStack> allItems = List.of(bobber, rod, bait, hook);
         for (ItemStack is : allItems)
-            if (is.has(ModDataComponents.MINIGAME_MODIFIERS))
-                for (ResourceLocation rl : Objects.requireNonNull(is.get(ModDataComponents.MINIGAME_MODIFIERS)))
+            if (ModDataComponents.has(is, ModDataComponents.MINIGAME_MODIFIERS))
+                for (ResourceLocation rl : Objects.requireNonNull(ModDataComponents.get(is, ModDataComponents.MINIGAME_MODIFIERS)))
                 {
                     Optional<Supplier<AbstractMinigameModifier>> newModifier = level.registryAccess().registryOrThrow(Starcatcher.MINIGAME_MODIFIERS).getOptional(rl);
                     newModifier.ifPresent(mod -> addModifier(mod.get()));
@@ -342,7 +342,7 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener
                     1);
 
         if (bobberSkin.is(ModItems.COLORFUL_BOBBER_SMITHING_TEMPLATE))
-            color = bobberSkin.get(ModDataComponents.BOBBER_COLOR).getColorAsInt();
+            color = ModDataComponents.get(bobberSkin, ModDataComponents.BOBBER_COLOR).getColorAsInt();
 
         if (bobberSkin.is(ModItems.COLORFUL_BOBBER_SMITHING_TEMPLATE))
             RenderSystem.setShaderColor(
@@ -637,7 +637,7 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener
 
             if (bobberSkin.is(ModItems.COLORFUL_BOBBER_SMITHING_TEMPLATE))
             {
-                ColorfulSmithingTemplate.BobberColor bobberColor = bobberSkin.get(ModDataComponents.BOBBER_COLOR);
+                ColorfulSmithingTemplate.BobberColor bobberColor = ModDataComponents.get(bobberSkin, ModDataComponents.BOBBER_COLOR);
                 hitParticles.add(new HitFakeParticle(
                         xPos, yPos, new Vector2d(U.r.nextFloat() * 2 - 1, U.r.nextFloat() * 2 - 1),
                         bobberColor.r(),

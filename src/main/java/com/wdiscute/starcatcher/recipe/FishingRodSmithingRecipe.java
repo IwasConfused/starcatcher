@@ -30,14 +30,14 @@ public record FishingRodSmithingRecipe(
     {
         //netherite upgrade
         if(input.template().is(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE)
-                && !input.base().has(ModDataComponents.NETHERITE_UPGRADE)
+                && !ModDataComponents.has(input.base(), ModDataComponents.NETHERITE_UPGRADE)
                 && input.addition().is(Items.NETHERITE_INGOT)
         ) return true;
 
         //bobber skins
         if(input.template().is(StarcatcherTags.TEMPLATES) && input.addition().isEmpty())
         {
-            SingleStackContainer singleStackContainer = input.base().get(ModDataComponents.BOBBER_SKIN);
+            SingleStackContainer singleStackContainer = ModDataComponents.get(input.base(), ModDataComponents.BOBBER_SKIN);
             if(singleStackContainer == null) return true;
 
             //if bobber skin is the template, can not craft
@@ -53,13 +53,13 @@ public record FishingRodSmithingRecipe(
 
         if(input.template().is(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE) && input.addition().is(Items.NETHERITE_INGOT))
         {
-            newRod.set(ModDataComponents.NETHERITE_UPGRADE, true);
+            ModDataComponents.set(newRod, ModDataComponents.NETHERITE_UPGRADE, true);
             return newRod;
         }
 
         if(input.template().is(StarcatcherTags.TEMPLATES))
         {
-            newRod.set(ModDataComponents.BOBBER_SKIN, new SingleStackContainer(input.template().copy()));
+            ModDataComponents.set(newRod, ModDataComponents.BOBBER_SKIN, new SingleStackContainer(input.template().copy()));
             return newRod;
         }
 

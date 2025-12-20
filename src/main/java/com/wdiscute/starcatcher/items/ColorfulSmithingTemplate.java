@@ -28,7 +28,7 @@ public class ColorfulSmithingTemplate extends Item
     @Override
     public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag)
     {
-        tooltipComponents.add(Component.translatable("tooltip.starcatcher.colorful_bobber_smithing_template.click_me").withColor(stack.get(ModDataComponents.BOBBER_COLOR).getColorAsInt()));
+        tooltipComponents.add(Component.translatable("tooltip.starcatcher.colorful_bobber_smithing_template.click_me").withColor(ModDataComponents.get(stack, ModDataComponents.BOBBER_COLOR).getColorAsInt()));
         super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
     }
 
@@ -39,7 +39,7 @@ public class ColorfulSmithingTemplate extends Item
         if (player instanceof ServerPlayer sp)
         {
             BobberColor bobberColor = BobberColor.random();
-            player.getItemInHand(usedHand).set(ModDataComponents.BOBBER_COLOR, bobberColor);
+            ModDataComponents.set(player.getItemInHand(usedHand),ModDataComponents.BOBBER_COLOR, bobberColor);
             sp.displayClientMessage(
                     Component.translatable("tooltip.starcatcher.colorful_bobber_smithing_template.shines")
                             .withColor(bobberColor.getColorAsInt()), true);

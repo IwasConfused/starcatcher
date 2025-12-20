@@ -21,6 +21,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.network.PacketDistributor;
 
 import java.util.ArrayList;
@@ -214,39 +215,42 @@ public class ModCommands
 
     private static int removeMinigameModifier(ServerPlayer player) throws CommandSyntaxException
     {
-        if (player.getMainHandItem().isEmpty()) throw ERROR_EMPTY.create(null);
+        ItemStack stack = player.getMainHandItem();
+        if (stack.isEmpty()) throw ERROR_EMPTY.create(null);
 
-        if (player.getMainHandItem().has(ModDataComponents.MINIGAME_MODIFIERS))
+        if (ModDataComponents.has(stack, ModDataComponents.MINIGAME_MODIFIERS))
         {
-            player.getMainHandItem().remove(ModDataComponents.MINIGAME_MODIFIERS);
+            ModDataComponents.remove(stack,ModDataComponents.MINIGAME_MODIFIERS);
         }
         return 1;
     }
 
     private static int removeCatchModifier(ServerPlayer player) throws CommandSyntaxException
     {
-        if (player.getMainHandItem().isEmpty()) throw ERROR_EMPTY.create(null);
+        ItemStack stack = player.getMainHandItem();
+        if (stack.isEmpty()) throw ERROR_EMPTY.create(null);
 
-        if (player.getMainHandItem().has(ModDataComponents.CATCH_MODIFIERS))
+        if (ModDataComponents.has(stack,ModDataComponents.CATCH_MODIFIERS))
         {
-            player.getMainHandItem().remove(ModDataComponents.CATCH_MODIFIERS);
+            ModDataComponents.remove(stack,ModDataComponents.CATCH_MODIFIERS);
         }
         return 1;
     }
 
     private static int addMinigameModifier(ServerPlayer player, ResourceKey<Supplier<AbstractMinigameModifier>> modifier) throws CommandSyntaxException
     {
-        if (player.getMainHandItem().isEmpty()) throw ERROR_EMPTY.create(null);
+        ItemStack stack = player.getMainHandItem();
+        if (stack.isEmpty()) throw ERROR_EMPTY.create(null);
 
-        if (player.getMainHandItem().has(ModDataComponents.MINIGAME_MODIFIERS))
+        if (ModDataComponents.has(stack, ModDataComponents.MINIGAME_MODIFIERS))
         {
-            List<ResourceLocation> mods = new ArrayList<>(player.getMainHandItem().get(ModDataComponents.MINIGAME_MODIFIERS));
+            List<ResourceLocation> mods = new ArrayList<>(ModDataComponents.get(stack, ModDataComponents.MINIGAME_MODIFIERS));
             mods.add(modifier.location());
-            player.getMainHandItem().set(ModDataComponents.MINIGAME_MODIFIERS, mods);
+            ModDataComponents.set(stack,ModDataComponents.MINIGAME_MODIFIERS, mods);
         }
         else
         {
-            player.getMainHandItem().set(ModDataComponents.MINIGAME_MODIFIERS, List.of(modifier.location()));
+            ModDataComponents.set(stack,ModDataComponents.MINIGAME_MODIFIERS, List.of(modifier.location()));
         }
 
         return 1;
@@ -254,17 +258,18 @@ public class ModCommands
 
     private static int addCatchModifier(ServerPlayer player, ResourceKey<Supplier<AbstractCatchModifier>> modifier) throws CommandSyntaxException
     {
-        if (player.getMainHandItem().isEmpty()) throw ERROR_EMPTY.create(null);
+        ItemStack stack = player.getMainHandItem();
+        if (stack.isEmpty()) throw ERROR_EMPTY.create(null);
 
-        if (player.getMainHandItem().has(ModDataComponents.CATCH_MODIFIERS))
+        if (ModDataComponents.has(stack, ModDataComponents.CATCH_MODIFIERS))
         {
-            List<ResourceLocation> mods = new ArrayList<>(player.getMainHandItem().get(ModDataComponents.CATCH_MODIFIERS));
+            List<ResourceLocation> mods = new ArrayList<>(ModDataComponents.get(stack, ModDataComponents.CATCH_MODIFIERS));
             mods.add(modifier.location());
-            player.getMainHandItem().set(ModDataComponents.CATCH_MODIFIERS, mods);
+            ModDataComponents.set(stack, ModDataComponents.CATCH_MODIFIERS, mods);
         }
         else
         {
-            player.getMainHandItem().set(ModDataComponents.CATCH_MODIFIERS, List.of(modifier.location()));
+            ModDataComponents.set(stack, ModDataComponents.CATCH_MODIFIERS, List.of(modifier.location()));
         }
 
         return 1;

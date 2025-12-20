@@ -123,7 +123,7 @@ public class U
                 else
                 {
                     //SPAWN ITEMSTACK
-                    ItemStack bait = fbe.rod.get(ModDataComponents.BAIT).stack().copy();
+                    ItemStack bait = ModDataComponents.get(fbe.rod, ModDataComponents.BAIT).stack().copy();
                     boolean isStarcaught = fp.catchInfo().bucketedFish().is(ModItems.STARCAUGHT_BUCKET.getKey()) && bait.is(Items.BUCKET);
                     boolean isBucketed = !fp.catchInfo().bucketedFish().is(ModItems.MISSINGNO.getKey()) && !isStarcaught && bait.is(Items.BUCKET);
 
@@ -139,10 +139,10 @@ public class U
                         is = new ItemStack(fp.catchInfo().fish());
 
                         //store size and weight data component
-                        is.set(ModDataComponents.SIZE_AND_WEIGHT, new SizeAndWeightInstance(size, weight));
+                        ModDataComponents.set(is, ModDataComponents.SIZE_AND_WEIGHT, new SizeAndWeightInstance(size, weight));
 
                         //store fp in itemstack for name color change
-                        is.set(ModDataComponents.FISH_PROPERTIES, fp);
+                        ModDataComponents.set(is, ModDataComponents.FISH_PROPERTIES, fp);
 
                         //split hook double drops unless it's going to be converted to a starcaught bucket
                         for (AbstractCatchModifier acm : fbe.modifiers)
@@ -153,7 +153,7 @@ public class U
                         if (isStarcaught)
                         {
                             ItemStack starcaughtBucket = new ItemStack(fp.catchInfo().bucketedFish());
-                            starcaughtBucket.set(ModDataComponents.BUCKETED_FISH, new SingleStackContainer(is.copy()));
+                            ModDataComponents.set(starcaughtBucket,ModDataComponents.BUCKETED_FISH, new SingleStackContainer(is.copy()));
                             is = starcaughtBucket;
                         }
                     }
@@ -224,8 +224,8 @@ public class U
     public static ItemStack getFishedItemstackFromFP(FishProperties fp, int size, int weight)
     {
         ItemStack is = new ItemStack(fp.catchInfo().fish());
-        is.set(ModDataComponents.FISH_PROPERTIES, fp);
-        is.set(ModDataComponents.SIZE_AND_WEIGHT, new SizeAndWeightInstance(size, weight));
+        ModDataComponents.set(is, ModDataComponents.FISH_PROPERTIES, fp);
+        ModDataComponents.set(is, ModDataComponents.SIZE_AND_WEIGHT, new SizeAndWeightInstance(size, weight));
         return is;
     }
 

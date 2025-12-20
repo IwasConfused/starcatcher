@@ -51,14 +51,14 @@ public class ModClientEvents
         List<Component> comp = event.getToolTip();
         ItemStack stack = event.getItemStack();
 
-        if (stack.has(ModDataComponents.MINIGAME_MODIFIERS) || stack.has(ModDataComponents.CATCH_MODIFIERS))
+        if (ModDataComponents.has(stack,ModDataComponents.MINIGAME_MODIFIERS) || ModDataComponents.has(stack,ModDataComponents.CATCH_MODIFIERS))
         {
             List<ResourceLocation> modifiers = new ArrayList<>();
 
-            if (stack.has(ModDataComponents.CATCH_MODIFIERS))
-                modifiers.addAll(Objects.requireNonNull(stack.get(ModDataComponents.CATCH_MODIFIERS)));
-            if (stack.has(ModDataComponents.MINIGAME_MODIFIERS))
-                modifiers.addAll(Objects.requireNonNull(stack.get(ModDataComponents.MINIGAME_MODIFIERS)));
+            if (ModDataComponents.has(stack,ModDataComponents.CATCH_MODIFIERS))
+                modifiers.addAll(Objects.requireNonNull(ModDataComponents.get(stack, ModDataComponents.CATCH_MODIFIERS)));
+            if (ModDataComponents.has(stack,ModDataComponents.MINIGAME_MODIFIERS))
+                modifiers.addAll(Objects.requireNonNull(ModDataComponents.get(stack, ModDataComponents.MINIGAME_MODIFIERS)));
 
             if (!modifiers.isEmpty())
             {
@@ -83,9 +83,9 @@ public class ModClientEvents
         }
 
         //size and weight
-        if (stack.has(ModDataComponents.SIZE_AND_WEIGHT))
+        if (ModDataComponents.has(stack,ModDataComponents.SIZE_AND_WEIGHT))
         {
-            SizeAndWeightInstance sw = stack.get(ModDataComponents.SIZE_AND_WEIGHT);
+            SizeAndWeightInstance sw = ModDataComponents.get(stack, ModDataComponents.SIZE_AND_WEIGHT);
 
             SettingsScreen.Units units = Config.UNIT.get();
 
@@ -96,9 +96,9 @@ public class ModClientEvents
         }
 
         //Cosmetic
-        if (stack.has(ModDataComponents.BOBBER_SKIN))
+        if (ModDataComponents.has(stack,ModDataComponents.BOBBER_SKIN))
         {
-            ItemStack copy = stack.get(ModDataComponents.BOBBER_SKIN).stack().copy();
+            ItemStack copy = ModDataComponents.get(stack, ModDataComponents.BOBBER_SKIN).stack().copy();
 
             if(!copy.isEmpty())
             {
@@ -108,9 +108,9 @@ public class ModClientEvents
         }
 
         //Netherite Upgrade
-        if (stack.has(ModDataComponents.NETHERITE_UPGRADE))
+        if (ModDataComponents.has(stack, ModDataComponents.NETHERITE_UPGRADE))
         {
-            if (stack.get(ModDataComponents.NETHERITE_UPGRADE))
+            if (ModDataComponents.get(stack, ModDataComponents.NETHERITE_UPGRADE))
             {
                 comp.add(1, Tooltips.decodeTranslationKey("tooltip.starcatcher.rod.netherite"));
             }
@@ -118,9 +118,9 @@ public class ModClientEvents
 
 
         //rarity name color
-        if (stack.has(ModDataComponents.FISH_PROPERTIES))
+        if (ModDataComponents.has(stack,ModDataComponents.FISH_PROPERTIES))
         {
-            FishProperties fp = stack.get(ModDataComponents.FISH_PROPERTIES);
+            FishProperties fp = ModDataComponents.get(stack, ModDataComponents.FISH_PROPERTIES);
 
             String s = fp.rarity().getPre() + comp.get(0).getString(100) + fp.rarity().getPost();
 
@@ -129,9 +129,9 @@ public class ModClientEvents
         }
 
         //trophy stuff
-        if (stack.has(ModDataComponents.TROPHY))
+        if (ModDataComponents.has(stack,ModDataComponents.TROPHY))
         {
-            TrophyProperties tp = stack.get(ModDataComponents.TROPHY);
+            TrophyProperties tp = ModDataComponents.get(stack, ModDataComponents.TROPHY);
 
             if (tp.trophyType() == TrophyProperties.TrophyType.TROPHY)
                 if (event.getFlags().hasShiftDown())

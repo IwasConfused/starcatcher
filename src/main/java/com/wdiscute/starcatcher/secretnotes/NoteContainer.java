@@ -40,7 +40,7 @@ public class NoteContainer extends Item
     {
         //give note
         ItemStack is = new ItemStack(ModItems.SECRET_NOTE.get());
-        is.set(ModDataComponents.SECRET_NOTE, note);
+        ModDataComponents.set(is, ModDataComponents.SECRET_NOTE, note);
         player.addItem(is);
 
         //replace with broken bottle

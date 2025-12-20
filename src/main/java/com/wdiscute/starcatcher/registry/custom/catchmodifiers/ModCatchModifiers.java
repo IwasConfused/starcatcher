@@ -86,15 +86,15 @@ public interface ModCatchModifiers
 
         if (is.is(StarcatcherTags.RODS) && checkRodItemStack)
         {
-            modifiers.addAll(getAllCatchModifiers(level, is.get(ModDataComponents.BOBBER_SKIN).stack(), false));
-            modifiers.addAll(getAllCatchModifiers(level, is.get(ModDataComponents.BOBBER).stack(), false));
-            modifiers.addAll(getAllCatchModifiers(level, is.get(ModDataComponents.BAIT).stack(), false));
-            modifiers.addAll(getAllCatchModifiers(level, is.get(ModDataComponents.HOOK).stack(), false));
+            modifiers.addAll(getAllCatchModifiers(level, ModDataComponents.get(is, ModDataComponents.BOBBER_SKIN).stack(), false));
+            modifiers.addAll(getAllCatchModifiers(level, ModDataComponents.get(is, ModDataComponents.BOBBER).stack(), false));
+            modifiers.addAll(getAllCatchModifiers(level, ModDataComponents.get(is, ModDataComponents.BAIT).stack(), false));
+            modifiers.addAll(getAllCatchModifiers(level, ModDataComponents.get(is, ModDataComponents.HOOK).stack(), false));
         }
 
-        if (is.has(ModDataComponents.CATCH_MODIFIERS))
+        if (ModDataComponents.has(is, ModDataComponents.CATCH_MODIFIERS))
         {
-            for (ResourceLocation rl : Objects.requireNonNull(is.get(ModDataComponents.CATCH_MODIFIERS)))
+            for (ResourceLocation rl : Objects.requireNonNull(ModDataComponents.get(is, ModDataComponents.CATCH_MODIFIERS)))
             {
                 Optional<Supplier<AbstractCatchModifier>> optional = level.registryAccess().registryOrThrow(Starcatcher.CATCH_MODIFIERS).getOptional(rl);
 
@@ -115,17 +115,17 @@ public interface ModCatchModifiers
         if (is.is(StarcatcherTags.RODS) && checkRodItemStack)
         {
             return (
-                    hasModifier(is.get(ModDataComponents.BOBBER_SKIN).stack(), rl) ||
-                            hasModifier(is.get(ModDataComponents.BOBBER).stack(), rl) ||
-                            hasModifier(is.get(ModDataComponents.BAIT).stack(), rl) ||
-                            hasModifier(is.get(ModDataComponents.HOOK).stack(), rl) ||
+                    hasModifier(ModDataComponents.get(is, ModDataComponents.BOBBER_SKIN).stack(), rl) ||
+                            hasModifier(ModDataComponents.get(is, ModDataComponents.BOBBER).stack(), rl) ||
+                            hasModifier(ModDataComponents.get(is, ModDataComponents.BAIT).stack(), rl) ||
+                            hasModifier(ModDataComponents.get(is, ModDataComponents.HOOK).stack(), rl) ||
                             hasModifier(is, rl, false)
             );
         }
 
-        if (is.has(ModDataComponents.CATCH_MODIFIERS))
+        if (ModDataComponents.has(is, ModDataComponents.CATCH_MODIFIERS))
         {
-            return is.get(ModDataComponents.CATCH_MODIFIERS).contains(rl);
+            return ModDataComponents.get(is, ModDataComponents.CATCH_MODIFIERS).contains(rl);
         }
         else
         {

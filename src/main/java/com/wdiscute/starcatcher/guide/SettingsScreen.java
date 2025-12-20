@@ -114,10 +114,10 @@ public class SettingsScreen extends Screen
 
         this.fp = fp;
         this.itemBeingFished = new ItemStack(fp.catchInfo().fish());
-        this.bobber = rod.get(ModDataComponents.BOBBER).stack().copy();
-        this.bobberSkin = rod.get(ModDataComponents.BOBBER_SKIN).stack().copy();
-        this.bait = rod.get(ModDataComponents.BAIT).stack().copy();
-        this.hook = rod.get(ModDataComponents.HOOK).stack().copy();
+        this.bobber = ModDataComponents.get(rod, ModDataComponents.BOBBER).stack().copy();
+        this.bobberSkin = ModDataComponents.get(rod, ModDataComponents.BOBBER_SKIN).stack().copy();
+        this.bait = ModDataComponents.get(rod, ModDataComponents.BAIT).stack().copy();
+        this.hook = ModDataComponents.get(rod, ModDataComponents.HOOK).stack().copy();
 
         posTreasure = Integer.MIN_VALUE;
 
@@ -504,9 +504,9 @@ public class SettingsScreen extends Screen
             {
                 hitParticles.add(new HitFakeParticle(
                         xPos, yPos, new Vector2d(r.nextFloat() * 2 - 1, r.nextFloat() * 2 - 1),
-                        bobber.get(ModDataComponents.BOBBER_COLOR).r(),
-                        bobber.get(ModDataComponents.BOBBER_COLOR).g(),
-                        bobber.get(ModDataComponents.BOBBER_COLOR).b(),
+                        ModDataComponents.get(bobber, ModDataComponents.BOBBER_COLOR).r(),
+                        ModDataComponents.get(bobber, ModDataComponents.BOBBER_COLOR).g(),
+                        ModDataComponents.get(bobber, ModDataComponents.BOBBER_COLOR).b(),
                         1
                 ));
                 continue;
