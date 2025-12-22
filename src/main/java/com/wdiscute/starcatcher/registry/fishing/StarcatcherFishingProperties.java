@@ -287,7 +287,7 @@ public class StarcatcherFishingProperties
         registerStarcatcherBucketAndEntity(overworldRiverFish(ModItems.CARPENJOE)
                 .withSizeAndWeight(FishProperties.sizeWeight(169, 0, 70000, 3000))
                 .withDifficulty(FishProperties.Difficulty.HARD_VANISHING)
-                .withRarity(FishProperties.Rarity.RARE));
+                .withRarity(FishProperties.Rarity.EPIC));
 
         register(overworldRiverFish(ModItems.DRIED_SEAWEED)
                 .withDifficulty(FishProperties.Difficulty.TRASH)
