@@ -6,7 +6,6 @@ import com.wdiscute.starcatcher.registry.custom.minigamemodifiers.ModMinigameMod
 import com.wdiscute.starcatcher.registry.custom.sweetspotbehaviour.ModSweetSpotsBehaviour;
 import com.wdiscute.starcatcher.registry.blocks.ModBlockEntities;
 import com.wdiscute.starcatcher.registry.blocks.ModBlocks;
-import com.wdiscute.starcatcher.datagen.TrustedHolder;
 import com.wdiscute.starcatcher.guide.FishCaughtToast;
 import com.wdiscute.starcatcher.guide.SettingsScreen;
 import com.wdiscute.starcatcher.io.*;
@@ -16,14 +15,10 @@ import com.wdiscute.starcatcher.registry.*;
 import com.wdiscute.starcatcher.storage.FishProperties;
 import com.wdiscute.starcatcher.storage.TrophyProperties;
 import net.minecraft.client.Minecraft;
-import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.Item;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.bus.api.IEventBus;
@@ -32,7 +27,6 @@ import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.neoforge.registries.RegistryBuilder;
 
-import java.util.Random;
 import java.util.function.Supplier;
 
 @Mod(Starcatcher.MOD_ID)
@@ -70,13 +64,11 @@ public class Starcatcher
             .defaultKey(Starcatcher.rl("no_flip"))
             .create();
 
-    public static final Random r = new Random();
-
     public static double truncatedNormal(double mean, double deviation)
     {
         while (true)
         {
-            double value = mean + deviation * r.nextGaussian();
+            double value = mean + deviation * U.r.nextGaussian();
             if (value >= mean - deviation && value <= mean + deviation)
             {
                 return value;
@@ -87,11 +79,6 @@ public class Starcatcher
     public static ResourceLocation rl(String s)
     {
         return ResourceLocation.fromNamespaceAndPath(Starcatcher.MOD_ID, s);
-    }
-
-    public static Holder<Item> fromRL(String ns, String path)
-    {
-        return TrustedHolder.createStandAlone(BuiltInRegistries.ITEM.holderOwner(), ResourceKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(ns, path)));
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -149,5 +136,7 @@ public class Starcatcher
 
         modContainer.registerConfig(ModConfig.Type.CLIENT, Config.SPEC);
         modContainer.registerConfig(ModConfig.Type.SERVER, Config.SPEC_SERVER);
+
+        ModItems.registerExtra();
     }
 }

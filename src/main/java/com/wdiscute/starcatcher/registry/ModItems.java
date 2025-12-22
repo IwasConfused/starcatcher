@@ -14,11 +14,22 @@ import com.wdiscute.starcatcher.secretnotes.NoteContainer;
 import com.wdiscute.starcatcher.secretnotes.SecretNote;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.material.Fluids;
+import net.neoforged.fml.ModList;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
 public interface ModItems
 {
+
+    static void registerExtra()
+    {
+        //this works!
+        if(ModList.get().isLoaded("tide"))
+        {
+            //DeferredItem<Item> FISH = ITEMS_REGISTRY.register("fish", FishItem::new);
+        }
+    }
+
 
     DeferredRegister.Items ITEMS_REGISTRY = DeferredRegister.createItems(Starcatcher.MOD_ID);
     DeferredRegister.Items RODS_REGISTRY = DeferredRegister.createItems(Starcatcher.MOD_ID);

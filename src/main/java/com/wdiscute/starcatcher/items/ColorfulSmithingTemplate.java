@@ -2,6 +2,7 @@ package com.wdiscute.starcatcher.items;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.wdiscute.starcatcher.U;
 import com.wdiscute.starcatcher.io.ModDataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
@@ -15,7 +16,6 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 
 import java.util.List;
-import java.util.Random;
 
 public class ColorfulSmithingTemplate extends Item
 {
@@ -66,8 +66,7 @@ public class ColorfulSmithingTemplate extends Item
 
         public static BobberColor random()
         {
-            Random r = new Random();
-            return new BobberColor(r.nextFloat(), r.nextFloat(), r.nextFloat());
+            return new BobberColor(U.r.nextFloat(), U.r.nextFloat(), U.r.nextFloat());
         }
 
         public int getColorAsInt()

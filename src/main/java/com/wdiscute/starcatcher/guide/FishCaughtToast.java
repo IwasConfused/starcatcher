@@ -2,8 +2,8 @@ package com.wdiscute.starcatcher.guide;
 
 import com.wdiscute.libtooltips.Tooltips;
 import com.wdiscute.starcatcher.Starcatcher;
+import com.wdiscute.starcatcher.U;
 import com.wdiscute.starcatcher.storage.FishProperties;
-import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.toasts.Toast;
@@ -14,9 +14,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.item.ItemStack;
 
-import java.util.Random;
-
-
 public class FishCaughtToast implements Toast
 {
     private static final ResourceLocation BACKGROUND_SPRITE = Starcatcher.rl("toast/fish_caught");
@@ -24,7 +21,6 @@ public class FishCaughtToast implements Toast
     private final String description;
     private static final String gibberish = "§kaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
     private int old;
-    private static final Random r = new Random();
     private final ItemStack is;
     private final String pre;
     private final String post;
@@ -63,7 +59,7 @@ public class FishCaughtToast implements Toast
 
         if (old != lettersRevealed)
         {
-            Minecraft.getInstance().player.playSound(SoundEvents.BAMBOO_WOOD_BUTTON_CLICK_ON, 0.4f, r.nextFloat(0.2f) + 1.3f);
+            Minecraft.getInstance().player.playSound(SoundEvents.BAMBOO_WOOD_BUTTON_CLICK_ON, 0.4f, U.r.nextFloat(0.2f) + 1.3f);
             old = lettersRevealed;
         }
 
