@@ -131,7 +131,7 @@ public class FishingBobEntity extends Projectile
         this.xRotO = this.getXRot();
 
         if (!level.isClientSide)
-            ModDataAttachments.get(player, ModDataAttachments.FISHING_BOB).setUuid(this.uuid);
+            ModDataAttachments.get(player, ModDataAttachments.FISHING_BOB).setUuid(player, this.uuid);
 
         currentState = FishHookState.FLYING;
     }

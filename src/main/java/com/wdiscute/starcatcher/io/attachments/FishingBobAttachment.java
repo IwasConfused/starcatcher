@@ -2,9 +2,11 @@ package com.wdiscute.starcatcher.io.attachments;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.wdiscute.starcatcher.io.ModDataAttachments;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
+import net.neoforged.neoforge.attachment.AttachmentHolder;
 
 import java.util.UUID;
 
@@ -33,9 +35,9 @@ public class FishingBobAttachment
         return uuid.isEmpty();
     }
 
-    public void setUuid(UUID uuid)
-    {
+    public void setUuid(AttachmentHolder holder, UUID uuid) {
         this.uuid = uuid.toString();
+        holder.syncData(ModDataAttachments.FISHING_BOB);
     }
 
     public UUID getUuid()
