@@ -223,6 +223,7 @@ public interface ModItems
 
     //rivers
     DeferredItem<Item> SILVERFIN_PIKE = FISH_REGISTRY.register("silverfin_pike", FishItem::new);
+    DeferredItem<Item> CARPENJOE = FISH_REGISTRY.register("carpenjoe", FishItem::new);
     DeferredItem<Item> WILLOW_BREAM = FISH_REGISTRY.register("willow_bream", FishItem::new);
     DeferredItem<Item> DRIFTING_BREAM = FISH_REGISTRY.register("drifting_bream", FishItem::new);
     DeferredItem<Item> DOWNFALL_BREAM = FISH_REGISTRY.register("downfall_bream", FishItem::new);

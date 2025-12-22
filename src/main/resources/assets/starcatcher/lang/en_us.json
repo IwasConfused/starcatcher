@@ -1060,6 +1060,10 @@
   "item.starcatcher.silverfin_pike" : "Silverfin Pike",
   "tooltip.starcatcher.silverfin_pike.0" : "A large pike common to rivers.",
 
+  "item.starcatcher.carpenjoe" : "Carpenjoe",
+  "tooltip.starcatcher.carpenjoe.0" : "A majestic carp glowing in modding knowledge.",
+  "tooltip.starcatcher.carpenjoe.1" : "It is said anglers eat it for good luck before debugging.",
+
   "item.starcatcher.willow_bream" : "Willow Bream",
   "tooltip.starcatcher.willow_bream.0" : "A really trick to catch fish which",
   "tooltip.starcatcher.willow_bream.1" : "only reveals itself during nighttime.",
