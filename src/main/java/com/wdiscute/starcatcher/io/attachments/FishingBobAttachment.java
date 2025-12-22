@@ -8,10 +8,12 @@ import net.minecraft.network.codec.StreamCodec;
 
 import java.util.UUID;
 
-public class FishingBobAttachment {
+public class FishingBobAttachment
+{
     private String uuid;
 
-    public FishingBobAttachment(String uuid) {
+    public FishingBobAttachment(String uuid)
+    {
         this.uuid = uuid;
     }
 
@@ -26,15 +28,19 @@ public class FishingBobAttachment {
             FishingBobAttachment::new
     );
 
-    public boolean isEmpty() {
+    public boolean isEmpty()
+    {
         return uuid.isEmpty();
     }
 
-    public void setUuid(UUID uuid) {
+    public void setUuid(UUID uuid)
+    {
         this.uuid = uuid.toString();
     }
 
-    public UUID getUuid() {
+    public UUID getUuid()
+    {
+        if(uuid.isEmpty()) return UUID.randomUUID();
         return UUID.fromString(uuid);
     }
 
