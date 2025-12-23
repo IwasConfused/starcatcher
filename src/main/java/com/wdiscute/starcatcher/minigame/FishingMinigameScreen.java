@@ -5,14 +5,12 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.logging.LogUtils;
 import com.mojang.math.Axis;
-import com.wdiscute.libtooltips.Tooltips;
 import com.wdiscute.starcatcher.Config;
 import com.wdiscute.starcatcher.Starcatcher;
 import com.wdiscute.starcatcher.StarcatcherTags;
 import com.wdiscute.starcatcher.U;
 import com.wdiscute.starcatcher.io.ModDataComponents;
 import com.wdiscute.starcatcher.io.network.FishingCompletedPayload;
-import com.wdiscute.starcatcher.items.ColorfulSmithingTemplate;
 import com.wdiscute.starcatcher.registry.custom.minigamemodifiers.BaseModifier;
 import com.wdiscute.starcatcher.registry.ModItems;
 import com.wdiscute.starcatcher.registry.ModKeymappings;
@@ -30,7 +28,6 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.util.FastColor;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -402,13 +399,9 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener
                 kimbeMarkerAlpha);
         RenderSystem.enableBlend();
 
-        //16 offset on y for texture centering
-        if (!bobber.is(ModItems.KIMBE_BOBBER_SMITHING_TEMPLATE))
-        {
-            guiGraphics.blit(
-                    TEXTURE, width / 2 - 32, height / 2 - 32 - 16,
-                    64, 64, 128, 128, 64, 64, 256, 256);
-        }
+        guiGraphics.blit(
+                TEXTURE, width / 2 - 32, height / 2 - 32 - 16,
+                64, 64, 128, 128, 64, 64, 256, 256);
 
         RenderSystem.setShaderColor(1, 1, 1, 1);
         RenderSystem.disableBlend();
@@ -535,7 +528,7 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener
         {
             this.modifiers.forEach(AbstractMinigameModifier::onMiss);
 
-            if (bobber.is(ModItems.KIMBE_BOBBER_SMITHING_TEMPLATE))
+            if (bobber.is(ModItems.KIMBE_SMITHING_TEMPLATE))
                 Minecraft.getInstance().player.playSound(SoundEvents.VILLAGER_NO, 1, 1);
             consecutiveHits = 0;
             level.playLocalSound(pos.x, pos.y, pos.z, SoundEvents.COMPARATOR_CLICK, SoundSource.BLOCKS, 1, 1, false);

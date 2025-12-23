@@ -14,28 +14,28 @@ public interface ModTackleSkins
             DeferredRegister.create(Starcatcher.TACKLE_SKIN_REGISTRY, Starcatcher.MOD_ID);
 
     //base
-    Pair<ResourceLocation, AbstractTackleSkin> BASE_TACKLE_SKIN = registerCatchModifier("base", BaseTackleSkin::new);
+   ResourceLocation BASE_TACKLE_SKIN = registerCatchModifier("base", BaseTackleSkin::new);
 
     //pearl
-    Pair<ResourceLocation, AbstractTackleSkin> PEARL_TACKLE_SKIN = registerCatchModifier("pearl", PearlTackleSkin::new);
+    ResourceLocation PEARL_TACKLE_SKIN = registerCatchModifier("pearl", PearlTackleSkin::new);
 
     //kimbe
-    Pair<ResourceLocation, AbstractTackleSkin> KIMBE_TACKLE_SKIN = registerCatchModifier("kimbe", KimbeTackleSkin::new);
+   ResourceLocation KIMBE_TACKLE_SKIN = registerCatchModifier("kimbe", KimbeTackleSkin::new);
 
     //frog
-    Pair<ResourceLocation, AbstractTackleSkin> FROG_TACKLE_SKIN = registerCatchModifier("frog", FrogTackleSkin::new);
+   ResourceLocation FROG_TACKLE_SKIN = registerCatchModifier("frog", FrogTackleSkin::new);
 
     //colorful
-    Pair<ResourceLocation, AbstractTackleSkin> COLORFUL_TACKLE_SKIN = registerCatchModifier("colorful", ColorfulTackleSkin::new);
+   ResourceLocation COLORFUL_TACKLE_SKIN = registerCatchModifier("colorful", ColorfulTackleSkin::new);
 
     //clear
-    Pair<ResourceLocation, AbstractTackleSkin> CLEAR_TACKLE_SKIN = registerCatchModifier("clear", ClearTackleSkin::new);
+   ResourceLocation CLEAR_TACKLE_SKIN = registerCatchModifier("clear", ClearTackleSkin::new);
 
 
-    static Pair<ResourceLocation, AbstractTackleSkin> registerCatchModifier(String name, Supplier<AbstractTackleSkin> sup)
+    static ResourceLocation registerCatchModifier(String name, Supplier<AbstractTackleSkin> sup)
     {
         REGISTRY.register(name, () -> sup);
-        return Pair.of(Starcatcher.rl(name), sup.get());
+        return Starcatcher.rl(name);
     }
 
     static void register(IEventBus eventBus)

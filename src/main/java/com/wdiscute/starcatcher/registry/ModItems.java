@@ -9,7 +9,7 @@ import com.wdiscute.starcatcher.items.helper.FireResistantBasicItem;
 import com.wdiscute.starcatcher.items.helper.SingleStackBasicItem;
 import com.wdiscute.starcatcher.items.modifieritem.CatchModifierItem;
 import com.wdiscute.starcatcher.items.modifieritem.MinigameModifierItem;
-import com.wdiscute.starcatcher.items.modifieritem.TackleSkinModifierItem;
+import com.wdiscute.starcatcher.items.modifieritem.TackleSkinItem;
 import com.wdiscute.starcatcher.registry.custom.catchmodifiers.ModCatchModifiers;
 import com.wdiscute.starcatcher.registry.custom.minigamemodifiers.ModMinigameModifiers;
 import com.wdiscute.starcatcher.registry.custom.tackleskin.ModTackleSkins;
@@ -100,9 +100,11 @@ public interface ModItems
 
 
     //bobber skin templates
-    //DeferredItem<Item> COLORFUL_BOBBER_SMITHING_TEMPLATE = TEMPLATES_REGISTRY.register("colorful_bobber_smithing_template", );
-    DeferredItem<Item> PEARL_BOBBER_SMITHING_TEMPLATE = TEMPLATES_REGISTRY.register("pearl_bobber_smithing_template", () -> new TackleSkinModifierItem(ModTackleSkins.PEARL_TACKLE_SKIN.getFirst()));
-    DeferredItem<Item> KIMBE_BOBBER_SMITHING_TEMPLATE = TEMPLATES_REGISTRY.register("kimbe_bobber_smithing_template", () -> new TackleSkinModifierItem(ModTackleSkins.KIMBE_TACKLE_SKIN.getFirst()));
+    DeferredItem<Item> PEARL_SMITHING_TEMPLATE = TEMPLATES_REGISTRY.register("pearl_smithing_template", () -> new TackleSkinItem(ModTackleSkins.PEARL_TACKLE_SKIN));
+    DeferredItem<Item> KIMBE_SMITHING_TEMPLATE = TEMPLATES_REGISTRY.register("kimbe_smithing_template", () -> new TackleSkinItem(ModTackleSkins.KIMBE_TACKLE_SKIN));
+    DeferredItem<Item> COLORFUL_SMITHING_TEMPLATE = TEMPLATES_REGISTRY.register("colorful_smithing_template", () -> new TackleSkinItem(ModTackleSkins.COLORFUL_TACKLE_SKIN));
+    DeferredItem<Item> CLEAR_SMITHING_TEMPLATE = TEMPLATES_REGISTRY.register("clear_smithing_template", () -> new TackleSkinItem(ModTackleSkins.CLEAR_TACKLE_SKIN));
+    DeferredItem<Item> FROG_SMITHING_TEMPLATE = TEMPLATES_REGISTRY.register("frog_smithing_template", () -> new TackleSkinItem(ModTackleSkins.FROG_TACKLE_SKIN));
 
     //rods
     DeferredItem<Item> ROD = RODS_REGISTRY.register("starcatcher_rod", StarcatcherFishingRodItem::new);

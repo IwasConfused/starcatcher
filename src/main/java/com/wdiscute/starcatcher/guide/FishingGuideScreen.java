@@ -2004,7 +2004,7 @@ public class FishingGuideScreen extends Screen
         basicsIndexIcon = new ItemStack(ModItems.ROD.get());
         upgradeIndexIcon = new ItemStack(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE);
         addonsIndexIcon = new ItemStack(ModItems.HOOK.get());
-        cosmeticsIndexIcon = new ItemStack(ModItems.PEARL_BOBBER_SMITHING_TEMPLATE.get());
+        cosmeticsIndexIcon = new ItemStack(ModItems.PEARL_SMITHING_TEMPLATE.get());
         tournamentIndexIcon = new ItemStack(ModBlocks.STAND.get());
         trophiesIndexIcon = new ItemStack(ModBlocks.TROPHY_GOLD.get());
         settingsIndexIcon = new ItemStack(ModItems.SETTINGS.get());
@@ -2027,6 +2027,6 @@ public class FishingGuideScreen extends Screen
         baitIcon = new ItemStack(ModItems.CHERRY_BAIT.get());
         gadgetIcon = new ItemStack(ModItems.FISH_RADAR.get());
 
-        templateIcon = new ItemStack(ModItems.PEARL_BOBBER_SMITHING_TEMPLATE.get());
+        templateIcon = new ItemStack(ModItems.PEARL_SMITHING_TEMPLATE.get());
     }
 }
