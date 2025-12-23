@@ -1,8 +1,7 @@
-package com.wdiscute.starcatcher.items;
+package com.wdiscute.starcatcher.items.modifieritem;
 
 import com.mojang.datafixers.util.Pair;
 import com.wdiscute.starcatcher.io.ModDataComponents;
-import com.wdiscute.starcatcher.registry.custom.catchmodifiers.AbstractCatchModifier;
 import com.wdiscute.starcatcher.registry.custom.minigamemodifiers.AbstractMinigameModifier;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;

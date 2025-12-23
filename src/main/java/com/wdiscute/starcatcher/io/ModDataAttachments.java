@@ -4,6 +4,7 @@ import com.mojang.serialization.Codec;
 import com.wdiscute.starcatcher.Starcatcher;
 import com.wdiscute.starcatcher.io.attachments.FishingBobAttachment;
 import com.wdiscute.starcatcher.io.attachments.FishingGuideAttachment;
+import net.dries007.tfc.client.overworld.Star;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
@@ -76,11 +77,11 @@ public class ModDataAttachments
     );
 
 
-    public static final Supplier<AttachmentType<SingleStackContainer>> BOBBER_SKIN = ATTACHMENT_TYPES.register(
-            "bobber_skin", () ->
-                    AttachmentType.builder(() -> SingleStackContainer.EMPTY)
-                            .serialize(SingleStackContainer.CODEC)
-                            .sync(SingleStackContainer.STREAM_CODEC)
+    public static final Supplier<AttachmentType<ResourceLocation>> TACKLE_SKIN = ATTACHMENT_TYPES.register(
+            "tackle_skin", () ->
+                    AttachmentType.builder(() -> Starcatcher.rl("base"))
+                            .serialize(ResourceLocation.CODEC)
+                            .sync(ResourceLocation.STREAM_CODEC)
                             .build()
     );
 

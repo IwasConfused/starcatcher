@@ -41,7 +41,6 @@ public class SettingsScreen extends Screen
     final FishProperties fp;
     final ItemStack itemBeingFished;
     final ItemStack bobber;
-    final ItemStack bobberSkin;
     final ItemStack bait;
     final ItemStack hook;
 
@@ -113,7 +112,6 @@ public class SettingsScreen extends Screen
         this.fp = fp;
         this.itemBeingFished = new ItemStack(fp.catchInfo().fish());
         this.bobber = ModDataComponents.get(rod, ModDataComponents.BOBBER).stack().copy();
-        this.bobberSkin = ModDataComponents.get(rod, ModDataComponents.BOBBER_SKIN).stack().copy();
         this.bait = ModDataComponents.get(rod, ModDataComponents.BAIT).stack().copy();
         this.hook = ModDataComponents.get(rod, ModDataComponents.HOOK).stack().copy();
 
@@ -486,30 +484,6 @@ public class SettingsScreen extends Screen
 
         for (int i = 0; i < count; i++)
         {
-            if (bobberSkin.is(ModItems.PEARL_BOBBER_SMITHING_TEMPLATE))
-            {
-                hitParticles.add(new HitFakeParticle(
-                        xPos, yPos, new Vector2d(U.r.nextFloat() * 2 - 1, U.r.nextFloat() * 2 - 1),
-                        U.r.nextFloat(),
-                        U.r.nextFloat(),
-                        U.r.nextFloat(),
-                        1
-                ));
-                continue;
-            }
-
-            if (bobber.is(ModItems.COLORFUL_BOBBER_SMITHING_TEMPLATE))
-            {
-                hitParticles.add(new HitFakeParticle(
-                        xPos, yPos, new Vector2d(U.r.nextFloat() * 2 - 1, U.r.nextFloat() * 2 - 1),
-                        ModDataComponents.get(bobber, ModDataComponents.BOBBER_COLOR).r(),
-                        ModDataComponents.get(bobber, ModDataComponents.BOBBER_COLOR).g(),
-                        ModDataComponents.get(bobber, ModDataComponents.BOBBER_COLOR).b(),
-                        1
-                ));
-                continue;
-            }
-
             if (treasure)
             {
                 //red particles if treasure sweet spot was hit

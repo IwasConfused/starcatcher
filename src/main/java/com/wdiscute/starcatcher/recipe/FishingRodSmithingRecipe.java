@@ -3,14 +3,10 @@ package com.wdiscute.starcatcher.recipe;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.wdiscute.starcatcher.Starcatcher;
-import com.wdiscute.starcatcher.StarcatcherTags;
 import com.wdiscute.starcatcher.io.ModDataComponents;
-import com.wdiscute.starcatcher.io.SingleStackContainer;
-import com.wdiscute.starcatcher.registry.ModItems;
 import com.wdiscute.starcatcher.registry.ModRecipes;
-import com.wdiscute.starcatcher.registry.custom.bobberskin.AbstractBobberSkin;
+import com.wdiscute.starcatcher.registry.custom.tackleskin.AbstractTackleSkin;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceLocation;
@@ -18,7 +14,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
-import net.neoforged.fml.common.Mod;
 
 import java.util.Arrays;
 import java.util.Optional;
@@ -41,11 +36,11 @@ public record FishingRodSmithingRecipe(
         ) return true;
 
         //bobber skins - only allow if ingredient slot is empty
-        if (ModDataComponents.has(input.template(), ModDataComponents.BOBBER_SKIN) && input.addition().isEmpty())
+        if (ModDataComponents.has(input.template(), ModDataComponents.TACKLE_SKIN) && input.addition().isEmpty())
         {
-            ResourceLocation rl = ModDataComponents.get(input.template(), ModDataComponents.BOBBER_SKIN);
+            ResourceLocation rl = ModDataComponents.get(input.template(), ModDataComponents.TACKLE_SKIN);
 
-            Optional<Supplier<AbstractBobberSkin>> optional = level.registryAccess().registryOrThrow(Starcatcher.BOBBER_SKIN).getOptional(rl);
+            Optional<Supplier<AbstractTackleSkin>> optional = level.registryAccess().registryOrThrow(Starcatcher.TACKLE_SKIN).getOptional(rl);
 
             return optional.isPresent();
         }
@@ -65,9 +60,9 @@ public record FishingRodSmithingRecipe(
         }
 
         //assemble bobber skin
-        if (ModDataComponents.has(input.template(), ModDataComponents.BOBBER_SKIN) && input.addition().isEmpty())
+        if (ModDataComponents.has(input.template(), ModDataComponents.TACKLE_SKIN) && input.addition().isEmpty())
         {
-            ModDataComponents.set(newRod, ModDataComponents.BOBBER_SKIN, ModDataComponents.get(input.template(), ModDataComponents.BOBBER_SKIN));
+            ModDataComponents.set(newRod, ModDataComponents.TACKLE_SKIN, ModDataComponents.get(input.template(), ModDataComponents.TACKLE_SKIN));
             return newRod;
         }
 

@@ -73,8 +73,8 @@ public class ModDataComponents
             "catch_modifiers",
             builder -> builder.persistent(ResourceLocation.CODEC.listOf()));
 
-    public static final DeferredHolder<DataComponentType<?>, DataComponentType<ResourceLocation>> BOBBER_SKIN = register(
-            "minigame_modifiers",
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<ResourceLocation>> TACKLE_SKIN = register(
+            "tackle_skin",
             builder -> builder.persistent(ResourceLocation.CODEC));
 
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Boolean>> NETHERITE_UPGRADE = register(

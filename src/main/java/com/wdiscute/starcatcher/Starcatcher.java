@@ -1,7 +1,7 @@
 package com.wdiscute.starcatcher;
 
-import com.wdiscute.starcatcher.registry.custom.bobberskin.AbstractBobberSkin;
-import com.wdiscute.starcatcher.registry.custom.bobberskin.ModBobberSkins;
+import com.wdiscute.starcatcher.registry.custom.tackleskin.AbstractTackleSkin;
+import com.wdiscute.starcatcher.registry.custom.tackleskin.ModTackleSkins;
 import com.wdiscute.starcatcher.registry.custom.catchmodifiers.AbstractCatchModifier;
 import com.wdiscute.starcatcher.registry.custom.catchmodifiers.ModCatchModifiers;
 import com.wdiscute.starcatcher.registry.custom.minigamemodifiers.ModMinigameModifiers;
@@ -51,7 +51,7 @@ public class Starcatcher
     public static final ResourceKey<Registry<Supplier<AbstractCatchModifier>>> CATCH_MODIFIERS =
             ResourceKey.createRegistryKey(Starcatcher.rl("catch_modifiers"));
 
-    public static final ResourceKey<Registry<Supplier<AbstractBobberSkin>>> BOBBER_SKIN =
+    public static final ResourceKey<Registry<Supplier<AbstractTackleSkin>>> TACKLE_SKIN =
             ResourceKey.createRegistryKey(Starcatcher.rl("bobber_skin"));
 
     public static final Registry<Supplier<? extends AbstractSweetSpotBehaviour>> SWEET_SPOT_BEHAVIOUR_REGISTRY = new RegistryBuilder<>(SWEET_SPOT_BEHAVIOUR)
@@ -69,7 +69,7 @@ public class Starcatcher
             .defaultKey(Starcatcher.rl("decrease_lure_time"))
             .create();
 
-    public static final Registry<Supplier<AbstractBobberSkin>> BOBBER_SKIN_REGISTRY = new RegistryBuilder<>(BOBBER_SKIN)
+    public static final Registry<Supplier<AbstractTackleSkin>> TACKLE_SKIN_REGISTRY = new RegistryBuilder<>(TACKLE_SKIN)
             .sync(true)
             .defaultKey(Starcatcher.rl("pearl"))
             .create();
@@ -142,7 +142,7 @@ public class Starcatcher
         ModSweetSpotsBehaviour.register(modEventBus);
         ModMinigameModifiers.register(modEventBus);
         ModCatchModifiers.register(modEventBus);
-        ModBobberSkins.register(modEventBus);
+        ModTackleSkins.register(modEventBus);
         ModCriterionTriggers.register(modEventBus);
 
         modContainer.registerConfig(ModConfig.Type.CLIENT, Config.SPEC);

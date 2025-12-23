@@ -7,8 +7,12 @@ import com.wdiscute.starcatcher.items.cheater.*;
 import com.wdiscute.starcatcher.items.helper.BasicItem;
 import com.wdiscute.starcatcher.items.helper.FireResistantBasicItem;
 import com.wdiscute.starcatcher.items.helper.SingleStackBasicItem;
+import com.wdiscute.starcatcher.items.modifieritem.CatchModifierItem;
+import com.wdiscute.starcatcher.items.modifieritem.MinigameModifierItem;
+import com.wdiscute.starcatcher.items.modifieritem.TackleSkinModifierItem;
 import com.wdiscute.starcatcher.registry.custom.catchmodifiers.ModCatchModifiers;
 import com.wdiscute.starcatcher.registry.custom.minigamemodifiers.ModMinigameModifiers;
+import com.wdiscute.starcatcher.registry.custom.tackleskin.ModTackleSkins;
 import com.wdiscute.starcatcher.rod.StarcatcherFishingRodItem;
 import com.wdiscute.starcatcher.secretnotes.NoteContainer;
 import com.wdiscute.starcatcher.secretnotes.SecretNote;
@@ -24,7 +28,7 @@ public interface ModItems
     static void registerExtra()
     {
         //this works!
-        if(ModList.get().isLoaded("tide"))
+        if (ModList.get().isLoaded("tide"))
         {
             //DeferredItem<Item> FISH = ITEMS_REGISTRY.register("fish", FishItem::new);
         }
@@ -92,15 +96,13 @@ public interface ModItems
     DeferredItem<Item> DRIPSTONE_BAIT = BAITS_REGISTRY.register("dripstone_bait", () -> new CatchModifierItem(64, ModCatchModifiers.DECREASES_LURE_TIME));
     DeferredItem<Item> MURKWATER_BAIT = BAITS_REGISTRY.register("murkwater_bait", () -> new CatchModifierItem(64, ModCatchModifiers.DECREASES_LURE_TIME));
     DeferredItem<Item> LEGENDARY_BAIT = BAITS_REGISTRY.register("legendary_bait", () -> new CatchModifierItem(64, ModCatchModifiers.DECREASES_LURE_TIME));
-    DeferredItem<Item> METEOROLOGICAL_BAIT = BAITS_REGISTRY.register("meteorological_bait", () -> new CatchModifierItem(64, ModCatchModifiers.DECREASES_LURE_TIME,  ModCatchModifiers.IGNORE_DAYTIME_AND_WEATHER_RESTRICTIONS));
-
-
+    DeferredItem<Item> METEOROLOGICAL_BAIT = BAITS_REGISTRY.register("meteorological_bait", () -> new CatchModifierItem(64, ModCatchModifiers.DECREASES_LURE_TIME, ModCatchModifiers.IGNORE_DAYTIME_AND_WEATHER_RESTRICTIONS));
 
 
     //bobber skin templates
-    DeferredItem<Item> COLORFUL_BOBBER_SMITHING_TEMPLATE = TEMPLATES_REGISTRY.register("colorful_bobber_smithing_template", ColorfulSmithingTemplate::new);
-    DeferredItem<Item> PEARL_BOBBER_SMITHING_TEMPLATE = TEMPLATES_REGISTRY.register("pearl_bobber_smithing_template", BasicItem::new);
-    DeferredItem<Item> KIMBE_BOBBER_SMITHING_TEMPLATE = TEMPLATES_REGISTRY.register("kimbe_bobber_smithing_template", BasicItem::new);
+    //DeferredItem<Item> COLORFUL_BOBBER_SMITHING_TEMPLATE = TEMPLATES_REGISTRY.register("colorful_bobber_smithing_template", );
+    DeferredItem<Item> PEARL_BOBBER_SMITHING_TEMPLATE = TEMPLATES_REGISTRY.register("pearl_bobber_smithing_template", () -> new TackleSkinModifierItem(ModTackleSkins.PEARL_TACKLE_SKIN.getFirst()));
+    DeferredItem<Item> KIMBE_BOBBER_SMITHING_TEMPLATE = TEMPLATES_REGISTRY.register("kimbe_bobber_smithing_template", () -> new TackleSkinModifierItem(ModTackleSkins.KIMBE_TACKLE_SKIN.getFirst()));
 
     //rods
     DeferredItem<Item> ROD = RODS_REGISTRY.register("starcatcher_rod", StarcatcherFishingRodItem::new);

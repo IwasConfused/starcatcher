@@ -44,8 +44,6 @@ public class StarcatcherEmiSmithingRecipe implements EmiRecipe
         }
         else
         {
-            ItemStack bobberSkin = template.getEmiStacks().getFirst().getItemStack();
-            ModDataComponents.set(stack, ModDataComponents.BOBBER_SKIN, new SingleStackContainer(bobberSkin));
             isNetheriteUpgrade = false;
         }
 
