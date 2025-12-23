@@ -1,5 +1,7 @@
 package com.wdiscute.starcatcher;
 
+import com.wdiscute.starcatcher.registry.custom.bobberskin.AbstractBobberSkin;
+import com.wdiscute.starcatcher.registry.custom.bobberskin.ModBobberSkins;
 import com.wdiscute.starcatcher.registry.custom.catchmodifiers.AbstractCatchModifier;
 import com.wdiscute.starcatcher.registry.custom.catchmodifiers.ModCatchModifiers;
 import com.wdiscute.starcatcher.registry.custom.minigamemodifiers.ModMinigameModifiers;
@@ -49,6 +51,9 @@ public class Starcatcher
     public static final ResourceKey<Registry<Supplier<AbstractCatchModifier>>> CATCH_MODIFIERS =
             ResourceKey.createRegistryKey(Starcatcher.rl("catch_modifiers"));
 
+    public static final ResourceKey<Registry<Supplier<AbstractBobberSkin>>> BOBBER_SKIN =
+            ResourceKey.createRegistryKey(Starcatcher.rl("bobber_skin"));
+
     public static final Registry<Supplier<? extends AbstractSweetSpotBehaviour>> SWEET_SPOT_BEHAVIOUR_REGISTRY = new RegistryBuilder<>(SWEET_SPOT_BEHAVIOUR)
             .sync(true)
             .defaultKey(Starcatcher.rl("normal"))
@@ -56,12 +61,17 @@ public class Starcatcher
 
     public static final Registry<Supplier<AbstractMinigameModifier>> MINIGAME_MODIFIERS_REGISTRY = new RegistryBuilder<>(MINIGAME_MODIFIERS)
             .sync(true)
-            .defaultKey(Starcatcher.rl("no_flip"))
+            .defaultKey(Starcatcher.rl("slower_vanishing"))
             .create();
 
     public static final Registry<Supplier<AbstractCatchModifier>> CATCH_MODIFIERS_REGISTRY = new RegistryBuilder<>(CATCH_MODIFIERS)
             .sync(true)
-            .defaultKey(Starcatcher.rl("no_flip"))
+            .defaultKey(Starcatcher.rl("decrease_lure_time"))
+            .create();
+
+    public static final Registry<Supplier<AbstractBobberSkin>> BOBBER_SKIN_REGISTRY = new RegistryBuilder<>(BOBBER_SKIN)
+            .sync(true)
+            .defaultKey(Starcatcher.rl("pearl"))
             .create();
 
     public static double truncatedNormal(double mean, double deviation)
@@ -132,6 +142,7 @@ public class Starcatcher
         ModSweetSpotsBehaviour.register(modEventBus);
         ModMinigameModifiers.register(modEventBus);
         ModCatchModifiers.register(modEventBus);
+        ModBobberSkins.register(modEventBus);
         ModCriterionTriggers.register(modEventBus);
 
         modContainer.registerConfig(ModConfig.Type.CLIENT, Config.SPEC);

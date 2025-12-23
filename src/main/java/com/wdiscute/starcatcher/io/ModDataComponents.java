@@ -25,16 +25,6 @@ public class ModDataComponents
     public static final DeferredRegister<DataComponentType<?>> DATA_COMPONENT_TYPES =
             DeferredRegister.createDataComponents(Registries.DATA_COMPONENT_TYPE, Starcatcher.MOD_ID);
 
-
-    //smithing templates
-    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Boolean>> NETHERITE_UPGRADE = register(
-            "netherite_upgraded",
-            builder -> builder.persistent(Codec.BOOL));
-
-    public static final DeferredHolder<DataComponentType<?>, DataComponentType<SingleStackContainer>> BOBBER_SKIN = register(
-            "bobber_skin",
-            builder -> builder.persistent(SingleStackContainer.CODEC));
-
     //bucketed fish
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<SingleStackContainer>> BUCKETED_FISH = register(
             "bucketed_fish",
@@ -52,7 +42,6 @@ public class ModDataComponents
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<SingleStackContainer>> HOOK = register(
             "hook",
             builder -> builder.persistent(SingleStackContainer.CODEC));
-
 
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<ColorfulSmithingTemplate.BobberColor>> BOBBER_COLOR = register(
             "color",
@@ -74,6 +63,8 @@ public class ModDataComponents
             "size_and_weight",
             builder -> builder.persistent(SizeAndWeightInstance.CODEC));
 
+
+    //modifiers
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<List<ResourceLocation>>> MINIGAME_MODIFIERS = register(
             "minigame_modifiers",
             builder -> builder.persistent(ResourceLocation.CODEC.listOf()));
@@ -82,8 +73,13 @@ public class ModDataComponents
             "catch_modifiers",
             builder -> builder.persistent(ResourceLocation.CODEC.listOf()));
 
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<ResourceLocation>> BOBBER_SKIN = register(
+            "minigame_modifiers",
+            builder -> builder.persistent(ResourceLocation.CODEC));
 
-
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Boolean>> NETHERITE_UPGRADE = register(
+            "netherite_upgraded",
+            builder -> builder.persistent(Codec.BOOL));
 
     public static <T> void set(ItemStack stack, Supplier<DataComponentType<T>> component, T data){
         stack.set(component, data);
