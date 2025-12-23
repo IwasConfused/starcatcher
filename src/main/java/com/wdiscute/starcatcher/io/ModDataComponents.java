@@ -2,7 +2,6 @@ package com.wdiscute.starcatcher.io;
 
 import com.mojang.serialization.Codec;
 import com.wdiscute.starcatcher.Starcatcher;
-import com.wdiscute.starcatcher.items.ColorfulSmithingTemplate;
 import com.wdiscute.starcatcher.secretnotes.SecretNote;
 import com.wdiscute.starcatcher.storage.FishProperties;
 import com.wdiscute.starcatcher.storage.TrophyProperties;
@@ -42,10 +41,6 @@ public class ModDataComponents
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<SingleStackContainer>> HOOK = register(
             "hook",
             builder -> builder.persistent(SingleStackContainer.CODEC));
-
-    public static final DeferredHolder<DataComponentType<?>, DataComponentType<ColorfulSmithingTemplate.BobberColor>> BOBBER_COLOR = register(
-            "color",
-            builder -> builder.persistent(ColorfulSmithingTemplate.BobberColor.CODEC));
 
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<TrophyProperties>> TROPHY = register(
             "trophy",

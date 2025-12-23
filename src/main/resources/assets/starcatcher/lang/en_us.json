@@ -289,22 +289,25 @@
   "tooltip.starcatcher.templates": "Cosmetic Template:",
   "tooltip.starcatcher.tackle": "Tackle Skin:",
 
-  "item.starcatcher.kimbe_bobber_smithing_template": "Kimbe Bobber Smithing Template",
-  "tooltip.starcatcher.kimbe_bobber_smithing_template.0": "A template for your rod which may be applied at a",
-  "tooltip.starcatcher.kimbe_bobber_smithing_template.1": "Smithing Table to change your bobber's appearance.",
+  "item.starcatcher.kimbe_smithing_template": "Kimbe Tackle Smithing Template",
+  "tooltip.starcatcher.kimbe_bobber_smithing_template.0": "A tackle smithing template for your rod which may be applied at a",
+  "tooltip.starcatcher.kimbe_bobber_smithing_template.1": "Smithing Table to change your tackle's appearance.",
 
-  "item.starcatcher.pearl_bobber_smithing_template": "Pearl Bobber Smithing Template",
-  "tooltip.starcatcher.pearl_bobber_smithing_template.0": "A template for your rod which may be applied at a",
-  "tooltip.starcatcher.pearl_bobber_smithing_template.1": "Smithing Table to change your bobber's appearance.",
+  "item.starcatcher.frog_smithing_template": "Frog Tackle Smithing Template",
+  "tooltip.starcatcher.frog_smithing_template.0": "A tackle smithing template for your rod which may be applied at a",
+  "tooltip.starcatcher.frog_smithing_template.1": "Smithing Table to change your tackle's appearance.",
 
-  "item.starcatcher.colorful_bobber_smithing_template": "Colorful Bobber Smithing Template",
-  "tooltip.starcatcher.colorful_bobber_smithing_template.0": "A template for your rod which may be applied at a",
-  "tooltip.starcatcher.colorful_bobber_smithing_template.1": "Smithing Table to change your bobber's appearance.",
-  "tooltip.starcatcher.colorful_bobber_smithing_template.shines": "The Smithing Template shines differently...",
-  "tooltip.starcatcher.colorful_bobber_smithing_template.click_me": "It shines as if saying [click me]",
+  "item.starcatcher.clear_smithing_template": "Clear Tackle Smithing Template",
+  "tooltip.starcatcher.clear_smithing_template.0": "A tackle smithing template for your rod which may be applied at a",
+  "tooltip.starcatcher.clear_smithing_template.1": "Smithing Table to change your tackle's appearance.",
 
+  "item.starcatcher.pearl_smithing_template": "Pearl Tackle Smithing Template",
+  "tooltip.starcatcher.pearl_smithing_template.0": "A tackle smithing template for your rod which may be applied at a",
+  "tooltip.starcatcher.pearl_smithing_template.1": "Smithing Table to change your tackle's appearance.",
 
-
+  "item.starcatcher.colorful_smithing_template": "Colorful Tackle Smithing Template",
+  "tooltip.starcatcher.colorful_smithing_template.0": "A tackle smithing template for your rod which may be applied at a",
+  "tooltip.starcatcher.colorful_smithing_template.1": "Smithing Table to change your tackle's appearance.",
 
 
 
