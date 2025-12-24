@@ -12,6 +12,7 @@ import com.wdiscute.starcatcher.registry.custom.catchmodifiers.ModCatchModifiers
 import com.wdiscute.starcatcher.registry.ModEntities;
 import com.wdiscute.starcatcher.registry.ModItems;
 import com.wdiscute.starcatcher.registry.ModParticles;
+import com.wdiscute.starcatcher.registry.custom.tackleskin.ModTackleSkins;
 import com.wdiscute.starcatcher.storage.FishProperties;
 import com.wdiscute.starcatcher.storage.TrophyProperties;
 import net.minecraft.core.BlockPos;
@@ -388,6 +389,7 @@ public class FishingBobEntity extends Projectile
             if (timeBiting > 80)
             {
                 ModDataAttachments.remove(player, ModDataAttachments.FISHING_BOB);
+                ModTackleSkins.get(level(), rod).onMissed(player);
                 kill();
             }
         }

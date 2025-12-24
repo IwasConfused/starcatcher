@@ -2,10 +2,16 @@ package com.wdiscute.starcatcher.registry.custom.tackleskin;
 
 import com.mojang.datafixers.util.Pair;
 import com.wdiscute.starcatcher.Starcatcher;
+import com.wdiscute.starcatcher.io.ModDataAttachments;
+import com.wdiscute.starcatcher.io.ModDataComponents;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
+import java.util.Optional;
 import java.util.function.Supplier;
 
 public interface ModTackleSkins
@@ -14,23 +20,25 @@ public interface ModTackleSkins
             DeferredRegister.create(Starcatcher.TACKLE_SKIN_REGISTRY, Starcatcher.MOD_ID);
 
     //base
-   ResourceLocation BASE_TACKLE_SKIN = registerCatchModifier("base", BaseTackleSkin::new);
+    ResourceLocation BASE_TACKLE_SKIN = registerCatchModifier("base", BaseTackleSkin::new);
 
     //pearl
     ResourceLocation PEARL_TACKLE_SKIN = registerCatchModifier("pearl", PearlTackleSkin::new);
 
     //kimbe
-   ResourceLocation KIMBE_TACKLE_SKIN = registerCatchModifier("kimbe", KimbeTackleSkin::new);
+    ResourceLocation KIMBE_TACKLE_SKIN = registerCatchModifier("kimbe", KimbeTackleSkin::new);
 
     //frog
-   ResourceLocation FROG_TACKLE_SKIN = registerCatchModifier("frog", FrogTackleSkin::new);
+    ResourceLocation FROG_TACKLE_SKIN = registerCatchModifier("frog", FrogTackleSkin::new);
 
     //colorful
-   ResourceLocation COLORFUL_TACKLE_SKIN = registerCatchModifier("colorful", ColorfulTackleSkin::new);
+    ResourceLocation COLORFUL_TACKLE_SKIN = registerCatchModifier("colorful", ColorfulTackleSkin::new);
 
     //clear
-   ResourceLocation CLEAR_TACKLE_SKIN = registerCatchModifier("clear", ClearTackleSkin::new);
+    ResourceLocation CLEAR_TACKLE_SKIN = registerCatchModifier("clear", ClearTackleSkin::new);
 
+    //king
+    ResourceLocation KING_TACKLE_SKIN = registerCatchModifier("king", KingTackleSkin::new);
 
     static ResourceLocation registerCatchModifier(String name, Supplier<AbstractTackleSkin> sup)
     {
@@ -41,5 +49,17 @@ public interface ModTackleSkins
     static void register(IEventBus eventBus)
     {
         REGISTRY.register(eventBus);
+    }
+
+    static AbstractTackleSkin get(Level level, ItemStack itemInHand)
+    {
+        if (ModDataComponents.has(itemInHand, ModDataComponents.TACKLE_SKIN))
+        {
+            ResourceLocation rl = ModDataComponents.get(itemInHand, ModDataComponents.TACKLE_SKIN);
+
+            Optional<Supplier<AbstractTackleSkin>> optional = level.registryAccess().registryOrThrow(Starcatcher.TACKLE_SKIN).getOptional(rl);
+            if (optional.isPresent()) return optional.get().get();
+        }
+        return new BaseTackleSkin();
     }
 }

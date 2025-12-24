@@ -105,6 +105,7 @@ public interface ModItems
     DeferredItem<Item> COLORFUL_SMITHING_TEMPLATE = TEMPLATES_REGISTRY.register("colorful_smithing_template", () -> new TackleSkinItem(ModTackleSkins.COLORFUL_TACKLE_SKIN));
     DeferredItem<Item> CLEAR_SMITHING_TEMPLATE = TEMPLATES_REGISTRY.register("clear_smithing_template", () -> new TackleSkinItem(ModTackleSkins.CLEAR_TACKLE_SKIN));
     DeferredItem<Item> FROG_SMITHING_TEMPLATE = TEMPLATES_REGISTRY.register("frog_smithing_template", () -> new TackleSkinItem(ModTackleSkins.FROG_TACKLE_SKIN));
+    DeferredItem<Item> KING_SMITHING_TEMPLATE = TEMPLATES_REGISTRY.register("king_smithing_template", () -> new TackleSkinItem(ModTackleSkins.KING_TACKLE_SKIN));
 
     //rods
     DeferredItem<Item> ROD = RODS_REGISTRY.register("starcatcher_rod", StarcatcherFishingRodItem::new);

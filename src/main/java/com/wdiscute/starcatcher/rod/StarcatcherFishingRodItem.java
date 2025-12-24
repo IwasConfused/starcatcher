@@ -7,6 +7,7 @@ import com.wdiscute.starcatcher.io.ModDataComponents;
 import com.wdiscute.starcatcher.io.SingleStackContainer;
 import com.wdiscute.starcatcher.io.attachments.FishingBobAttachment;
 import com.wdiscute.starcatcher.registry.ModItems;
+import com.wdiscute.starcatcher.registry.custom.tackleskin.ModTackleSkins;
 import net.minecraft.commands.arguments.EntityAnchorArgument;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
@@ -62,7 +63,7 @@ public class StarcatcherFishingRodItem extends Item implements MenuProvider
 
         if (fishingBobAttachment.isEmpty())
         {
-            level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.FISHING_BOBBER_THROW, SoundSource.NEUTRAL, 0.5F, 0.4F / (level.getRandom().nextFloat() * 0.4F + 0.8F));
+            ModTackleSkins.get(player.level(), player.getItemInHand(hand)).onCast(player);
 
             if (level instanceof ServerLevel)
             {
@@ -88,16 +89,8 @@ public class StarcatcherFishingRodItem extends Item implements MenuProvider
                 {
                     if (entity instanceof FishingBobEntity fbe && !fbe.checkBiting())
                     {
-                        level.playSound(
-                                null,
-                                player.getX(),
-                                player.getY(),
-                                player.getZ(),
-                                SoundEvents.FISHING_BOBBER_RETRIEVE,
-                                SoundSource.NEUTRAL,
-                                1.0F,
-                                0.4F / (level.getRandom().nextFloat() * 0.4F + 0.8F)
-                        );
+                        ModTackleSkins.get(player.level(), player.getItemInHand(hand)).onRetrieve(player);
+
                         fbe.kill();
                         ModDataAttachments.remove(player, ModDataAttachments.FISHING_BOB.get());
                     }

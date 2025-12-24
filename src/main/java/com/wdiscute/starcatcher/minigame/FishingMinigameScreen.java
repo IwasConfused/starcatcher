@@ -528,8 +528,6 @@ public class FishingMinigameScreen extends Screen implements GuiEventListener
         {
             this.modifiers.forEach(AbstractMinigameModifier::onMiss);
 
-            if (bobber.is(ModItems.KIMBE_SMITHING_TEMPLATE))
-                Minecraft.getInstance().player.playSound(SoundEvents.VILLAGER_NO, 1, 1);
             consecutiveHits = 0;
             level.playLocalSound(pos.x, pos.y, pos.z, SoundEvents.COMPARATOR_CLICK, SoundSource.BLOCKS, 1, 1, false);
             progress -= penalty;

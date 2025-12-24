@@ -8,6 +8,7 @@ import com.wdiscute.starcatcher.io.*;
 import com.wdiscute.starcatcher.registry.custom.catchmodifiers.AbstractCatchModifier;
 import com.wdiscute.starcatcher.registry.ModCriterionTriggers;
 import com.wdiscute.starcatcher.registry.ModItems;
+import com.wdiscute.starcatcher.registry.custom.tackleskin.ModTackleSkins;
 import com.wdiscute.starcatcher.storage.FishProperties;
 import com.wdiscute.starcatcher.storage.TrophyProperties;
 import com.wdiscute.starcatcher.tournament.TournamentHandler;
@@ -60,6 +61,9 @@ public class U
                 //trigger modifiers
                 fbe.modifiers.forEach(m -> m.onSuccessfulMinigameCompletion(player, time, completedTreasure, perfectCatch, hits));
 
+                //play sound
+                ModTackleSkins.get(level, fbe.rod).onSuccessfulMinigame(player);
+
                 //if should cancel because of modifier, return
                 if(fbe.modifiers.stream().anyMatch(m -> m.shouldCancelAfterSuccessfulMinigameCompletion(
                         player, time, completedTreasure, perfectCatch, hits))) return;
@@ -73,10 +77,6 @@ public class U
 
                 //add score to tournaments
                 TournamentHandler.addScore(player, fp, perfectCatch, size, weight);
-
-                //play sound
-                Vec3 p = player.position();
-                level.playSound(null, p.x, p.y, p.z, SoundEvents.VILLAGER_CELEBRATE, SoundSource.AMBIENT);
 
                 //award exp
                 int exp = fp.rarity().getXp();
@@ -144,12 +144,10 @@ public class U
                         //store fp in itemstack for name color change
                         ModDataComponents.set(is, ModDataComponents.FISH_PROPERTIES, fp);
 
-                        //split hook double drops unless it's going to be converted to a starcaught bucket
-                        for (AbstractCatchModifier acm : fbe.modifiers)
-                        {
-                            is = acm.modifyItemStack(is);
-                        }
+                        //call modify stack on modifiers (split hook behaviour)
+                        for (AbstractCatchModifier acm : fbe.modifiers) is = acm.modifyItemStack(is);
 
+                        //set starcaught bucket data stuff
                         if (isStarcaught)
                         {
                             ItemStack starcaughtBucket = new ItemStack(fp.catchInfo().bucketedFish());
@@ -189,10 +187,11 @@ public class U
             }
             else
             {
-                //if fish minigame failed/canceled, play sound
+                //if fish minigame failed/canceled
                 fbe.modifiers.forEach(AbstractCatchModifier::onFailedMinigame);
-                Vec3 p = player.position();
-                level.playSound(null, p.x, p.y, p.z, SoundEvents.VILLAGER_NO, SoundSource.AMBIENT);
+
+                //play sound from tackle skin
+                ModTackleSkins.get(level, fbe.rod).onFailedMinigame(player);
             }
 
             fbe.kill();
