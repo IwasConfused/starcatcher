@@ -1,5 +1,6 @@
 package com.wdiscute.starcatcher.compat;
 
+import com.wdiscute.starcatcher.StarcatcherTags;
 import com.wdiscute.starcatcher.recipe.FishingRodSmithingRecipe;
 import com.wdiscute.starcatcher.registry.ModItems;
 import com.wdiscute.starcatcher.Starcatcher;
@@ -13,15 +14,19 @@ import dev.emi.emi.api.recipe.EmiRecipeCategory;
 import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
 import net.minecraft.client.Minecraft;
+import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeInput;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.crafting.SmithingRecipe;
 
+import java.util.Arrays;
 import java.util.function.Supplier;
 
 @EmiEntrypoint
@@ -59,15 +64,17 @@ public class StarcatcherEmiPlugin implements EmiPlugin
                 registry.addRecipe(new StarcatcherEmiRecipe(trophies.getKey(fp), fp));
         }
 
-
-
-
         for (SmithingRecipe recipe : getRecipes(registry, RecipeType.SMITHING))
         {
-            if (recipe instanceof FishingRodSmithingRecipe dwa)
+            if (recipe instanceof FishingRodSmithingRecipe frsr && Arrays.stream(((FishingRodSmithingRecipe) recipe).template().getItems()).anyMatch(o -> o.is(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE)))
             {
-                registry.addRecipe(new StarcatcherEmiSmithingRecipe(dwa));
+                registry.addRecipe(new StarcatcherEmiSmithingRecipe(frsr));
             }
+        }
+
+        for (Holder<Item> item : BuiltInRegistries.ITEM.getTag(StarcatcherTags.TEMPLATES).get())
+        {
+            registry.addRecipe(new StarcatcherEmiSmithingRecipe(item.value()));
         }
 
     }
