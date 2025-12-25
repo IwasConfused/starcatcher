@@ -188,7 +188,13 @@ public class FishingGuideScreen extends Screen
         fishInArea = FishProperties.getFpsWithGuideEntryForArea(player);
         fishCaughtCounterMap = FishingGuideAttachment.getFishesCaught(player);
 
-        for (FishProperties fp : FishProperties.getFPs(level)) if (fp.hasGuideEntry()) entries.add(fp);
+        for (FishProperties fp : FishProperties.getFPs(level))
+        {
+            System.out.println("--------");
+            System.out.println(fp);
+            System.out.println(entries.size());
+            if (fp.hasGuideEntry()) entries.add(fp);
+        }
         sortEntries();
 
         for (TrophyProperties tp : level.registryAccess().registryOrThrow(Starcatcher.TROPHY_REGISTRY))
@@ -640,10 +646,10 @@ public class FishingGuideScreen extends Screen
                 int h1 = 0;
 
                 //baits max column size
-                if(hooksAndBobbers.size() > 15) s1 = 6;
-                if(hooksAndBobbers.size() > 18) s1 = 7;
-                if(hooksAndBobbers.size() > 18) d1 = 21;
-                if(hooksAndBobbers.size() > 18) h1 = 6;
+                if (hooksAndBobbers.size() > 15) s1 = 6;
+                if (hooksAndBobbers.size() > 18) s1 = 7;
+                if (hooksAndBobbers.size() > 18) d1 = 21;
+                if (hooksAndBobbers.size() > 18) h1 = 6;
 
                 for (int i = 0; i < Math.min(hooksAndBobbers.size(), 21); i++)
                 {
@@ -673,10 +679,10 @@ public class FishingGuideScreen extends Screen
                 int h2 = 0;
 
                 //baits max column size
-                if(baits.size() > 15) s2 = 6;
-                if(baits.size() > 18) s2 = 7;
-                if(baits.size() > 18) d2 = 21;
-                if(baits.size() > 18) h2 = 6;
+                if (baits.size() > 15) s2 = 6;
+                if (baits.size() > 18) s2 = 7;
+                if (baits.size() > 18) d2 = 21;
+                if (baits.size() > 18) h2 = 6;
 
                 for (int i = 0; i < Math.min(baits.size(), 18); i++)
                 {
@@ -714,10 +720,10 @@ public class FishingGuideScreen extends Screen
                 int h1 = 0;
 
                 //baits max column size
-                if(gadgets.size() > 15) s1 = 6;
-                if(gadgets.size() > 18) s1 = 7;
-                if(gadgets.size() > 18) d1 = 21;
-                if(gadgets.size() > 18) h1 = 6;
+                if (gadgets.size() > 15) s1 = 6;
+                if (gadgets.size() > 18) s1 = 7;
+                if (gadgets.size() > 18) d1 = 21;
+                if (gadgets.size() > 18) h1 = 6;
 
                 for (int i = 0; i < Math.min(gadgets.size(), 21); i++)
                 {
@@ -753,10 +759,10 @@ public class FishingGuideScreen extends Screen
                 int h1 = 0;
 
                 //baits max column size
-                if(templates.size() > 15) s1 = 6;
-                if(templates.size() > 18) s1 = 7;
-                if(templates.size() > 18) d1 = 21;
-                if(templates.size() > 18) h1 = 6;
+                if (templates.size() > 15) s1 = 6;
+                if (templates.size() > 18) s1 = 7;
+                if (templates.size() > 18) d1 = 21;
+                if (templates.size() > 18) h1 = 6;
 
                 for (int i = 0; i < Math.min(templates.size(), 21); i++)
                 {
@@ -1810,20 +1816,8 @@ public class FishingGuideScreen extends Screen
         //alphabetical
         if (sort.equals(Sort.ALPHABETICAL_DOWN) || sort.equals(Sort.ALPHABETICAL_UP))
         {
-            List<FishProperties> entriesSorted = new ArrayList<>();
-            Map<String, FishProperties> map = new HashMap<>();
-            List<String> entriesString = new ArrayList<>();
 
-            for (FishProperties fp : entries)
-            {
-                String path = fp.catchInfo().fish().unwrapKey().get().location().getPath();
-                map.put(path, fp);
-                entriesString.add(path);
-            }
-
-            entriesString = entriesString.stream().sorted().toList();
-
-            for (String s : entriesString) entriesSorted.add(map.get(s));
+            List<FishProperties> entriesSorted = entries.stream().sorted(Comparator.comparing(o -> o.catchInfo().fish().unwrapKey().get().location().getPath())).toList();
 
             entries = sort.equals(Sort.ALPHABETICAL_UP) ? entriesSorted : entriesSorted.reversed();
         }
