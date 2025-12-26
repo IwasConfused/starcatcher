@@ -2,18 +2,18 @@ package com.wdiscute.starcatcher;
 
 import com.wdiscute.starcatcher.guide.FishingGuideScreen;
 import com.wdiscute.starcatcher.guide.SettingsScreen;
-import com.wdiscute.starcatcher.tournament.StandScreen;
 import net.neoforged.neoforge.common.ModConfigSpec;
 
 public class Config
 {
     private static final ModConfigSpec.Builder BUILDER = new ModConfigSpec.Builder();
 
-    public static final ModConfigSpec.IntValue MINIGAME_GUI_SCALE = BUILDER
+    public static final ModConfigSpec.DoubleValue MINIGAME_RENDER_SCALE = BUILDER
             .comment("//ALL THESE SETTINGS CAN ALSO BE ACCESSED")
             .comment("//THROUGH THE IN-GAME SETTING TAB INSIDE")
             .comment("//THE STARCATCHER'S GUIDE")
-            .defineInRange("minigame_gui_scale", 3, 0, 6);
+            .defineInRange("minigame_scale", 1.5, 0.1, 6);
+
 
     public static final ModConfigSpec.DoubleValue HIT_DELAY = BUILDER
             .defineInRange("hit_delay", 0.0d, -20, 20);
