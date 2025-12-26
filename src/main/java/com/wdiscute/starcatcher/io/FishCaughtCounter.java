@@ -30,7 +30,8 @@ public record FishCaughtCounter(
         boolean caughtGolden,
         boolean perfectCatch,
         boolean hasGuideNotification
-) {
+)
+{
 
     public static final Codec<FishCaughtCounter> CODEC = RecordCodecBuilder.create(instance ->
             instance.group(
@@ -40,8 +41,8 @@ public record FishCaughtCounter(
                     Codec.INT.optionalFieldOf("best_size", 0).forGetter(FishCaughtCounter::size),
                     Codec.INT.optionalFieldOf("best_weight", 0).forGetter(FishCaughtCounter::weight),
                     Codec.BOOL.optionalFieldOf("caught_golden", false).forGetter(FishCaughtCounter::caughtGolden),
-                    Codec.BOOL.optionalFieldOf("perfect_catch", false).forGetter(FishCaughtCounter::caughtGolden),
-                    Codec.BOOL.optionalFieldOf("perfect_catch", false).forGetter(FishCaughtCounter::hasGuideNotification)
+                    Codec.BOOL.optionalFieldOf("perfect_catch", false).forGetter(FishCaughtCounter::perfectCatch),
+                    Codec.BOOL.optionalFieldOf("has_guide_notification", false).forGetter(FishCaughtCounter::hasGuideNotification)
 
             ).apply(instance, FishCaughtCounter::new)
     );
@@ -59,28 +60,34 @@ public record FishCaughtCounter(
             FishCaughtCounter::new
     );
 
-    public static FishCaughtCounter get(Player player, FishProperties loc) {
+    public static FishCaughtCounter get(Player player, FishProperties loc)
+    {
         return get(player, U.getRlFromFp(player.level(), loc));
     }
 
-    public static FishCaughtCounter get(Player player, ResourceLocation loc) {
+    public static FishCaughtCounter get(Player player, ResourceLocation loc)
+    {
         return FishingGuideAttachment.getFishesCaught(player).get(loc);
     }
 
-    public static FishCaughtCounter createHacked(){
+    public static FishCaughtCounter createHacked()
+    {
         return new FishCaughtCounter(999999, 0, 0, 0, 0, false, false, true);
     }
 
-    public FishCaughtCounter removeNotification(){
-        return new FishCaughtCounter(this.count, this.fastestTicks, this.averageTicks, this.size, this.weight, caughtGolden, perfectCatch,false);
+    public FishCaughtCounter removeNotification()
+    {
+        return new FishCaughtCounter(this.count, this.fastestTicks, this.averageTicks, this.size, this.weight, this.caughtGolden, perfectCatch, false);
     }
 
     @Nonnull
-    public static FishCaughtCounter create(int ticks, int size, int weight, boolean perfectCatch){
-        return new FishCaughtCounter(1, ticks, (float) ticks, size, weight, false,  perfectCatch, true);
+    public static FishCaughtCounter create(int ticks, int size, int weight, boolean perfectCatch)
+    {
+        return new FishCaughtCounter(1, ticks, (float) ticks, size, weight, false, perfectCatch, true);
     }
 
-    public FishCaughtCounter getUpdated(int ticks, int size, int weight, boolean perfectCatch) {
+    public FishCaughtCounter getUpdated(int ticks, int size, int weight, boolean perfectCatch)
+    {
         int fastestToSave = Math.min(this.fastestTicks, ticks);
         float averageToSave = (this.averageTicks * this.count + ticks) / (this.count + 1);
         int countToSave = this.count;
@@ -118,15 +125,10 @@ public record FishCaughtCounter(
 
         boolean newFish = fishCaughtCounter == null;
 
-        if (newFish) {
-
+        if (newFish)
             fishCaughtCounter = FishCaughtCounter.create(ticks, size, weight, perfectCatch);
-
-        } else {
-
+        else
             fishCaughtCounter = fishCaughtCounter.getUpdated(ticks, size, weight, perfectCatch);
-
-        }
 
         fishesCaught.put(loc, fishCaughtCounter);
 
