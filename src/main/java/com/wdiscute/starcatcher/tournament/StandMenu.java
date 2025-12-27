@@ -6,7 +6,6 @@ import com.wdiscute.starcatcher.registry.blocks.ModBlocks;
 import com.wdiscute.starcatcher.registry.blocks.StandBlockEntity;
 import com.wdiscute.starcatcher.io.SingleStackContainer;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.server.players.StoredUserEntry;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -79,9 +78,9 @@ public class StandMenu extends AbstractContainerMenu
         //duration -
         if (id == 101)
         {
-            if (sbe.tournament.settings.duration > 1200)
+            if (sbe.tournament.settings.durationInTicks > 1200)
             {
-                sbe.tournament.settings.duration -= 1200;
+                sbe.tournament.settings.durationInTicks -= 1200;
                 PacketDistributor.sendToAllPlayers(CBStandTournamentUpdatePayload.helper(player, sbe.tournament));
             }
         }
@@ -89,9 +88,9 @@ public class StandMenu extends AbstractContainerMenu
         //duration --
         if (id == 102)
         {
-            if (sbe.tournament.settings.duration > 12000)
+            if (sbe.tournament.settings.durationInTicks > 12000)
             {
-                sbe.tournament.settings.duration -= 12000;
+                sbe.tournament.settings.durationInTicks -= 12000;
                 PacketDistributor.sendToAllPlayers(CBStandTournamentUpdatePayload.helper(player, sbe.tournament));
             }
         }
@@ -99,14 +98,14 @@ public class StandMenu extends AbstractContainerMenu
         //duration +
         if (id == 103)
         {
-            sbe.tournament.settings.duration += 1200;
+            sbe.tournament.settings.durationInTicks += 1200;
             PacketDistributor.sendToAllPlayers(CBStandTournamentUpdatePayload.helper(player, sbe.tournament));
         }
 
         //duration ++
         if (id == 104)
         {
-            sbe.tournament.settings.duration += 12000;
+            sbe.tournament.settings.durationInTicks += 12000;
             PacketDistributor.sendToAllPlayers(CBStandTournamentUpdatePayload.helper(player, sbe.tournament));
         }
 

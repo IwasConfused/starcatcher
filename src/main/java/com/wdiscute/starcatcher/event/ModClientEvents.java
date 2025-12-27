@@ -47,6 +47,15 @@ public class ModClientEvents
 {
 
     @SubscribeEvent
+    public static void keyPressed(InputEvent.Key event)
+    {
+        if(event.getAction() == 0 && event.getKey() == ModKeymappings.EXPAND_TOURNAMENT.getKey().getValue())
+        {
+            TournamentOverlay.isExpanded = !TournamentOverlay.isExpanded;
+        }
+    }
+
+    @SubscribeEvent
     public static void tooltipEvent(ItemTooltipEvent event)
     {
         List<Component> comp = event.getToolTip();
@@ -270,6 +279,7 @@ public class ModClientEvents
     public static void onRegisterKeyMappings(RegisterKeyMappingsEvent event)
     {
         event.register(ModKeymappings.MINIGAME_HIT);
+        event.register(ModKeymappings.EXPAND_TOURNAMENT);
     }
 
     @SubscribeEvent
