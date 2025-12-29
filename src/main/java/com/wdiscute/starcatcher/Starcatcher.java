@@ -1,5 +1,6 @@
 package com.wdiscute.starcatcher;
 
+import com.mojang.logging.LogUtils;
 import com.wdiscute.starcatcher.registry.custom.tackleskin.AbstractTackleSkin;
 import com.wdiscute.starcatcher.registry.custom.tackleskin.ModTackleSkins;
 import com.wdiscute.starcatcher.registry.custom.catchmodifiers.AbstractCatchModifier;
@@ -28,6 +29,7 @@ import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.neoforge.registries.RegistryBuilder;
+import org.slf4j.Logger;
 
 import java.util.function.Supplier;
 
@@ -35,6 +37,7 @@ import java.util.function.Supplier;
 public class Starcatcher
 {
     public static final String MOD_ID = "starcatcher";
+    public static final Logger LOGGER = LogUtils.getLogger();
 
     public static final ResourceKey<Registry<FishProperties>> FISH_REGISTRY =
             ResourceKey.createRegistryKey(Starcatcher.rl("fish"));
