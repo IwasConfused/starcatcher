@@ -5,17 +5,20 @@ import com.wdiscute.starcatcher.Starcatcher;
 import com.wdiscute.starcatcher.commands.ModCommands;
 import com.wdiscute.starcatcher.fishentity.FishEntity;
 import com.wdiscute.starcatcher.io.ModDataAttachments;
+import com.wdiscute.starcatcher.io.TournamentSavedData;
 import com.wdiscute.starcatcher.io.attachments.FishingGuideAttachment;
 import com.wdiscute.starcatcher.io.network.FPsSeenPayload;
 import com.wdiscute.starcatcher.io.network.FishCaughtPayload;
 import com.wdiscute.starcatcher.io.network.FishingCompletedPayload;
 import com.wdiscute.starcatcher.io.network.FishingStartedPayload;
 import com.wdiscute.starcatcher.io.network.tournament.CBActiveTournamentUpdatePayload;
+import com.wdiscute.starcatcher.io.network.tournament.CBClearTournamentPayload;
 import com.wdiscute.starcatcher.io.network.tournament.stand.*;
 import com.wdiscute.starcatcher.registry.ModEntities;
 import com.wdiscute.starcatcher.registry.ModItems;
 import com.wdiscute.starcatcher.storage.FishProperties;
 import com.wdiscute.starcatcher.storage.TrophyProperties;
+import com.wdiscute.starcatcher.tournament.Tournament;
 import com.wdiscute.starcatcher.tournament.TournamentHandler;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
@@ -33,15 +36,44 @@ import net.neoforged.neoforge.event.RegisterCommandsEvent;
 import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
+import net.neoforged.neoforge.event.server.ServerStartedEvent;
+import net.neoforged.neoforge.event.server.ServerStoppingEvent;
 import net.neoforged.neoforge.event.tick.ServerTickEvent;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.neoforged.neoforge.network.registration.PayloadRegistrar;
 import net.neoforged.neoforge.registries.DataPackRegistryEvent;
 import net.neoforged.neoforge.registries.NewRegistryEvent;
 
+import java.util.List;
+
 @EventBusSubscriber(modid = Starcatcher.MOD_ID)
 public class ModEvents
 {
+
+    @SubscribeEvent
+    public static void playerLoggedIn(PlayerEvent.PlayerLoggedInEvent event)
+    {
+        if (event.getEntity() instanceof ServerPlayer sp)
+        {
+            var tournament = TournamentHandler.getTournamentForPlayer(sp);
+            if (tournament != null)
+                TournamentHandler.sendActiveTournamentUpdateToClient(sp, tournament);
+            else
+                TournamentHandler.clearTournamentToClient(sp);
+        }
+    }
+
+    @SubscribeEvent
+    public static void serverStarted(ServerStartedEvent event)
+    {
+        TournamentHandler.setAll(TournamentSavedData.get(event.getServer().overworld()).getTournaments());
+    }
+
+    @SubscribeEvent
+    public static void serverStopping(ServerStoppingEvent event)
+    {
+        TournamentSavedData.get(event.getServer().overworld()).setTournaments(TournamentHandler.getAll());
+    }
 
     @SubscribeEvent
     public static void levelTick(ServerTickEvent.Post event)
@@ -58,16 +90,17 @@ public class ModEvents
     @SubscribeEvent
     public static void onPlayerLoggedIn(PlayerEvent.PlayerLoggedInEvent event)
     {
-        if(event.getEntity() instanceof ServerPlayer serverPlayer)
+        if (event.getEntity() instanceof ServerPlayer serverPlayer)
         {
             FishingGuideAttachment fishingGuideAttachment = ModDataAttachments.get(serverPlayer, ModDataAttachments.FISHING_GUIDE);
 
-            if (FishingGuideAttachment.hasLegacyData(serverPlayer)){
+            if (FishingGuideAttachment.hasLegacyData(serverPlayer))
+            {
                 fishingGuideAttachment.loadFromLegacy(serverPlayer);
                 FishingGuideAttachment.sync(serverPlayer);
             }
 
-            if(Config.GIVE_GUIDE.get() && !fishingGuideAttachment.receivedGuide)
+            if (Config.GIVE_GUIDE.get() && !fishingGuideAttachment.receivedGuide)
             {
                 serverPlayer.addItem(new ItemStack(ModItems.GUIDE.get()));
                 fishingGuideAttachment.receivedGuide = true;
@@ -183,6 +216,12 @@ public class ModEvents
                 CBActiveTournamentUpdatePayload.TYPE,
                 CBActiveTournamentUpdatePayload.STREAM_CODEC,
                 CBActiveTournamentUpdatePayload::handle
+        );
+
+        registrar.playToClient(
+                CBClearTournamentPayload.TYPE,
+                CBClearTournamentPayload.STREAM_CODEC,
+                CBClearTournamentPayload::handle
         );
     }
 

@@ -14,6 +14,7 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.server.players.GameProfileCache;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
@@ -27,16 +28,16 @@ public record CBStandTournamentUpdatePayload(List<GameProfile> listSignups,
                                              Tournament tour) implements CustomPacketPayload
 {
 
-    public static CBStandTournamentUpdatePayload helper(Player player, Tournament tournament)
+    public static CBStandTournamentUpdatePayload helper(Level level, Tournament tournament)
     {
-        if (player.level().isClientSide) throw new RuntimeException();
+        if (level.isClientSide) throw new RuntimeException();
         List<GameProfile> list = new ArrayList<>();
-        for (var entry : tournament.getPlayerScores().entrySet())
+        for (var entry : tournament.playerScores)
         {
-            GameProfileCache profileCache = player.level().getServer().getProfileCache();
+            GameProfileCache profileCache = level.getServer().getProfileCache();
             if (profileCache != null)
             {
-                Optional<GameProfile> gameProfile = profileCache.get(entry.getKey());
+                Optional<GameProfile> gameProfile = profileCache.get(entry.playerUUID);
                 gameProfile.ifPresent(list::add);
             }
         }
