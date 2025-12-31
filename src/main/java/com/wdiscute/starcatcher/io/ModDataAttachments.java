@@ -87,34 +87,40 @@ public class ModDataAttachments
 
 
     // sets the value to default
-    public static <T> T remove(Entity holder, Supplier<AttachmentType<T>> attachmentType)
+    public static <T> void remove(Entity holder, Supplier<AttachmentType<T>> attachmentType)
     {
-        return holder.removeData(attachmentType);
+        if(holder == null) return;
+        holder.removeData(attachmentType);
     }
 
     // sets the value to default
-    public static <T> T remove(Entity holder, AttachmentType<T> attachmentType)
+    public static <T> void remove(Entity holder, AttachmentType<T> attachmentType)
     {
-        return holder.removeData(attachmentType);
+        if(holder == null) return;
+        holder.removeData(attachmentType);
     }
 
-    public static <T> T set(Entity holder, Supplier<AttachmentType<T>> attachmentType, T data)
+    public static <T> void set(Entity holder, Supplier<AttachmentType<T>> attachmentType, T data)
     {
-        return holder.setData(attachmentType, data);
+        if(holder == null) return;
+        holder.setData(attachmentType, data);
     }
 
-    public static <T> T set(Entity holder, AttachmentType<T> attachmentType, T data)
+    public static <T> void set(Entity holder, AttachmentType<T> attachmentType, T data)
     {
-        return holder.setData(attachmentType, data);
+        if(holder == null) return;
+        holder.setData(attachmentType, data);
     }
 
     public static <T> T get(Entity holder, Supplier<AttachmentType<T>> attachmentType)
     {
+        if(holder == null) throw new RuntimeException("Called Starcatcher DataAttachments Get() with a null entity");
         return holder.getData(attachmentType);
     }
 
     public static <T> T get(Entity holder, AttachmentType<T> attachmentType)
     {
+        if(holder == null) throw new RuntimeException("Called Starcatcher DataAttachments Get() with a null entity");
         return holder.getData(attachmentType);
     }
 
