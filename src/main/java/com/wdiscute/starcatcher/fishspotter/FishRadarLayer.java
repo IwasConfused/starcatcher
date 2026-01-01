@@ -1,10 +1,12 @@
 package com.wdiscute.starcatcher.fishspotter;
 
 import com.wdiscute.starcatcher.U;
+import com.wdiscute.starcatcher.io.TournamentSavedData;
 import com.wdiscute.starcatcher.io.attachments.FishingGuideAttachment;
 import com.wdiscute.starcatcher.registry.ModItems;
 import com.wdiscute.starcatcher.Starcatcher;
 import com.wdiscute.starcatcher.storage.FishProperties;
+import com.wdiscute.starcatcher.tournament.Tournament;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
@@ -135,11 +137,6 @@ public class FishRadarLayer implements LayeredDraw.Layer
                     is,
                     uiX + 9 + i * 18 % 90,
                     uiY + 48 + i / 5 * 18);
-
-            if(i > 10)
-            {
-                break;
-            }
         }
 
 

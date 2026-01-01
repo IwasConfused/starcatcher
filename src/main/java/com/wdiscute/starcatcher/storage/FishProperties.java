@@ -1617,7 +1617,7 @@ public record FishProperties(
         List<FishProperties> list = new ArrayList<>();
 
         for (FishProperties fp : entity.level().registryAccess().registryOrThrow(Starcatcher.FISH_REGISTRY))
-            if (isDimensionCorrect(entity, fp) && isBiomeCorrect(entity, fp) && isElevationCorrect(entity, fp) && fp.hasGuideEntry) list.add(fp);
+            if (isDimensionCorrect(entity, fp) && isBiomeCorrect(entity, fp) && isElevationCorrect(entity, fp) && fp.hasGuideEntry && fp.baseChance != 0) list.add(fp);
 
         return list;
     }
