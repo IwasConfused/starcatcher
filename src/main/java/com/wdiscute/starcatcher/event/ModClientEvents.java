@@ -3,7 +3,6 @@ package com.wdiscute.starcatcher.event;
 import com.wdiscute.libtooltips.Tooltips;
 import com.wdiscute.starcatcher.Config;
 import com.wdiscute.starcatcher.Starcatcher;
-import com.wdiscute.starcatcher.bob.FishingBobModel;
 import com.wdiscute.starcatcher.bob.FishingBobRenderer;
 import com.wdiscute.starcatcher.fishentity.FishRenderer;
 import com.wdiscute.starcatcher.fishentity.fishmodels.*;
@@ -17,6 +16,7 @@ import com.wdiscute.starcatcher.particles.FishingBitingLavaParticles;
 import com.wdiscute.starcatcher.particles.FishingBitingParticles;
 import com.wdiscute.starcatcher.particles.FishingNotificationParticles;
 import com.wdiscute.starcatcher.registry.*;
+import com.wdiscute.starcatcher.registry.custom.tackleskin.*;
 import com.wdiscute.starcatcher.rod.FishingRodScreen;
 import com.wdiscute.starcatcher.storage.FishProperties;
 import com.wdiscute.starcatcher.storage.TrophyProperties;
@@ -46,19 +46,28 @@ public class ModClientEvents
 {
 
     @SubscribeEvent
+    public static void keyPressed(InputEvent.Key event)
+    {
+        if(event.getAction() == 0 && event.getKey() == ModKeymappings.EXPAND_TOURNAMENT.getKey().getValue())
+        {
+            TournamentOverlay.expandedType = TournamentOverlay.expandedType.next();
+        }
+    }
+
+    @SubscribeEvent
     public static void tooltipEvent(ItemTooltipEvent event)
     {
         List<Component> comp = event.getToolTip();
         ItemStack stack = event.getItemStack();
 
-        if (stack.has(ModDataComponents.MINIGAME_MODIFIERS) || stack.has(ModDataComponents.CATCH_MODIFIERS))
+        if (ModDataComponents.has(stack, ModDataComponents.MINIGAME_MODIFIERS) || ModDataComponents.has(stack, ModDataComponents.CATCH_MODIFIERS))
         {
             List<ResourceLocation> modifiers = new ArrayList<>();
 
-            if (stack.has(ModDataComponents.CATCH_MODIFIERS))
-                modifiers.addAll(Objects.requireNonNull(stack.get(ModDataComponents.CATCH_MODIFIERS)));
-            if (stack.has(ModDataComponents.MINIGAME_MODIFIERS))
-                modifiers.addAll(Objects.requireNonNull(stack.get(ModDataComponents.MINIGAME_MODIFIERS)));
+            if (ModDataComponents.has(stack, ModDataComponents.CATCH_MODIFIERS))
+                modifiers.addAll(Objects.requireNonNull(ModDataComponents.get(stack, ModDataComponents.CATCH_MODIFIERS)));
+            if (ModDataComponents.has(stack, ModDataComponents.MINIGAME_MODIFIERS))
+                modifiers.addAll(Objects.requireNonNull(ModDataComponents.get(stack, ModDataComponents.MINIGAME_MODIFIERS)));
 
             if (!modifiers.isEmpty())
             {
@@ -83,9 +92,9 @@ public class ModClientEvents
         }
 
         //size and weight
-        if (stack.has(ModDataComponents.SIZE_AND_WEIGHT))
+        if (ModDataComponents.has(stack, ModDataComponents.SIZE_AND_WEIGHT))
         {
-            SizeAndWeightInstance sw = stack.get(ModDataComponents.SIZE_AND_WEIGHT);
+            SizeAndWeightInstance sw = ModDataComponents.get(stack, ModDataComponents.SIZE_AND_WEIGHT);
 
             SettingsScreen.Units units = Config.UNIT.get();
 
@@ -95,32 +104,36 @@ public class ModClientEvents
             comp.add(1, Component.literal(size + " - " + weight).withColor(0x888888));
         }
 
-        //Cosmetic
-        if (stack.has(ModDataComponents.BOBBER_SKIN))
+        //tackle skin
+        if (ModDataComponents.has(stack, ModDataComponents.TACKLE_SKIN))
         {
-            ItemStack copy = stack.get(ModDataComponents.BOBBER_SKIN).stack().copy();
+            ResourceLocation rl = ModDataComponents.get(stack, ModDataComponents.TACKLE_SKIN);
+            comp.add(Component.translatable("tooltip.starcatcher.tackle").withStyle(ChatFormatting.GRAY));
 
-            if(!copy.isEmpty())
+            for (int i = 0; i < 100; i++)
             {
-                comp.add(1, copy.getDisplayName().copy().withColor(0x888888));
-                comp.add(1, Tooltips.decodeTranslationKey("tooltip.starcatcher.templates"));
+                if (I18n.exists("tooltip.tackle." + rl.toLanguageKey() + "." + i))
+                {
+                    MutableComponent start = i == 0 ? Component.literal("- ") : Component.literal("");
+                    comp.add(start.append(Component.translatable("tooltip.tackle." + rl.toLanguageKey() + "." + i)).withStyle(ChatFormatting.DARK_GRAY));
+                }
+                else break;
             }
         }
 
         //Netherite Upgrade
-        if (stack.has(ModDataComponents.NETHERITE_UPGRADE))
+        if (ModDataComponents.has(stack, ModDataComponents.NETHERITE_UPGRADE))
         {
-            if (stack.get(ModDataComponents.NETHERITE_UPGRADE))
+            if (ModDataComponents.get(stack, ModDataComponents.NETHERITE_UPGRADE))
             {
                 comp.add(1, Tooltips.decodeTranslationKey("tooltip.starcatcher.rod.netherite"));
             }
         }
 
-
         //rarity name color
-        if (stack.has(ModDataComponents.FISH_PROPERTIES))
+        if (ModDataComponents.has(stack, ModDataComponents.FISH_PROPERTIES))
         {
-            FishProperties fp = stack.get(ModDataComponents.FISH_PROPERTIES);
+            FishProperties fp = ModDataComponents.get(stack, ModDataComponents.FISH_PROPERTIES);
 
             String s = fp.rarity().getPre() + comp.get(0).getString(100) + fp.rarity().getPost();
 
@@ -129,9 +142,9 @@ public class ModClientEvents
         }
 
         //trophy stuff
-        if (stack.has(ModDataComponents.TROPHY))
+        if (ModDataComponents.has(stack, ModDataComponents.TROPHY))
         {
-            TrophyProperties tp = stack.get(ModDataComponents.TROPHY);
+            TrophyProperties tp = ModDataComponents.get(stack, ModDataComponents.TROPHY);
 
             if (tp.trophyType() == TrophyProperties.TrophyType.TROPHY)
                 if (event.getFlags().hasShiftDown())
@@ -224,7 +237,15 @@ public class ModClientEvents
     @SubscribeEvent
     public static void registerLayers(EntityRenderersEvent.RegisterLayerDefinitions event)
     {
-        event.registerLayerDefinition(FishingBobModel.LAYER_LOCATION, FishingBobModel::createBodyLayer);
+        //tackle skins
+        event.registerLayerDefinition(new BaseTackleSkin().getLayerLocation(), BaseTackleSkin::createBodyLayer);
+        event.registerLayerDefinition(new PearlTackleSkin().getLayerLocation(), PearlTackleSkin::createBodyLayer);
+        event.registerLayerDefinition(new KimbeTackleSkin().getLayerLocation(), KimbeTackleSkin::createBodyLayer);
+        event.registerLayerDefinition(new FrogTackleSkin().getLayerLocation(), FrogTackleSkin::createBodyLayer);
+        event.registerLayerDefinition(new ColorfulTackleSkin().getLayerLocation(), ColorfulTackleSkin::createBodyLayer);
+        event.registerLayerDefinition(new ClearTackleSkin().getLayerLocation(), ClearTackleSkin::createBodyLayer);
+
+        //fishes
         event.registerLayerDefinition(AgaveBream.LAYER_LOCATION, AgaveBream::createBodyLayer);
         event.registerLayerDefinition(BigeyeTuna.LAYER_LOCATION, BigeyeTuna::createBodyLayer);
         event.registerLayerDefinition(Boreal.LAYER_LOCATION, Boreal::createBodyLayer);
@@ -257,6 +278,7 @@ public class ModClientEvents
     public static void onRegisterKeyMappings(RegisterKeyMappingsEvent event)
     {
         event.register(ModKeymappings.MINIGAME_HIT);
+        event.register(ModKeymappings.EXPAND_TOURNAMENT);
     }
 
     @SubscribeEvent

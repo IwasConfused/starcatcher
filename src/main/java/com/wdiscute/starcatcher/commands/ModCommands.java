@@ -7,11 +7,12 @@ import com.mojang.brigadier.exceptions.DynamicCommandExceptionType;
 import com.wdiscute.starcatcher.Starcatcher;
 import com.wdiscute.starcatcher.StarcatcherTags;
 import com.wdiscute.starcatcher.io.FishCaughtCounter;
-import com.wdiscute.starcatcher.io.ModDataAttachments;
 import com.wdiscute.starcatcher.io.ModDataComponents;
+import com.wdiscute.starcatcher.io.attachments.FishingGuideAttachment;
 import com.wdiscute.starcatcher.io.network.FishingStartedPayload;
 import com.wdiscute.starcatcher.registry.custom.catchmodifiers.AbstractCatchModifier;
 import com.wdiscute.starcatcher.registry.custom.minigamemodifiers.AbstractMinigameModifier;
+import com.wdiscute.starcatcher.registry.custom.tackleskin.AbstractTackleSkin;
 import com.wdiscute.starcatcher.storage.FishProperties;
 import net.minecraft.commands.CommandBuildContext;
 import net.minecraft.commands.CommandSourceStack;
@@ -21,6 +22,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.network.PacketDistributor;
 
 import java.util.ArrayList;
@@ -84,6 +86,17 @@ public class ModCommands
                                         addCatchModifier(
                                                 c.getSource().getPlayerOrException(),
                                                 ResourceArgument.getResource(c, "modifier", Starcatcher.CATCH_MODIFIERS).unwrap().left().get()
+                                        )
+                                ))
+                )
+
+                //starcatcher add_tackle_skin starcatcher:ignore_daytime_and_weather_restrictions
+                .then(Commands.literal("add_tackle_skin")
+                        .then(Commands.argument("modifier", ResourceArgument.resource(context, Starcatcher.TACKLE_SKIN))
+                                .executes(c ->
+                                        addTackleSkin(
+                                                c.getSource().getPlayerOrException(),
+                                                ResourceArgument.getResource(c, "modifier", Starcatcher.TACKLE_SKIN).unwrap().left().get()
                                         )
                                 ))
                 )
@@ -174,14 +187,15 @@ public class ModCommands
 
     private static int revokeAllFish(ServerPlayer player)
     {
-        ModDataAttachments.remove(player, ModDataAttachments.FISHES_CAUGHT);
+        FishingGuideAttachment.getFishesCaught(player).clear();
+        FishingGuideAttachment.sync(player);
         return 0;
     }
 
     private static int revokeFish(ServerPlayer player, ResourceKey<FishProperties> fish)
     {
-        List<FishCaughtCounter> fishCaughtCounter = ModDataAttachments.get(player, ModDataAttachments.FISHES_CAUGHT);
-        ModDataAttachments.set(player, ModDataAttachments.FISHES_CAUGHT, fishCaughtCounter.stream().filter(fcc -> !fcc.fp().equals(fish.location())).toList());
+        FishingGuideAttachment.getFishesCaught(player).remove(fish.location());
+        FishingGuideAttachment.sync(player);
         return 0;
     }
 
@@ -213,39 +227,42 @@ public class ModCommands
 
     private static int removeMinigameModifier(ServerPlayer player) throws CommandSyntaxException
     {
-        if (player.getMainHandItem().isEmpty()) throw ERROR_EMPTY.create(null);
+        ItemStack stack = player.getMainHandItem();
+        if (stack.isEmpty()) throw ERROR_EMPTY.create(null);
 
-        if (player.getMainHandItem().has(ModDataComponents.MINIGAME_MODIFIERS))
+        if (ModDataComponents.has(stack, ModDataComponents.MINIGAME_MODIFIERS))
         {
-            player.getMainHandItem().remove(ModDataComponents.MINIGAME_MODIFIERS);
+            ModDataComponents.remove(stack, ModDataComponents.MINIGAME_MODIFIERS);
         }
         return 1;
     }
 
     private static int removeCatchModifier(ServerPlayer player) throws CommandSyntaxException
     {
-        if (player.getMainHandItem().isEmpty()) throw ERROR_EMPTY.create(null);
+        ItemStack stack = player.getMainHandItem();
+        if (stack.isEmpty()) throw ERROR_EMPTY.create(null);
 
-        if (player.getMainHandItem().has(ModDataComponents.CATCH_MODIFIERS))
+        if (ModDataComponents.has(stack, ModDataComponents.CATCH_MODIFIERS))
         {
-            player.getMainHandItem().remove(ModDataComponents.CATCH_MODIFIERS);
+            ModDataComponents.remove(stack, ModDataComponents.CATCH_MODIFIERS);
         }
         return 1;
     }
 
     private static int addMinigameModifier(ServerPlayer player, ResourceKey<Supplier<AbstractMinigameModifier>> modifier) throws CommandSyntaxException
     {
-        if (player.getMainHandItem().isEmpty()) throw ERROR_EMPTY.create(null);
+        ItemStack stack = player.getMainHandItem();
+        if (stack.isEmpty()) throw ERROR_EMPTY.create(null);
 
-        if (player.getMainHandItem().has(ModDataComponents.MINIGAME_MODIFIERS))
+        if (ModDataComponents.has(stack, ModDataComponents.MINIGAME_MODIFIERS))
         {
-            List<ResourceLocation> mods = new ArrayList<>(player.getMainHandItem().get(ModDataComponents.MINIGAME_MODIFIERS));
+            List<ResourceLocation> mods = new ArrayList<>(ModDataComponents.get(stack, ModDataComponents.MINIGAME_MODIFIERS));
             mods.add(modifier.location());
-            player.getMainHandItem().set(ModDataComponents.MINIGAME_MODIFIERS, mods);
+            ModDataComponents.set(stack, ModDataComponents.MINIGAME_MODIFIERS, mods);
         }
         else
         {
-            player.getMainHandItem().set(ModDataComponents.MINIGAME_MODIFIERS, List.of(modifier.location()));
+            ModDataComponents.set(stack, ModDataComponents.MINIGAME_MODIFIERS, List.of(modifier.location()));
         }
 
         return 1;
@@ -253,18 +270,29 @@ public class ModCommands
 
     private static int addCatchModifier(ServerPlayer player, ResourceKey<Supplier<AbstractCatchModifier>> modifier) throws CommandSyntaxException
     {
-        if (player.getMainHandItem().isEmpty()) throw ERROR_EMPTY.create(null);
+        ItemStack stack = player.getMainHandItem();
+        if (stack.isEmpty()) throw ERROR_EMPTY.create(null);
 
-        if (player.getMainHandItem().has(ModDataComponents.CATCH_MODIFIERS))
+        if (ModDataComponents.has(stack, ModDataComponents.CATCH_MODIFIERS))
         {
-            List<ResourceLocation> mods = new ArrayList<>(player.getMainHandItem().get(ModDataComponents.CATCH_MODIFIERS));
+            List<ResourceLocation> mods = new ArrayList<>(ModDataComponents.get(stack, ModDataComponents.CATCH_MODIFIERS));
             mods.add(modifier.location());
-            player.getMainHandItem().set(ModDataComponents.CATCH_MODIFIERS, mods);
+            ModDataComponents.set(stack, ModDataComponents.CATCH_MODIFIERS, mods);
         }
         else
         {
-            player.getMainHandItem().set(ModDataComponents.CATCH_MODIFIERS, List.of(modifier.location()));
+            ModDataComponents.set(stack, ModDataComponents.CATCH_MODIFIERS, List.of(modifier.location()));
         }
+
+        return 1;
+    }
+
+    private static int addTackleSkin(ServerPlayer player, ResourceKey<Supplier<AbstractTackleSkin>> tackleSkin) throws CommandSyntaxException
+    {
+        ItemStack stack = player.getMainHandItem();
+        if (!stack.is(StarcatcherTags.RODS)) throw ERROR_ROD.create(null);
+
+        ModDataComponents.set(stack, ModDataComponents.TACKLE_SKIN, tackleSkin.location());
 
         return 1;
     }

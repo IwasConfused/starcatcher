@@ -1,6 +1,5 @@
 package com.wdiscute.starcatcher.tournament;
 
-import com.wdiscute.starcatcher.io.network.tournament.stand.CBStandTournamentUpdatePayload;
 import com.wdiscute.starcatcher.registry.ModMenuTypes;
 import com.wdiscute.starcatcher.registry.blocks.ModBlocks;
 import com.wdiscute.starcatcher.registry.blocks.StandBlockEntity;
@@ -15,9 +14,9 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.items.SlotItemHandler;
-import net.neoforged.neoforge.network.PacketDistributor;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.function.Predicate;
 
 public class StandMenu extends AbstractContainerMenu
@@ -30,38 +29,6 @@ public class StandMenu extends AbstractContainerMenu
         super(ModMenuTypes.STAND_MENU.get(), containerId);
         sbe = ((StandBlockEntity) blockEntity);
         level = inv.player.level();
-
-        //player inventory
-//        for (int i = 0; i < 3; ++i)
-//        {
-//            for (int l = 0; l < 9; ++l)
-//            {
-//                this.addSlot(new Slot(inv, l + i * 9 + 9, 210 + l * 16, 131 + i * 16));
-//            }
-//        }
-
-        //player hotbar
-        for (int i = 0; i < 9; ++i)
-        {
-            this.addSlot(new Slot(inv, i, 210 + i * 16, 185));
-        }
-
-        if (!level.isClientSide)
-        {
-            Tournament tournament = TournamentHandler.getTournamentOrNew(sbe.uuid);
-            for (int i = 0; i < tournament.settings.entryCost.size(); i++)
-            {
-                sbe.entryCost.setStackInSlot(i, tournament.settings.entryCost.get(i).stack().copy());
-            }
-        }
-
-//        if(!level.isClientSide)
-//        {
-//            for (int i = 0; i < sbe.tournament.settings.entryCost.size(); i++)
-//            {
-//                sbe.entryCost.insertItem(i, sbe.tournament.settings.entryCost.get(i).stack().copy(), false);
-//            }
-//        }
 
         for (int i = 0; i < 9; i++)
         {
@@ -100,57 +67,113 @@ public class StandMenu extends AbstractContainerMenu
     @Override
     public boolean clickMenuButton(Player player, int id)
     {
-        if(player.level().isClientSide) return false;
+        if (level.isClientSide) return false;
+
         //six seven
         //¯\_(ツ)¯\_
         //
         //_/¯(ツ)_/¯
-        if (id == 67)
+
+
+        if (sbe.tournament.status == Tournament.Status.SETUP)
         {
-            //if player has the items to signup and is not already signed up
-            if (sbe.tournament.settings.canSignUp(player) && !sbe.tournament.playerScores.containsKey(player.getUUID()))
+            //duration -
+            if (id == 101)
             {
-                //sign up player with empty score
-                sbe.tournament.playerScores.put(player.getUUID(), TournamentPlayerScore.empty());
-                PacketDistributor.sendToAllPlayers(CBStandTournamentUpdatePayload.helper(player, sbe.tournament));
-
-                List<SingleStackContainer> entryCost = sbe.tournament.settings.entryCost;
-
-                if (!entryCost.isEmpty())
+                if (sbe.tournament.settings.durationInTicks > 1200)
                 {
-                    for (SingleStackContainer ssc : entryCost)
+                    sbe.tournament.settings.durationInTicks -= 1200;
+                }
+            }
+
+            //duration --
+            if (id == 102)
+            {
+                if (sbe.tournament.settings.durationInTicks > 12000)
+                {
+                    sbe.tournament.settings.durationInTicks -= 12000;
+                }
+            }
+
+            //duration +
+            if (id == 103)
+            {
+                sbe.tournament.settings.durationInTicks += 1200;
+            }
+
+            //duration ++
+            if (id == 104)
+            {
+                sbe.tournament.settings.durationInTicks += 12000;
+            }
+
+            //start
+            if (id == 68)
+            {
+                if (player.getUUID().equals(sbe.tournament.owner) && sbe.tournament.status.equals(Tournament.Status.SETUP))
+                {
+                    TournamentHandler.startTournament(player, sbe.tournament);
+                }
+            }
+
+            //signup
+            if (id == 67)
+            {
+                //if player has the items to signup and is not already signed up
+                if (sbe.tournament.settings.canSignUp(player) && !sbe.tournament.playerScores.stream().anyMatch(t -> t.playerUUID.equals(player.getUUID())))
+                {
+                    //sign up player with empty score
+                    sbe.tournament.playerScores.add(TournamentPlayerScore.empty(player.getUUID()));
+
+                    List<SingleStackContainer> entryCost = sbe.tournament.settings.entryCost;
+
+                    if (!entryCost.isEmpty())
                     {
-                        Predicate<ItemStack> predicate = (is) -> is.is(ssc.stack().getItem()) && is.getCount() >= ssc.stack().getCount();
-
-                        for (int i = 0; i < player.getInventory().getContainerSize(); ++i)
+                        for (SingleStackContainer ssc : entryCost)
                         {
-                            ItemStack is = player.getInventory().getItem(i);
-                            if (predicate.test(is))
-                            {
-                                is.shrink(ssc.stack().getCount());
-                                break;
-                            }
-                        }
+                            Predicate<ItemStack> predicate = (is) -> is.is(ssc.stack().getItem()) && is.getCount() >= ssc.stack().getCount();
 
+                            for (int i = 0; i < player.getInventory().getContainerSize(); ++i)
+                            {
+                                ItemStack is = player.getInventory().getItem(i);
+                                if (predicate.test(is))
+                                {
+                                    is.shrink(ssc.stack().getCount());
+                                    break;
+                                }
+                            }
+
+                        }
                     }
                 }
-
-
             }
+        }
+
+        //cancel
+        if (id == 69)
+        {
+            if (player.getUUID().equals(sbe.tournament.owner) && sbe.tournament.status.equals(Tournament.Status.ACTIVE))
+            {
+                TournamentHandler.cancelTournament(level, sbe.tournament);
+            }
+        }
+
+        //wipe a finished/canceled tournament
+        if (id == 53 && sbe.tournament.status.isDone())
+        {
+            Tournament tournamentOld = sbe.tournament;
+            sbe.setUuid(UUID.randomUUID());
+            sbe.tournament = null;
+            sbe.tournament = sbe.makeOrGetTournament().setOwner(tournamentOld.owner);
         }
 
 
 
+        sbe.sync();
         return super.clickMenuButton(player, id);
     }
 
-    // CREDIT GOES TO: diesieben07 | https://github.com/diesieben07/SevenCommons
-    // must assign a slot number to each of the slots used by the GUI.
-    // For this container, we can see both the tile inventory's slots as well as the uuid inventory slots and the hotbar.
-    // Each time we add a Slot to the container, it automatically increases the slotIndex, which means
-    //  0 - 8 = hotbar slots (which will map to the InventoryPlayer slot numbers 0 - 8)
-    //  9 - 35 = uuid inventory slots (which map to the InventoryPlayer slot numbers 9 - 35)
-    //  36 - 44 = TileInventory slots, which map to our TileEntity slot numbers 0 - 8)
+
     private static final int HOTBAR_SLOT_COUNT = 9;
     private static final int PLAYER_INVENTORY_ROW_COUNT = 3;
     private static final int PLAYER_INVENTORY_COLUMN_COUNT = 9;
@@ -180,16 +203,14 @@ public class StandMenu extends AbstractContainerMenu
             {
                 return ItemStack.EMPTY;  // EMPTY_ITEM
             }
-        }
-        else if (pIndex < TE_INVENTORY_FIRST_SLOT_INDEX + TE_INVENTORY_SLOT_COUNT)
+        } else if (pIndex < TE_INVENTORY_FIRST_SLOT_INDEX + TE_INVENTORY_SLOT_COUNT)
         {
             // This is a TE slot so merge the stack into the playerScores inventory
             if (!moveItemStackTo(sourceStack, VANILLA_FIRST_SLOT_INDEX, VANILLA_FIRST_SLOT_INDEX + VANILLA_SLOT_COUNT, false))
             {
                 return ItemStack.EMPTY;
             }
-        }
-        else
+        } else
         {
             return ItemStack.EMPTY;
         }
@@ -197,8 +218,7 @@ public class StandMenu extends AbstractContainerMenu
         if (sourceStack.getCount() == 0)
         {
             sourceSlot.set(ItemStack.EMPTY);
-        }
-        else
+        } else
         {
             sourceSlot.setChanged();
         }

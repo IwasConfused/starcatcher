@@ -4,16 +4,15 @@ import com.wdiscute.starcatcher.Config;
 import com.wdiscute.starcatcher.Starcatcher;
 import com.wdiscute.starcatcher.StarcatcherTags;
 import com.wdiscute.starcatcher.U;
-import com.wdiscute.starcatcher.io.FishCaughtCounter;
-import com.wdiscute.starcatcher.io.ModDataAttachments;
-import com.wdiscute.starcatcher.io.ModDataComponents;
-import com.wdiscute.starcatcher.io.SingleStackContainer;
+import com.wdiscute.starcatcher.io.*;
+import com.wdiscute.starcatcher.io.attachments.FishingGuideAttachment;
 import com.wdiscute.starcatcher.io.network.FishingStartedPayload;
 import com.wdiscute.starcatcher.registry.custom.catchmodifiers.AbstractCatchModifier;
 import com.wdiscute.starcatcher.registry.custom.catchmodifiers.ModCatchModifiers;
 import com.wdiscute.starcatcher.registry.ModEntities;
 import com.wdiscute.starcatcher.registry.ModItems;
 import com.wdiscute.starcatcher.registry.ModParticles;
+import com.wdiscute.starcatcher.registry.custom.tackleskin.ModTackleSkins;
 import com.wdiscute.starcatcher.storage.FishProperties;
 import com.wdiscute.starcatcher.storage.TrophyProperties;
 import net.minecraft.core.BlockPos;
@@ -46,6 +45,7 @@ import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class FishingBobEntity extends Projectile
 {
@@ -95,8 +95,7 @@ public class FishingBobEntity extends Projectile
         this.rod = rod;
         this.modifiers = ModCatchModifiers.getAllCatchModifiers(level, rod);
 
-        if (rod.has(ModDataComponents.NETHERITE_UPGRADE))
-            netherite_upgraded = rod.get(ModDataComponents.NETHERITE_UPGRADE);
+        netherite_upgraded = ModDataComponents.getOrDefault(rod, ModDataComponents.NETHERITE_UPGRADE, false);
 
         minTicksToFish = 100;
         maxTicksToFish = 300;
@@ -132,24 +131,25 @@ public class FishingBobEntity extends Projectile
         this.yRotO = this.getYRot();
         this.xRotO = this.getXRot();
 
-        if (!level.isClientSide) ModDataAttachments.set(player, ModDataAttachments.FISHING.get(), this.uuid.toString());
+        if (!level.isClientSide)
+            ModDataAttachments.get(player, ModDataAttachments.FISHING_BOB).setUuid(player, this.uuid);
 
         currentState = FishHookState.FLYING;
     }
 
     public void reel()
     {
-        modifiers.forEach(acm -> acm.onReelStart());
+        modifiers.forEach(AbstractCatchModifier::onReelStart);
 
         //server only
         List<FishProperties> available = new ArrayList<>(List.of());
 
-        List<ResourceLocation> data = ModDataAttachments.get(player, ModDataAttachments.TROPHIES_CAUGHT);
+        Map<ResourceLocation, Integer> data = FishingGuideAttachment.getTrophiesCaught(player);
 
-        List<TrophyProperties> trophiesCaught = new ArrayList<>(U.getTpsFromRls(level(), data));
+        List<TrophyProperties> trophiesCaught = new ArrayList<>(U.getTpsFromRls(level(), data.keySet().stream().toList()));
 
         //-1 on the common to account for the default "fish" unfortunately, there's probably a way to fix this
-        TrophyProperties.RarityProgress all = new TrophyProperties.RarityProgress(0, ModDataAttachments.get(player, ModDataAttachments.FISHES_CAUGHT).size() - 1); //-1 to remove the default
+        AtomicReference<TrophyProperties.RarityProgress> all = new AtomicReference<>(TrophyProperties.RarityProgress.fromAttachment(player));
         Map<FishProperties.Rarity, TrophyProperties.RarityProgress> progressMap = new EnumMap<>(Map.of(
                 FishProperties.Rarity.COMMON, new TrophyProperties.RarityProgress(0, -1),
                 FishProperties.Rarity.UNCOMMON, TrophyProperties.RarityProgress.DEFAULT,
@@ -158,12 +158,11 @@ public class FishingBobEntity extends Projectile
                 FishProperties.Rarity.LEGENDARY, TrophyProperties.RarityProgress.DEFAULT
         ));
 
-        for (FishCaughtCounter fcc : ModDataAttachments.get(player, ModDataAttachments.FISHES_CAUGHT))
-        {
-            all = new TrophyProperties.RarityProgress(all.total() + fcc.count(), all.unique());
+        FishingGuideAttachment.getFishesCaught(player).forEach((loc, counter) -> {
+            all.set(new TrophyProperties.RarityProgress(all.get().total() + counter.count(), all.get().unique()));
 
-            progressMap.compute(U.getFpFromRl(level(), fcc.fp()).rarity(), (r, p) -> new TrophyProperties.RarityProgress(p.total() + fcc.count(), p.unique() + 1));
-        }
+            progressMap.computeIfPresent(U.getFpFromRl(level(), loc).rarity(), (r, p) -> new TrophyProperties.RarityProgress(p.total() + counter.count(), p.unique() + 1));
+        });
 
         //check if any trophy can be caught
         e:
@@ -175,7 +174,7 @@ public class FishingBobEntity extends Projectile
                 if (!check(progressMap.get(value), tp.getProgress(value))) continue e;
             }
 
-            if (check(all, tp.all())
+            if (check(all.get(), tp.all())
                     && !trophiesCaught.contains(tp)
                     && FishProperties.getChance(tp.fp(), this, rod) > 0
                     && random.nextIntBetweenInclusive(0, 99) < tp.chanceToCatch()
@@ -184,7 +183,7 @@ public class FishingBobEntity extends Projectile
 
                 ItemStack is = new ItemStack(tp.fish().value());
 
-                is.set(ModDataComponents.TROPHY, tp);
+                ModDataComponents.set(is, ModDataComponents.TROPHY, tp);
 
                 Entity itemFished = new ItemEntity(
                         level(), position().x, position().y + 1.2f, position().z, is);
@@ -199,7 +198,8 @@ public class FishingBobEntity extends Projectile
 
                 trophiesCaught.add(tp);
 
-                ModDataAttachments.set(player, ModDataAttachments.TROPHIES_CAUGHT, U.getRlsFromTps(level(), trophiesCaught));
+                U.getRlsFromTps(level(), trophiesCaught).forEach(loc -> data.putIfAbsent(loc, 0));
+
                 kill();
                 return;
             }
@@ -258,20 +258,20 @@ public class FishingBobEntity extends Projectile
         }
 
         //consume bait
-        ItemStack bait = rod.get(ModDataComponents.BAIT).stack().copy();
+        ItemStack bait = ModDataComponents.get(rod, ModDataComponents.BAIT).stack().copy();
         if (fpToFish.br().consumesBait())
         {
             if (!bait.is(Items.BUCKET))
             {
                 bait.shrink(1);
-                rod.set(ModDataComponents.BAIT, new SingleStackContainer(bait));
+                ModDataComponents.set(rod, ModDataComponents.BAIT, new SingleStackContainer(bait));
                 return;
             }
 
             if (bait.is(Items.BUCKET) && !fpToFish.catchInfo().bucketedFish().is(ModItems.MISSINGNO.getKey()))
             {
                 bait.shrink(1);
-                rod.set(ModDataComponents.BAIT, new SingleStackContainer(bait));
+                ModDataComponents.set(rod, ModDataComponents.BAIT, new SingleStackContainer(bait));
             }
 
         }
@@ -317,7 +317,7 @@ public class FishingBobEntity extends Projectile
     @Override
     public void kill()
     {
-        ModDataAttachments.set(player, ModDataAttachments.FISHING, "");
+        ModDataAttachments.remove(player, ModDataAttachments.FISHING_BOB);
         super.kill();
     }
 
@@ -345,7 +345,7 @@ public class FishingBobEntity extends Projectile
         if (player == null || this.shouldStopFishing(player))
         {
             this.discard();
-            if (player != null) ModDataAttachments.set(player, ModDataAttachments.FISHING.get(), "");
+            if (player != null) ModDataAttachments.remove(player, ModDataAttachments.FISHING_BOB);
         }
 
         BlockPos blockpos = this.blockPosition();
@@ -388,7 +388,8 @@ public class FishingBobEntity extends Projectile
 
             if (timeBiting > 80)
             {
-                ModDataAttachments.set(player, ModDataAttachments.FISHING, "");
+                ModDataAttachments.remove(player, ModDataAttachments.FISHING_BOB);
+                ModTackleSkins.get(level(), rod).onMissed(player);
                 kill();
             }
         }

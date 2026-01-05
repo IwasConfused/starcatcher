@@ -15,7 +15,7 @@ import java.util.List;
 public class TournamentSettings
 {
     public Scoring scoring;
-    public long duration;
+    public long durationInTicks;
     public float perfectCatchMultiplier;
     public int missPenalty;
     public List<SingleStackContainer> entryCost;
@@ -61,9 +61,9 @@ public class TournamentSettings
         return entryCost;
     }
 
-    public long getDuration()
+    public long getDurationInTicks()
     {
-        return duration;
+        return durationInTicks;
     }
 
     public enum Scoring implements StringRepresentable
@@ -111,7 +111,7 @@ public class TournamentSettings
     public TournamentSettings(Scoring type, long duration, float perfectCatchMultiplier, int missPenalty, List<SingleStackContainer> entryCost)
     {
         this.scoring = type;
-        this.duration = duration;
+        this.durationInTicks = duration;
         this.perfectCatchMultiplier = perfectCatchMultiplier;
         this.missPenalty = missPenalty;
         this.entryCost = entryCost;
@@ -120,16 +120,16 @@ public class TournamentSettings
     public static final Codec<TournamentSettings> CODEC = RecordCodecBuilder.create(instance ->
             instance.group(
                     Scoring.CODEC.optionalFieldOf("type", Scoring.SIMPLE).forGetter(TournamentSettings::getScoring),
-                    Codec.LONG.optionalFieldOf("duration", 0L).forGetter(TournamentSettings::getDuration),
+                    Codec.LONG.optionalFieldOf("duration", 0L).forGetter(TournamentSettings::getDurationInTicks),
                     Codec.FLOAT.optionalFieldOf("perfect_catch_multiplier", 0.0f).forGetter(TournamentSettings::getPerfectCatchMultiplier),
                     Codec.INT.optionalFieldOf("miss_penalty", 0).forGetter(TournamentSettings::getMissPenalty),
-                    SingleStackContainer.LIST_CODEC.optionalFieldOf("", List.of()).forGetter(TournamentSettings::getEntryCost)
+                    SingleStackContainer.LIST_CODEC.optionalFieldOf("entry_cost", List.of()).forGetter(TournamentSettings::getEntryCost)
             ).apply(instance, TournamentSettings::new)
     );
 
     public static final StreamCodec<RegistryFriendlyByteBuf, TournamentSettings> STREAM_CODEC = StreamCodec.composite(
             Scoring.STREAM_CODEC, TournamentSettings::getScoring,
-            ByteBufCodecs.VAR_LONG, TournamentSettings::getDuration,
+            ByteBufCodecs.VAR_LONG, TournamentSettings::getDurationInTicks,
             ByteBufCodecs.FLOAT, TournamentSettings::getPerfectCatchMultiplier,
             ByteBufCodecs.VAR_INT, TournamentSettings::getMissPenalty,
             SingleStackContainer.STREAM_CODEC_LIST, TournamentSettings::getEntryCost,

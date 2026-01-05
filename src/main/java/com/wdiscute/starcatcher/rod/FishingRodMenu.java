@@ -65,9 +65,9 @@ public class FishingRodMenu extends AbstractContainerMenu
             this.addSlot(new Slot(inv, i, 8 + i * 18, 142));
         }
 
-        inventory.setStackInSlot(0, is.get(ModDataComponents.BOBBER.get()).stack().copy());
-        inventory.setStackInSlot(1, is.get(ModDataComponents.BAIT.get()).stack().copy());
-        inventory.setStackInSlot(2, is.get(ModDataComponents.HOOK.get()).stack().copy());
+        inventory.setStackInSlot(0, ModDataComponents.get(is, ModDataComponents.BOBBER).stack().copy());
+        inventory.setStackInSlot(1, ModDataComponents.get(is, ModDataComponents.BAIT).stack().copy());
+        inventory.setStackInSlot(2, ModDataComponents.get(is, ModDataComponents.HOOK).stack().copy());
 
         //bobbers first slot
         this.addSlot(new SlotItemHandler(inventory, 0, 50, 35)
@@ -149,9 +149,9 @@ public class FishingRodMenu extends AbstractContainerMenu
 
         if (!player.level().isClientSide)
         {
-            is.set(ModDataComponents.BOBBER.get(), new SingleStackContainer(inventory.getStackInSlot(0)));
-            is.set(ModDataComponents.BAIT.get(), new SingleStackContainer(inventory.getStackInSlot(1)));
-            is.set(ModDataComponents.HOOK.get(), new SingleStackContainer(inventory.getStackInSlot(2)));
+            ModDataComponents.set(is, ModDataComponents.BOBBER, new SingleStackContainer(inventory.getStackInSlot(0)));
+            ModDataComponents.set(is, ModDataComponents.BAIT, new SingleStackContainer(inventory.getStackInSlot(1)));
+            ModDataComponents.set(is, ModDataComponents.HOOK, new SingleStackContainer(inventory.getStackInSlot(2)));
         }
 
     }
@@ -221,7 +221,7 @@ public class FishingRodMenu extends AbstractContainerMenu
     @Override
     public boolean stillValid(Player player)
     {
-        return (player.getMainHandItem().is(StarcatcherTags.RODS) && ModDataAttachments.get(player, ModDataAttachments.FISHING).isEmpty()) ||
-                (player.getOffhandItem().is(StarcatcherTags.RODS) && ModDataAttachments.get(player, ModDataAttachments.FISHING).isEmpty());
+        return (player.getMainHandItem().is(StarcatcherTags.RODS) && ModDataAttachments.get(player, ModDataAttachments.FISHING_BOB).isEmpty()) ||
+                (player.getOffhandItem().is(StarcatcherTags.RODS) && ModDataAttachments.get(player, ModDataAttachments.FISHING_BOB).isEmpty());
     }
 }

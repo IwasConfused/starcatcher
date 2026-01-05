@@ -2,24 +2,29 @@ package com.wdiscute.starcatcher.io.network;
 
 import com.wdiscute.starcatcher.Starcatcher;
 import com.wdiscute.starcatcher.U;
+import com.wdiscute.starcatcher.io.FishCaughtCounter;
+import com.wdiscute.starcatcher.io.attachments.FishingGuideAttachment;
 import com.wdiscute.starcatcher.storage.FishProperties;
 import com.wdiscute.starcatcher.io.ModDataAttachments;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.resources.ResourceLocation;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-public record FPsSeenPayload(List<FishProperties> fps) implements CustomPacketPayload {
+public record FPsSeenPayload(List<ResourceLocation> locs) implements CustomPacketPayload {
 
     public static final Type<FPsSeenPayload> TYPE = new Type<>(Starcatcher.rl("fps_seen"));
 
     public static final StreamCodec<ByteBuf, FPsSeenPayload> STREAM_CODEC = StreamCodec.composite(
-            ByteBufCodecs.fromCodec(FishProperties.LIST_CODEC),
-            FPsSeenPayload::fps,
+            ResourceLocation.STREAM_CODEC.apply(ByteBufCodecs.list()),
+            FPsSeenPayload::locs,
             FPsSeenPayload::new
     );
 
@@ -29,14 +34,17 @@ public record FPsSeenPayload(List<FishProperties> fps) implements CustomPacketPa
     }
 
     public void handle(IPayloadContext context) {
-        List<FishProperties> list = U.getFpsFromRls(context.player().level(), ModDataAttachments.get(context.player(), ModDataAttachments.FISHES_NOTIFICATION));
-        List<FishProperties> newList = new ArrayList<>();
+        context.enqueueWork(() -> {
+            Map<ResourceLocation, FishCaughtCounter> map = new HashMap<>(FishingGuideAttachment.getFishesCaught(context.player()));
 
-        for (FishProperties fp : list) {
-            if (!fps().contains(fp))
-                newList.add(fp);
-        }
+            locs.forEach(loc -> {
+                FishCaughtCounter fishCaughtCounter = map.get(loc);
 
-        ModDataAttachments.set(context.player(), ModDataAttachments.FISHES_NOTIFICATION, U.getRlsFromFps(context.player().level(), newList));
+                if (fishCaughtCounter != null)
+                    map.replace(loc,  fishCaughtCounter.removeNotification());
+            });
+
+            FishingGuideAttachment.setFishesCaught(context.player(), map);
+        });
     }
 }

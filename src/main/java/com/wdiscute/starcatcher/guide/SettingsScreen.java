@@ -2,9 +2,9 @@ package com.wdiscute.starcatcher.guide;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.wdiscute.starcatcher.Config;
+import com.wdiscute.starcatcher.U;
 import com.wdiscute.starcatcher.registry.ModItems;
 import com.wdiscute.starcatcher.Starcatcher;
-import com.wdiscute.starcatcher.minigame.FishingMinigameScreen;
 import com.wdiscute.starcatcher.minigame.HitFakeParticle;
 import com.wdiscute.starcatcher.storage.FishProperties;
 import com.wdiscute.starcatcher.io.ModDataComponents;
@@ -17,7 +17,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.fml.ModList;
-import org.joml.Random;
 import org.joml.Vector2d;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,7 +27,6 @@ import java.util.Optional;
 
 public class SettingsScreen extends Screen
 {
-    private static final Random r = new Random();
     private static final ResourceLocation TEXTURE = Starcatcher.rl("textures/gui/minigame/minigame.png");
     private static final ResourceLocation TANK = Starcatcher.rl("textures/gui/minigame/surface.png");
     private static final ResourceLocation SETTINGS = Starcatcher.rl("textures/gui/minigame/settings.png");
@@ -43,7 +41,6 @@ public class SettingsScreen extends Screen
     final FishProperties fp;
     final ItemStack itemBeingFished;
     final ItemStack bobber;
-    final ItemStack bobberSkin;
     final ItemStack bait;
     final ItemStack hook;
 
@@ -106,18 +103,13 @@ public class SettingsScreen extends Screen
     {
         super(Component.empty());
 
-        previousGuiScale = Minecraft.getInstance().options.guiScale().get();
-        if(!ModList.get().isLoaded("distanthorizons"))
-            Minecraft.getInstance().options.guiScale().set(Config.MINIGAME_GUI_SCALE.get());
-
         hitDelay = Config.HIT_DELAY.get().floatValue();
 
         this.fp = fp;
         this.itemBeingFished = new ItemStack(fp.catchInfo().fish());
-        this.bobber = rod.get(ModDataComponents.BOBBER).stack().copy();
-        this.bobberSkin = rod.get(ModDataComponents.BOBBER_SKIN).stack().copy();
-        this.bait = rod.get(ModDataComponents.BAIT).stack().copy();
-        this.hook = rod.get(ModDataComponents.HOOK).stack().copy();
+        this.bobber = ModDataComponents.get(rod, ModDataComponents.BOBBER).stack().copy();
+        this.bait = ModDataComponents.get(rod, ModDataComponents.BAIT).stack().copy();
+        this.hook = ModDataComponents.get(rod, ModDataComponents.HOOK).stack().copy();
 
         posTreasure = Integer.MIN_VALUE;
 
@@ -130,7 +122,7 @@ public class SettingsScreen extends Screen
     {
         for (int i = 0; i < 100; i++)
         {
-            int posBeingChecked = r.nextInt(360);
+            int posBeingChecked = U.r.nextInt(360);
 
             if ((Math.abs(pos1 - posBeingChecked) < 50 || Math.abs(pos1 - posBeingChecked) > 310) && pos1 != Integer.MIN_VALUE)
                 continue;
@@ -467,9 +459,6 @@ public class SettingsScreen extends Screen
         Config.HIT_DELAY.set((double) hitDelay);
         Config.HIT_DELAY.save();
 
-        Config.MINIGAME_GUI_SCALE.set(Minecraft.getInstance().options.guiScale().get());
-        Config.MINIGAME_GUI_SCALE.save();
-
         if(!ModList.get().isLoaded("distanthorizons"))
             Minecraft.getInstance().options.guiScale().set(previousGuiScale);
 
@@ -488,41 +477,17 @@ public class SettingsScreen extends Screen
 
         for (int i = 0; i < count; i++)
         {
-            if (bobberSkin.is(ModItems.PEARL_BOBBER_SMITHING_TEMPLATE))
-            {
-                hitParticles.add(new HitFakeParticle(
-                        xPos, yPos, new Vector2d(r.nextFloat() * 2 - 1, r.nextFloat() * 2 - 1),
-                        r.nextFloat(),
-                        r.nextFloat(),
-                        r.nextFloat(),
-                        1
-                ));
-                continue;
-            }
-
-            if (bobber.is(ModItems.COLORFUL_BOBBER_SMITHING_TEMPLATE))
-            {
-                hitParticles.add(new HitFakeParticle(
-                        xPos, yPos, new Vector2d(r.nextFloat() * 2 - 1, r.nextFloat() * 2 - 1),
-                        bobber.get(ModDataComponents.BOBBER_COLOR).r(),
-                        bobber.get(ModDataComponents.BOBBER_COLOR).g(),
-                        bobber.get(ModDataComponents.BOBBER_COLOR).b(),
-                        1
-                ));
-                continue;
-            }
-
             if (treasure)
             {
                 //red particles if treasure sweet spot was hit
                 hitParticles.add(new HitFakeParticle(
-                        xPos, yPos, new Vector2d(r.nextFloat() * 2 - 1, r.nextFloat() * 2 - 1),
-                        0.7f + r.nextFloat() / 3, 0.5f, 0.5f, 1
+                        xPos, yPos, new Vector2d(U.r.nextFloat() * 2 - 1, U.r.nextFloat() * 2 - 1),
+                        0.7f + U.r.nextFloat() / 3, 0.5f, 0.5f, 1
                 ));
             }
             else
             {
-                hitParticles.add(new HitFakeParticle(xPos, yPos, new Vector2d(r.nextFloat() * 2 - 1, r.nextFloat() * 2 - 1)));
+                hitParticles.add(new HitFakeParticle(xPos, yPos, new Vector2d(U.r.nextFloat() * 2 - 1, U.r.nextFloat() * 2 - 1)));
             }
 
         }

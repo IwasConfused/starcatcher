@@ -24,20 +24,19 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
-public record CBActiveTournamentUpdatePayload(List<GameProfile> listSignups,
-                                              Tournament tour) implements CustomPacketPayload
+public record CBActiveTournamentUpdatePayload(List<GameProfile> listSignups, Tournament tour) implements CustomPacketPayload
 {
 
     public static CBActiveTournamentUpdatePayload helper(Player player, Tournament tournament)
     {
         if (player.level().isClientSide) throw new RuntimeException();
         List<GameProfile> list = new ArrayList<>();
-        for (var entry : tournament.getPlayerScores().entrySet())
+        for (var entry : tournament.playerScores)
         {
             GameProfileCache profileCache = player.level().getServer().getProfileCache();
             if (profileCache != null)
             {
-                Optional<GameProfile> gameProfile = profileCache.get(entry.getKey());
+                Optional<GameProfile> gameProfile = profileCache.get(entry.playerUUID);
                 gameProfile.ifPresent(list::add);
             }
         }
@@ -53,8 +52,7 @@ public record CBActiveTournamentUpdatePayload(List<GameProfile> listSignups,
 
     public static final StreamCodec<ByteBuf, List<GameProfile>> GAME_PROFILE_STREAM_CODEC_LIST = GAME_PROFILE_STREAM_CODEC.apply(ByteBufCodecs.list());
 
-
-    public static final Type<CBActiveTournamentUpdatePayload> TYPE = new Type<>(Starcatcher.rl("cb_active_tournament_update"));
+    public static final Type<CBActiveTournamentUpdatePayload> TYPE = new Type<>(Starcatcher.rl("cb_clear_tournament"));
 
     public static final StreamCodec<RegistryFriendlyByteBuf, CBActiveTournamentUpdatePayload> STREAM_CODEC = StreamCodec.composite(
             GAME_PROFILE_STREAM_CODEC_LIST, CBActiveTournamentUpdatePayload::listSignups,

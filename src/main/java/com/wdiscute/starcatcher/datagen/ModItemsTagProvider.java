@@ -36,7 +36,10 @@ public class ModItemsTagProvider extends ItemTagsProvider
             tag(ItemTags.FISHES).add(item.get());
             tag(ItemTags.CAT_FOOD).add(item.get());
             tag(Tags.Items.FOODS_RAW_FISH).add(item.get());
+            tag(StarcatcherTags.BUCKETABLE_FISHES).add(item.get());
         }
+
+        //todo figure out what to do with crabs tags?
 
         //baits tag
         for (DeferredHolder<Item, ? extends Item> item : ModItems.BAITS_REGISTRY.getEntries())
@@ -49,6 +52,17 @@ public class ModItemsTagProvider extends ItemTagsProvider
         {
             tag(StarcatcherTags.TEMPLATES).add(item.get());
         }
+
+        //Equipment tag
+        for (DeferredHolder<Item, ? extends Item> item : ModItems.RODS_REGISTRY.getEntries())
+        {
+            if(!item.is(ModItems.ROD)) tag(StarcatcherTags.EQUIPMENTS).add(item.get());
+            //todo add hats and stuff
+        }
+
+
+        //gadgets
+        tag(StarcatcherTags.GADGETS).add(ModItems.FISH_RADAR.get());
 
         //extra baits
         tag(StarcatcherTags.BAITS).add(Items.BUCKET);
@@ -81,7 +95,6 @@ public class ModItemsTagProvider extends ItemTagsProvider
             tag(Tags.Items.TOOLS_FISHING_ROD).add(item.get());
             tag(StarcatcherTags.RODS).add(item.get());
         }
-
     }
 
 

@@ -32,7 +32,7 @@ public record FishingStartedPayload(FishProperties fp, ItemStack rod) implements
 
 
     public void handle(IPayloadContext context) {
-        client(this, context);
+        context.enqueueWork(()-> client(this, context));
     }
 
     @OnlyIn(Dist.CLIENT)

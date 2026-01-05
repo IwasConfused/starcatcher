@@ -8,6 +8,7 @@ import com.wdiscute.starcatcher.io.*;
 import com.wdiscute.starcatcher.registry.custom.catchmodifiers.AbstractCatchModifier;
 import com.wdiscute.starcatcher.registry.ModCriterionTriggers;
 import com.wdiscute.starcatcher.registry.ModItems;
+import com.wdiscute.starcatcher.registry.custom.tackleskin.ModTackleSkins;
 import com.wdiscute.starcatcher.storage.FishProperties;
 import com.wdiscute.starcatcher.storage.TrophyProperties;
 import com.wdiscute.starcatcher.tournament.TournamentHandler;
@@ -36,7 +37,6 @@ import net.neoforged.neoforge.registries.DeferredItem;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.UUID;
 import java.util.function.Supplier;
 
 public class U
@@ -47,9 +47,9 @@ public class U
     {
         ServerLevel level = ((ServerLevel) player.level());
 
-        if (ModDataAttachments.get(player, ModDataAttachments.FISHING).isEmpty()) return;
+        if (ModDataAttachments.get(player, ModDataAttachments.FISHING_BOB).isEmpty()) return;
 
-        Entity levelEntity = level.getEntity(UUID.fromString(ModDataAttachments.get(player, ModDataAttachments.FISHING)));
+        Entity levelEntity = level.getEntity(ModDataAttachments.get(player, ModDataAttachments.FISHING_BOB).getUuid());
         if (levelEntity instanceof FishingBobEntity fbe)
         {
             if (time != -1)
@@ -60,6 +60,9 @@ public class U
 
                 //trigger modifiers
                 fbe.modifiers.forEach(m -> m.onSuccessfulMinigameCompletion(player, time, completedTreasure, perfectCatch, hits));
+
+                //play sound
+                ModTackleSkins.get(level, fbe.rod).onSuccessfulMinigame(player);
 
                 //if should cancel because of modifier, return
                 if(fbe.modifiers.stream().anyMatch(m -> m.shouldCancelAfterSuccessfulMinigameCompletion(
@@ -74,15 +77,6 @@ public class U
 
                 //add score to tournaments
                 TournamentHandler.addScore(player, fp, perfectCatch, size, weight);
-
-                //play sound
-                Vec3 p = player.position();
-                level.playSound(null, p.x, p.y, p.z, SoundEvents.VILLAGER_CELEBRATE, SoundSource.AMBIENT);
-
-                //award fish counter
-                List<FishProperties> list = new ArrayList<>(U.getFpsFromRls(level, ModDataAttachments.get(player, ModDataAttachments.FISHES_NOTIFICATION)));
-                list.add(fbe.fpToFish);
-                ModDataAttachments.set(player, ModDataAttachments.FISHES_NOTIFICATION, U.getRlsFromFps(level, list));
 
                 //award exp
                 int exp = fp.rarity().getXp();
@@ -129,7 +123,7 @@ public class U
                 else
                 {
                     //SPAWN ITEMSTACK
-                    ItemStack bait = fbe.rod.get(ModDataComponents.BAIT).stack().copy();
+                    ItemStack bait = ModDataComponents.get(fbe.rod, ModDataComponents.BAIT).stack().copy();
                     boolean isStarcaught = fp.catchInfo().bucketedFish().is(ModItems.STARCAUGHT_BUCKET.getKey()) && bait.is(Items.BUCKET);
                     boolean isBucketed = !fp.catchInfo().bucketedFish().is(ModItems.MISSINGNO.getKey()) && !isStarcaught && bait.is(Items.BUCKET);
 
@@ -145,21 +139,19 @@ public class U
                         is = new ItemStack(fp.catchInfo().fish());
 
                         //store size and weight data component
-                        is.set(ModDataComponents.SIZE_AND_WEIGHT, new SizeAndWeightInstance(size, weight));
+                        ModDataComponents.set(is, ModDataComponents.SIZE_AND_WEIGHT, new SizeAndWeightInstance(size, weight));
 
                         //store fp in itemstack for name color change
-                        is.set(ModDataComponents.FISH_PROPERTIES, fp);
+                        ModDataComponents.set(is, ModDataComponents.FISH_PROPERTIES, fp);
 
-                        //split hook double drops unless it's going to be converted to a starcaught bucket
-                        for (AbstractCatchModifier acm : fbe.modifiers)
-                        {
-                            is = acm.modifyItemStack(is);
-                        }
+                        //call modify stack on modifiers (split hook behaviour)
+                        for (AbstractCatchModifier acm : fbe.modifiers) is = acm.modifyItemStack(is);
 
+                        //set starcaught bucket data stuff
                         if (isStarcaught)
                         {
                             ItemStack starcaughtBucket = new ItemStack(fp.catchInfo().bucketedFish());
-                            starcaughtBucket.set(ModDataComponents.BUCKETED_FISH, new SingleStackContainer(is.copy()));
+                            ModDataComponents.set(starcaughtBucket,ModDataComponents.BUCKETED_FISH, new SingleStackContainer(is.copy()));
                             is = starcaughtBucket;
                         }
                     }
@@ -195,16 +187,17 @@ public class U
             }
             else
             {
-                //if fish minigame failed/canceled, play sound
+                //if fish minigame failed/canceled
                 fbe.modifiers.forEach(AbstractCatchModifier::onFailedMinigame);
-                Vec3 p = player.position();
-                level.playSound(null, p.x, p.y, p.z, SoundEvents.VILLAGER_NO, SoundSource.AMBIENT);
+
+                //play sound from tackle skin
+                ModTackleSkins.get(level, fbe.rod).onFailedMinigame(player);
             }
 
             fbe.kill();
         }
 
-        ModDataAttachments.set(player, ModDataAttachments.FISHING.get(), "");
+        ModDataAttachments.remove(player, ModDataAttachments.FISHING_BOB.get());
     }
 
     public static ItemStack getFishedItemstackFromFP(FishProperties fp)
@@ -230,8 +223,8 @@ public class U
     public static ItemStack getFishedItemstackFromFP(FishProperties fp, int size, int weight)
     {
         ItemStack is = new ItemStack(fp.catchInfo().fish());
-        is.set(ModDataComponents.FISH_PROPERTIES, fp);
-        is.set(ModDataComponents.SIZE_AND_WEIGHT, new SizeAndWeightInstance(size, weight));
+        ModDataComponents.set(is, ModDataComponents.FISH_PROPERTIES, fp);
+        ModDataComponents.set(is, ModDataComponents.SIZE_AND_WEIGHT, new SizeAndWeightInstance(size, weight));
         return is;
     }
 
@@ -402,6 +395,39 @@ public class U
         return getRlFromFp(level.registryAccess(), tp);
     }
 
+    public static String calculateRealLifeTimeFromTicks(long ticks)
+    {
+        long ticksRemainingToCalculate = ticks / 20;
+        String finalString = "";
+
+        //days
+        if(ticksRemainingToCalculate > 86400)
+        {
+            finalString += ticksRemainingToCalculate / 86400 + "d ";
+            ticksRemainingToCalculate = ticksRemainingToCalculate % 86400;
+        }
+
+        //hours
+        if(ticksRemainingToCalculate > 3600)
+        {
+            finalString += ticksRemainingToCalculate / 3600 + "h ";
+            ticksRemainingToCalculate = ticksRemainingToCalculate % 3600;
+        }
+
+        //minutes
+        if(ticksRemainingToCalculate > 60)
+        {
+            finalString += ticksRemainingToCalculate / 60 + "m ";
+            ticksRemainingToCalculate = ticksRemainingToCalculate % 60;
+        }
+
+        //seconds
+        if(ticksRemainingToCalculate > 0)
+        {
+            finalString += ticksRemainingToCalculate + "s";
+        }
+        return finalString;
+    }
 
     @SafeVarargs
     public static <T> boolean containsAny(List<T> list, T... contains)

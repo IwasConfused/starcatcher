@@ -2,13 +2,14 @@ package com.wdiscute.starcatcher.io;
 
 import com.mojang.serialization.Codec;
 import com.wdiscute.starcatcher.Starcatcher;
+import com.wdiscute.starcatcher.io.attachments.FishingBobAttachment;
+import com.wdiscute.starcatcher.io.attachments.FishingGuideAttachment;
+import net.dries007.tfc.client.overworld.Star;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.player.Player;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.attachment.AttachmentType;
-import net.neoforged.neoforge.attachment.IAttachmentHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
 
@@ -17,18 +18,27 @@ import java.util.function.Supplier;
 
 public class ModDataAttachments
 {
-    // Create the DeferredRegister for attachment types
     private static final DeferredRegister<AttachmentType<?>> ATTACHMENT_TYPES = DeferredRegister.create(
             NeoForgeRegistries.ATTACHMENT_TYPES, Starcatcher.MOD_ID);
 
 
-    public static final Supplier<AttachmentType<String>> FISHING = ATTACHMENT_TYPES.register(
-            "fishing", () -> AttachmentType.builder(() -> "")
-                    .serialize(Codec.unit(""))
-                    .sync(ByteBufCodecs.STRING_UTF8)
+    public static final Supplier<AttachmentType<FishingBobAttachment>> FISHING_BOB = ATTACHMENT_TYPES.register(
+            "fishing_bob", () -> AttachmentType.builder(() -> new FishingBobAttachment(""))
+                    .sync(FishingBobAttachment.STREAM_CODEC)
                     .build()
     );
 
+
+    public static final Supplier<AttachmentType<FishingGuideAttachment>> FISHING_GUIDE = ATTACHMENT_TYPES.register(
+            "fishing_guide", () -> AttachmentType.builder(FishingGuideAttachment::createDefault)
+                    .serialize(FishingGuideAttachment.CODEC)
+                    .sync(FishingGuideAttachment.STREAM_CODEC)
+                    .copyOnDeath()
+                    .build()
+    );
+
+
+    @Deprecated // use FISHING_GUIDE attachment!!!
     public static final Supplier<AttachmentType<Boolean>> RECEIVED_GUIDE = ATTACHMENT_TYPES.register(
             "received_guide", () -> AttachmentType.builder(() -> false)
                     .serialize(Codec.BOOL)
@@ -36,85 +46,81 @@ public class ModDataAttachments
                     .build()
     );
 
-    public static final Supplier<AttachmentType<List<FishCaughtCounter>>> FISHES_CAUGHT = ATTACHMENT_TYPES.register(
+    @Deprecated // use FISHING_GUIDE attachment!!!
+    public static final Supplier<AttachmentType<List<LegacyFishCaughtCounter>>> FISHES_CAUGHT = ATTACHMENT_TYPES.register(
             "fishes_caught", () ->
-                    AttachmentType.builder(() -> List.of(new FishCaughtCounter(Starcatcher.rl("missingno_rl"), 0, 0, 0, 0, 0, false, false)))
-                            .serialize(FishCaughtCounter.LIST_CODEC)
-                            .sync(FishCaughtCounter.LIST_STREAM_CODEC)
+                    AttachmentType.builder(() -> List.<LegacyFishCaughtCounter>of())
+                            .serialize(LegacyFishCaughtCounter.LIST_CODEC)
+                            .sync(LegacyFishCaughtCounter.LIST_STREAM_CODEC)
                             .copyOnDeath()
                             .build()
     );
 
-    //todo make trophies catchable several times and display that on guide book (pain)
-    //
-    //    public static final StreamCodec<ByteBuf, Map<ResourceLocation, Integer>> STREAM_CODEC =
-    //            ByteBufCodecs.map(Object2ObjectOpenHashMap::new, ResourceLocation.STREAM_CODEC, ByteBufCodecs.INT);
-    //
-    //    public static final Codec<Map<ResourceLocation, Integer>> CODEC =
-    //            Codec.unboundedMap(ResourceLocation.CODEC, Codec.INT);
-    //
-    //    public static final Supplier<AttachmentType<Map<ResourceLocation, Integer>>> TROPHIES_CAUGHT = ATTACHMENT_TYPES.register(
-    //            "trophies_caught", () ->
-    //                    AttachmentType.builder(() -> ((Map<ResourceLocation, Integer>) new HashMap<ResourceLocation, Integer>()))
-    //                            .serialize(CODEC)
-    //                            .sync(STREAM_CODEC)
-    //                            .copyOnDeath()
-    //                            .build()
-    //    );
-
+    @Deprecated  // use FISHING_GUIDE attachment!!!
     public static final Supplier<AttachmentType<List<ResourceLocation>>> TROPHIES_CAUGHT = ATTACHMENT_TYPES.register(
             "trophies_caught", () ->
-                    AttachmentType.builder(() -> List.of(Starcatcher.rl("missingno_rl")))
+                    AttachmentType.builder(() -> List.<ResourceLocation>of())
                             .serialize(ResourceLocation.CODEC.listOf())
                             .sync(ResourceLocation.STREAM_CODEC.apply(ByteBufCodecs.list()))
                             .copyOnDeath()
                             .build()
     );
 
+    @Deprecated // use FISHING_GUIDE attachment!!!
     public static final Supplier<AttachmentType<List<ResourceLocation>>> FISHES_NOTIFICATION = ATTACHMENT_TYPES.register(
             "fishes_notification", () ->
-                    AttachmentType.builder(() -> List.of(Starcatcher.rl("missingno_rl")))
+                    AttachmentType.builder(() -> List.<ResourceLocation>of())
                             .serialize(ResourceLocation.CODEC.listOf())
                             .sync(ResourceLocation.STREAM_CODEC.apply(ByteBufCodecs.list()))
                             .copyOnDeath()
                             .build()
     );
 
-    public static final Supplier<AttachmentType<SingleStackContainer>> BOBBER_SKIN = ATTACHMENT_TYPES.register(
-            "bobber_skin", () ->
-                    AttachmentType.builder(() -> SingleStackContainer.EMPTY)
-                            .serialize(SingleStackContainer.CODEC)
-                            .sync(SingleStackContainer.STREAM_CODEC)
+
+    public static final Supplier<AttachmentType<ResourceLocation>> TACKLE_SKIN = ATTACHMENT_TYPES.register(
+            "tackle_skin", () ->
+                    AttachmentType.builder(() -> Starcatcher.rl("base"))
+                            .serialize(ResourceLocation.CODEC)
+                            .sync(ResourceLocation.STREAM_CODEC)
                             .build()
     );
 
-    public static <T> T remove(Entity holder, Supplier<AttachmentType<T>> attachmentType)
+
+    // sets the value to default
+    public static <T> void remove(Entity holder, Supplier<AttachmentType<T>> attachmentType)
     {
-        return holder.removeData(attachmentType);
+        if(holder == null) return;
+        holder.removeData(attachmentType);
     }
 
-    public static <T> T remove(Entity holder, AttachmentType<T> attachmentType)
+    // sets the value to default
+    public static <T> void remove(Entity holder, AttachmentType<T> attachmentType)
     {
-        return holder.removeData(attachmentType);
+        if(holder == null) return;
+        holder.removeData(attachmentType);
     }
 
-    public static <T> T set(Entity holder, Supplier<AttachmentType<T>> attachmentType, T data)
+    public static <T> void set(Entity holder, Supplier<AttachmentType<T>> attachmentType, T data)
     {
-        return holder.setData(attachmentType, data);
+        if(holder == null) return;
+        holder.setData(attachmentType, data);
     }
 
-    public static <T> T set(Entity holder, AttachmentType<T> attachmentType, T data)
+    public static <T> void set(Entity holder, AttachmentType<T> attachmentType, T data)
     {
-        return holder.setData(attachmentType, data);
+        if(holder == null) return;
+        holder.setData(attachmentType, data);
     }
 
     public static <T> T get(Entity holder, Supplier<AttachmentType<T>> attachmentType)
     {
+        if(holder == null) throw new RuntimeException("Called Starcatcher DataAttachments Get() with a null entity");
         return holder.getData(attachmentType);
     }
 
     public static <T> T get(Entity holder, AttachmentType<T> attachmentType)
     {
+        if(holder == null) throw new RuntimeException("Called Starcatcher DataAttachments Get() with a null entity");
         return holder.getData(attachmentType);
     }
 

@@ -8,7 +8,6 @@ import com.wdiscute.starcatcher.io.ModDataComponents;
 import com.wdiscute.starcatcher.registry.ModRecipes;
 import com.wdiscute.starcatcher.registry.custom.catchmodifiers.AbstractCatchModifier;
 import com.wdiscute.starcatcher.registry.custom.minigamemodifiers.AbstractMinigameModifier;
-import net.dries007.tfc.client.overworld.Star;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -28,19 +27,28 @@ public class ModifierShapedRecipe implements CraftingRecipe
 {
     public final ShapedRecipePattern pattern;
     final ItemStack result;
-    final List<ResourceLocation> modifiers;
+    final List<ResourceLocation> minigameModifiers;
+    final List<ResourceLocation> catchModifiers;
+    final ResourceLocation bobberSkin;
     final String group;
     final CraftingBookCategory category;
     final boolean showNotification;
 
-    public ModifierShapedRecipe(String group, CraftingBookCategory category, ShapedRecipePattern pattern, ItemStack result, boolean showNotification, List<ResourceLocation> modifiers)
+    public ModifierShapedRecipe(String group, CraftingBookCategory category, ShapedRecipePattern pattern, ItemStack result,
+                                boolean showNotification,
+                                List<ResourceLocation> minigameModifiers,
+                                List<ResourceLocation> catchModifiers,
+                                ResourceLocation bobberSkin
+    )
     {
         this.group = group;
         this.category = category;
         this.pattern = pattern;
         this.result = result;
         this.showNotification = showNotification;
-        this.modifiers = modifiers;
+        this.minigameModifiers = minigameModifiers;
+        this.catchModifiers = catchModifiers;
+        this.bobberSkin = bobberSkin;
     }
 
     @Override
@@ -97,20 +105,22 @@ public class ModifierShapedRecipe implements CraftingRecipe
         List<ResourceLocation> catchModifiers = new ArrayList<>();
         List<ResourceLocation> minigameModifiers = new ArrayList<>();
 
-        for (ResourceLocation rl : modifiers)
+        for (ResourceLocation rl : this.minigameModifiers)
         {
             ResourceKey<Supplier<AbstractCatchModifier>> catchRK = ResourceKey.create(Starcatcher.CATCH_MODIFIERS, rl);
             ResourceKey<Supplier<AbstractMinigameModifier>> minigameRK = ResourceKey.create(Starcatcher.MINIGAME_MODIFIERS, rl);
 
-            if(registries.lookupOrThrow(Starcatcher.CATCH_MODIFIERS).get(catchRK).isPresent())
+            if (registries.lookupOrThrow(Starcatcher.CATCH_MODIFIERS).get(catchRK).isPresent())
                 catchModifiers.add(rl);
 
-            if(registries.lookupOrThrow(Starcatcher.MINIGAME_MODIFIERS).get(minigameRK).isPresent())
+            if (registries.lookupOrThrow(Starcatcher.MINIGAME_MODIFIERS).get(minigameRK).isPresent())
                 minigameModifiers.add(rl);
         }
 
-        if(!catchModifiers.isEmpty()) itemstack.set(ModDataComponents.CATCH_MODIFIERS, catchModifiers);
-        if(!minigameModifiers.isEmpty()) itemstack.set(ModDataComponents.MINIGAME_MODIFIERS, minigameModifiers);
+        if (!catchModifiers.isEmpty())
+            ModDataComponents.set(itemstack, ModDataComponents.CATCH_MODIFIERS, catchModifiers);
+        if (!minigameModifiers.isEmpty())
+            ModDataComponents.set(itemstack, ModDataComponents.MINIGAME_MODIFIERS, minigameModifiers);
 
         return itemstack;
     }
@@ -135,15 +145,17 @@ public class ModifierShapedRecipe implements CraftingRecipe
     public static class Serializer implements RecipeSerializer<ModifierShapedRecipe>
     {
         public static final MapCodec<ModifierShapedRecipe> CODEC = RecordCodecBuilder.mapCodec(
-                p_340778_ -> p_340778_.group(
-                                Codec.STRING.optionalFieldOf("group", "").forGetter(p_311729_ -> p_311729_.group),
-                                CraftingBookCategory.CODEC.fieldOf("category").orElse(CraftingBookCategory.MISC).forGetter(p_311732_ -> p_311732_.category),
-                                ShapedRecipePattern.MAP_CODEC.forGetter(p_311733_ -> p_311733_.pattern),
-                                ItemStack.STRICT_CODEC.fieldOf("result").forGetter(p_311730_ -> p_311730_.result),
-                                Codec.BOOL.optionalFieldOf("show_notification", Boolean.TRUE).forGetter(p_311731_ -> p_311731_.showNotification),
-                                ResourceLocation.CODEC.listOf().fieldOf("modifiers").forGetter(p_311730_ -> p_311730_.modifiers)
+                group -> group.group(
+                                Codec.STRING.optionalFieldOf("group", "").forGetter(shapedRecipe -> shapedRecipe.group),
+                                CraftingBookCategory.CODEC.fieldOf("category").orElse(CraftingBookCategory.MISC).forGetter(shapedRecipe -> shapedRecipe.category),
+                                ShapedRecipePattern.MAP_CODEC.forGetter(shapedRecipe -> shapedRecipe.pattern),
+                                ItemStack.STRICT_CODEC.fieldOf("result").forGetter(shapedRecipe -> shapedRecipe.result),
+                                Codec.BOOL.optionalFieldOf("show_notification", Boolean.TRUE).forGetter(shapedRecipe -> shapedRecipe.showNotification),
+                                ResourceLocation.CODEC.listOf().optionalFieldOf("minigame_modifiers", List.of()).forGetter(shapedRecipe -> shapedRecipe.minigameModifiers),
+                                ResourceLocation.CODEC.listOf().optionalFieldOf("catch_modifiers", List.of()).forGetter(shapedRecipe -> shapedRecipe.catchModifiers),
+                                ResourceLocation.CODEC.optionalFieldOf("bobber_skin", Starcatcher.rl("missingno")).forGetter(shapedRecipe -> shapedRecipe.bobberSkin)
                         )
-                        .apply(p_340778_, ModifierShapedRecipe::new)
+                        .apply(group, ModifierShapedRecipe::new)
         );
         public static final StreamCodec<RegistryFriendlyByteBuf, ModifierShapedRecipe> STREAM_CODEC = StreamCodec.of(
                 ModifierShapedRecipe.Serializer::toNetwork, ModifierShapedRecipe.Serializer::fromNetwork
@@ -168,8 +180,10 @@ public class ModifierShapedRecipe implements CraftingRecipe
             ShapedRecipePattern shapedrecipepattern = ShapedRecipePattern.STREAM_CODEC.decode(buffer);
             ItemStack itemstack = ItemStack.STREAM_CODEC.decode(buffer);
             boolean flag = buffer.readBoolean();
-            List<ResourceLocation> modifiers = ResourceLocation.STREAM_CODEC.apply(ByteBufCodecs.list()).decode(buffer);
-            return new ModifierShapedRecipe(s, craftingbookcategory, shapedrecipepattern, itemstack, flag, modifiers);
+            List<ResourceLocation> minigameModifiers = ResourceLocation.STREAM_CODEC.apply(ByteBufCodecs.list()).decode(buffer);
+            List<ResourceLocation> catchModifiers = ResourceLocation.STREAM_CODEC.apply(ByteBufCodecs.list()).decode(buffer);
+            ResourceLocation bobberSkin = ResourceLocation.STREAM_CODEC.decode(buffer);
+            return new ModifierShapedRecipe(s, craftingbookcategory, shapedrecipepattern, itemstack, flag, minigameModifiers, catchModifiers, bobberSkin);
         }
 
         private static void toNetwork(RegistryFriendlyByteBuf buffer, ModifierShapedRecipe recipe)
@@ -179,7 +193,9 @@ public class ModifierShapedRecipe implements CraftingRecipe
             ShapedRecipePattern.STREAM_CODEC.encode(buffer, recipe.pattern);
             ItemStack.STREAM_CODEC.encode(buffer, recipe.result);
             buffer.writeBoolean(recipe.showNotification);
-            ResourceLocation.STREAM_CODEC.apply(ByteBufCodecs.list()).encode(buffer, recipe.modifiers);
+            ResourceLocation.STREAM_CODEC.apply(ByteBufCodecs.list()).encode(buffer, recipe.minigameModifiers);
+            ResourceLocation.STREAM_CODEC.apply(ByteBufCodecs.list()).encode(buffer, recipe.catchModifiers);
+            ResourceLocation.STREAM_CODEC.encode(buffer, recipe.bobberSkin);
         }
     }
 

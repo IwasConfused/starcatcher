@@ -7,18 +7,33 @@ import com.wdiscute.starcatcher.items.cheater.*;
 import com.wdiscute.starcatcher.items.helper.BasicItem;
 import com.wdiscute.starcatcher.items.helper.FireResistantBasicItem;
 import com.wdiscute.starcatcher.items.helper.SingleStackBasicItem;
+import com.wdiscute.starcatcher.items.modifieritem.CatchModifierItem;
+import com.wdiscute.starcatcher.items.modifieritem.MinigameModifierItem;
+import com.wdiscute.starcatcher.items.modifieritem.TackleSkinItem;
 import com.wdiscute.starcatcher.registry.custom.catchmodifiers.ModCatchModifiers;
 import com.wdiscute.starcatcher.registry.custom.minigamemodifiers.ModMinigameModifiers;
+import com.wdiscute.starcatcher.registry.custom.tackleskin.ModTackleSkins;
 import com.wdiscute.starcatcher.rod.StarcatcherFishingRodItem;
 import com.wdiscute.starcatcher.secretnotes.NoteContainer;
 import com.wdiscute.starcatcher.secretnotes.SecretNote;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.material.Fluids;
+import net.neoforged.fml.ModList;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
 public interface ModItems
 {
+
+    static void registerExtra()
+    {
+        //this works!
+        if (ModList.get().isLoaded("tide"))
+        {
+            //DeferredItem<Item> FISH = ITEMS_REGISTRY.register("fish", FishItem::new);
+        }
+    }
+
 
     DeferredRegister.Items ITEMS_REGISTRY = DeferredRegister.createItems(Starcatcher.MOD_ID);
     DeferredRegister.Items RODS_REGISTRY = DeferredRegister.createItems(Starcatcher.MOD_ID);
@@ -28,6 +43,7 @@ public interface ModItems
 
     //fishes which have a model and swim in water
     DeferredRegister.Items FISH_REGISTRY = DeferredRegister.createItems(Starcatcher.MOD_ID);
+    DeferredRegister.Items KINDA_BUT_NOT_REALLY_FISH_REGISTRY = DeferredRegister.createItems(Starcatcher.MOD_ID);
     DeferredRegister.Items TRASH_REGISTRY = DeferredRegister.createItems(Starcatcher.MOD_ID);
 
     DeferredRegister.Items TEMPLATES_REGISTRY = DeferredRegister.createItems(Starcatcher.MOD_ID);
@@ -81,15 +97,16 @@ public interface ModItems
     DeferredItem<Item> DRIPSTONE_BAIT = BAITS_REGISTRY.register("dripstone_bait", () -> new CatchModifierItem(64, ModCatchModifiers.DECREASES_LURE_TIME));
     DeferredItem<Item> MURKWATER_BAIT = BAITS_REGISTRY.register("murkwater_bait", () -> new CatchModifierItem(64, ModCatchModifiers.DECREASES_LURE_TIME));
     DeferredItem<Item> LEGENDARY_BAIT = BAITS_REGISTRY.register("legendary_bait", () -> new CatchModifierItem(64, ModCatchModifiers.DECREASES_LURE_TIME));
-    DeferredItem<Item> METEOROLOGICAL_BAIT = BAITS_REGISTRY.register("meteorological_bait", () -> new CatchModifierItem(64, ModCatchModifiers.DECREASES_LURE_TIME,  ModCatchModifiers.IGNORE_DAYTIME_AND_WEATHER_RESTRICTIONS));
-
-
+    DeferredItem<Item> METEOROLOGICAL_BAIT = BAITS_REGISTRY.register("meteorological_bait", () -> new CatchModifierItem(64, ModCatchModifiers.DECREASES_LURE_TIME, ModCatchModifiers.IGNORE_DAYTIME_AND_WEATHER_RESTRICTIONS));
 
 
     //bobber skin templates
-    DeferredItem<Item> COLORFUL_BOBBER_SMITHING_TEMPLATE = TEMPLATES_REGISTRY.register("colorful_bobber_smithing_template", ColorfulSmithingTemplate::new);
-    DeferredItem<Item> PEARL_BOBBER_SMITHING_TEMPLATE = TEMPLATES_REGISTRY.register("pearl_bobber_smithing_template", BasicItem::new);
-    DeferredItem<Item> KIMBE_BOBBER_SMITHING_TEMPLATE = TEMPLATES_REGISTRY.register("kimbe_bobber_smithing_template", BasicItem::new);
+    DeferredItem<Item> PEARL_SMITHING_TEMPLATE = TEMPLATES_REGISTRY.register("pearl_smithing_template", () -> new TackleSkinItem(ModTackleSkins.PEARL_TACKLE_SKIN));
+    DeferredItem<Item> KIMBE_SMITHING_TEMPLATE = TEMPLATES_REGISTRY.register("kimbe_smithing_template", () -> new TackleSkinItem(ModTackleSkins.KIMBE_TACKLE_SKIN));
+    DeferredItem<Item> COLORFUL_SMITHING_TEMPLATE = TEMPLATES_REGISTRY.register("colorful_smithing_template", () -> new TackleSkinItem(ModTackleSkins.COLORFUL_TACKLE_SKIN));
+    DeferredItem<Item> CLEAR_SMITHING_TEMPLATE = TEMPLATES_REGISTRY.register("clear_smithing_template", () -> new TackleSkinItem(ModTackleSkins.CLEAR_TACKLE_SKIN));
+    DeferredItem<Item> FROG_SMITHING_TEMPLATE = TEMPLATES_REGISTRY.register("frog_smithing_template", () -> new TackleSkinItem(ModTackleSkins.FROG_TACKLE_SKIN));
+    DeferredItem<Item> KING_SMITHING_TEMPLATE = TEMPLATES_REGISTRY.register("king_smithing_template", () -> new TackleSkinItem(ModTackleSkins.KING_TACKLE_SKIN));
 
     //rods
     DeferredItem<Item> ROD = RODS_REGISTRY.register("starcatcher_rod", StarcatcherFishingRodItem::new);
@@ -212,6 +229,7 @@ public interface ModItems
 
     //rivers
     DeferredItem<Item> SILVERFIN_PIKE = FISH_REGISTRY.register("silverfin_pike", FishItem::new);
+    DeferredItem<Item> CARPENJOE = FISH_REGISTRY.register("carpenjoe", FishItem::new);
     DeferredItem<Item> WILLOW_BREAM = FISH_REGISTRY.register("willow_bream", FishItem::new);
     DeferredItem<Item> DRIFTING_BREAM = FISH_REGISTRY.register("drifting_bream", FishItem::new);
     DeferredItem<Item> DOWNFALL_BREAM = FISH_REGISTRY.register("downfall_bream", FishItem::new);
@@ -246,11 +264,11 @@ public interface ModItems
 
     //underground
     DeferredItem<Item> GOLD_FAN = FISH_REGISTRY.register("gold_fan", FishItem::new);
-    DeferredItem<Item> GEODE_EEL = FISH_REGISTRY.register("geode_eel", FishItem::new);
+    DeferredItem<Item> GEODE_EEL = KINDA_BUT_NOT_REALLY_FISH_REGISTRY.register("geode_eel", FishItem::new);
 
     //caves
     DeferredItem<Item> WHITEVEIL = FISH_REGISTRY.register("whiteveil", FishItem::new);
-    DeferredItem<Item> BLACK_EEL = FISH_REGISTRY.register("black_eel", FishItem::new);
+    DeferredItem<Item> BLACK_EEL = KINDA_BUT_NOT_REALLY_FISH_REGISTRY.register("black_eel", FishItem::new);
     DeferredItem<Item> AMETHYSTBACK = FISH_REGISTRY.register("amethystback", FishItem::new);
     DeferredItem<Item> STONEFISH = FISH_REGISTRY.register("stonefish", FishItem::new);
 
@@ -280,11 +298,11 @@ public interface ModItems
     //overworld surface lava
     DeferredItem<Item> SUNEATER = FISH_REGISTRY.register("suneater", FireResistantBasicItem::new);
     DeferredItem<Item> PYROTROUT = FISH_REGISTRY.register("pyrotrout", FireResistantBasicItem::new);
-    DeferredItem<Item> OBSIDIAN_EEL = FISH_REGISTRY.register("obsidian_eel", FireResistantBasicItem::new);
+    DeferredItem<Item> OBSIDIAN_EEL = KINDA_BUT_NOT_REALLY_FISH_REGISTRY.register("obsidian_eel", FireResistantBasicItem::new);
 
     //overworld underground lava
     DeferredItem<Item> MOLTEN_SHRIMP = FISH_REGISTRY.register("molten_shrimp", FireResistantBasicItem::new);
-    DeferredItem<Item> OBSIDIAN_CRAB = FISH_REGISTRY.register("obsidian_crab", FireResistantBasicItem::new);
+    DeferredItem<Item> OBSIDIAN_CRAB = KINDA_BUT_NOT_REALLY_FISH_REGISTRY.register("obsidian_crab", FireResistantBasicItem::new);
 
     //overworld deepslate lava
     DeferredItem<Item> SCORCHED_BLOODSUCKER = FISH_REGISTRY.register("scorched_bloodsucker", FireResistantBasicItem::new);
@@ -294,7 +312,7 @@ public interface ModItems
     DeferredItem<Item> EMBERGILL = FISH_REGISTRY.register("embergill", FireResistantBasicItem::new);
     DeferredItem<Item> SCALDING_PIKE = FISH_REGISTRY.register("scalding_pike", FireResistantBasicItem::new);
     DeferredItem<Item> CINDER_SQUID = FISH_REGISTRY.register("cinder_squid", FireResistantBasicItem::new);
-    DeferredItem<Item> LAVA_CRAB = FISH_REGISTRY.register("lava_crab", FireResistantBasicItem::new);
+    DeferredItem<Item> LAVA_CRAB = KINDA_BUT_NOT_REALLY_FISH_REGISTRY.register("lava_crab", FireResistantBasicItem::new);
     DeferredItem<Item> MAGMA_FISH = FISH_REGISTRY.register("magma_fish", FireResistantBasicItem::new);
     DeferredItem<Item> GLOWSTONE_SEEKER = FISH_REGISTRY.register("glowstone_seeker", FireResistantBasicItem::new);
     DeferredItem<Item> GLOWSTONE_PUFFERFISH = FISH_REGISTRY.register("glowstone_pufferfish", FireResistantBasicItem::new);
@@ -306,7 +324,7 @@ public interface ModItems
 
     //the end
     DeferredItem<Item> CHARFISH = FISH_REGISTRY.register("charfish", FishItem::new);
-    DeferredItem<Item> CHORUS_CRAB = FISH_REGISTRY.register("chorus_crab", FishItem::new);
+    DeferredItem<Item> CHORUS_CRAB = KINDA_BUT_NOT_REALLY_FISH_REGISTRY.register("chorus_crab", FishItem::new);
     DeferredItem<Item> END_GLOW = FISH_REGISTRY.register("end_glow", FishItem::new);
     DeferredItem<Item> VOIDBITER = FISH_REGISTRY.register("voidbiter", FishItem::new);
 

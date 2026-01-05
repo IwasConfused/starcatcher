@@ -61,12 +61,12 @@
     "world_restrictions": {
       "above_y": -2147483648,
       "below_y": 2147483647,
-      "biomes": [],
-      "biomes_blacklist": [],
-      "biomes_blacklist_tags": [],
-      "biomes_tags": [
+      "biomes": [
         "minecraft:bamboo_jungle"
       ],
+      "biomes_blacklist": [],
+      "biomes_blacklist_tags": [],
+      "biomes_tags": [],
       "dimensions": [
         "minecraft:overworld"
       ],

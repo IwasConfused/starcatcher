@@ -52,14 +52,14 @@ public class StarcaughtBucket extends BucketItem
     private void spawn(ServerLevel serverLevel, ItemStack bucketedMobStack, BlockPos pos)
     {
         FishEntity fishEntity = this.entity.spawn(serverLevel, bucketedMobStack, null, pos, MobSpawnType.BUCKET, true, false);
-        if(bucketedMobStack.has(ModDataComponents.BUCKETED_FISH))
+        if(ModDataComponents.has(bucketedMobStack, ModDataComponents.BUCKETED_FISH))
             fishEntity.setFish(getFish(bucketedMobStack));
         else
             fishEntity.setFish(ModItems.AURORA.toStack());
     }
 
     private static ItemStack getFish(ItemStack bucket) {
-        return bucket.getOrDefault(ModDataComponents.BUCKETED_FISH, new SingleStackContainer(ItemStack.EMPTY)).stack();
+        return ModDataComponents.getOrDefault(bucket,ModDataComponents.BUCKETED_FISH, new SingleStackContainer(ItemStack.EMPTY)).stack();
     }
 
     @Override
@@ -77,7 +77,7 @@ public class StarcaughtBucket extends BucketItem
     @Override
     public Component getName(ItemStack stack)
     {
-        SingleStackContainer ssc = stack.get(ModDataComponents.BUCKETED_FISH);
+        SingleStackContainer ssc = ModDataComponents.get(stack, ModDataComponents.BUCKETED_FISH);
 
         if (ssc == null)
             return super.getName(stack);

@@ -100,6 +100,9 @@ public record FishProperties(
 
     public static final StreamCodec<RegistryFriendlyByteBuf, List<FishProperties>> STREAM_CODEC_LIST = STREAM_CODEC.apply(ByteBufCodecs.list());
 
+    public ResourceLocation toLoc(Level level){
+        return U.getRlFromFp(level, this);
+    }
 
     /**
      * @deprecated use Builder instead
@@ -1292,6 +1295,11 @@ public record FishProperties(
                 RL_AQUA, 22, 1, 0x387982
         );
 
+        public static SweetSpot AQUA_5 = new SweetSpot(
+                ModSweetSpotsBehaviour.AQUA,
+                RL_AQUA, 22, 1, 0x387982
+        );
+
         public static SweetSpot AQUA_10 = new SweetSpot(
                 ModSweetSpotsBehaviour.AQUA,
                 RL_AQUA, 22, 10, 0x387982
@@ -1304,7 +1312,7 @@ public record FishProperties(
 
         public static SweetSpot DEEPSLATE_CRAB_LEG = new SweetSpot(
                 ModSweetSpotsBehaviour.NORMAL,
-                RL_DEEPSLATE_CRAB_LEG, 15, 1, 0x310800
+                RL_DEEPSLATE_CRAB_LEG, 15, 1, 0xff8400
         );
 
         public static SweetSpot OBSIDIAN_CRAB_CLAW = new SweetSpot(
@@ -1314,7 +1322,7 @@ public record FishProperties(
 
         public static SweetSpot OBSIDIAN_CRAB_LEG = new SweetSpot(
                 ModSweetSpotsBehaviour.NORMAL,
-                RL_OBSIDIAN_CRAB_LEG, 15, 1, 0x1f1d30
+                RL_OBSIDIAN_CRAB_LEG, 15, 1, 0x3b2754
         );
 
         public static SweetSpot NETHER_CRAB_CLAW = new SweetSpot(
@@ -1324,7 +1332,7 @@ public record FishProperties(
 
         public static SweetSpot NETHER_CRAB_LEG = new SweetSpot(
                 ModSweetSpotsBehaviour.NORMAL,
-                RL_NETHER_CRAB_LEG, 15, 1, 0x330618
+                RL_NETHER_CRAB_LEG, 15, 1, 0xcd4545
         );
 
         public static SweetSpot END_CRAB_CLAW = new SweetSpot(
@@ -1334,7 +1342,7 @@ public record FishProperties(
 
         public static SweetSpot END_CRAB_LEG = new SweetSpot(
                 ModSweetSpotsBehaviour.NORMAL,
-                RL_END_CRAB_LEG, 15, 1, 0x10093f
+                RL_END_CRAB_LEG, 15, 1, 0xc67ed9
         );
 
 
@@ -1600,7 +1608,7 @@ public record FishProperties(
             return 0;
 
         //correct bait chance bonus
-        ItemStack bait = rod.has(ModDataComponents.BAIT) ? rod.get(ModDataComponents.BAIT).stack().copy() : ItemStack.EMPTY;
+        ItemStack bait = ModDataComponents.has(rod, ModDataComponents.BAIT) ? ModDataComponents.get(rod, ModDataComponents.BAIT).stack().copy() : ItemStack.EMPTY;
         if (fp.br().correctBait().contains(BuiltInRegistries.ITEM.getKey(bait.getItem())))
         {
             return fp.baseChance() + fp.br().correctBaitChanceAdded();
@@ -1614,7 +1622,7 @@ public record FishProperties(
         List<FishProperties> list = new ArrayList<>();
 
         for (FishProperties fp : entity.level().registryAccess().registryOrThrow(Starcatcher.FISH_REGISTRY))
-            if (isDimensionCorrect(entity, fp) && isBiomeCorrect(entity, fp) && isElevationCorrect(entity, fp) && fp.hasGuideEntry) list.add(fp);
+            if (isDimensionCorrect(entity, fp) && isBiomeCorrect(entity, fp) && isElevationCorrect(entity, fp) && fp.hasGuideEntry && fp.baseChance != 0) list.add(fp);
 
         return list;
     }
@@ -1622,7 +1630,7 @@ public record FishProperties(
     public static boolean isWeatherCorrect(Entity entity, FishProperties fp, ItemStack rod)
     {
         Level level = entity.level();
-        ItemStack bait = rod.has(ModDataComponents.BAIT) ? rod.get(ModDataComponents.BAIT).stack().copy() : ItemStack.EMPTY;
+        ItemStack bait = ModDataComponents.has(rod, ModDataComponents.BAIT) ? ModDataComponents.get(rod, ModDataComponents.BAIT).stack().copy() : ItemStack.EMPTY;
 
         if (!bait.is(ModItems.METEOROLOGICAL_BAIT))
         {

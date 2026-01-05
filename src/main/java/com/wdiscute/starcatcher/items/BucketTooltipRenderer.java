@@ -20,8 +20,8 @@ public class BucketTooltipRenderer implements ClientTooltipComponent {
     public BucketTooltipRenderer(StarcaughtBucket.BucketTooltip tooltip){
         this.tooltip = tooltip;
 
-        if (tooltip.fish().has(ModDataComponents.SIZE_AND_WEIGHT)) {
-            SizeAndWeightInstance sw = tooltip.fish().get(ModDataComponents.SIZE_AND_WEIGHT);
+        if (ModDataComponents.has(tooltip.fish(),ModDataComponents.SIZE_AND_WEIGHT)) {
+            SizeAndWeightInstance sw = ModDataComponents.get(tooltip.fish(), ModDataComponents.SIZE_AND_WEIGHT);
 
             SettingsScreen.Units units = Config.UNIT.get();
 
@@ -62,6 +62,6 @@ public class BucketTooltipRenderer implements ClientTooltipComponent {
 
     public boolean hasProperties() {
         if (isEmpty()) return false;
-        return tooltip.fish().has(ModDataComponents.SIZE_AND_WEIGHT);
+        return ModDataComponents.has(tooltip.fish(),ModDataComponents.SIZE_AND_WEIGHT);
     }
 }

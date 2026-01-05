@@ -3,6 +3,8 @@ package com.wdiscute.starcatcher.storage;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.wdiscute.starcatcher.io.ExtraComposites;
+import com.wdiscute.starcatcher.io.ModDataAttachments;
+import com.wdiscute.starcatcher.io.attachments.FishingGuideAttachment;
 import com.wdiscute.starcatcher.registry.ModItems;
 import net.minecraft.core.Holder;
 import net.minecraft.network.FriendlyByteBuf;
@@ -10,6 +12,7 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.util.StringRepresentable;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.neoforged.neoforge.network.codec.NeoForgeStreamCodecs;
 import org.jetbrains.annotations.NotNull;
@@ -180,6 +183,10 @@ public record TrophyProperties(
         );
 
         public static final RarityProgress DEFAULT = new RarityProgress(0, 0);
+
+        public static RarityProgress fromAttachment(Player player){
+            return new RarityProgress(0, FishingGuideAttachment.getTrophiesCaught(player).size());
+        }
     }
 
     public enum TrophyType implements StringRepresentable
