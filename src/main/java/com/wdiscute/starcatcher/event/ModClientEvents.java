@@ -3,7 +3,6 @@ package com.wdiscute.starcatcher.event;
 import com.wdiscute.libtooltips.Tooltips;
 import com.wdiscute.starcatcher.Config;
 import com.wdiscute.starcatcher.Starcatcher;
-import com.wdiscute.starcatcher.bob.FishingBobModel;
 import com.wdiscute.starcatcher.bob.FishingBobRenderer;
 import com.wdiscute.starcatcher.fishentity.FishRenderer;
 import com.wdiscute.starcatcher.fishentity.fishmodels.*;
@@ -51,7 +50,7 @@ public class ModClientEvents
     {
         if(event.getAction() == 0 && event.getKey() == ModKeymappings.EXPAND_TOURNAMENT.getKey().getValue())
         {
-            TournamentOverlay.isExpanded = !TournamentOverlay.isExpanded;
+            TournamentOverlay.expandedType = TournamentOverlay.expandedType.next();
         }
     }
 
